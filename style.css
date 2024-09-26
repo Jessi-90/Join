@@ -1,0 +1,12 @@
+.start {
+display: flex;
+justify-content: center;
+}
+
+.start-logo {
+    display: flex;
+    justify-content: center;
+    padding-top: 345px;
+    width: 274px;
+    height: 334.07;
+}
