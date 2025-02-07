@@ -45,13 +45,15 @@ justify-content: center;
 .summary-btn {
     display: flex;
     justify-content: center;
+    text-align: start;
     flex-direction: column;
-    height: 317px;
+    height: 300px;
     padding-top: 170px;
-    gap: 4px;
+    padding-left: 72px;
+    gap: 14px;
     color: white;
     background-color: #2A3647;
-    font-size: 16px;
+    font-size: smaller;
 }
 
 button {
