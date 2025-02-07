@@ -26,6 +26,8 @@ main {
   border-radius: 30px;
   background-color: white;
   padding: 48px 88px;
+  box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+  ;
 }
 .sign-up-header {
   display: flex;
@@ -44,10 +46,26 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: 24px;
+}
+.sign-up-form input {
+    border-color: #D1D1D1;
+}
+.sign-up-form-checkbox-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.sign-up-terms-of-conditions {
+    color: grey;
+}
+.sign-up-terms-of-conditions a {
+    text-decoration: none;
+    color: rgba(41, 171, 226, 1);
+
 }
 .sign-up-form button {
-  background-color: #2a3647;
+  background-color: rgba(9, 25, 49, 1);
   color: white;
   padding: 15px 24px;
   border-radius: 8px;

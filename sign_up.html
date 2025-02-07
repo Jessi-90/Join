@@ -9,11 +9,11 @@
 </head>
 <body>
     <main>
-        <div class="sign-up-sidebar"><img src="./img/Capa.svg" alt="Join_logo"></div>
+        <div class="sign-up-sidebar"><img src="./assets/img/Capa.svg" alt="Join_logo"></div>
         <div class="sign-up-content">
             <div class="sign-up-wrapper">
                 <div class="sign-up-header">
-                    <button type="button"><a href="./index.html"><img src="./img/arrow-left-line.svg" alt="back to login"></a></button>
+                    <button type="button"><a href="./index.html"><img src="./assets/icons/arrow-left-line.svg" alt="back to login"></a></button>
                     <h1>Sign Up</h1>
                 </div>
                 <form action="submit" class="sign-up-form">
@@ -21,7 +21,11 @@
                     <input type="email" placeholder="Email">
                     <input type="password" placeholder="Password">
                     <input type="password" placeholder="Confirm Password">
-                    <input type="checkbox" name="" id="signUpPpCheckbox">
+                    
+                    <div class="sign-up-form-checkbox-box">
+                        <input type="checkbox" name="signUpPpCheckbox" id="signUpPpCheckbox">
+                        <label for="signUpPpCheckbox" class="sign-up-terms-of-conditions">I accept the <a href="./privacy_policy.html">Privacy Policy</a></label>
+                    </div>
                     <button type="submit">Sign Up</button>
                 </form>
             </div>
