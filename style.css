@@ -1,12 +1,6 @@
-body {
-    margin: 0;
-    background-color: #F6F7F8;
- 
-}
-
 .start {
-    display: flex;
-    justify-content: center;
+display: flex;
+justify-content: center;
 }
 
 .start-logo {
