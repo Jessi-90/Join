@@ -1,3 +1,7 @@
+body {
+    font-family: Inter;
+}
+
 .start {
 display: flex;
 justify-content: center;
@@ -32,7 +36,7 @@ justify-content: center;
     height: 229px;
     flex-direction: column;
     color: white;
-    padding-top: 8px;
+    padding-top: 28px;
     padding-bottom: 8px;
     padding-right: 56px;
 
@@ -43,7 +47,7 @@ justify-content: center;
     justify-content: center;
     flex-direction: column;
     height: 317px;
-    padding-top: 243px;
+    padding-top: 170px;
     gap: 4px;
     color: white;
     background-color: #2A3647;
@@ -61,7 +65,13 @@ button {
     border: none;
 }
 
+.headline-kanban {
+    margin-top: 12px;
+}
+
 .header {
+    display: flex;
+    justify-content: space-between;
     width: auto;
     background-color: white;
     padding-top: 20px;
@@ -71,10 +81,22 @@ button {
     box-shadow: 0px 4px 4px 0px #0000001A;
 }
 
+.help-btn {
+    width: 20px;
+    height: 20px;
+    padding-bottom: 10px;
+    padding-right: 6px;
+}
+
+.user-btn {
+    width: 46px;
+    height: 46px;
+}
+
 .layout {
     width: 625px;
     height: 73px;
-    padding-top: 106px;
+    padding-top: 100px;
     padding-left: 328px;
     gap: 30px;
 }
@@ -87,12 +109,12 @@ button {
 .dashboard {
     width: 560px;
     height: 162px;
-    padding-top: 115px;
+    padding-top: 100px;
     padding-left: 328px;
     gap: 28px;
     opacity: 0px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: auto;
     gap: 20px;
 }
 
@@ -103,8 +125,17 @@ button {
     text-align: center;
     padding: 20px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
+}
+
+.card-pencil {
+    width: 69px;
+    margin: auto;
+}
+
+.card-ok {
+    width: 69px;
+    margin: auto;
 }
 
 .card h1 {
@@ -143,3 +174,4 @@ button {
     color: #888;
     font-size: 0.9rem;
 }
+
