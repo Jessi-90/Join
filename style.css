@@ -3,8 +3,8 @@ body {
 }
 
 .start {
-display: flex;
-justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .start-logo {
@@ -21,7 +21,6 @@ justify-content: center;
     height: 1024px;
     justify-content: space-between;
     background-color: #2A3647;
-
 }
 
 .join-logo {
@@ -34,24 +33,38 @@ justify-content: center;
 
 .summary-menu {
     height: 229px;
+    display: flex;
+    align-items: start;
     flex-direction: column;
     color: white;
     padding-top: 28px;
     padding-bottom: 8px;
     padding-right: 56px;
-
+    cursor: pointer;
 }
 
 .summary-btn {
     display: flex;
     justify-content: center;
+    text-align: start;
     flex-direction: column;
-    height: 317px;
+    height: 300px;
     padding-top: 170px;
-    gap: 4px;
-    color: white;
+    padding-left: 72px;
+    gap: 14px;
+    color: #989A9C;
     background-color: #2A3647;
-    font-size: 16px;
+    font-size: smaller;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+    color: #989A9C;
+}
+
+.tasks-awaiting-btn {
+    display: flex;
 }
 
 button {
@@ -61,12 +74,21 @@ button {
 }
 
 .menu-summary-btn {
-    background-color: #2A3647!;
+    background-color: #2A3647 !;
     border: none;
+    cursor: pointer;
+}
+
+.menu-summary-btn :hover {
+    background-color: #091931;
 }
 
 .headline-kanban {
     margin-top: 12px;
+}
+
+.summary-menu :hover {
+    background-color: #091931;
 }
 
 .header {
@@ -86,17 +108,24 @@ button {
     height: 20px;
     padding-bottom: 10px;
     padding-right: 6px;
+    cursor: pointer;
 }
 
 .user-btn {
     width: 46px;
     height: 46px;
-}
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    border-color: black;
+    border-style: solid;
+    clip-path: none;
+   }
 
 .layout {
     width: 625px;
     height: 73px;
-    padding-top: 100px;
+    padding-top: 80px;
     padding-left: 328px;
     gap: 30px;
 }
@@ -106,26 +135,39 @@ button {
     padding: 0;
 }
 
+.to-do-dashboard {
+    display: flex;
+}
+
 .dashboard {
-    width: 560px;
-    height: 162px;
-    padding-top: 100px;
-    padding-left: 328px;
-    gap: 28px;
-    opacity: 0px;
     display: grid;
-    grid-template-columns: auto;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    padding: 60px 40px 40px 330px;
+    max-width: 900px;
+    width: 560px;
+}
+
+.card-todo {
+    display: flex;
+    grid-column: span 3;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px;
+
 }
 
 .card {
-    background-color: white;
-    border-radius: 10px;
+    background: white;
+    padding: 20px;
+    border-radius: 30px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
-    padding: 20px;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    padding: 38px 19px 38px 19px;
+    gap: 18px;
 }
 
 .card-pencil {
@@ -149,9 +191,10 @@ button {
 }
 
 .large-card {
-    grid-column: span 2;
+    grid-column: span 3;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     padding: 20px;
 }
@@ -175,3 +218,18 @@ button {
     font-size: 0.9rem;
 }
 
+.greeting {
+    font-size: 47px;
+    text-align: right;
+}
+
+.greeting span {
+    color: #29ABE2;
+    font-weight: bold;
+}
+
+.greet {
+    display: flex;
+    align-items: center;
+    padding-left: 80px;
+}
