@@ -67,7 +67,10 @@ main {
     cursor: pointer;
 }
 .sign-up-terms-of-conditions {
-    color: grey;
+    color: rgba(168, 168, 168, 1);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19.2px;
 }
 .sign-up-terms-of-conditions a {
     text-decoration: none;
@@ -75,7 +78,7 @@ main {
 
 }
 .sign-up-form button {
-  background-color: rgba(9, 25, 49, 1);
+  background-color: rgba(42, 54, 71, 1);
   color: white;
   padding: 15px 24px;
   border-radius: 8px;
