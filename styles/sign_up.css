@@ -77,14 +77,16 @@ main {
     color: rgba(41, 171, 226, 1);
 
 }
-.sign-up-form button {
+.btn-dark {
   background-color: rgba(42, 54, 71, 1);
   color: white;
-  padding: 15px 24px;
   border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 25.2px;
   width: 126px;
   height: 55px;
-  cursor: pointer;
 }
 .sign-up-footer {
   display: flex;
