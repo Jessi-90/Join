@@ -126,3 +126,12 @@ main {
     text-align: left;
     margin-top: -20px;
 }
+.sign-up-overlay-box {
+    background-color: rgba(42, 54, 71, 1);
+    color: white;
+    border: 1px solid rgba(42, 54, 71, 1);
+    border-radius: 20px;
+    padding: 0 25px;
+    height: 71px;
+    width: 312px;
+}
