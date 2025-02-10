@@ -1,5 +1,6 @@
 body {
     font-family: Inter;
+    background-color: #F6F7F8;
 }
 
 .start {
@@ -120,7 +121,7 @@ button {
     border-color: black;
     border-style: solid;
     clip-path: none;
-   }
+}
 
 .layout {
     width: 625px;
@@ -149,12 +150,13 @@ button {
 }
 
 .card-todo {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     grid-column: span 3;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    padding: 20px;
+    margin: 8px;
 
 }
 
@@ -166,8 +168,9 @@ button {
     text-align: center;
     display: flex;
     align-items: center;
-    padding: 38px 19px 38px 19px;
+    padding: 38px 29px 38px 29px;
     gap: 18px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-pencil {
@@ -191,22 +194,39 @@ button {
 }
 
 .large-card {
+    flex: 1;
+    max-width: 100%;
     grid-column: span 3;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 20px 30px;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.urgent-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
 }
 
 .urgent-info {
+    border-left: 2px solid #E8E8E8;
     text-align: left;
     margin-top: 10px;
+    padding-left: 80px; 
+    height: 100px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .urgent-info p:first-child {
     font-weight: bold;
-    color: #ff6b6b;
 }
 
 .urgent-info p:nth-child(2) {
@@ -216,6 +236,28 @@ button {
 .urgent-info p:last-child {
     color: #888;
     font-size: 0.9rem;
+}
+
+.card:hover {
+    background-color: #2A3647; 
+    color: white; 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+    transform: scale(1.05);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.card img {
+    transition: filter 0.3s ease;
+}
+
+.card:hover img {
+    filter: invert(100%) contrast(200%);
+    opacity: 0.8;
+}
+
+.card:hover p,
+.card:hover h1 {
+    color: white;
 }
 
 .greeting {
