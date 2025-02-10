@@ -67,16 +67,12 @@ a {
     display: flex;
 }
 
-button {
-    color: #A8A8AB;
-    background-color: #2A3647;
-    clip-path: fill-box;
-}
-
 .menu-summary-btn {
-    background-color: #2A3647 !;
+    background-color: #2A3647;
     border: none;
     cursor: pointer;
+    clip-path: fill-box;
+    color: #A8A8AB;
 }
 
 .menu-summary-btn :hover {
