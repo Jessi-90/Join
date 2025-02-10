@@ -2,17 +2,60 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log in</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./styles/standard.css" />
+    <link rel="stylesheet" href="./styles/assets.css" />
+    <link rel="stylesheet" href="./styles/log_in.css" />
 </head>
 
 <body>
-    <div class="start">
-        <img class="start-logo" src="./img/Capa 2 (1).svg">
-    </div>
+    <main class="log-in-page">
+        <div class="log-in-header">
+            <img src="./assets/img/Capa.svg" alt="Join_logo">
+            <div class="link-to-sing-up-page">
+                <p>
+                    Not a Join user?
+                </p>
+                <a href="./sign_up.html" class="btn-dark sign-up-btn">
+                    Sign up
+                </a>
+            </div>
+        </div>
+        <div class="log-in-content">
+            <div class="log-in-wrapper">
+                <div class="log-in-title">
+                    <div class="log-in-title-text">
+                        <h1>Log in</h1>
+                        <div class="horizontal-line">
+                        </div>
+                    </div>
+                </div>
+                <form action="submit" class="log-in-form">
+                    <input type="email" placeholder="Email" class="input-bg-email log-in-input-field" />
+                    <input type="password" placeholder="Password" class="input-bg-pwd log-in-input-field margin-b20" />
+                    <div class="login-btn-wrapper">
+                        <button type="submit" class="btn-dark login-in-btn" disabled>
+                            Log in
+                        </button>
+                        <button type="submit" class="btn-light guest-login-in-btn" disabled>
+                            Guest Log in
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="log-in-footer">
+            <a href="./privacy_policy.html">
+                Privacy Policy
+            </a>
+            <a href="./legal_notice.html">
+                Legal Notice
+            </a>
+        </div>
+    </main>
 </body>
 
 </html>

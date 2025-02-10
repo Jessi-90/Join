@@ -1,6 +1,11 @@
 .d-none {
     display: none !important;
 }
+
+.margin-b20 {
+    margin-bottom: 20px;
+}
+
 .warning-info {
     color: red;
     font-family: 'Poppins', sans-serif;
