@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     margin: 0;
     background-color: #F6F7F8;
@@ -63,7 +68,7 @@ button {
 }
 
 .menu-summary-btn {
-    background-color: #2A3647!;
+    background-color: #2A3647 !;
     border: none;
 }
 
@@ -83,11 +88,6 @@ button {
     padding-top: 106px;
     padding-left: 328px;
     gap: 30px;
-}
-
-* {
-    margin: 0;
-    padding: 0;
 }
 
 .dashboard {
