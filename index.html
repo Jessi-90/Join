@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./styles/standard.css" />
     <link rel="stylesheet" href="./styles/assets.css" />
     <link rel="stylesheet" href="./styles/log_in.css" />
+    <script src="../script.js"></script>
     <link rel="icon" type="image/x-icon" href="./assets/icons/favicon-logo.svg">
 </head>
 
@@ -35,8 +36,8 @@
                     </div>
                 </div>
                 <form action="submit" class="log-in-form">
-                    <input type="email" placeholder="Email" class="input-bg-email log-in-input-field" />
-                    <input type="password" placeholder="Password" class="input-bg-pwd log-in-input-field margin-b20" />
+                    <input id="input-mail" type="email" placeholder="Email" class="input-bg-email log-in-input-field" />
+                    <input onfocus="toggleInputIcon(event)" onblur="toggleInputIcon(eventv)" id="input-password" type="password" placeholder="Password" class="input-bg-pwd log-in-input-field margin-b20" />
                     <div class="login-btn-wrapper">
                         <button type="submit" class="btn-dark login-in-btn" disabled>
                             Log in
