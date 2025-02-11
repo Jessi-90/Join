@@ -150,14 +150,13 @@ button {
 }
 
 .card-todo {
+    gap: 20px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-column: span 3;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    margin: 8px;
-
 }
 
 .card {
@@ -212,14 +211,19 @@ button {
     align-items: center;
     text-align: center;
     gap: 5px;
+    padding-right: 65px;
+}
+
+.urgent-img {
+    filter: brightness(1) saturate(100%) invert(0%) sepia(0%) saturate(100%) hue-rotate(3deg) brightness(98%) contrast(116%) !important;
 }
 
 .urgent-info {
     border-left: 2px solid #E8E8E8;
     text-align: left;
     margin-top: 10px;
-    padding-left: 80px; 
-    height: 100px; 
+    padding-left: 80px;
+    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -239,22 +243,28 @@ button {
 }
 
 .card:hover {
-    background-color: #2A3647; 
-    color: white; 
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+    background-color: #2A3647;
+    color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     transform: scale(1.05);
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .card img {
-    transition: filter 0.3s ease;
+    border-radius: 50%;
+    transition: filter 0.3s ease-in-out;
 }
 
 .card:hover img {
-    filter: invert(100%) contrast(200%);
-    opacity: 0.8;
+    filter: brightness(0) invert(1);
+    filter: invert(200%) contrast(400%);
 }
 
+.urgent-img:hover {
+    background-color: #FF3D00;
+}
+
+.card-todo:hover img,
 .card:hover p,
 .card:hover h1 {
     color: white;
