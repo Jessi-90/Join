@@ -117,6 +117,10 @@ a {
     clip-path: none;
 }
 
+.user-btn:hover {
+    background-color: rgb(230, 230, 230);
+}
+
 .layout {
     width: 625px;
     height: 73px;
