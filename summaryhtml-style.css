@@ -139,7 +139,7 @@ a {
 
 .card img {
     border-radius: 50%;
-    transition: filter 0.3s ease-in-out;
+    transition: filter 0.3s ease;
 }
 
 .card:hover img {
@@ -171,4 +171,8 @@ a {
     display: flex;
     align-items: center;
     padding-left: 80px;
+}
+
+.card:hover img {
+    mix-blend-mode: lighten;
 }
