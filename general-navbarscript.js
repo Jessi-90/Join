@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const dropdownHTML = `
         <div class="dropdown">
-        <a href="help.html"> <img class="help-btn" src="./img/help.png"></a>
+        <a href="help.html"> <img class="help-btn" src="./img/icon/help.png"></a>
             <button class="user-btn" id="userButton">☰</button>
             <div class="dropdown-content" id="dropdownContent">
                 <a href="help.html">Help</a>
