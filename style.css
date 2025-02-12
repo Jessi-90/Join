@@ -1,5 +1,11 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: Inter;
+    background-color: #F6F7F8;
 }
 
 .start {
@@ -13,117 +19,4 @@ body {
     padding-top: 345px;
     width: 274px;
     height: 334.07;
-}
 
-.layout {
-    width: 625px;
-    height: 73px;
-    padding-top: 80px;
-    padding-left: 328px;
-    gap: 30px;
-}
-
-
-.dashboard {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 60px 40px 40px 330px;
-    max-width: 900px;
-    width: 560px;
-}
-
-
-.to-do-dashboard {
-    display: flex;
-}
-
-.card-todo {
-    display: flex;
-    grid-column: span 3;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 20px;
-
-}
-
-.tasks-awaiting-btn {
-    display: flex;
-}
-
-.card {
-    background: white;
-    padding: 20px;
-    border-radius: 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    display: flex;
-    align-items: center;
-    padding: 38px 19px 38px 19px;
-    gap: 18px;
-}
-
-.card-pencil {
-    width: 69px;
-    margin: auto;
-}
-
-.card-ok {
-    width: 69px;
-    margin: auto;
-}
-
-.card h1 {
-    font-size: 3rem;
-    color: #2b2b2b;
-}
-
-.card p {
-    font-size: 1.2rem;
-    color: #666;
-}
-
-.large-card {
-    grid-column: span 3;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-}
-
-.urgent-info {
-    text-align: left;
-    margin-top: 10px;
-}
-
-.urgent-info p:first-child {
-    font-weight: bold;
-    color: #ff6b6b;
-}
-
-.urgent-info p:nth-child(2) {
-    color: #2b2b2b;
-}
-
-.urgent-info p:last-child {
-    color: #888;
-    font-size: 0.9rem;
-}
-
-.greeting {
-    font-size: 47px;
-    text-align: right;
-}
-
-.greeting span {
-    color: #29ABE2;
-    font-weight: bold;
-}
-
-.greet {
-    display: flex;
-    align-items: center;
-    padding-left: 80px;
-}

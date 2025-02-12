@@ -5,67 +5,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summary user</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="summaryhtml-style.css">
 </head>
 
 <body>
-    <div class="navbar">
-        <img class="join-logo" src="./img/Capa 2 (2).svg">
-        <div class="summary-menu">
-            <a href="summary.html"> <button class="menu-summary-btn"><img src="./img/summary-btn1.svg"></button></a>
-            <a href="add_task.html"> <button class="menu-summary-btn"><img src="./img/Add Task.svg"></button></a>
-            <a href="board.html"><button class="menu-summary-btn"><img src="./img/Board.svg"></button></a>
-            <a href="contacts.html"> <button class="menu-summary-btn"><img src="./img/Contacts.svg"></button></a>
-        </div>
-        <div class="summary-btn">
-            <a href="privacy_policy.html">Privacy Police</a>
-            <a href="legal_notice.html">Legal notice</a>
-        </div>
-    </div>
-
-    <div class="header">
-        <p class="headline-kanban">Kanban Project Management Tool</p>
-        <div>
-            <a href="help.html"> <img class="help-btn" src="./img/help.png"></a>
-            <a href="contacts.html"> <button class="user-btn"></button></a>
-        </div>
-    </div>
 
     <div class="layout">
-        <img src="./img/Frame 40.png">
+        <img src="./img/image/Frame 40.png">
     </div>
 
     <div class="to-do-dashboard">
         <div class="dashboard">
 
-            <div class="card-todo">
-                <div class="card card-todo">
-                    <img class="card-pencil" src="./img/Frame 71.png">
-                    <div>
-                        <h1>1</h1>
-                        <p>To-do</p>
-                    </div>
-                </div>
+            <a href="board.html">
+                <div class="card-todo">
 
+
+                    <div class="card card-todo">
+                        <img class="card-pencil" src="./img/icon/Frame 71.png">
+                        <div>
+                            <h1>1</h1>
+                            <p>To-do</p>
+                        </div>
+                    </div>
+            </a>
+
+
+            <a href="board.html">
                 <div class="card card-todo">
-                    <img class="card-ok" src="./img/Frame 71-1.png">
+                    <img class="card-ok" src="./img/icon/Frame 71-1.png"> 
+
                     <div>
                         <h1>1</h1>
                         <p>Done</p>
                     </div>
                 </div>
-            </div>
 
-            <div class="card large-card">
-                <img src="./img/Frame 71-2.png">
+            </a>
+        </div>
+
+
+        <a href="board.html" class="card large-card">
+            <img class="urgent-img" src="./img/icon/Frame 71-2.png">
+            <div class="urgent-box">
                 <h1>1</h1>
-                <div class="urgent-info">
-                    <p>Urgent</p>
-                    <p>October 16, 2022</p>
-                    <p>Upcoming Deadline</p>
-                </div>
+                <p>Urgent</p>
             </div>
+            <div class="urgent-info">
+                <p>October 16, 2022</p>
+                <p>Upcoming Deadline</p>
+            </div>
+        </a>
 
+        <a href="board.html">
 
             <div class="card">
                 <div>
@@ -73,25 +65,29 @@
                     <p>Tasks in Board</p>
                 </div>
             </div>
+
             <div class="card">
                 <div>
                     <h1>2</h1>
                     <p>Tasks In Progress</p>
                 </div>
             </div>
+
             <div class="card">
                 <div>
                     <h1>2</h1>
                     <p>Awaiting Feedback</p>
                 </div>
             </div>
-        </div>
 
-        <div class="greet">
-            <p class="greeting">Good morning,<br>
-                <span>Sofia Müller</span>
-            </p>
-        </div>
+        </a>
+    </div>
+
+    <div class="greet">
+        <p class="greeting">Good morning<br>
+
+        </p>
+    </div>
     </div>
 </body>
 
