@@ -1,0 +1,205 @@
+body {
+    font-family: "Inter", sans-serif;
+    background-color: #F6F7F8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-size: 20px;
+    max-width: 1920px;
+}
+
+.container {
+    background: #F6F7F8;
+    padding: 20px;
+    border: none;
+    width: 976.25px;
+    margin-top: 130px;
+}
+
+h1 {
+    font-size: 61px;
+    margin-bottom: 20px;
+}
+
+.form-container {
+    display: flex;
+    gap: 20px;
+    padding-top: 30px;
+}
+
+.form-column-left {
+    height: 376px;
+    width: 440px;
+    flex: 1;
+}
+
+.form-column-right {
+    height: 416px;
+    width: 440px;
+    flex: 1;
+}
+
+.divider {
+    width: 1px;
+    margin-left: 16px;
+    background-color: #ccc;
+    height: auto;
+    align-self: stretch;
+}
+
+.star {
+    color: #FE8997;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.date-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.date-input input {
+    width: 100%;
+    padding: 10px 40px 10px 10px; 
+    font-size: 16px;
+}
+
+.date-input .calendar-icon {
+    position: absolute;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    pointer-events: none; 
+}
+
+.calendar-button {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.calendar-button img {
+    width: 20px;
+    height: 20px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.prio-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.prio-buttons button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.urgent {
+    color: black;
+    font-size: 20px;
+}
+
+.medium {
+    color: black;
+    font-size: 20px;
+}
+
+.medium-image {
+    color: #FFA800;
+}
+
+.low {
+    color: black;
+    font-size: 20px;
+}
+
+.active {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.buttons {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+    margin-top: 20px;
+    
+}
+
+.clear,
+.create {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.clear {
+    background-color: white;
+    color: rgba(42, 54, 71, 1);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 25.2px;
+    width: 126px;
+    height: 55px;
+    border: solid 1px;
+    border-color: rgba(42, 54, 71, 1);
+    transition: all 125ms;
+}
+
+.create {
+    background-color: white;
+    color: rgba(42, 54, 71, 1);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 25.2px;
+    width: 126px;
+    height: 55px;
+    border: solid 1px;
+    border-color: rgba(42, 54, 71, 1);
+    transition: all 125ms;
+}
+
+.note {
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 10px;
+}
+
+.field-required {
+    display: flex;
+}
