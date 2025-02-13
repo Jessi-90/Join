@@ -173,6 +173,3 @@ a {
     padding-left: 80px;
 }
 
-.card:hover img {
-    mix-blend-mode: lighten;
-}
