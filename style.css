@@ -3,12 +3,6 @@
     padding: 0;
 }
 
-body {
-    margin: 0;
-    background-color: #F6F7F8;
-    font-family: 'Inter', sans-serif;
-}
-
 .start {
     display: flex;
     justify-content: center;
@@ -59,12 +53,6 @@ body {
     color: white;
     background-color: #2A3647;
     font-size: 16px;
-}
-
-button {
-    color: #A8A8AB;
-    background-color: #2A3647;
-    clip-path: fill-box;
 }
 
 .menu-summary-btn {
