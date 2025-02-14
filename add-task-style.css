@@ -333,7 +333,7 @@ textarea::placeholder {
     font-size: 18px;
     color: black;
     margin-top: 5px;
-    font-weight: 500;
+    font-weight: normal;
 }
 
 .field-required {
