@@ -1,0 +1,160 @@
+body {
+    font-family: Inter;
+}
+
+.start {
+    display: flex;
+    justify-content: center;
+}
+
+.start-logo {
+    display: flex;
+    justify-content: center;
+    padding-top: 345px;
+    width: 274px;
+    height: 334.07;
+}
+
+.navbar {
+    position: fixed;
+    width: 232px;
+    height: 1024px;
+    justify-content: space-between;
+    background-color: #2A3647;
+}
+
+.join-logo {
+    height: 121.97px;
+    width: 100.03px;
+    padding-top: 64px;
+    padding-bottom: 64px;
+    padding-left: 64px;
+}
+
+.summary-menu {
+    height: 229px;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    color: white;
+    padding-top: 28px;
+    padding-bottom: 8px;
+    padding-right: 56px;
+    cursor: pointer;
+}
+
+.summary-btn {
+    display: flex;
+    justify-content: center;
+    text-align: start;
+    flex-direction: column;
+    height: 300px;
+    padding-top: 170px;
+    padding-left: 72px;
+    gap: 14px;
+    color: #989A9C;
+    background-color: #2A3647;
+    font-size: smaller;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+    color: #989A9C;
+}
+
+.menu-summary-btn {
+    background-color: #2A3647;
+    border: none;
+    cursor: pointer;
+    clip-path: fill-box;
+    color: #A8A8AB;
+}
+
+.menu-summary-btn :hover {
+    background-color: #091931;
+}
+
+.headline-kanban {
+    margin-top: 12px;
+}
+
+.summary-menu :hover {
+    background-color: #091931;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    background-color: white;
+    padding-top: 20px;
+    padding-right: 40px;
+    padding-bottom: 20px;
+    padding-left: 348px;
+    box-shadow: 0px 4px 4px 0px #0000001A;
+}
+
+.help-btn {
+    width: 20px;
+    height: 20px;
+    padding-right: 6px;
+    cursor: pointer;
+}
+
+.user-btn {
+    width: 46px;
+    height: 46px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    border-color: black;
+    border-style: solid;
+    clip-path: none;
+}
+
+.user-btn:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    color: rgb(164,167,172);
+    display: none;
+    position: absolute;
+    background-color: #2A3647;
+    min-width: 130px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    right: 0;
+    border-radius: 20px 0px 20px 20px;
+    border: 1px solid #e0e0e0;
+    margin-top: 18px;
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    color: #989A9C;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #233b59;
+}
+
+.dropdown-content.show {
+    display: block;
+}
