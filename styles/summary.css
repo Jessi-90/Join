@@ -163,14 +163,18 @@ a {
     text-align: right;
 }
 
-.greeting span {
+.greeting-name {
     color: #29ABE2;
-    font-weight: bold;
+    font-weight: 700;
+    line-height: 76.8px;
+    font-size: 64px;
 }
 
 .greet {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
     padding-left: 80px;
 }
 
