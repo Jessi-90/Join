@@ -30,8 +30,8 @@ a {
 }
 
 .dashboard {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 20px;
     padding: 60px 40px 40px 330px;
     max-width: 900px;
@@ -56,9 +56,10 @@ a {
     text-align: center;
     display: flex;
     align-items: center;
-    padding: 38px 29px 38px 29px;
+    padding: 0 29px;
     gap: 18px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    height: 168px;
 }
 
 .card-pencil {
@@ -162,14 +163,26 @@ a {
     text-align: right;
 }
 
-.greeting span {
+.greeting-name {
     color: #29ABE2;
-    font-weight: bold;
+    font-weight: 700;
+    line-height: 76.8px;
+    font-size: 64px;
 }
 
 .greet {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
     padding-left: 80px;
 }
 
+.card:hover img {
+    mix-blend-mode: lighten;
+}
+.last-section {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}

@@ -13,7 +13,7 @@
     <link rel="icon" type="image/x-icon" href="./assets/icons/favicon-logo.svg">
 </head>
 
-<body>
+<body onclick="resetInputIcon()">
     <main class="log-in-page">
         <div class="log-in-header">
             <img src="./assets/img/Capa.svg" alt="Join_logo">
@@ -37,12 +37,19 @@
                 </div>
                 <form action="submit" class="log-in-form">
                     <input id="input-mail" type="email" placeholder="Email" class="input-bg-email log-in-input-field" />
-                    <input onfocus="toggleInputIcon(event)" onblur="toggleInputIcon(eventv)" id="input-password" type="password" placeholder="Password" class="input-bg-pwd log-in-input-field margin-b20" />
+                    <div class="input-password-wrapper">
+                        <input onclick="protectionEventBubbeling(event)" onfocus="toggleInputIcon(event)"
+                            onblur="toggleInputIcon(event)" id="input-password" type="password" placeholder="Password"
+                            class="input-bg-pwd log-in-input-field margin-b20" />
+                        <img onclick="protectionEventBubbeling(event), togglePasswordVisibility()"
+                            id="input-password-icon" src="./assets/icons/lock_icon.svg" alt="lock-icon">
+                    </div>
+
                     <div class="login-btn-wrapper">
-                        <button type="submit" class="btn-dark login-in-btn" disabled>
+                        <button type="submit" class="btn-dark" disabled>
                             Log in
                         </button>
-                        <button type="submit" class="btn-light guest-login-in-btn" disabled>
+                        <button type="submit" class="btn-light" disabled>
                             Guest Log in
                         </button>
                     </div>
@@ -59,5 +66,3 @@
         </div>
     </main>
 </body>
-
-</html>

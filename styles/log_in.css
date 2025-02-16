@@ -130,26 +130,23 @@
     background-position: 375px;
 }
 
-.input-bg-pwd {
-    background-image: url(../assets/icons/lock_icon.svg); 
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: 375px;
+.input-password-wrapper {
+    position: relative;
+}
+
+.input-password-wrapper img {
+    position: absolute;
+    top: 25px;
+    right: 27px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
 }
 
 .login-btn-wrapper {
     display: flex;
     gap: 35px;
-}
-
-.login-in-btn {
-    height: 48px;
-    width: 110px;
-}
-
-.guest-login-in-btn {
-    height: 48px;
-    width: 177px;
 }
 
 .log-in-footer {
