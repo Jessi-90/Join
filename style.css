@@ -3,6 +3,12 @@
     padding: 0;
 }
 
+body {
+    font-family: "Inter", sans-serif;
+    background-color: #F6F7F8;
+}
+
+
 .start {
     display: flex;
     justify-content: center;
@@ -15,121 +21,3 @@
     width: 274px;
     height: 334.07;
 }
-
-.navbar {
-    position: fixed;
-    width: 232px;
-    height: 1024px;
-    justify-content: space-between;
-    background-color: #2A3647;
-
-}
-
-.join-logo {
-    height: 121.97px;
-    width: 100.03px;
-    padding-top: 64px;
-    padding-bottom: 64px;
-    padding-left: 64px;
-}
-
-.summary-menu {
-    height: 229px;
-    flex-direction: column;
-    color: white;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-right: 56px;
-
-}
-
-.summary-btn {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    height: 317px;
-    padding-top: 243px;
-    gap: 4px;
-    color: white;
-    background-color: #2A3647;
-    font-size: 16px;
-}
-
-.menu-summary-btn {
-    background-color: #2A3647 !;
-    border: none;
-}
-
-.header {
-    width: 1440px;
-    background-color: white;
-    padding-top: 20px;
-    padding-right: 40px;
-    padding-bottom: 20px;
-    padding-left: 348px;
-    box-shadow: 0px 4px 4px 0px #0000001A;
-}
-
-.layout {
-    width: 625px;
-    height: 73px;
-    padding-top: 106px;
-    padding-left: 328px;
-    gap: 30px;
-}
-
-.dashboard {
-    width: 560px;
-    height: 162px;
-    padding-top: 115px;
-    padding-left: 328px;
-    gap: 28px;
-    opacity: 0px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.card h1 {
-    font-size: 3rem;
-    color: #2b2b2b;
-}
-
-.card p {
-    font-size: 1.2rem;
-    color: #666;
-}
-
-.large-card {
-    grid-column: span 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-.urgent-info {
-    text-align: left;
-    margin-top: 10px;
-}
-
-.urgent-info p:first-child {
-    font-weight: bold;
-    color: #ff6b6b;
-}
-
-.urgent-info p:nth-child(2) {
-    color: #2b2b2b;
-}
-
