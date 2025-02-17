@@ -37,3 +37,19 @@ body {
     text-align: center;
     align-content: center;
 }
+aside {
+    width: 232px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    background-color: rgba(42, 54, 71, 1);
+}
+header {
+    height: 96px;
+    background-color: rgba(255, 255, 255, 1);
+}
+main {
+    padding-left: 232px;
+    height: calc(100dvh - 96px);
+    width: calc(100dvw - 232px);
+}

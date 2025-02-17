@@ -3,6 +3,7 @@
   background-color: rgba(42, 54, 71, 1);
   color: white;
   border-radius: 8px;
+  border: none;
   cursor: pointer;
   font-weight: 700;
   font-size: 21px;
@@ -13,7 +14,6 @@
 .btn-dark:hover {
   background-color: rgba(41, 171, 226, 1);
   box-shadow: 0px 5px 4px 1px rgba(0, 0, 0, 0.2);
-  border: none;
 }
 
 .btn-light {
@@ -35,4 +35,11 @@
   border-color: rgba(41, 171, 226, 1);
   color: rgba(41, 171, 226, 1);
   box-shadow: 0px 5px 4px 1px rgba(0, 0, 0, 0.2);
+}
+
+.vertical-line {
+  width: 59px;
+  border: 2px solid rgba(41, 171, 226, 1);
+  border-radius: 3px;
+  transform: rotate(90deg);
 }
