@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Board</title>
-    <link rel="stylesheet" href="./styles/board.css">
-    <link rel="stylesheet" href="./styles/assets.css">
-    <link rel="stylesheet" href="./styles/standard.css">
-    <link rel="icon" type="image/x-icon" href="./assets/icons/favicon-logo.svg">
-
+    <link rel="stylesheet" href="./styles/board.css" />
+    <link rel="stylesheet" href="./styles/card.css" />
+    <link rel="stylesheet" href="./styles/assets.css" />
+    <link rel="stylesheet" href="./styles/standard.css" />
+    <link rel="icon" type="image/x-icon" href="./assets/icons/favicon-logo.svg" />
 </head>
 
 <body>
@@ -20,19 +20,69 @@
             <h1>Board</h1>
             <div class="search-and-add">
                 <div class="search-input">
-                    <input type="search" placeholder="Find Task">
+                    <input type="search" placeholder="Find Task" />
                     <div class="search-input-icons">
                         <img class="vertical-separator" src="./assets/icons/vertical-line-search-input.svg"
-                            alt="vertical-line">
+                            alt="vertical-line" />
                         <div class="search-btn-container">
-                            <img class="search-btn" src="./assets/icons/search.svg" alt="search-btn">
+                            <img class="search-btn" src="./assets/icons/search.svg" alt="search-btn" />
                         </div>
                     </div>
                 </div>
                 <div class="#">
-                    <button class="btn-dark add-task-btn">Add task
-                        <img src="./assets/icons/add-plus-symbol.svg" alt="add-plus-symbol">
+                    <button class="btn-dark add-task-btn">
+                        Add task
+                        <img src="./assets/icons/add-plus-symbol.svg" alt="add-plus-symbol" />
                     </button>
+                </div>
+            </div>
+        </section>
+        <section class="board">
+            <div class="column" id="todo">
+                <div class="column-header">
+                    <h2>To do</h2>
+                    <button type="button" class="add-card">+</button>
+                </div>
+                <div class="card-container">
+                    <div class="card" draggable="true">
+                        <div class="card-header">
+                            <span class="card-category">Kategorie</span>
+                            <span class="card-priority">Priorität</span>
+                        </div>
+                        <h3 class="card-title">Titel der Aufgabe</h3>
+                        <p class="card-description">Kurze Beschreibung der Aufgabe...</p>
+                        <ul class="card-subtasks">
+                            <li>Subtask 1</li>
+                            <li>Subtask 2</li>
+                        </ul>
+                        <div class="card-footer">
+                            <img src="user-avatar.png" alt="User" class="user-avatar" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column" id="in-progress">
+                <div class="column-header">
+                    <h2>In progress</h2>
+                    <button type="button" class="add-card">+</button>
+                </div>
+                <div class="card-container">
+                </div>
+            </div>
+            <div class="column" id="await-feedback">
+                <div class="column-header">
+                    <h2>Await feedback</h2>
+                    <button type="button" class="add-card">+</button>
+                </div>
+                <div class="card-container">
+                </div>
+            </div>
+            <div class="column" id="done">
+                <div class="column-header">
+                    <h2>Done</h2>
+                    <button type="button" class="add-card">+</button>
+                </div>
+                <div class="card-container">
                 </div>
             </div>
         </section>

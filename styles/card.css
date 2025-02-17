@@ -1,0 +1,13 @@
+.board {
+    display: flex;
+    /* oder grid, je nach Bedarf */
+    gap: 1rem;
+    /* optionaler Abstand zwischen den Spalten */
+    margin: 0 64px;
+    /* oben und unten 0, links und rechts 64px */
+}
+
+.column {
+    flex: 1;
+    /* Jede Spalte nimmt gleich viel Platz ein */
+}
