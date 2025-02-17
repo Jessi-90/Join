@@ -89,11 +89,17 @@ body {
     font-size: 20px;
     cursor: pointer;
     color: #2A3647;
+    height: 32px;
+    width: 32px;
+    
 }
 
 .close-btn:hover {
     border-radius: 50%;
     background: #efeeee;    
+   
+  
+   
 }
 
 .profile-picture {
@@ -136,6 +142,7 @@ input::placeholder {
     border-radius: 8px;
     font-size: 20px;
     background-color: #f9f9f9;
+    cursor: pointer;
 }
 
 .input-group .icon {
@@ -145,6 +152,7 @@ input::placeholder {
     transform: translateY(-50%);
     font-size: 16px;
     color: gray;
+    cursor: pointer;
 }
 
 .buttons {
