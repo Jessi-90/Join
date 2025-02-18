@@ -68,7 +68,3 @@
   color: rgba(41, 171, 226, 1);
   cursor: pointer;
 }
-
-.btn-no-bg img:hover {
-  filter: sepia(27%) hue-rotate(184deg) saturate(9);
-}

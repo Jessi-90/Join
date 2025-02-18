@@ -98,3 +98,23 @@
     align-items: center;
     color: white;
 }
+.edit-icon {
+    background-image: url(../assets/icons/edit_contact.svg);
+    background-position: left;
+    background-repeat: no-repeat;
+    width: 62px;
+    height: 24px;
+}
+.delete-icon {
+    background-image: url(../assets/icons/delete_contact.svg);
+    background-position: left;
+    background-repeat: no-repeat;
+    width: 81px;
+    height: 24px;
+}
+.edit-icon:hover {
+    background-image: url(../assets/icons/edit_contact_hover.svg);
+}
+.delete-icon:hover {
+    background-image: url(../assets/icons/delete_contact_hover.svg);
+}
