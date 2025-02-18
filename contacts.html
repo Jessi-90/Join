@@ -7,10 +7,34 @@
     <link rel="stylesheet" href="./styles/contacts.css">
     <link rel="stylesheet" href="./styles/assets.css">
     <link rel="stylesheet" href="./styles/standard.css">
+    <link rel="stylesheet" href="./general-navbar-style.css">
 </head>
 <body>
-    <header id="header"></header>
-    <aside id="navbar"></aside>
+    <header id="header">
+        <div class="header">
+            <p class="headline-kanban">Kanban Project Management Tool</p>
+
+            <div class="dropdown">
+                <button onclick="toggleDropdown()">
+                </button>
+            </div>
+        </div>
+    </header>
+    <aside id="navbar">
+        <div class="navbar">
+            <img class="join-logo" src="./img/image/Capa 2 (2).svg">
+            <div class="summary-menu">
+                <a href="summary.html"> <button class="menu-summary-btn"><img src="./img/image/summary-btn1.svg"></button></a>
+                <a href="add_task.html"> <button class="menu-summary-btn"><img src="./img/image/Add Task.svg"></button></a>
+                <a href="board.html"><button class="menu-summary-btn"><img src="./img/image/Board.svg"></button></a>
+                <a href="contacts.html"> <button class="menu-summary-btn"><img src="./img/image/Contacts.svg"></button></a>
+            </div>
+            <div class="summary-btn">
+                <a href="privacy_policy.html">Privacy Police</a>
+                <a href="legal_notice.html">Legal notice</a>
+            </div>
+        </div>
+    </aside>
     <main>
         <section class="contact-view">
             <section>
