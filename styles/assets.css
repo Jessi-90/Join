@@ -46,8 +46,29 @@
 }
 
 .vertical-line {
-    width: 59px;
-    border: 2px solid rgba(41, 171, 226, 1);
-    border-radius: 3px;
-    transform: rotate(90deg);
+  width: 59px;
+  border: 2px solid rgba(41, 171, 226, 1);
+  border-radius: 3px;
+  transform: rotate(90deg);
+}
+
+.btn-no-bg {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 13px;
+  background-color: transparent;
+  border: none;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19.2px;
+}
+
+.btn-no-bg:hover {
+  color: rgba(41, 171, 226, 1);
+  cursor: pointer;
+}
+
+.btn-no-bg img:hover {
+  filter: sepia(27%) hue-rotate(184deg) saturate(9);
 }
