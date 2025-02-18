@@ -1,4 +1,9 @@
-function renderContactDetail() {
+/**
+ * Template function to render the contact detail
+ * @returns {string} HTML template for the contact detail
+ * @param {object} contact - contact object
+ */
+function renderContactDetail(contact) {
     return `
     <div class="single-contact-detail-header">
         <p class="circle-orange contact-short">%{contact.short}</p>
