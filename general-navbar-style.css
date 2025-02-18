@@ -1,5 +1,6 @@
 body {
     font-family: Inter;
+    max-width: 1920px;
 }
 
 .start {
@@ -16,7 +17,11 @@ body {
 }
 
 .navbar {
+    z-index: 1000;
     position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
     width: 232px;
     height: 1024px;
     justify-content: space-between;
@@ -84,6 +89,7 @@ a {
 }
 
 .header {
+    position: relative;
     display: flex;
     justify-content: space-between;
     width: auto;
