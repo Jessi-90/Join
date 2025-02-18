@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add contant</title>
+    <link rel="stylesheet" href="add_contact-style.css">
+    <script src="add_contact-script.js"></script>
+</head>
+
+<body>
+
+    <div class="overlay" id="overlay">
+        <div class="modal">
+            <div class="sidebar">
+                <div class="logo-container">
+                    <img class="join-logo" src="img/icon/Capa 2 (2).svg">
+                </div>
+                <h1>Add contact</h1>
+                <p>Tasks are better with a team!</p>
+                <div class="divider"></div>
+            </div>
+            <div class="form-container">
+                <button class="close-btn" onclick="closeOverlay()">✖</button>
+                <div class="profile-picture">
+                    <img src="img/icon/Group 13.svg" alt="Profilbild">
+                </div>
+                <form>
+                    <div class="input-group">
+                        <input type="text" placeholder="Name" required>
+                        <span class="icon">
+                            <img src="img/icon/person.svg" alt="User">
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" placeholder="Email" required>
+                        <span class="icon">
+                            <img src="img/icon/mail.svg" alt="Email">
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <input type="tel" placeholder="Phone">
+                        <span class="icon">
+                            <img src="img/icon/call.svg" alt="Phone">
+                        </span>
+                    </div>
+                    <div class="buttons">
+                        <button type="button" class="cancel" onclick="closeOverlay()">Cancel <img class="cancel-x"
+                                src="img/icon/iconoir_cancel.svg"></button>
+                        <button type="submit" class="create">Create contact <img class="create-check"
+                                src="img/icon/check.svg"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <button onclick="openOverlay()">Open Contact Form</button>
+
+</body>
+
+</html>
