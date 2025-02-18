@@ -102,8 +102,8 @@ a {
 }
 
 .help-btn {
-    width: 20px;
-    height: 20px;
+    width: 32px;
+    height: 32px;
     padding-right: 6px;
     cursor: pointer;
 }
@@ -129,6 +129,8 @@ a {
 }
 
 .dropdown {
+    display: flex;
+    align-items: center;
     position: relative;
     display: inline-block;
 }
