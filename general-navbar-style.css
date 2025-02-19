@@ -32,20 +32,20 @@ body {
     height: 121.97px;
     width: 100.03px;
     padding-top: 64px;
-    padding-bottom: 64px;
+    padding-bottom: 110px;
     padding-left: 64px;
 }
 
 .summary-menu {
     height: 229px;
     display: flex;
-    align-items: start;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    color: white;
-    padding-top: 28px;
-    padding-bottom: 8px;
-    padding-right: 56px;
+    width: 100%;
+    padding: 0;
     cursor: pointer;
+    gap: 15px;
 }
 
 .summary-btn {
@@ -55,11 +55,12 @@ body {
     flex-direction: column;
     height: 300px;
     padding-top: 170px;
-    padding-left: 72px;
+    padding-left: 68px;
     gap: 14px;
     color: #989A9C;
     background-color: #2A3647;
-    font-size: smaller;
+    font-size: 16px;
+    font-weight: 400;
     text-decoration: none;
 }
 
@@ -69,23 +70,65 @@ a {
 }
 
 .menu-summary-btn {
-    background-color: #2A3647;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: none;
     border: none;
+    color: #CDCDCD;
+    height: 46px;
+    font-size: 16px;
     cursor: pointer;
-    clip-path: fill-box;
-    color: #A8A8AB;
+    padding: 0px 20px;
+    text-align: center;
+    gap: 8px;
+}
+
+.menu-summary-btn span {
+    padding: 0;
+    margin: 0;
+}
+
+.menu-summary-btn img {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    display: block;
 }
 
 .menu-summary-btn :hover {
     background-color: #091931;
 }
 
-.headline-kanban {
-    margin-top: 12px;
-}
-
 .summary-menu :hover {
     background-color: #091931;
+}
+
+.summary-menu a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-decoration: none;
+    color: #CDCDCD;
+}
+
+.board-btn {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    padding-right: 44px; 
+}
+
+.board-btn span {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-size {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .header {
@@ -94,23 +137,23 @@ a {
     justify-content: space-between;
     width: auto;
     background-color: white;
-    padding-top: 20px;
     padding-right: 40px;
-    padding-bottom: 20px;
     padding-left: 348px;
     box-shadow: 0px 4px 4px 0px #0000001A;
+    font-size: 20px;
+    height: 96px;
+    align-items: center;
 }
 
 .help-btn {
     width: 32px;
     height: 32px;
-    padding-right: 6px;
     cursor: pointer;
 }
 
 .user-btn {
-    width: 46px;
-    height: 46px;
+    width: 56px;
+    height: 56px;
     cursor: pointer;
     border-radius: 50%;
     background-color: rgb(255, 255, 255);
@@ -132,11 +175,11 @@ a {
     display: flex;
     align-items: center;
     position: relative;
-    display: inline-block;
+    gap: 16px;
 }
 
 .dropdown-content {
-    color: rgb(164,167,172);
+    color: rgb(164, 167, 172);
     display: none;
     position: absolute;
     background-color: #2A3647;
@@ -146,7 +189,7 @@ a {
     right: 0;
     border-radius: 20px 0px 20px 20px;
     border: 1px solid #e0e0e0;
-    margin-top: 18px;
+    margin-top: 260px;
     overflow: hidden;
 }
 
