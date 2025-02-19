@@ -6,26 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit contant</title>
     <link rel="stylesheet" href="edit_contact-style.css">
+    <link rel="stylesheet" href="./styles/standard.css">
     <script src="edit_contact-script.js"></script>
 </head>
 
 <body>
 
-    <div class="overlay" id="overlay">
+    <div class="overlay" id="overlay-edit-contact">
         <div class="modal">
             <div class="sidebar">
                 <div class="logo-container">
                     <img class="join-logo" src="img/icon/Capa 2 (2).svg">
                 </div>
                 <h1>Edit contact</h1>
-                <div class="divider"></div>
+                <div><img class="blue-line"src="assets/img/Vector 5.svg"></div>
             </div>
             <div class="form-container">
-                <button class="close-btn" onclick="closeOverlay()">✖</button>
+                <button class="close-btn" onclick="closeOverlayEditContact()">✖</button>
                 <div class="profile-picture" id="profile-photo">
-                    <img src="img/icon/Frame 79.svg" alt="Profilbild">
+                    <img src="assets/img/circle_orange.svg" alt="Profilbild">
                 </div>
-                <form>
+                <form class="form">
                     <div class="input-group">
                         <input type="text" placeholder="Name" required>
                         <span class="icon">
@@ -45,7 +46,7 @@
                         </span>
                     </div>
                     <div class="buttons">
-                        <button type="button" class="delete" onclick="closeOverlay()">Delete</button>
+                        <button type="button" class="delete" onclick="closeOverlayEditContact()">Delete</button>
                         <button type="submit" class="save">Save<img class="create-check"
                                 src="img/icon/check.svg"></button>
                     </div>
