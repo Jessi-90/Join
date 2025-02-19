@@ -1,6 +1,14 @@
-function openOverlay() {
-    document.getElementById("overlay").style.display = "flex";
+/**
+ * Opens the overlay for editing a contact.
+ */
+function openOverlayEditContact() {
+    document.getElementById("overlay-edit-contact").style.display = "flex";
 }
-function closeOverlay() {
-    document.getElementById("overlay").style.display = "none";
+
+
+/**
+  * Closes the overlay for editing a contact.
+ */
+function closeOverlayEditContact() {
+    document.getElementById("overlay-edit-contact").style.display = "none";
 }
