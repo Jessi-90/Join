@@ -33,20 +33,22 @@ function togglePointerToIcon() {
 
 /**
  * Toggles the visibility of the password field.
- * - Changes the input type between "password" (hidden) and "text" (visible).
- * - Updates the visibility icon accordingly.
+ * - Switches the input type between "password" (hidden) and "text" (visible).
+ * - Keeps the cursor at the end of the entered text when toggling visibility.
+ * - Ensures a smooth user experience by maintaining focus on the input field.
  */
 function togglePasswordVisibility() {
   let inputPasswd = document.getElementById('input-password');
-  inputPasswd.focus();
+  
+  let cursorPosition = inputPasswd.value.length;
 
   if (inputPasswd.type === "password") {
     inputPasswd.type = "text";
-    togglePasswordIcon(inputPasswd);
   } else {
     inputPasswd.type = "password";
-    togglePasswordIcon(inputPasswd);
   }
+  inputPasswd.focus();
+  inputPasswd.setSelectionRange(cursorPosition, cursorPosition);
 }
 
 /**
