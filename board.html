@@ -15,7 +15,7 @@
 <body>
     <header id="header"></header>
     <aside id="navbar"></aside>
-    <main>
+    <main class="board-wrapper">
         <section class="top-bar">
             <h1>Board</h1>
             <div class="search-and-add">
@@ -41,48 +41,136 @@
             <div class="column" id="todo">
                 <div class="column-header">
                     <h2>To do</h2>
-                    <button type="button" class="add-card">+</button>
+                    <div class="add-card">
+                    </div>
                 </div>
                 <div class="card-container">
-                    <div class="card" draggable="true">
-                        <div class="card-header">
-                            <span class="card-category">Kategorie</span>
-                            <span class="card-priority">Priorität</span>
-                        </div>
-                        <h3 class="card-title">Titel der Aufgabe</h3>
-                        <p class="card-description">Kurze Beschreibung der Aufgabe...</p>
-                        <ul class="card-subtasks">
-                            <li>Subtask 1</li>
-                            <li>Subtask 2</li>
-                        </ul>
-                        <div class="card-footer">
-                            <img src="user-avatar.png" alt="User" class="user-avatar" />
-                        </div>
+                    <div class="empty-container-card">
+                        <p>No tasks To do</p>
                     </div>
                 </div>
             </div>
             <div class="column" id="in-progress">
                 <div class="column-header">
                     <h2>In progress</h2>
-                    <button type="button" class="add-card">+</button>
+                    <div class="add-card">
+                    </div>
                 </div>
                 <div class="card-container">
+                    <div class="card" draggable="true">
+                        <div class="card-header">
+                            <span class="card-category user-story">User Story</span>
+                        </div>
+                        <h4 class="card-title">Kochwelt Page & Recipe Recommender</h4>
+                        <p class="card-description">Build start page with recipe recommendation</p>
+                        <div class="card-subtasks-progress">
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                </div>
+                            </div>
+                            <div class="task-counter">
+                                1/2 Subtasks
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="user">
+                                <img src="./assets/icons/Profile badge1.svg" alt="User" class="user-avatar" />
+                                <img src="./assets/icons/Profile badge2.svg" alt="User" class="user-avatar" />
+                                <img src="./assets/icons/Profile badge3.svg" alt="User" class="user-avatar" />
+                            </div>
+                            <img class="card-priority" src="./assets/icons/Priority-normal.svg" alt="priority">
+                        </div>
+                    </div>
+                    <div class="card" draggable="true">
+                        <div class="card-header">
+                            <span class="card-category user-story">User Story</span>
+                        </div>
+                        <h4 class="card-title">Kochwelt Page & Recipe Recommender</h4>
+                        <p class="card-description">Build start page with recipe recommendation</p>
+                        <div class="card-subtasks-progress">
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                </div>
+                            </div>
+                            <div class="task-counter">
+                                1/2 Subtasks
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="user">
+                                <img src="./assets/icons/Profile badge1.svg" alt="User" class="user-avatar" />
+                                <img src="./assets/icons/Profile badge2.svg" alt="User" class="user-avatar" />
+                                <img src="./assets/icons/Profile badge3.svg" alt="User" class="user-avatar" />
+                            </div>
+                            <img class="card-priority" src="./assets/icons/Priority-normal.svg" alt="priority">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="column" id="await-feedback">
                 <div class="column-header">
                     <h2>Await feedback</h2>
-                    <button type="button" class="add-card">+</button>
+                    <div class="add-card">
+                    </div>
                 </div>
                 <div class="card-container">
+                    <div class="card-container">
+                        <div class="card" draggable="true">
+                            <div class="card-header">
+                                <span class="card-category technical-task">Techincal Task</span>
+                            </div>
+                            <h4 class="card-title">HTML Base Template Creation</h4>
+                            <p class="card-description">Create reusable HTML base templates</p>
+                            <div class="card-subtasks-progress">
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                    </div>
+                                </div>
+                                <div class="task-counter">
+                                    1/2 Subtasks
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="user">
+                                    <img src="./assets/icons/Profile badge1.svg" alt="User" class="user-avatar" />
+                                    <img src="./assets/icons/Profile badge2.svg" alt="User" class="user-avatar" />
+                                    <img src="./assets/icons/Profile badge3.svg" alt="User" class="user-avatar" />
+                                </div>
+                                <img class="card-priority" src="./assets/icons/priority-high.svg" alt="priority">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="column" id="done">
                 <div class="column-header">
                     <h2>Done</h2>
-                    <button type="button" class="add-card">+</button>
                 </div>
                 <div class="card-container">
+                    <div class="card" draggable="true">
+                        <div class="card-header">
+                            <span class="card-category user-story">User Story</span>
+                        </div>
+                        <h4 class="card-title">Kochwelt Page & Recipe Recommender</h4>
+                        <p class="card-description">Build start page with recipe recommendation</p>
+                        <div class="card-subtasks-progress">
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                </div>
+                            </div>
+                            <div class="task-counter">
+                                1/2 Subtasks
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="user">
+                                <img src="./assets/icons/Profile badge1.svg" alt="User" class="user-avatar" />
+                                <img src="./assets/icons/Profile badge2.svg" alt="User" class="user-avatar" />
+                                <img src="./assets/icons/Profile badge3.svg" alt="User" class="user-avatar" />
+                            </div>
+                            <img class="card-priority" src="./assets/icons/Priority-normal.svg" alt="priority">
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
