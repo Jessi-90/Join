@@ -18,7 +18,7 @@
     top: 0;
     left: 0;
     width: 232px;
-    height: 1024px;
+    height: 100%;
     justify-content: space-between;
     background-color: #2A3647;
 }
@@ -46,17 +46,29 @@
 .summary-btn {
     display: flex;
     justify-content: center;
-    text-align: start;
+    text-align: center;
     flex-direction: column;
     height: 300px;
     padding-top: 170px;
-    padding-left: 68px;
-    gap: 14px;
+    gap: 8px;
     color: #989A9C;
     background-color: #2A3647;
     font-size: 16px;
     font-weight: 400;
     text-decoration: none;
+}
+
+.summary-btn a {
+    display: block; 
+    width: 100%; 
+    padding: 10px 0; 
+    text-decoration: none;
+    color: inherit;
+}
+
+.summary-btn a:hover {
+    background-color: #091931;
+   
 }
 
 a {
