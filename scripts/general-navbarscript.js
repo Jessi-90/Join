@@ -1,7 +1,13 @@
+/**
+ * Waits until the DOM is fully loaded before executing the script.
+ */
 document.addEventListener("DOMContentLoaded", function () {
     const header = document.querySelector(".header");
 
     
+    /**
+   * HTML template for the dropdown menu.
+   */
     const dropdownHTML = `
         <div class="dropdown">
         <a href="help.html"> <img class="help-btn" src="../img/icon/help.png"></a>
@@ -15,23 +21,30 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
     `;
 
-    
     header.insertAdjacentHTML("beforeend", dropdownHTML);
 
-    
     const userButton = document.getElementById("userButton");
     const dropdownContent = document.getElementById("dropdownContent");
 
-   
+
+ /**
+     * Toggles the visibility of the dropdown menu.
+     * 
+     * @param {Event} event - The click event.
+     */
     function toggleDropdown(event) {
-        event.stopPropagation(); 
+        event.stopPropagation();
         dropdownContent.classList.toggle("show");
     }
 
-   
     userButton.addEventListener("click", toggleDropdown);
 
 
+  /**
+     * Closes the dropdown menu when clicking outside of it.
+     * 
+     * @param {Event} event - The click event.
+     */
     window.addEventListener("click", function (event) {
         if (!event.target.closest(".dropdown")) {
             dropdownContent.classList.remove("show");
