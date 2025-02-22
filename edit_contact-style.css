@@ -25,7 +25,7 @@
     display: flex;
     background: #2A3647;
     color: white;
-    padding: 46px 66px 46px 66px;
+    padding: 46px 66px 90px 66px;
     width: 453px;
     display: flex;
     flex-direction: column;
@@ -75,7 +75,7 @@
     display: flex;
     align-items: center;
     margin-left: 0px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .join-logo {
@@ -112,6 +112,7 @@
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+    padding-right: 15px;
 }
 
 .profile-picture img {
