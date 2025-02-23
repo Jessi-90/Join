@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg" type="image/svg+xml" />
+    <script src="../scripts/templates/addTaskOverlayTemplate.js"></script>
 </head>
 
 <body>
@@ -31,7 +32,7 @@
                     </div>
                 </div>
                 <div class="#">
-                    <button class="btn-dark add-task-btn">
+                    <button class="btn-dark add-task-btn" onclick="showAddTaskOverlay()">
                         Add task
                         <img src="../assets/icons/add-plus-symbol.svg" alt="add-plus-symbol" />
                     </button>
@@ -176,6 +177,9 @@
             </div>
         </section>
     </main>
+    <section>
+        <div id="addTaskOverlay" class="add-task-overlay"></div>
+    </section>
 </body>
 
 </html>
