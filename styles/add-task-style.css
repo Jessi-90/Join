@@ -1,4 +1,4 @@
-body {
+/* body {
     font-family: "Inter", sans-serif;
     background-color: #F6F7F8;
     display: flex;
@@ -8,7 +8,7 @@ body {
     margin: 0;
     font-size: 20px;
     max-width: 1920px;
-}
+} */
 
 .container {
     background: #F6F7F8;
@@ -356,4 +356,31 @@ textarea::placeholder {
 input.invalid {
     border: 1px solid red;
     box-shadow: 0 0 2px rgba(255, 0, 0, 0.5);
+}
+
+.add-task-overlay {
+    backdrop-filter: blur(8px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100dvh;
+    width: 100dvw;
+    z-index: 1000;
+}
+
+.add-task-overlay-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.add-task-overlay-container {
+    background: #F6F7F8;
+    padding: 20px;
+    border: none;
+    width: 976.25px;
+    position: fixed;
+    top: 160px;
+    left: 270px;
 }
