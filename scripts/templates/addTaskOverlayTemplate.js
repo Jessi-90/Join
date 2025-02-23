@@ -1,8 +1,12 @@
 function showAddTaskOverlayHTMLTemplate() {
     return `
-    <div class="container">
-        <h1>Add Task</h1>
-        <button class="close-button" onclick="closeAddTaskOverlay()">
+    <div class="add-task-overlay-container">
+        <div class="add-task-overlay-header">
+            <h1>Add Task</h1>
+            <button class="btn-no-bg" onclick="closeAddTaskOverlay()">
+                <img src="../assets/icons/close_btn.svg" alt="close">
+            </button>
+        </div>
         <form>
             <div class="form-container">
                 <div class="form-column-left">
