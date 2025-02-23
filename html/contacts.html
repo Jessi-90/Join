@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,9 @@
     <link rel="stylesheet" href="../styles/assets.css">
     <link rel="stylesheet" href="../styles/standard.css">
     <link rel="stylesheet" href="../styles/general-navbar-style.css">
+    <link rel="icon" type="image/x-icon" href="../assets/icons/favicon.svg" />
 </head>
+
 <body>
     <header id="header">
         <div class="header">
@@ -24,23 +27,36 @@
         <div class="navbar">
             <img class="join-logo" src="../img/image/Capa 2 (2).svg">
             <div class="summary-menu">
-                <a href="summary.html"> <button class="menu-summary-btn"><img src="../img/image/summary-btn1.svg"></button></a>
-                <a href="add_task.html"> <button class="menu-summary-btn"><img src="../img/image/Add Task.svg"></button></a>
-                <a href="board.html"><button class="menu-summary-btn"><img src="../img/image/Board.svg"></button></a>
-                <a href="contacts.html"> <button class="menu-summary-btn"><img src="../img/image/Contacts.svg"></button></a>
+                <a href="summary.html">
+                    <button class="menu-summary-btn"><img src="../img/icon/Summary.svg"><span
+                            class="navbar-size">Summary</span></button></a>
+                <a href="add_task.html">
+                    <button class="menu-summary-btn"><img src="../img/icon/edit_square.svg"><span
+                            class="navbar-size">Add Task</span></button></a>
+                <a href="board.html">
+                    <button class="menu-summary-btn board-btn">
+                        <img src="../img/icon/Board.svg" alt="Board Icon">
+                        <span class="navbar-size">Board</span>
+                    </button>
+                </a>
+                <a href="contacts.html"> <button class="menu-summary-btn">
+                        <img src="../img/icon/perm_contact_calendar.svg"><span
+                            class="navbar-size">Contacts</span></button></a>
             </div>
             <div class="summary-btn">
                 <a href="privacy_policy.html">Privacy Police</a>
                 <a href="legal_notice.html">Legal notice</a>
             </div>
         </div>
+
     </aside>
     <main>
         <section class="contact-view">
             <section>
                 <div class="contact-list-wrapper">
                     <div class="contact-list-header">
-                        <button class="btn-dark" onclick="showAddContactOverlay()">Add new contact <img src="../assets/icons/person_add.svg" alt="addContact_img"></button>
+                        <button class="btn-dark" onclick="showAddContactOverlay()">Add new contact <img
+                                src="../assets/icons/person_add.svg" alt="addContact_img"></button>
                     </div>
                     <div id="contactList"></div>
                 </div>
@@ -58,4 +74,5 @@
         </section>
     </main>
 </body>
+
 </html>
