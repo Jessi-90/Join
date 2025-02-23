@@ -1,0 +1,9 @@
+.add-task-overlay {
+    backdrop-filter: blur(8px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100dvh;
+    width: 100dvw;
+    z-index: 1000;
+}
