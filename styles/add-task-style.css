@@ -359,7 +359,7 @@ input.invalid {
 }
 
 .add-task-overlay {
-    backdrop-filter: blur(8px);
+    backdrop-filter: brightness(0.5);
     position: fixed;
     top: 0;
     left: 0;
@@ -383,4 +383,5 @@ input.invalid {
     position: fixed;
     top: 160px;
     left: 270px;
+    border-radius: 30px;
 }
