@@ -1,9 +1,7 @@
 body {
     font-family: "Inter", sans-serif;
     background-color: #F6F7F8;
-    display: flex;
     justify-content: center;
-    align-items: center;
     height: 100vh;
     margin: 0;
     font-size: 20px;
@@ -11,11 +9,13 @@ body {
 }
 
 .container {
+    position: absolute;
+    height: 20px;
+    align-items: center;
     background: #F6F7F8;
-    padding: 20px;
     border: none;
     width: 976.25px;
-    margin-top: 130px;
+    margin-top: 280px;
 }
 
 h1 {
@@ -25,9 +25,10 @@ h1 {
 
 .form-container {
     display: flex;
+    align-items: center;
     gap: 35px;
-    padding-top: 30px;
-    margin-bottom: 70px;
+    padding-top: 10px;
+    margin-bottom: 80px;
     height: 424px;
 }
 
@@ -38,6 +39,8 @@ h1 {
 }
 
 .form-column-right {
+    padding-top: 38px;
+    padding-left: 10px;
     height: 416px;
     width: 440px;
     flex: 1;
@@ -49,6 +52,7 @@ h1 {
     background-color: #ccc;
     height: 388px;
     align-self: stretch;
+    margin-top: 25px;
 }
 
 .star {
