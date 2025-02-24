@@ -18,7 +18,7 @@ function showAddTaskOverlay() {
 function closeAddTaskOverlay(event) {
     let overlay = document.getElementById('addTaskOverlay');
 
-    if (event.target.closest('.add-task-overlay-container') && !event.target.closest('.btn-no-bg')) {
+    if (event.target.closest('.add-task-overlay-container') && !event.target.closest('.close-btn')) {
         event.stopPropagation();
         return;
     }

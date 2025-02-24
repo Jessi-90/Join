@@ -3,7 +3,7 @@ function showAddTaskOverlayHTMLTemplate() {
     <div class="add-task-overlay-container">
         <div class="add-task-overlay-header">
             <h1>Add Task</h1>
-            <button class="btn-no-bg" onclick="closeAddTaskOverlay(event)">
+            <button class="close-btn" onclick="closeAddTaskOverlay(event)">
                 <img src="../assets/icons/close_btn.svg" alt="close">
             </button>
         </div>
@@ -79,8 +79,8 @@ function showAddTaskOverlayHTMLTemplate() {
             </div>
 
             <div class="buttons">
-                <button type="reset" class="clear">Clear <img src="../img/icon/iconoir_cancel.svg"></button>
-                <button type="submit" class="create">Create Task <img src="../img/icon/check.svg"></button>
+                <button type="reset" class="btn-light">Clear <img src="../img/icon/iconoir_cancel.svg"></button>
+                <button type="submit" class="btn-dark">Create Task <img src="../img/icon/check.svg"></button>
             </div>
         </form>
 
