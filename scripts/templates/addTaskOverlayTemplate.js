@@ -3,7 +3,7 @@ function showAddTaskOverlayHTMLTemplate() {
     <div class="add-task-overlay-container">
         <div class="add-task-overlay-header">
             <h1>Add Task</h1>
-            <button class="btn-no-bg" onclick="closeAddTaskOverlay()">
+            <button class="btn-no-bg" onclick="closeAddTaskOverlay(event)">
                 <img src="../assets/icons/close_btn.svg" alt="close">
             </button>
         </div>
