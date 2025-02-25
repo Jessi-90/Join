@@ -6,8 +6,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0;
 }
 
 h1 {
@@ -27,8 +25,11 @@ h1 {
     background-image: url('../assets/icons/go-back.svg');
     background-repeat: no-repeat;
     background-size: contain;
-    background-position: center;
+    background-position: right;
     cursor: pointer;
+    position: sticky;
+    top: 50px;
+    width: 100%;
 }
 
 .back-btn:hover {
