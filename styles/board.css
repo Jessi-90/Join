@@ -72,7 +72,7 @@ input[type="search"]::-webkit-search-cancel-button {
     left: 50%;
     width: 30px;
     height: 30px;
-    background-color: #F6F7F8;
+    background-color: #E2E6EC;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     z-index: -1;
