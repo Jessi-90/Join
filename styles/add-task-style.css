@@ -388,4 +388,10 @@ input.invalid {
     border: none;
     width: 976.25px;
     border-radius: 30px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.add-task-overlay-container.show {
+    transform: translateX(0);
 }
