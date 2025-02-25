@@ -76,7 +76,7 @@ function showAddTaskOverlayHTMLTemplate() {
                     <div class="form-group">
                         <label for="subtasks">Subtasks</label>
                         <div class="input-container">
-                            <input type="text" class="input-field" placeholder="Add new subtask">
+                            <input type="text" id="subtasks" class="input-field" placeholder="Add new subtask">
                             <button class="plus-button">+</button>
                         </div>
                     </div>
