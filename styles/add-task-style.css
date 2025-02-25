@@ -336,8 +336,8 @@ textarea::placeholder {
 .note {
     font-size: 18px;
     color: black;
-    margin-top: 5px;
     font-weight: normal;
+    margin-bottom: 16px;
 }
 
 .field-required {
@@ -388,7 +388,7 @@ input.invalid {
 
 .add-task-overlay-container {
     background: #F6F7F8;
-    padding: 20px;
+    padding: 40px;
     border: none;
     width: 976.25px;
     border-radius: 30px;
