@@ -70,21 +70,21 @@
 }
 
 .close-btn {
-  display: flex;
   flex-direction: row;
   align-items: center;
   gap: 13px;
   background-color: transparent;
   border: none;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 19.2px;
+  height: 32px;
+  width: 32px;
+  color: #2A3647;
+  cursor: pointer;
 }
 
 .close-btn:hover {
-  background-color: lightgray;
+  border-radius: 50%;
+  background-color: #efeeee;
   cursor: pointer;
-  border-radius: 8px;
   background-size: cover;
 }
-
