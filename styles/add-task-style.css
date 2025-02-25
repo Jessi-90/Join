@@ -1,4 +1,4 @@
-body {
+/* body {
     font-family: "Inter", sans-serif;
     background-color: #F6F7F8;
     justify-content: center;
@@ -6,7 +6,7 @@ body {
     margin: 0;
     font-size: 20px;
     max-width: 1920px;
-}
+} */
 
 .container {
     position: absolute;
@@ -360,4 +360,42 @@ textarea::placeholder {
 input.invalid {
     border: 1px solid red;
     box-shadow: 0 0 2px rgba(255, 0, 0, 0.5);
+}
+
+.add-task-overlay {
+    backdrop-filter: brightness(0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100dvh;
+    width: 100dvw;
+    z-index: 1000;
+}
+
+.add-task-overlay-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.add-task-overlay-header h1 {
+    margin: 0;
+}
+
+.add-task-overlay-container {
+    background: #F6F7F8;
+    padding: 20px;
+    border: none;
+    width: 976.25px;
+    border-radius: 30px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.add-task-overlay-container.show {
+    transform: translateX(0);
 }

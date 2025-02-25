@@ -69,3 +69,22 @@
   cursor: pointer;
 }
 
+.close-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 13px;
+  background-color: transparent;
+  border: none;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19.2px;
+}
+
+.close-btn:hover {
+  background-color: lightgray;
+  cursor: pointer;
+  border-radius: 8px;
+  background-size: cover;
+}
+

@@ -1,59 +1,12 @@
-<!DOCTYPE html>
-<html lang="de">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Task</title>
-    <link rel="stylesheet" href="../styles/general-navbar-style.css">
-    <link rel="stylesheet" href="../styles/add-task-style.css">
-    <link rel="stylesheet" href="../styles/standard.css">
-    <link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg" type="image/svg+xml" />
-    <script src="../scripts/add_task-script.js"></script>
-</head>
-
-<body>
-    <div class="header">
-        <p class="headline-kanban">Kanban Project Management Tool</p>
-        
-    <div class="dropdown" id="dropdown">
-        <a href="help.html"> 
-            <img class="help-btn" src="../img/icon/help.png">
-        </a>
-        <button class="user-btn" id="userButton">☰</button>
-        <div class="dropdown-content" id="dropdownContent">
-            <a href="help.html">Help</a>
-            <a href="legal_notice.html">Legal Notice</a>
-            <a href="privacy_policy.html">Privacy Policy</a>
-            <a href="log_out.html">Log out</a>
+function showAddTaskOverlayHTMLTemplate() {
+    return `
+    <div class="add-task-overlay-container">
+        <div class="add-task-overlay-header">
+            <h1>Add Task</h1>
+            <button class="close-btn" onclick="closeAddTaskOverlay(event)">
+                <img src="../assets/icons/close_btn.svg" alt="close">
+            </button>
         </div>
-    </div>
-    <div class="navbar">
-        <img class="join-logo" src="../img/image/Capa 2 (2).svg">
-        <div class="summary-menu">
-            <a href="summary.html"> <button class="menu-summary-btn"><img src="../img/icon/Summary.svg"><span
-                        class="navbar-size">Summary</span></button></a>
-            <a href="add_task.html"> <button class="menu-summary-btn"><img src="../img/icon/edit_square.svg"><span
-                        class="navbar-size">Add Task</span></button></a>
-            <a href="board.html">
-                <button class="menu-summary-btn board-btn">
-                    <img src="../img/icon/Board.svg" alt="Board Icon">
-                    <span class="navbar-size">Board</span>
-                </button>
-            </a>
-            <a href="contacts.html"> <button class="menu-summary-btn"><img
-                        src="../img/icon/perm_contact_calendar.svg"><span
-                        class="navbar-size">Contacts</span></button></a>
-        </div>
-        <div class="summary-btn">
-            <a href="privacy_policy.html">Privacy Police</a>
-            <a href="legal_notice.html">Legal notice</a>
-        </div>
-    </div>
-
-    <div class="container">
-        <h1>Add Task</h1>
         <form>
             <div class="form-container">
                 <div class="form-column-left">
@@ -126,8 +79,8 @@
             </div>
 
             <div class="buttons">
-                <button type="reset" class="clear">Clear <img src="../img/icon/iconoir_cancel.svg"></button>
-                <button type="submit" class="create">Create Task <img src="../img/icon/check.svg"></button>
+                <button type="reset" class="btn-light">Clear <img src="../img/icon/iconoir_cancel.svg"></button>
+                <button type="submit" class="btn-dark">Create Task <img src="../img/icon/check.svg"></button>
             </div>
         </form>
 
@@ -136,6 +89,5 @@
             <p class="note">This field is required</p>
         </div>
     </div>
-</body>
-
-</html>
+    `;
+}
