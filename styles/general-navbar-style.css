@@ -56,19 +56,21 @@
     font-size: 16px;
     font-weight: 400;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .summary-btn a {
-    display: block; 
-    width: 100%; 
-    padding: 10px 0; 
+    display: block;
+    width: 100%;
+    padding: 10px 0;
     text-decoration: none;
     color: inherit;
 }
 
 .summary-btn a:hover {
-    background-color: #091931;
-   
+    color: #29ABE2;
+    transition: all 0.1s ease-in-out;
+    transform: scale(1.05);
 }
 
 a {
@@ -90,6 +92,7 @@ a {
     padding: 0px 20px;
     text-align: center;
     gap: 8px;
+    transition: background-color 0.2s ease-in-out;
 }
 
 .menu-summary-btn span {
@@ -104,12 +107,14 @@ a {
     display: block;
 }
 
-.menu-summary-btn :hover {
+.menu-summary-btn:active {
     background-color: #091931;
 }
 
-.summary-menu :hover {
-    background-color: #091931;
+.menu-summary-btn:hover {
+    background-color: #233b59;
+    height: 46px;
+    transform: translateY(-2px);
 }
 
 .summary-menu a {
@@ -122,9 +127,9 @@ a {
 
 .board-btn {
     display: flex;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
-    padding-right: 44px; 
+    padding-right: 44px;
 }
 
 .board-btn span {
