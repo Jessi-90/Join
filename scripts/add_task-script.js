@@ -58,21 +58,38 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
-
-    /**
-     * Clears all required input fields and removes validation errors when the clear button is clicked.
-     * - Selects all required input fields and the clear button.
-     * - When the clear button is clicked, all input fields are emptied.
-     * - Removes the "invalid" class from input fields.
-     * - Hides any displayed error messages.
-     */
-    clearButton.addEventListener("click", function () { // Clear-Button
-        inputFields.forEach(input => {
-            input.value = "";
-            input.classList.remove("invalid");
-            const errorMessage = input.closest(".form-group").querySelector(".error-message");
-            if (errorMessage) errorMessage.style.display = "none";
-        });
-    });
 });
 
+    /**
+ * Handles click events on the document and resets the form if the clicked element has the "clear-button" class.
+ *
+ * - Finds the closest form relative to the clicked button.
+ * - Prevents the default reset action.
+ * - Clears all validation error messages and removes the "invalid" class from input fields.
+ * - Logs a success message when the form is reset.
+ * - Logs an error if no form is found.
+ *
+ * @param {Event} event - The click event object.
+ */
+    document.addEventListener("click", function (event) {
+        if (event.target.classList.contains("clear-button")) { 
+            const form = event.target.closest("form"); 
+    
+            if (form) {
+                event.preventDefault();
+                form.reset();
+    
+                form.querySelectorAll(".error-message").forEach(error => {
+                    error.style.display = "none";
+                });
+    
+                form.querySelectorAll(".invalid").forEach(field => {
+                    field.classList.remove("invalid");
+                });
+    
+                console.log(`✅ Formular zurückgesetzt: ${form}`);
+            } else {
+                console.error("❌ Fehler: Kein zugehöriges Formular gefunden!");
+            }
+        }
+    });
