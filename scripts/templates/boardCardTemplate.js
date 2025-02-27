@@ -15,7 +15,7 @@
  * @param {string} task.assignedUser - The user to whom the task is assigned.
  * @returns {string} The generated HTML template for the board card.
  */
-function boardCardTemplate() {
+function boardCardTemplate(task) {
     return `
     <div class="card" id="${task.taskid}" draggable="true">
     <div class="card-header">

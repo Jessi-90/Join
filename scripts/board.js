@@ -13,8 +13,9 @@ let currentTasksData = [];
 /**
  * Initializes the application by fetching task data.
  */
-function init() {
-    fetchTasksData();
+async function init() {
+    await fetchTasksData();
+    renderTasks(currentTasksData);
 }
 
 /**
@@ -30,34 +31,28 @@ async function fetchTasksData() {
             throw new Error(`Status: ${databaseResponse.status}`);
         }
         let databaseResponseToJson = await databaseResponse.json();
-        currentTasksData = databaseResponseToJson.results;
-        console.log(databaseResponseToJson);
-        
+        currentTasksData = [databaseResponseToJson];
+        console.log(currentTasksData);
+
     } catch (error) {
         console.error("Error fetching data:", error);
+        currentTasksData = [];
     }
 }
 
-
 function renderTasks(tasks) {
-    const container = document.getElementById('tasks-container');
+    const container = document.getElementById('to-do');
     container.innerHTML = '';
-    tasks.forEach(task => {
-      
-        let taskHtml = `
-            <div class="task">
-                <h3>${task.category}: ${task.description}</h3>
-                <p>Task ID: ${task.taskid}</p>
-                <p>Assigned to: ${task.assignedUser}</p>
-                <p>Due Date: ${task.dueDate}</p>
-                <p>Priority: ${task.priority}</p>
-                <ul>
-                    ${task.subtasks.map(subtask => `
-                        <li>${subtask.title} - ${subtask.completed ? 'Completed' : 'Incomplete'}</li>
-                    `).join('')}
-                </ul>
-            </div>
-        `;
+
+    if (!tasks || tasks.length === 0) {
+        console.error('No tasks to render');
+        return;
+    }
+
+    for (let taskIndex = 0; taskIndex < currentTasksData.length; index++) {
+        let currentTask = currentTasksData[taskIndex].taskid1;
+        const taskHtml = boardCardTemplate(currentTask);
         container.innerHTML += taskHtml;
-    });
+        
+    }
 }
