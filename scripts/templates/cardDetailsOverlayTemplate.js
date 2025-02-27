@@ -1,3 +1,14 @@
+/**
+ * Generates an HTML template string for displaying task details in an overlay.
+ *
+ * @param {Object} task - The task object containing details.
+ * @param {string} task.category - The category of the task.
+ * @param {string} task.title - The title of the task.
+ * @param {string} task.description - A description of the task.
+ * @param {string} task.dueDate - The due date of the task.
+ * @param {string} task.priority - The priority level of the task.
+ * @returns {string} The HTML template as a string.
+ */
 function cardDetailsOverlayHTMLTemplate(task) {
     return `
         <div class="board-card-detail-container">
@@ -54,5 +65,4 @@ function cardDetailsOverlayHTMLTemplate(task) {
             </div>
         </div>
           `;
-
 }

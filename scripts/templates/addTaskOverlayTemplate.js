@@ -1,3 +1,8 @@
+/**
+ * Generates an HTML template string for displaying the Add Task overlay.
+ *
+ * @returns {string} The HTML template as a string.
+ */
 function showAddTaskOverlayHTMLTemplate() {
     return `
     <div class="add-task-overlay-container">
