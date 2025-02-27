@@ -13,12 +13,14 @@
     <link rel="stylesheet" href="../styles/general-navbar-style.css" />
     <link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg" type="image/svg+xml" />
+    <script src="../scripts/board.js" defer></script>
     <script src="../scripts/templates/addTaskOverlayTemplate.js" defer></script>
     <script src="../scripts/add_task-script.js" defer></script>
     <script src="../scripts/addTaskOverlayBoard.js" defer></script>
+    
 </head>
 
-<body>
+<body onload="init()">
     <div class="header">
         <p class="headline-kanban">Kanban Project Management Tool</p>
 
@@ -86,7 +88,7 @@
                     <div class="add-card">
                     </div>
                 </div>
-                <div class="card-container">
+                <div class="card-container" id="to-do">
                     <div class="empty-container-card">
                         <p>No tasks To do</p>
                     </div>
@@ -98,7 +100,7 @@
                     <div class="add-card">
                     </div>
                 </div>
-                <div class="card-container">
+                <div class="card-container" id="in-progress">
                     <div class="card" draggable="true">
                         <div class="card-header">
                             <span class="card-category user-story">User Story</span>
@@ -155,7 +157,7 @@
                     <div class="add-card">
                     </div>
                 </div>
-                <div class="card-container">
+                <div class="card-container" id="await-feedback">
                     <div class="card-container">
                         <div class="card" draggable="true">
                             <div class="card-header">
@@ -188,7 +190,7 @@
                 <div class="column-header">
                     <h2>Done</h2>
                 </div>
-                <div class="card-container">
+                <div class="card-container" id="done">
                     <div class="card" draggable="true">
                         <div class="card-header">
                             <span class="card-category user-story">User Story</span>
