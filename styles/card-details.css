@@ -1,0 +1,144 @@
+.board-card-detail-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .card-detail-title {
+    font-weight: 700;
+    font-size: 61px;
+    line-height: 73.2px;
+    max-width: 445px;
+  }
+  
+  .card-detail-description {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+  }
+  
+  .card-detail-list-title {
+    color: rgba(42, 54, 71, 1);
+  }
+  
+  .card-detail-due-date {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px;
+  }
+  
+  .card-detail-due-date p {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+  }
+  
+  .card-detail-priority {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 63px;
+  }
+  
+  .card-detail-priority p {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+  }
+  
+  .card-deatil-priority-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .card-detail-assignee {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .card-detail-assignee p {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+  }
+  
+  .card-detail-assignee-user {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 70px;
+    width: 100%;
+    padding-left: 20px;
+  }
+  
+  .card-deatil-assignee-content {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: center;
+    gap: 4px;
+    width: 445px;
+  }
+  
+  .card-detail-subtasks {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 445px;
+  }
+  
+  .card-detail-subtasks p {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+  }
+  
+  .card-deatil-subtasks-content {
+    display: flex;
+    flex-direction: column;
+    width: -webkit-fill-available;
+  }
+  
+  .card-deatil-subtasks-tasks {
+    display: -webkit-box;
+    padding-left: 30px;
+    gap: 16px;
+  }
+  
+  .card-detail-footer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      width: 100%;
+  }
+  
+  .card-detail-delete-btn {
+      background-image: url("../assets/icons/delete_contact.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      width: 81px;
+      height: 24px;
+  }
+  
+  .card-detail-delete-btn:hover {
+      background-image: url("../assets/icons/delete_contact_hover.svg");
+  }
+  
+  .card-detail-edit-btn {
+      background-image: url("../assets/icons/edit_contact.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      width: 62px;
+      height: 24px;
+  }
+  
+  .card-detail-edit-btn:hover {
+      background-image: url("../assets/icons/edit_contact_hover.svg");
+  }
