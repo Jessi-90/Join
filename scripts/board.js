@@ -37,3 +37,27 @@ async function fetchTasksData() {
         console.error("Error fetching data:", error);
     }
 }
+
+
+function renderTasks(tasks) {
+    const container = document.getElementById('tasks-container');
+    container.innerHTML = '';
+    tasks.forEach(task => {
+      
+        let taskHtml = `
+            <div class="task">
+                <h3>${task.category}: ${task.description}</h3>
+                <p>Task ID: ${task.taskid}</p>
+                <p>Assigned to: ${task.assignedUser}</p>
+                <p>Due Date: ${task.dueDate}</p>
+                <p>Priority: ${task.priority}</p>
+                <ul>
+                    ${task.subtasks.map(subtask => `
+                        <li>${subtask.title} - ${subtask.completed ? 'Completed' : 'Incomplete'}</li>
+                    `).join('')}
+                </ul>
+            </div>
+        `;
+        container.innerHTML += taskHtml;
+    });
+}
