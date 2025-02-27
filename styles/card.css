@@ -262,3 +262,38 @@
   padding-left: 30px;
   gap: 16px;
 }
+
+.card-detail-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    width: 100%;
+}
+
+.card-detail-delete-btn {
+    background-image: url("../assets/icons/delete_contact.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 81px;
+    height: 24px;
+}
+
+.card-detail-delete-btn:hover {
+    background-image: url("../assets/icons/delete_contact_hover.svg");
+}
+
+.card-detail-edit-btn {
+    background-image: url("../assets/icons/edit_contact.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 62px;
+    height: 24px;
+}
+
+.card-detail-edit-btn:hover {
+    background-image: url("../assets/icons/edit_contact_hover.svg");
+}
