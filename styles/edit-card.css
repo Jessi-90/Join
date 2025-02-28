@@ -69,3 +69,11 @@
     justify-content: flex-end;
     width: 100%;
 }
+
+#editCardDescription {
+    min-height: 120px;
+    max-height: 120px;
+    border: 1px solid rgba(209, 209, 209, 1);
+    border-radius: 10px;
+    padding: 18px 16px;
+}
