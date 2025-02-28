@@ -158,7 +158,7 @@ function renderContactDetail(contact) {
            <div class="contact-actions">
               <button class="edit-button">
               <img src="../assets/icons/edit.svg" alt="Edit" class="button-icon">Edit</button>
-              <button class="delete-button">
+              <button class="delete-button" onclick="showEditContactOverlay()">
               <img src="../assets/icons/delete.svg" alt="Delete" class="button-icon">Delete</button>
              </div>
             </div>
