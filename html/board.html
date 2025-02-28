@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../styles/add-task-style.css" />
     <link rel="stylesheet" href="../styles/general-navbar-style.css" />
     <link rel="stylesheet" href="../styles/card-details.css">
+    <link rel="stylesheet" href="../styles/edit-card.css">
     <link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg" type="image/svg+xml" />
     <script src="../scripts/templates/addTaskOverlayTemplate.js" defer></script>
@@ -220,7 +221,47 @@
       </div>
     </section>
     <section>
-      <div id="boardCardDetails" class="board-card-detail d-none" onclick="closeBoardCardDetails(event)"></div>
+      <div id="boardCardDetails" class="board-card-detail " onclick="closeBoardCardDetails(event)">
+        <div class="board-card-edit-container">
+            <div class="board-card-edit-header">
+                <button class="close-btn"><img src="../assets/icons/close_btn.svg" alt="close"/></button>
+            </div>
+            <div class="board-card-edit-content">
+                <label for="editCardTitle">Title</label>
+                <input type="text" name="editCardTitle" id="editCardTitle">
+                <label for="editCardDescription">Description</label>
+                <textarea name="editCardDescription" id="editCardDescription"></textarea>
+                <label for="editCardDate">Due Date</label>
+                <input type="date" name="editCardDate" id="editCardDate">
+                <div>
+                    <label for="editCardPriority">Priority</label>
+                    <select name="editCardPriority" id="editCardPriority">
+                        <option value="urgent">Urgent</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+                <label for="editCardAssignee">Assigned to</label>
+                <select name="editCardAssignee" id="editCardAssignee">
+                    <option value="user_1">User 1</option>
+                </select>
+                <div class="edit-card-users">
+                    <img src="../assets/icons/Profile badge1.svg" alt="User" class="user-avatar" />
+                    <img src="../assets/icons/Profile badge2.svg" alt="User" class="user-avatar" />
+                    <img src="../assets/icons/Profile badge3.svg" alt="User" class="user-avatar" />
+                </div>
+                <label for="editCardSubtasks">Subtasks</label>
+                <input type="text" name="editCardSubtasks" id="editCardSubtasks" placeholder="Add new subtask">
+                <div class="edit-card-subtasks-list">
+                    <p>- Implement Recipe Recommendation</p>
+                    <p>- Start Page Layout</p>
+                </div>
+            </div> 
+            <div class="card-edit-footer">
+                <button class="btn-dark">OK</button>
+            </div>
+        </div>
+      </div>
     </section>
   </body>
 </html>
