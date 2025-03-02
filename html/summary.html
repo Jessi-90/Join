@@ -10,90 +10,134 @@
     <link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml"/>
     <link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg" type="image/svg+xml"/>
     <script src="../scripts/general-navbarscript.js" defer></script>
+
 </head>
 
 <body>
-
-    <div class="layout">
-        <img src="../img/image/Frame 40.png">
-    </div>
-
-    <div class="to-do-dashboard">
-        <div class="dashboard">
-
-            <a href="board.html">
-                <div class="card-todo">
-
-
-                    <div class="card card-todo">
-                        <img class="card-pencil" src="../img/icon/pencil.svg">
-                        <div>
-                            <h1>1</h1>
-                            <p>To-do</p>
-                        </div>
-                    </div>
-            </a>
-
-
-            <a href="board.html">
-                <div class="card card-todo">
-                    <img class="card-ok" src="../img/icon/Frame 59.svg"> 
-
-                    <div>
-                        <h1>1</h1>
-                        <p>Done</p>
-                    </div>
+    <header>
+        <div class="header">
+            <p class="headline-kanban">Kanban Project Management Tool</p>
+            
+            <div class="dropdown" id="dropdown">
+                <a href="help.html"> 
+                    <img class="help-btn" src="../img/icon/help.png">
+                </a>
+                <button class="user-btn" id="userButton">☰</button>
+                <div class="dropdown-content" id="dropdownContent">
+                    <a href="help.html">Help</a>
+                    <a href="legal_notice.html">Legal Notice</a>
+                    <a href="privacy_policy.html">Privacy Policy</a>
+                    <a href="log_out.html">Log out</a>
                 </div>
-
-            </a>
+            </div>
+        </div>
+    </header>
+    <aside>
+        <div class="navbar">
+            <img class="join-logo" src="../img/image/Capa 2 (2).svg">
+            <div class="summary-menu">
+                <a href="summary.html"> <button class="menu-summary-btn"><img src="../img/icon/Summary.svg"><span
+                            class="navbar-size">Summary</span></button></a>
+                <a href="add_task.html"> <button class="menu-summary-btn"><img src="../img/icon/edit_square.svg"><span
+                            class="navbar-size">Add Task</span></button></a>
+                <a href="board.html">
+                    <button class="menu-summary-btn board-btn">
+                        <img src="../img/icon/Board.svg" alt="Board Icon">
+                        <span class="navbar-size">Board</span>
+                    </button>
+                </a>
+                <a href="contacts.html"> <button class="menu-summary-btn"><img
+                            src="../img/icon/perm_contact_calendar.svg"><span
+                            class="navbar-size">Contacts</span></button></a>
+            </div>
+            <div class="summary-btn">
+                <a href="privacy_policy.html">Privacy Police</a>
+                <a href="legal_notice.html">Legal notice</a>
+            </div>
+        </div>
+    </aside>
+    <main>
+        <div class="layout">
+            <img src="../img/image/Frame 40.png">
         </div>
 
+        <div class="to-do-dashboard">
+            <div class="dashboard">
 
-        <a href="board.html" class="card large-card">
-            <img class="urgent-img" src="../img/icon/Group 7 (2).svg">
-            <div class="urgent-box">
-                <h1>1</h1>
-                <p>Urgent</p>
-            </div>
-            <div class="urgent-info">
-                <p>October 16, 2022</p>
-                <p>Upcoming Deadline</p>
-            </div>
-        </a>
+                <a href="board.html">
+                    <div class="card-todo">
 
-        <div class="last-section">
-            <a href="board.html">
-                <div class="card">
-                    <div>
-                        <h1>5</h1>
-                        <p>Tasks in Board</p>
+
+                        <div class="card card-todo">
+                            <img class="card-pencil" src="../img/icon/pencil.svg">
+                            <div>
+                                <h1>1</h1>
+                                <p>To-do</p>
+                            </div>
+                        </div>
+                </a>
+
+
+                <a href="board.html">
+                    <div class="card card-todo">
+                        <img class="card-ok" src="../img/icon/Frame 59.svg"> 
+
+                        <div>
+                            <h1>1</h1>
+                            <p>Done</p>
+                        </div>
                     </div>
+
+                </a>
+            </div>
+
+
+            <a href="board.html" class="card large-card">
+                <img class="urgent-img" src="../img/icon/Group 7 (2).svg">
+                <div class="urgent-box">
+                    <h1>1</h1>
+                    <p>Urgent</p>
+                </div>
+                <div class="urgent-info">
+                    <p>October 16, 2022</p>
+                    <p>Upcoming Deadline</p>
                 </div>
             </a>
-            <a href="board.html">
-                <div class="card">
-                    <div>
-                        <h1>2</h1>
-                        <p>Tasks In Progress</p>
-                    </div>
-                </div>
-            </a>
-            <a href="board.html">
-                <div class="card">
-                    <div>
-                        <h1>2</h1>
-                        <p>Awaiting Feedback</p>
-                    </div>
-                </div>
-            </a>
-            </div>
-    </div>
 
-    <div class="greet">
-        <p class="greeting">Good morning,</p>
-        <p class="greeting-name" id="greetingName">Guest</p>
-    </div>
-    </div>
+            <div class="last-section">
+                <a href="board.html">
+                    <div class="card">
+                        <div>
+                            <h1>5</h1>
+                            <p>Tasks in Board</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="board.html">
+                    <div class="card">
+                        <div>
+                            <h1>2</h1>
+                            <p>Tasks In Progress</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="board.html">
+                    <div class="card">
+                        <div>
+                            <h1>2</h1>
+                            <p>Awaiting Feedback</p>
+                        </div>
+                    </div>
+                </a>
+                </div>
+        </div>
+
+        <div class="greet">
+            <p class="greeting">Good morning,</p>
+            <p class="greeting-name" id="greetingName">Guest</p>
+        </div>
+        </div>
+    </main>
 </body>
 
 </html>
