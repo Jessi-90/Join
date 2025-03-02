@@ -225,6 +225,13 @@ select:invalid:focus {
     outline: none !important;
 }
 
+input:focus,
+select:focus,
+textarea:focus {
+    border: 1px solid #5EC0E9 !important;
+    outline: none; 
+}
+
 input::placeholder,
 textarea::placeholder {
     color: #b0b0b0; 
@@ -398,4 +405,30 @@ input.invalid {
 
 .add-task-overlay-container.show {
     transform: translateX(0);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+.sk-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.subtask-buttons {
+    display: none;  /
+}
+
+.subtask-buttons button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0;
+}
+
+.subtask-input-wrapper.show-buttons .subtask-buttons {
+    display: flex;  
 }
