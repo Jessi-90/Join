@@ -221,3 +221,7 @@ a {
 .dropdown-content.show {
     display: block;
 }
+
+.active {
+    background-color: #091931;
+}
