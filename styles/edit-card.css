@@ -8,8 +8,8 @@
   padding: 48px 40px;
   gap: 24px;
   width: 525px;
-  /* transform: translateX(100%);
-    transition: transform 0.3s ease-in-out; */
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
 }
 
 .board-card-edit-container.show {
@@ -66,21 +66,21 @@
 }
 
 .edit-card-users {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 16px;
-    padding-top: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding-top: 8px;
 }
 
 .edit-card-subtasks-list {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 6px 16px;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 6px 16px;
+  gap: 12px;
 }
 
 ul {
@@ -92,10 +92,10 @@ li {
 }
 
 .card-edit-footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 .ok-btn {
@@ -108,9 +108,9 @@ li {
 }
 
 #editCardDescription {
-    min-height: 120px;
-    max-height: 120px;
-    border: 1px solid rgba(209, 209, 209, 1);
-    border-radius: 10px;
-    padding: 18px 16px;
+  min-height: 120px;
+  max-height: 120px;
+  border: 1px solid rgba(209, 209, 209, 1);
+  border-radius: 10px;
+  padding: 18px 16px;
 }
