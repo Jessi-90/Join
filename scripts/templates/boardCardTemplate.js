@@ -15,29 +15,40 @@
  * @param {string} task.assignedUser - The user to whom the task is assigned.
  * @returns {string} The generated HTML template for the board card.
  */
-function boardCardTemplate(task) {
+function boardCardTemplate(
+    taskId, 
+    category, 
+    title, 
+    description, 
+    progressPercentage, 
+    completedSubtasks, 
+    totalSubtasks, 
+    assignedUser, 
+    priority
+) {
     return `
-    <div class="card" id="${task.taskid}" draggable="true">
-    <div class="card-header">
-        <span class="card-category ${task.category}">${task.category}</span>
-    </div>
-    <h4 class="card-title">${task.title}</h4>
-    <p class="card-description">${task.description}</p>
-    <div class="card-subtasks-progress">
-        <div class="progress-container">
-            <div class="progress-bar">
+    <div class="card" id="${taskId}" draggable="true">
+        <div class="card-header">
+            <span class="card-category ${category}">${category}</span>
+        </div>
+        <h4 class="card-title">${title}</h4>
+        <p class="card-description">${description}</p>
+        <div class="card-subtasks-progress">
+            <div class="progress-container">
+                <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
+            </div>
+            <div class="task-counter">
+                ${completedSubtasks}/${totalSubtasks} Subtasks
             </div>
         </div>
-        <div class="task-counter">
-            1/2 Subtasks
+        <div class="card-footer">
+            <div class="user">
+                ${assignedUser}
+            </div>
+            <div class="priority ${priority}">
+                ${priority}
+            </div>
         </div>
     </div>
-    <div class="card-footer">
-        <div class="user">
-            ${task.assignedUser}
-        </div>
-        ${task.priority}
-    </div>
-</div>
-`
+    `;
 }
