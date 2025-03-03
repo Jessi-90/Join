@@ -2,17 +2,17 @@
  * Generates the HTML template for a board card based on the provided task data.
  * 
  * @function boardCardTemplate
- * @param {Object} task - The task object containing task data.
- * @param {number} task.taskid - The unique ID of the task.
- * @param {string} task.category - The category of the task (e.g., "User Story").
- * @param {string} task.title - The title of the task.
- * @param {string} task.description - The description of the task.
- * @param {Array<Object>} task.subtasks - An array of subtasks associated with the task.
- * @param {boolean} task.subtasks[].completed - The completion status of the subtask.
- * @param {string} task.subtasks[].title - The title of the subtask.
- * @param {string} task.dueDate - The due date of the task.
- * @param {string} task.priority - The priority level of the task (e.g., "Urgent").
- * @param {string} task.assignedUser - The user to whom the task is assigned.
+ * @param {string} taskId - The unique ID of the task.
+ * @param {string} category - The category of the task (e.g., "User Story").
+ * @param {string} title - The title of the task.
+ * @param {string} description - The truncated description of the task.
+ * @param {number} progressPercentage - The completion percentage of the subtasks.
+ * @param {number} completedSubtasks - The number of completed subtasks.
+ * @param {number} totalSubtasks - The total number of subtasks.
+ * @param {Array<Object>} assignedUsers - An array of assigned user objects.
+ * @param {string} assignedUsers[].firstName - The first name of the assigned user.
+ * @param {string} assignedUsers[].lastName - The last name of the assigned user.
+ * @param {string} priorityImage - The file path of the priority icon based on the task priority.
  * @returns {string} The generated HTML template for the board card.
  */
 function boardCardTemplate(
@@ -23,13 +23,13 @@ function boardCardTemplate(
     progressPercentage, 
     completedSubtasks, 
     totalSubtasks, 
-    assignedUser, 
-    priority
+    assignedUsers, 
+    priorityImage
 ) {
     return `
     <div class="card" id="${taskId}" draggable="true">
         <div class="card-header">
-            <span class="card-category ${category}">${category}</span>
+            <span class="card-category" id="category-task">${category}</span>
         </div>
         <h4 class="card-title">${title}</h4>
         <p class="card-description">${description}</p>
@@ -43,12 +43,14 @@ function boardCardTemplate(
         </div>
         <div class="card-footer">
             <div class="user">
-                ${assignedUser}
+                ${generateUserAvatars(assignedUsers)}
             </div>
-            <div class="priority ${priority}">
-                ${priority}
+            <div class="card-priority">
+                <img id="card-priority-img" src="${priorityImage}" alt="priority">
             </div>
         </div>
     </div>
     `;
 }
+
+

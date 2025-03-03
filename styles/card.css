@@ -1,5 +1,5 @@
 .board-wrapper {
-max-width: calc(1920px - 232px);
+    max-width: calc(1920px - 232px);
 }
 
 .board {
@@ -130,9 +130,15 @@ max-width: calc(1920px - 232px);
 }
 
 .user-avatar {
-    width: 40px;
-    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: white;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
+    border: 1.5px solid white;
     position: relative;
     z-index: 1;
     margin-left: -10px;
@@ -140,6 +146,10 @@ max-width: calc(1920px - 232px);
 
 .user-avatar:first-child {
     margin-left: 0;
+}
+
+.user-avatar.empty {
+    background-color: #ccc;
 }
 
 .empty-container-card {
@@ -153,3 +163,4 @@ max-width: calc(1920px - 232px);
     border: 1px dashed;
     border-radius: 10px;
 }
+
