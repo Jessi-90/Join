@@ -25,6 +25,11 @@
   top: 16px;
 }
 
+.board-card-edit-content-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
 .board-card-edit-content {
   display: flex;
   flex-direction: column;
@@ -32,8 +37,23 @@
   align-items: flex-start;
   width: calc(100% - 24px);
   height: 697px;
-  overflow: scroll;
-  scrollbar-width: 24px;
+  overflow-y: scroll;
+  padding-right: 24px;
+  margin-right: -24px;
+}
+
+.board-card-edit-content::-webkit-scrollbar {
+  width: 24px;
+}
+
+.board-card-edit-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 1);
+  border-radius: 8px;
+}
+
+.board-card-edit-content::-webkit-scrollbar-thumb {
+  background: rgba(168, 168, 168, 1);
+  border-radius: 8px;
 }
 
 .board-card-edit-content label {
