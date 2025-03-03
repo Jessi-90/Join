@@ -1,4 +1,51 @@
 /**
+ * Initializes the animation process after the page has fully loaded.
+ *
+ * This function waits for the page (`window`) to fully load all content (HTML, images, etc.).
+ * After a short delay (500ms), it starts the animation to move the logo from the center to the header.
+ */
+window.onload = () => {
+  const startLogo = document.getElementById('startLogo');
+  const targetLogo = document.getElementById('start-logo');
+
+  setTimeout(() => {
+      animateLogoToHeader(startLogo, targetLogo);
+  }, 500); 
+};
+
+/**
+ * Animates the logo from the center of the start screen to the position of the logo in the header.
+ *
+ * This function calculates the difference (delta) between the center position of the start logo
+ * (initially in the middle of the screen) and the target position in the header.
+ * It then applies a `transform` (translate + scale) to smoothly move and resize the logo.
+ *
+ * @param {HTMLElement} startLogo - The logo element that starts in the center of the screen.
+ * @param {HTMLElement} targetLogo - The logo element in the header that defines the target position and size.
+ */
+function animateLogoToHeader(startLogo, targetLogo) {
+  const targetRect = targetLogo.getBoundingClientRect();
+
+  const targetWidth = targetRect.width;
+  const targetHeight = targetRect.height;
+
+  const startCenterX = window.innerWidth / 2;
+  const startCenterY = window.innerHeight / 2;
+
+  const targetCenterX = targetRect.left + targetWidth / 2;
+  const targetCenterY = targetRect.top + targetHeight / 2;
+
+  const deltaX = targetCenterX - startCenterX;
+  const deltaY = targetCenterY - startCenterY;
+
+  startLogo.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${targetWidth / 274})`;
+
+  setTimeout(() => {
+      document.getElementById('startScreen').style.display = 'none';
+  }, 1600); 
+}
+
+/**
  * Handles the focus and blur events of the password input field.
  * - When the field is focused, it changes the icon to "eye closed".
  * - When the field loses focus, it toggles the cursor style.

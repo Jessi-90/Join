@@ -1,3 +1,52 @@
+.start-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: 1920px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    margin: 0 auto;
+}
+
+.start-logo {
+    position: fixed;
+    top: 56px;
+    left: calc(50% - 137px);
+    width: 274px;
+    height: 334.07px;
+    max-width: 1920px;
+    transition: transform 1.2s ease-in-out, width 1.2s ease-in-out, top 1.2s ease-in-out, left 1.2s ease-in-out;
+}
+
+@keyframes shrinkToLogo {
+    0% {
+        width: 274px;
+        height: 334.07px;
+    }
+
+    100% {
+        width: 100px;
+        top: 80px;
+        left: 77px;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.log-in-header #start-logo {
+    transition: all 0.3s ease;
+}
+
 .log-in-page {
     max-width: 1920px;
     margin: 0 auto;

@@ -4,19 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Log in</title>
-    <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./styles/standard.css" />
-    <link rel="stylesheet" href="./styles/assets.css" />
-    <link rel="stylesheet" href="./styles/log_in.css" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/assets.css" />
+    <link rel="stylesheet" href="../styles/log_in.css" />
     <link rel="icon" media="(prefers-color-scheme: light)" href="./assets/icons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" media="(prefers-color-scheme: dark)" href="./assets/icons/favicon-logo.svg" type="image/svg+xml" />
     <script src="../scripts/script.js"></script>
 </head>
 
   <body onclick="resetInputIcon()">
-    <div class="log-in-page">
+    
+    <div class="start-screen" id="startScreen">
+      <img src="./assets/img/Capa.svg" class="start-logo" id="startLogo" alt="Join_logo">
+  </div>
+    <div class="log-in-page" id="login-page">
       <div class="log-in-header">
-        <img src="./assets/img/Capa.svg" alt="Join_logo" />
+        <img src="./assets/img/Capa.svg" id="start-logo" alt="Join_logo" />
         <div class="link-to-sing-up-page">
           <p>Not a Join user?</p>
           <a href="./sign_up.html" class="btn-dark sign-up-btn"> Sign up </a>
