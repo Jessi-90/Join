@@ -98,6 +98,15 @@ li {
     width: 100%;
 }
 
+.ok-btn {
+  width: 89px;
+  padding: 16px;
+  gap: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #editCardDescription {
     min-height: 120px;
     max-height: 120px;
