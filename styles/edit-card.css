@@ -63,6 +63,14 @@
     gap: 12px;
 }
 
+ul {
+  padding: 6px 16px;
+}
+
+li {
+  padding-bottom: 12px;
+}
+
 .card-edit-footer {
     display: flex;
     align-items: center;
