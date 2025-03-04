@@ -111,6 +111,16 @@ a {
     background-color: #091931;
 }
 
+.menu-summary-btn.active {
+    pointer-events: none;
+    cursor: default !important;
+}
+
+a.active,
+a.active .menu-summary-btn {
+  cursor: default !important;
+}
+
 .menu-summary-btn:hover {
     background-color: #233b59;
     height: 46px;
