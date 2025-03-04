@@ -88,3 +88,22 @@
   cursor: pointer;
   background-size: cover;
 }
+
+.button-dark-large {
+  width: 356px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  background-color: rgba(42, 54, 71, 1);
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 21px;
+  padding: 15px 24px 15px 24px;
+  transition: all 125ms;
+  align-items: center;
+  gap: 16px;
+}
