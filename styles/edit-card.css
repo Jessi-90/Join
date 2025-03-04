@@ -1,0 +1,124 @@
+.board-card-edit-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 30px;
+  padding: 48px 40px;
+  gap: 24px;
+  width: 525px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.board-card-edit-container.show {
+  transform: translateX(0);
+}
+
+.board-card-edit-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  position: sticky;
+  top: 16px;
+}
+
+.board-card-edit-content-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.board-card-edit-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: calc(100% - 24px);
+  height: 697px;
+  overflow-y: scroll;
+  padding-right: 24px;
+  margin-right: -24px;
+}
+
+.board-card-edit-content::-webkit-scrollbar {
+  width: 24px;
+}
+
+.board-card-edit-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 1);
+  border-radius: 8px;
+}
+
+.board-card-edit-content::-webkit-scrollbar-thumb {
+  background: rgba(168, 168, 168, 1);
+  border-radius: 8px;
+}
+
+.board-card-edit-content label {
+  color: rgba(42, 54, 71, 1);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  padding-bottom: 8px;
+  padding-top: 20px;
+}
+
+.edit-card-users {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+.edit-card-subtasks-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 6px 16px;
+  gap: 12px;
+}
+
+ul {
+  padding: 6px 16px;
+}
+
+li {
+  padding-bottom: 12px;
+}
+
+li:hover {
+  cursor: pointer;
+  background-color: #efeeee;
+  background-size: cover;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.card-edit-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.ok-btn {
+  width: 89px;
+  padding: 16px;
+  gap: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#editCardDescription {
+  min-height: 120px;
+  max-height: 120px;
+  border: 1px solid rgba(209, 209, 209, 1);
+  border-radius: 10px;
+  padding: 18px 16px;
+}

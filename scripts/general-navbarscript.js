@@ -1,40 +1,74 @@
+/**
+ * Waits until the DOM is loaded and sets the `active` class for the current page in the navigation.
+ * Additionally, ensures that user buttons and dropdowns are correctly initialized.
+ */
 document.addEventListener("DOMContentLoaded", function () {
-    const header = document.querySelector(".header");
+  let currentPage = window.location.pathname.split("/").pop();
+  const header = document.querySelector(".header");
+  const userButton = document.getElementById("userButton");
+  const dropdownContent = document.getElementById("dropdownContent");
+  let menuLinks = document.querySelectorAll(".summary-menu a");
+  let footerLinks = document.querySelectorAll(".summary-btn a");
 
-    
-    const dropdownHTML = `
-        <div class="dropdown">
-        <a href="help.html"> <img class="help-btn" src="../img/icon/help.png"></a>
-            <button class="user-btn" id="userButton">☰</button>
-            <div class="dropdown-content" id="dropdownContent">
-                <a href="help.html">Help</a>
-                <a href="legal_notice.html">Legal Notice</a>
-                <a href="privacy_policy.html">Privacy Policy</a>
-                <a href="log_out.html">Log out</a>
-            </div>
-        </div>
-    `;
+  /**
+   * Adds the `active` class to the appropriate navigation link and removes it from others.
+   *
+   * @param {NodeList} links - The collection of links to be checked.
+   * @param {string} className - The class to be set for the active link.
+   */
+  function updateActiveLink(links, className) {
+    links.forEach((link) => {
+      let linkPage = link.getAttribute("href").split("/").pop();
 
-    
-    header.insertAdjacentHTML("beforeend", dropdownHTML);
+      if (linkPage === currentPage) {
+        link.classList.add(className);
+        let button = link.querySelector(".menu-summary-btn");
+        if (button) button.classList.add(className);
+      }
 
-    
-    const userButton = document.getElementById("userButton");
-    const dropdownContent = document.getElementById("dropdownContent");
-
-   
-    function toggleDropdown(event) {
-        event.stopPropagation(); 
-        dropdownContent.classList.toggle("show");
-    }
-
-   
-    userButton.addEventListener("click", toggleDropdown);
-
-
-    window.addEventListener("click", function (event) {
-        if (!event.target.closest(".dropdown")) {
-            dropdownContent.classList.remove("show");
-        }
+      link.addEventListener("click", function () {
+        links.forEach((l) => {
+          l.classList.remove(className);
+          let btn = l.querySelector(".menu-summary-btn");
+          if (btn) btn.classList.remove(className);
+        });
+        this.classList.add(className);
+        let button = this.querySelector(".menu-summary-btn");
+        if (button) button.classList.add(className);
+      });
     });
+  }
+
+  // Applies the `active` class to menu and footer links
+  updateActiveLink(menuLinks, "active");
+  updateActiveLink(footerLinks, "active");
+
+  // Checks if the user button and dropdown element exist
+  if (!userButton || !dropdownContent) {
+    console.error("User button or dropdown content not found!");
+    return;
+  }
+
+  /**
+   * Toggles the visibility of the dropdown menu.
+   *
+   * @param {Event} event - The click event.
+   */
+  function toggleDropdown(event) {
+    event.stopPropagation();
+    dropdownContent.classList.toggle("show");
+  }
+
+  userButton.addEventListener("click", toggleDropdown);
+
+  /**
+   * Closes the dropdown menu when clicking outside of it.
+   *
+   * @param {Event} event - The click event.
+   */
+  window.addEventListener("click", function (event) {
+    if (!event.target.closest(".dropdown")) {
+      dropdownContent.classList.remove("show");
+    }
+  });
 });
