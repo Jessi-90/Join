@@ -1,4 +1,9 @@
-function cardDetailsEditOverlayHTMLTemplate(task) {
+/**
+ * Generates an HTML template string for displaying the Edit Task overlay.
+ *
+ * @returns {string} The HTML template as a string.
+ */
+function cardDetailsEditOverlayHTMLTemplate() {
     return `
     <div class="board-card-edit-container">
             <div class="board-card-edit-header">
