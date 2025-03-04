@@ -1,86 +1,105 @@
 body {
-    max-width: 1920px;
+  max-width: 1920px;
 }
 
 h1 {
-    font-size: 61px;
-    font-weight: 700;
-    color: rgba(0, 0, 0, 1);
-    margin: 0 0 0 64px;
+  font-size: 61px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 1);
+  margin: 0 0 0 64px;
 }
 
 .top-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 79.5px 79.5px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 79.5px 79.5px 0 0;
 }
 
 .search-and-add {
-    display: flex;
-    align-items: center;
-    gap: 32px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
 }
 
 .search-input {
-    position: relative;
-    display: flex;
+  position: relative;
+  display: flex;
 }
 
 .search-input input {
-    height: 45px;
-    width: 312px;
-    border: 1px solid rgba(209, 209, 209, 1);
-    border-radius: 10px;
-    padding: 16px 64px 16px 16px;
-    font-weight: 400;
-    font-size: 20px;
+  height: 45px;
+  width: 312px;
+  border: 1px solid rgba(209, 209, 209, 1);
+  border-radius: 10px;
+  padding: 16px 64px 16px 16px;
+  font-weight: 400;
+  font-size: 20px;
 }
 
 .search-input input:focus {
-    border-color: rgba(41, 171, 226, 1);
-    outline: none;
+  border-color: rgba(41, 171, 226, 1);
+  outline: none;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 
 .search-input-icons {
-    position: absolute;
-    right: 16px;
-    display: flex;
-    height: 45px;
-    gap: 16px;
-    align-items: center;
-    justify-content: flex-end;
-    z-index: 1;
+  position: absolute;
+  right: 16px;
+  display: flex;
+  height: 45px;
+  gap: 16px;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 1;
 }
 
 .search-btn-container {
-    position: relative;
+  position: relative;
 }
 
 .search-btn:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .search-btn-container:hover::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 30px;
-    height: 30px;
-    background-color: #E2E6EC;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  background-color: #e2e6ec;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
 }
 
 .add-task-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px 8px 16px !important;
+}
+
+#boardCardDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.board-card-detail-container {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px 8px 16px !important;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 30px;
+    padding: 48px 40px;
+    gap: 24px;
 }
