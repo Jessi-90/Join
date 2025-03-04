@@ -1,10 +1,10 @@
 /**
  * Function to show the Edit Card Details Overlay and animate the appearance with a delay.
  */
-function showBoardCardDetailsEdit(taskId) {
+function showBoardCardDetailsEdit() {
     let boardCardOverlayRef = document.getElementById('boardCardDetails');
     boardCardOverlayRef.innerHTML = "";
-    boardCardOverlayRef.innerHTML += cardDetailsEditOverlayHTMLTemplate(taskId);
+    boardCardOverlayRef.innerHTML += cardDetailsEditOverlayHTMLTemplate();
     boardCardOverlayRef.classList.remove('d-none');
     setTimeout(() => {
         let overlayContainerRef = document.querySelector('.board-card-edit-container');
