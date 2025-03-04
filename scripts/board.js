@@ -14,7 +14,7 @@ let currentTasksData;
  * The maximum length of the task description before truncating.
  * @type {number}
  */
-let maxLengthTaskDescription = 30;
+let maxLengthTaskDescription = 50;
 
 /**
  * Initializes the application by fetching task data.
@@ -38,8 +38,6 @@ async function fetchTasksData() {
         }
 
         currentTasksData = await databaseResponse.json();
-        console.log(currentTasksData);
-        
 
     } catch (error) {
         console.error("Error fetching data:", error);
@@ -48,40 +46,84 @@ async function fetchTasksData() {
 }
 
 /**
- * Renders a list of tasks onto the Kanban board.
- * 
- * This function clears the task container and iterates through the provided task object.
- * It calculates the progress of subtasks, generates the task HTML, and inserts it into the DOM.
- * 
+ * Renders all tasks onto the Kanban board.
+ *
+ * This function first clears all task containers and then iterates through the provided task object.
+ * Each task (except the "counter" key) is passed to `renderTask` for rendering.
+ *
  * @param {Object} tasks - An object containing task data, where each key (except "counter") represents a task ID.
- * @param {Object} tasks[].subtasks - An object containing subtasks, where keys are subtask IDs.
+ * @param {Object} tasks[].subtasks - An array of subtasks related to the task.
  * @param {boolean} tasks[].subtasks[].completed - Indicates whether a subtask is completed.
- * @param {string} [tasks[].category='No Category'] - The category of the task.
- * @param {string} [tasks[].title='Untitled Task'] - The title of the task.
- * @param {string} [tasks[].description='No description'] - The description of the task.
- * @param {string} [tasks[].assignedUser='Unassigned'] - The user assigned to the task.
- * @param {string} [tasks[].priority='No Priority'] - The priority level of the task.
+ * @param {string} tasks[].category - The category of the task.
+ * @param {string} tasks[].title - The title of the task.
+ * @param {string} tasks[].description - The description of the task.
+ * @param {string[]} tasks[].assignedUsers - An array of user IDs assigned to the task.
+ * @param {string} tasks[].priority - The priority level of the task.
+ * @param {number} tasks[].status - The status of the task (1 = to-do, 2 = in-progress, 3 = await-feedback, 4 = done).
  */
 function renderTasks(tasks) {
-    let container = document.getElementById('to-do');
-    container.innerHTML = '';
-
-    if (!tasks || Object.keys(tasks).length === 0) {
-        console.error('No tasks to render');
-        return;
-    }
+    clearAllContainers();
 
     for (let taskId in tasks) {
         if (taskId !== 'counter') {
-            let currentTask = tasks[taskId];
-            let { completedSubtasks, totalSubtasks } = countSubtasks(currentTask.subtasks);
-            let progressPercentage = calculateSubtaskProgress(completedSubtasks, totalSubtasks);
-            let taskHtml = generateTaskHtml(taskId, currentTask, progressPercentage, completedSubtasks, totalSubtasks);
-
-            container.innerHTML += taskHtml;
-            updateCategoryClass(taskId, currentTask.category);
+            renderTask(taskId, tasks[taskId]);
         }
     }
+}
+
+/**
+ * Renders a single task into the appropriate container.
+ *
+ * @param {string} taskId - The ID of the task.
+ * @param {Object} task - The task object containing details.
+ */
+function renderTask(taskId, task) {
+    let container = getContainerByStatus(task.status);
+    let { completedSubtasks, totalSubtasks, progressPercentage } = handleSubtaskProcess(task.subtasks);
+    let taskHtml = generateTaskHtml(taskId, task, progressPercentage, completedSubtasks, totalSubtasks);
+
+    container.innerHTML += taskHtml;
+    updateCategoryClass(taskId, task.category);
+    generateUserAvatars(task.assignedUsers, taskId);
+}
+
+/**
+ * Calculates the progress of a task based on its subtasks.
+ *
+ * @param {Array} subtasks - The list of subtasks.
+ * @returns {Object} An object containing completedSubtasks, totalSubtasks, and progressPercentage.
+ */
+function handleSubtaskProcess(subtasks) {
+    let { completedSubtasks, totalSubtasks } = countSubtasks(subtasks);
+    let progressPercentage = calculateSubtaskProgress(completedSubtasks, totalSubtasks);
+    return { completedSubtasks, totalSubtasks, progressPercentage };
+}
+
+/**
+ * Clears all task containers on the board.
+ */
+function clearAllContainers() {
+    ['to-do', 'in-progress', 'await-feedback', 'done'].forEach(id => {
+        let container = document.getElementById(id);
+        if (container) container.innerHTML = '';
+    });
+}
+
+/**
+ * Retrieves the corresponding container element based on the task status.
+ *
+ * @param {number} status - The status of the task (1 = to-do, 2 = in-progress, 3 = await-feedback, 4 = done).
+ * @returns {HTMLElement} The corresponding container element.
+ */
+function getContainerByStatus(status) {
+    let statusMap = {
+        1: 'to-do',
+        2: 'in-progress',
+        3: 'await-feedback',
+        4: 'done'
+    };
+
+    return document.getElementById(statusMap[status]);
 }
 
 /**
@@ -137,7 +179,6 @@ function generateTaskHtml(taskId, task, progressPercentage, completedSubtasks, t
         progressPercentage,
         completedSubtasks,
         totalSubtasks,
-        task.assignedUsers || 'Unassigned',
         priorityImage
     );
 }
@@ -182,11 +223,10 @@ function truncateTaskDescription(text) {
  * @returns {string} - The initials (e.g., "JD" for "John Doe").
  */
 function getInitials(name) {
-    if (!name) return "??"; // Falls kein Name vorhanden ist
     let nameParts = name.split(" ");
-    let initials = nameParts[0].charAt(0).toUpperCase(); // Erster Buchstabe des Vornamens
+    let initials = nameParts[0].charAt(0).toUpperCase();
     if (nameParts.length > 1) {
-        initials += nameParts[1].charAt(0).toUpperCase(); // Erster Buchstabe des Nachnamens
+        initials += nameParts[1].charAt(0).toUpperCase();
     }
     return initials;
 }
@@ -214,19 +254,20 @@ function getColorForName(name) {
  * @param {string[]} users - An array of user names.
  * @returns {string} - HTML string for user avatars.
  */
-function generateUserAvatars(users) {
+function generateUserAvatars(users, id) {
+    let userIcons = document.getElementById(`user-icons-${id}`);
+
     if (!users || users.length === 0) {
-        return '<div class="user-avatar empty">?</div>'; // Falls keine Benutzer zugewiesen sind
+        userIcons.innerHTML = "";
+
+    } else {
+        users.map(user => {
+            let initials = getInitials(user);
+            let bgColor = getColorForName(user);
+            userIcons.innerHTML += `<div class="user-avatar" style="background-color: ${bgColor};">${initials}</div>`
+        });
     }
-
-    return users.map(user => {
-        let initials = getInitials(user);
-        let bgColor = getColorForName(user);
-        return `<div class="user-avatar" style="background-color: ${bgColor};">${initials}</div>`;
-    }).join("");
 }
-
-
 
 /**
  * Returns the corresponding image path based on the task priority.

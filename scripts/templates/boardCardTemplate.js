@@ -22,8 +22,7 @@ function boardCardTemplate(
     description, 
     progressPercentage, 
     completedSubtasks, 
-    totalSubtasks, 
-    assignedUsers, 
+    totalSubtasks,
     priorityImage
 ) {
     return `
@@ -42,8 +41,7 @@ function boardCardTemplate(
             </div>
         </div>
         <div class="card-footer">
-            <div class="user">
-                ${generateUserAvatars(assignedUsers)}
+            <div id="user-icons-${taskId}" class="user">
             </div>
             <div class="card-priority">
                 <img id="card-priority-img" src="${priorityImage}" alt="priority">
