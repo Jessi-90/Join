@@ -1,34 +1,36 @@
 .help-body-wrapper {
-    margin: 79.5px 135.5px 0 64px;
+    margin: 179.2px 135.5px 0 64px;
 }
 
 .top-bar {
+    position: absolute;
+    top: 175.49px;
+    width: calc(100% - 431.5px);
+    height: 100vh;
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
 h1 {
     font-size: 61px;
     font-weight: 700;
-    margin: 0 0 30px 0;
     color: rgba(0, 0, 0, 1);
 }
 
 .back-btn-container {
-    position: relative;
+    position: sticky;
+    top: 50px;
+    width: 24px;
+    margin: 30.5px 0 0 0;
 }
 
 .back-btn {
-    width: 24px;
     height: 20.74px;
     background-image: url('../assets/icons/go-back.svg');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: right;
     cursor: pointer;
-    position: sticky;
-    top: 50px;
     width: 100%;
 }
 
