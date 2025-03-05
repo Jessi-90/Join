@@ -2,8 +2,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     max-width: 1920px;
     background-color: white;
     display: flex;
@@ -11,6 +11,15 @@
     align-items: center;
     z-index: 100;
     margin: 0 auto;
+    pointer-events: none;
+    transition: background-color 1s ease-in-out, opacity 1s ease-in-out; 
+}
+
+.start-screen.transparent {
+    background-color: transparent; 
+    pointer-events: none; 
+    opacity: 0;
+    z-index: 0;
 }
 
 .start-logo {
@@ -20,6 +29,7 @@
     width: 274px;
     height: 334.07px;
     max-width: 1920px;
+    z-index: 101;
     transition: transform 1.2s ease-in-out, width 1.2s ease-in-out, top 1.2s ease-in-out, left 1.2s ease-in-out;
 }
 
@@ -106,6 +116,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
+    opacity: 0; 
+    z-index: 10;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.log-in-content.visible {
+    opacity: 1; 
 }
 
 .log-in-wrapper {

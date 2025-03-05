@@ -7,10 +7,15 @@
 window.onload = () => {
   const startLogo = document.getElementById('startLogo');
   const targetLogo = document.getElementById('start-logo');
+  const startScreen = document.getElementById('startScreen');
+  const mainContent = document.querySelector('.log-in-content');
 
   setTimeout(() => {
-      animateLogoToHeader(startLogo, targetLogo);
-  }, 500); 
+    mainContent.classList.add('visible');
+    startScreen.classList.add('fade-out');
+   
+    animateLogoToHeader(startLogo, targetLogo);
+}, 300);
 };
 
 /**
@@ -41,8 +46,8 @@ function animateLogoToHeader(startLogo, targetLogo) {
   startLogo.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${targetWidth / 274})`;
 
   setTimeout(() => {
-      document.getElementById('startScreen').style.display = 'none';
-  }, 1600); 
+    startScreen.style.display = 'none';
+  }, 1200);
 }
 
 /**
