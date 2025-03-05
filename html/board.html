@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="../styles/edit-card.css">
     <link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg" type="image/svg+xml" />
+    <script src="../scripts/board.js" defer></script>
+    <script src="../scripts/templates/boardCardTemplate.js" defer></script>
     <script src="../scripts/templates/addTaskOverlayTemplate.js" defer></script>
     <script src="../scripts/templates/cardDetailsEditOverlayTemplate.js" defer></script>
     <script src="../scripts/add_task-script.js" defer></script>
@@ -21,205 +23,120 @@
     <script src="../scripts/boardCardDetails.js" defer></script>
     <script src="../scripts/boardCardDetailsEdit.js" defer></script>
     <script src="../scripts/templates/cardDetailsOverlayTemplate.js"></script>
-    <script src="../scripts/templates/addTaskOverlayTemplate.js"></script>
     <script src="../scripts/general-navbarscript.js" defer></script>
+</head>
 
-  </head>
-    
-  <body>
+<body onload="init()">
     <div class="header">
-      <p class="headline-kanban">Kanban Project Management Tool</p>
+        <p class="headline-kanban">Kanban Project Management Tool</p>
 
-      <div class="dropdown" id="dropdown">
-        <a href="help.html">
-          <img class="help-btn" src="../img/icon/help.png" />
-        </a>
-        <button class="user-btn" id="userButton">☰</button>
-        <div class="dropdown-content" id="dropdownContent">
-          <a href="help.html">Help</a>
-          <a href="legal_notice.html">Legal Notice</a>
-          <a href="privacy_policy.html">Privacy Policy</a>
-          <a href="log_out.html">Log out</a>
+        <div class="dropdown" id="dropdown">
+            <a href="help.html">
+                <img class="help-btn" src="../img/icon/help.png">
+            </a>
+            <button class="user-btn" id="userButton">☰</button>
+            <div class="dropdown-content" id="dropdownContent">
+                <a href="help.html">Help</a>
+                <a href="legal_notice.html">Legal Notice</a>
+                <a href="privacy_policy.html">Privacy Policy</a>
+                <a href="log_out.html">Log out</a>
+            </div>
         </div>
-      </div>
     </div>
     <div class="navbar">
-      <img class="join-logo" src="../img/image/Capa 2 (2).svg" />
-      <div class="summary-menu">
-        <a href="summary.html">
-          <button class="menu-summary-btn">
-            <img src="../img/icon/Summary.svg" /><span class="navbar-size">Summary</span>
-          </button></a
-        >
-        <a href="add_task.html">
-          <button class="menu-summary-btn">
-            <img src="../img/icon/edit_square.svg" /><span class="navbar-size">Add Task</span>
-          </button></a
-        >
-        <a href="board.html">
-          <button class="menu-summary-btn board-btn">
-            <img src="../img/icon/Board.svg" alt="Board Icon" />
-            <span class="navbar-size">Board</span>
-          </button>
-        </a>
-        <a href="contacts.html">
-          <button class="menu-summary-btn">
-            <img src="../img/icon/perm_contact_calendar.svg" /><span class="navbar-size">Contacts</span>
-          </button></a
-        >
-      </div>
-      <div class="summary-btn">
-        <a href="privacy_policy.html">Privacy Police</a>
-        <a href="legal_notice.html">Legal notice</a>
-      </div>
+        <img class="join-logo" src="../img/image/Capa 2 (2).svg">
+        <div class="summary-menu">
+            <a href="summary.html"> <button class="menu-summary-btn"><img src="../img/icon/Summary.svg"><span
+                        class="navbar-size">Summary</span></button></a>
+            <a href="add_task.html"> <button class="menu-summary-btn"><img src="../img/icon/edit_square.svg"><span
+                        class="navbar-size">Add Task</span></button></a>
+            <a href="board.html">
+                <button class="menu-summary-btn board-btn">
+                    <img src="../img/icon/Board.svg" alt="Board Icon">
+                    <span class="navbar-size">Board</span>
+                </button>
+            </a>
+            <a href="contacts.html"> <button class="menu-summary-btn"><img
+                        src="../img/icon/perm_contact_calendar.svg"><span
+                        class="navbar-size">Contacts</span></button></a>
+        </div>
+        <div class="summary-btn">
+            <a href="privacy_policy.html">Privacy Police</a>
+            <a href="legal_notice.html">Legal notice</a>
+        </div>
     </div>
     <main class="board-wrapper">
-      <section class="top-bar">
-        <h1>Board</h1>
-        <div class="search-and-add">
-          <div class="search-input">
-            <input type="search" placeholder="Find Task" />
-            <div class="search-input-icons">
-              <img
-                class="vertical-separator"
-                src="../assets/icons/vertical-line-search-input.svg"
-                alt="vertical-line"
-              />
-              <div class="search-btn-container">
-                <img class="search-btn" src="../assets/icons/search.svg" alt="search-btn" />
-              </div>
+        <section class="top-bar">
+            <h1>Board</h1>
+            <div class="search-and-add">
+                <div class="search-input">
+                    <input type="search" placeholder="Find Task" />
+                    <div class="search-input-icons">
+                        <img class="vertical-separator" src="../assets/icons/vertical-line-search-input.svg"
+                            alt="vertical-line" />
+                        <div class="search-btn-container">
+                            <img class="search-btn" src="../assets/icons/search.svg" alt="search-btn" />
+                        </div>
+                    </div>
+                </div>
+                <div class="#">
+                    <button class="btn-dark add-task-btn" onclick="showAddTaskOverlay()">
+                        Add task
+                        <img src="../assets/icons/add-plus-symbol.svg" alt="add-plus-symbol" />
+                    </button>
+                </div>
             </div>
-          </div>
-          <div class="#">
-            <button class="btn-dark add-task-btn" onclick="showAddTaskOverlay()">
-              Add task
-              <img src="../assets/icons/add-plus-symbol.svg" alt="add-plus-symbol" />
-            </button>
-          </div>
-        </div>
-      </section>
-      <section class="board">
-        <div class="column" id="todo">
-          <div class="column-header">
-            <h2>To do</h2>
-            <div class="add-card"></div>
-          </div>
-          <div class="card-container">
-            <div class="empty-container-card">
-              <p>No tasks To do</p>
+        </section>
+        <section class="board">
+            <div class="column" id="to-do-column">
+                <div class="column-header">
+                    <h2>To do</h2>
+                    <div class="add-card">
+                    </div>
+                </div>
+                <div class="card-container" id="to-do">
+                    <div class="empty-container-card">
+                        <p>No tasks To do</p>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="column" id="in-progress">
-          <div class="column-header">
-            <h2>In progress</h2>
-            <div class="add-card"></div>
-          </div>
-          <div class="card-container">
-            <div class="card" draggable="true" onclick="showBoardCardDetails()">
-              <div class="card-header">
-                <span class="card-category user-story">User Story</span>
-              </div>
-              <h4 class="card-title">Kochwelt Page & Recipe Recommender</h4>
-              <p class="card-description">Build start page with recipe recommendation</p>
-              <div class="card-subtasks-progress">
-                <div class="progress-container">
-                  <div class="progress-bar"></div>
+            <div class="column" id="in-progress-column">
+                <div class="column-header">
+                    <h2>In progress</h2>
+                    <div class="add-card">
+                    </div>
                 </div>
-                <div class="task-counter">1/2 Subtasks</div>
-              </div>
-              <div class="card-footer">
-                <div class="user">
-                  <img src="../assets/icons/Profile badge1.svg" alt="User" class="user-avatar" />
-                  <img src="../assets/icons/Profile badge2.svg" alt="User" class="user-avatar" />
-                  <img src="../assets/icons/Profile badge3.svg" alt="User" class="user-avatar" />
+                <div class="card-container" id="in-progress">
+                    <div class="empty-container-card">
+                        <p>No tasks To do</p>
+                    </div>
                 </div>
-                <img class="card-priority" src="../assets/icons/Priority-normal.svg" alt="priority" />
-              </div>
             </div>
-            <div class="card" draggable="true" onclick="showBoardCardDetails()">
-              <div class="card-header">
-                <span class="card-category user-story">User Story</span>
-              </div>
-              <h4 class="card-title">Kochwelt Page & Recipe Recommender</h4>
-              <p class="card-description">Build start page with recipe recommendation</p>
-              <div class="card-subtasks-progress">
-                <div class="progress-container">
-                  <div class="progress-bar"></div>
+            <div class="column" id="await-feedback-column">
+                <div class="column-header">
+                    <h2>Await feedback</h2>
+                    <div class="add-card">
+                    </div>
                 </div>
-                <div class="task-counter">1/2 Subtasks</div>
-              </div>
-              <div class="card-footer">
-                <div class="user">
-                  <img src="../assets/icons/Profile badge1.svg" alt="User" class="user-avatar" />
-                  <img src="../assets/icons/Profile badge2.svg" alt="User" class="user-avatar" />
-                  <img src="../assets/icons/Profile badge3.svg" alt="User" class="user-avatar" />
+                <div class="card-container" id="await-feedback">
+                    <div class="card-container">
+                        <div class="empty-container-card">
+                            <p>No tasks To do</p>
+                        </div>
+                    </div>
                 </div>
-                <img class="card-priority" src="../assets/icons/Priority-normal.svg" alt="priority" />
-              </div>
             </div>
-          </div>
-        </div>
-        <div class="column" id="await-feedback">
-          <div class="column-header">
-            <h2>Await feedback</h2>
-            <div class="add-card"></div>
-          </div>
-          <div class="card-container">
-            <div class="card-container">
-              <div class="card" draggable="true" onclick="showBoardCardDetails()">
-                <div class="card-header">
-                  <span class="card-category technical-task">Techincal Task</span>
+            <div class="column" id="done-column">
+                <div class="column-header">
+                    <h2>Done</h2>
                 </div>
-                <h4 class="card-title">HTML Base Template Creation</h4>
-                <p class="card-description">Create reusable HTML base templates</p>
-                <div class="card-subtasks-progress">
-                  <div class="progress-container">
-                    <div class="progress-bar"></div>
-                  </div>
-                  <div class="task-counter">1/2 Subtasks</div>
+                <div class="card-container" id="done">
+                    <div class="empty-container-card">
+                        <p>No tasks To do</p>
+                    </div>
                 </div>
-                <div class="card-footer">
-                  <div class="user">
-                    <img src="../assets/icons/Profile badge1.svg" alt="User" class="user-avatar" />
-                    <img src="../assets/icons/Profile badge2.svg" alt="User" class="user-avatar" />
-                    <img src="../assets/icons/Profile badge3.svg" alt="User" class="user-avatar" />
-                  </div>
-                  <img class="card-priority" src="../assets/icons/priority-high.svg" alt="priority" />
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
-        <div class="column" id="done">
-          <div class="column-header">
-            <h2>Done</h2>
-          </div>
-          <div class="card-container">
-            <div class="card" draggable="true" onclick="showBoardCardDetails()">
-              <div class="card-header">
-                <span class="card-category user-story">User Story</span>
-              </div>
-              <h4 class="card-title">Kochwelt Page & Recipe Recommender</h4>
-              <p class="card-description">Build start page with recipe recommendation</p>
-              <div class="card-subtasks-progress">
-                <div class="progress-container">
-                  <div class="progress-bar"></div>
-                </div>
-                <div class="task-counter">1/2 Subtasks</div>
-              </div>
-              <div class="card-footer">
-                <div class="user">
-                  <img src="../assets/icons/Profile badge1.svg" alt="User" class="user-avatar" />
-                  <img src="../assets/icons/Profile badge2.svg" alt="User" class="user-avatar" />
-                  <img src="../assets/icons/Profile badge3.svg" alt="User" class="user-avatar" />
-                </div>
-                <img class="card-priority" src="../assets/icons/Priority-normal.svg" alt="priority" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
     </main>
     <section>
       <div id="addTaskOverlay" class="add-task-overlay d-none" onclick="closeAddTaskOverlay(event)">
