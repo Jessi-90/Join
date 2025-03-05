@@ -1,12 +1,18 @@
 /**
- * Generates the complete HTML template for the contact view.
- * This function renders a two-column layout:
- * - Left section: Contact list sorted alphabetically.
- * - Right section: Contact detail view for the selected contact.
- *
- * @returns {string} HTML string representing the entire contact layout.
+ * Renders the HTML structure for displaying a list of contacts, along with an option to add new contacts and a section to display contact details.
+ * 
+ * This function generates a contact view, which includes:
+ * - A button to add new contacts, which triggers the `showAddContactOverlay` function when clicked.
+ * - A contact list section that is populated with contacts rendered alphabetically (using `renderAlphabeticalContactList`).
+ * - A contact detail section that will be populated with the details of a selected contact (though this section is empty at this stage).
+ * 
+ * @returns {string} The HTML structure as a string to be injected into the DOM.
  */
+
 function renderContacts() {
+    const contacts = getMockContacts();
+    const contactListHtml = renderAlphabeticalContactList(contacts);
+
     return `
         <section class="contact-view">
             <section>
@@ -17,7 +23,7 @@ function renderContacts() {
                         </button>
                     </div>
                     <div id="contactList">
-                        ${renderAlphabeticalContactList()}
+                        ${contactListHtml}
                     </div>
                 </div>
             </section>
@@ -36,50 +42,49 @@ function renderContacts() {
 }
 
 /**
- * Generates the alphabetically sorted list of placeholder contacts.
- * For each letter from A to Z, a section with dummy contact data is created.
- * Each contact gets a random background color for its icon.
- *
- * @returns {string} HTML string representing the alphabetically sorted contact list.
+ * Groups the contacts by the first letter of their name.
+ * 
+ * This function organizes a list of contacts into groups based on the first letter of each contact's name. 
+ * Each letter (A-Z) is used as a key, and the value is an array of contacts whose names begin with that letter.
+ * If the list of contacts is empty or undefined, it logs an error message and returns an empty object.
+ * 
+ * @param {Array<Object>} contacts - An array of contact objects, where each object must have a `name` property.
+ * @returns {Object} An object where the keys are letters (A-Z) and the values are arrays of contacts whose names start with that letter.
+ * 
+ * const groupedContacts = groupContactsAlphabetically(contacts);
+ * console.log(groupedContacts['B']); // Output: [{ name: 'Benedikt Ziegler', email: 'benedikt@gmail.com' }]
  */
-function renderAlphabeticalContactList() {
-    const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-    let html = '';
+function groupContactsAlphabetically(contacts) {
+    const grouped = {};
 
-    alphabet.forEach(letter => {
-        html += `
-            <div class="contact-letter-section">
-                <div class="contact-letter">${letter}</div>
-                   <div class="contact-divider"></div>
-                          <div class="contact-placeholder">
-                               <div class="contact-placeholder-item">
-                                  <div class="contact-icon-placeholder"style="background-color: ${getRandomColor()}">AA</div>
-                                  <div class="contact-info-placeholder">
-                               <div class="contact-name-placeholder" id="contact-name">Name ${letter}</div>
-                            <div class="contact-email-placeholder" id="e-mail-contact">example@domain.com</div>
-                         </div>
-                    </div>
-                </div>
-            </div>
-        `;
+    if (!contacts || contacts.length === 0) {
+        console.error("Keine Kontakte zum Gruppieren gefunden");
+        return grouped;
+    }
+
+    contacts.forEach(contact => {
+        const letter = contact.name[0].toUpperCase(); 
+        if (!grouped[letter]) grouped[letter] = [];
+        grouped[letter].push(contact);
     });
 
-    return html;
+    return grouped;
 }
 
 /**
- * Renders the contact list grouped alphabetically into the given container.
+ * Renders a list of contacts in alphabetical order, grouped by the first letter of their name.
  * 
- * This function takes a list of contact objects, groups them alphabetically by their first letter,
- * and dynamically generates and inserts HTML into the element with the ID `contactList`.
+ * This function first groups the contacts by the first letter of their name, then dynamically 
+ * creates and inserts HTML elements to display each group in a container. Each group is 
+ * displayed under its corresponding letter with the contacts listed below it. 
  * 
- * Each section corresponds to one letter, with a header showing the letter, a horizontal divider,
- * and a list of all contacts whose names start with that letter.
+ * @param {Array<Object>} contacts - An array of contact objects, where each contact must have 
+ *                                    at least a `name` property (string).
  * 
- * @param {Array} contacts - An array of contact objects to be rendered. Each contact should have 
- *                            properties like `name`, `email`, `phone`, `color`, and `initials`.
+ * @returns {void} This function does not return any value. It modifies the DOM directly.
  * 
- * The output is directly injected into the `#contactList` container in the DOM.
+ * renderContactList(contacts);
+ * // The contact list will be rendered alphabetically with 'A', 'B', and 'C' sections
  */
 function renderContactList(contacts) {
     const container = document.getElementById('contactList');
@@ -87,15 +92,18 @@ function renderContactList(contacts) {
 
     const groupedContacts = groupContactsAlphabetically(contacts);
 
-    for (const letter in groupedContacts) {
-        container.innerHTML += `
-            <div class="contact-letter-section">
-                <div class="contact-letter">${letter}</div>
-                <div class="contact-divider"></div>
-                ${groupedContacts[letter].map(renderContactListItem).join('')}
-            </div>
-        `;
-    }
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    alphabet.forEach(letter => {
+        if (groupedContacts[letter] && groupedContacts[letter].length > 0) {
+            container.innerHTML += `
+                <div class="contact-letter-section">
+                    <div class="contact-letter">${letter}</div>
+                    <div class="contact-divider"></div>
+                    ${groupedContacts[letter].map(contact => renderContactListItem(contact)).join('')}
+                </div>
+            `;
+        }
+    });
 }
 
 /**
@@ -112,7 +120,7 @@ function renderContactList(contacts) {
  */
 function renderContactListItem(contact) {
     return `
-        <div class="contact-placeholder-item" onclick='onContactClick(${JSON.stringify(contact)})'>
+        <div class="contact-placeholder-item" data-contact='${JSON.stringify(contact)}'>
             <div class="contact-icon-placeholder" style="background-color: ${contact.color}">
                 ${contact.initials}
             </div>
@@ -149,18 +157,18 @@ function renderContactDetail(contact) {
     const container = document.getElementById('contactDetail');
     container.innerHTML = '';
     container.innerHTML = `
-        <div class="contact-detail-name">
+           <div class="contact-detail-name">
             <div class="contact-icon-placeholder-large" style="background-color: ${contact.color}">
                 ${contact.initials}
             </div>
             <div class="namefield">
-            <span>${contact.name}</span>
-           <div class="contact-actions">
-              <button class="edit-button">
-              <img src="../assets/icons/edit.svg" alt="Edit" class="button-icon">Edit</button>
-              <button class="delete-button" onclick="showEditContactOverlay()">
-              <img src="../assets/icons/delete.svg" alt="Delete" class="button-icon">Delete</button>
-             </div>
+                <span>${contact.name}</span>
+                <div class="contact-actions">
+                    <button class="edit-button">
+                        <img src="../assets/icons/edit.svg" alt="Edit" class="button-icon">Edit</button>
+                    <button class="delete-button" onclick="showEditContactOverlay()">
+                        <img src="../assets/icons/delete.svg" alt="Delete" class="button-icon">Delete</button>
+                </div>
             </div>
         </div>
         <div class="contact-info-section">

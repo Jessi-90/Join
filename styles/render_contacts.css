@@ -64,8 +64,9 @@
     color: white;
 }
 
-.contact-placeholder-item.active {
-    color: #fff;  
+.contact-placeholder-item.active:hover {
+    background-color: rgba(42, 54, 71, 1) !important; 
+    color: white !important;  
 }
 
 .contact-icon-placeholder {

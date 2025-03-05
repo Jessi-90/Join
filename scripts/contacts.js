@@ -31,13 +31,21 @@ async function fetchContactsData() {
         }
 
         currentContactsData = await databaseResponse.json();
+        const contacts = Object.values(currentContactsData);
+
+        if (contacts && contacts.length > 0) {
+            renderContactList(contacts);
+        } else {
+            renderContactList(getMockContacts());
+        }
+            addContactClickEvents();
 
     } catch (error) {
         console.error("Error fetching data:", error);
-        currentContactsData = {};
+        renderContactList(getMockContacts());
+        addContactClickEvents();
     }
 }
-
 
 function showAddContactOverlay() {
     return

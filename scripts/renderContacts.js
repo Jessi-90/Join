@@ -10,23 +10,12 @@ document.addEventListener('DOMContentLoaded', async () => {
  * 
  * This is the main entry point for rendering the contact page layout after the page loads.
  */
-function initContacts() {
+async function initContacts() {
     const mainElement = document.querySelector('main');
-    mainElement.innerHTML = renderContacts();
+    mainElement.innerHTML = renderContacts();  
 
-    const contacts = getMockContacts();
-    renderContactList(contacts);
-    addContactClickEvents();
+    await fetchContactsData();  
 }
-
-/**
- * Sets up the page initialization process.
- * 
- * This event listener waits for the entire HTML document to be fully loaded 
- * (including all HTML tags). Once the DOM is ready, it calls `initContacts` 
- * to render the contact page.
- */
-document.addEventListener('DOMContentLoaded', initContacts);
 
 /**
  * Returns a random color from a predefined color palette.
@@ -72,6 +61,11 @@ function getMockContacts() {
 function groupContactsAlphabetically(contacts) {
     const grouped = {};
 
+    if (!contacts || contacts.length === 0) {
+        console.error("Keine Kontakte zum Gruppieren gefunden");
+        return grouped; 
+    }
+
     contacts.forEach(contact => {
         const letter = contact.name[0].toUpperCase();
         if (!grouped[letter]) grouped[letter] = [];
@@ -88,11 +82,16 @@ function groupContactsAlphabetically(contacts) {
  * This function should be called after rendering the contact list.
  */
 function addContactClickEvents() {
-    const contactItems = document.querySelectorAll('.contact-placeholder-item');
-    contactItems.forEach(item => {
-        item.addEventListener('click', function () {
-            setActiveContact(item);
-        });
+    const contactList = document.getElementById('contactList');
+    
+    contactList.addEventListener('click', function(event) {
+        const contactItem = event.target.closest('.contact-placeholder-item'); 
+        if (contactItem) {
+            setActiveContact(contactItem);
+
+            const contact = JSON.parse(contactItem.getAttribute('data-contact'));
+            renderContactDetail(contact); 
+        }
     });
 }
 
