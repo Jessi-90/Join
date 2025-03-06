@@ -69,8 +69,8 @@
 
 .summary-btn a:hover {
     color: #29ABE2;
+    font-weight: bold;
     transition: all 0.1s ease-in-out;
-    transform: scale(1.05);
 }
 
 a {
@@ -119,6 +119,8 @@ a {
 a.active,
 a.active .menu-summary-btn {
   cursor: default !important;
+  color: #989A9C !important;
+  font-weight: 400 !important;
 }
 
 .menu-summary-btn:hover {
