@@ -14,11 +14,10 @@
 .navbar {
     z-index: 1000;
     position: fixed;
-    width: 100%;
     top: 0;
     left: 0;
     width: 232px;
-    height: 100%;
+    height: 100vh;
     justify-content: space-between;
     background-color: #2A3647;
 }
@@ -26,13 +25,18 @@
 .join-logo {
     height: 121.97px;
     width: 100.03px;
-    padding-top: 64px;
-    padding-bottom: 110px;
-    padding-left: 64px;
+    padding: 64px 0 64px 64px;
+}
+
+.link-wrapper {
+    height: calc(100% - 383px); 
+    padding: 64px 0 64px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .summary-menu {
-    height: 229px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,8 +52,6 @@
     justify-content: center;
     text-align: center;
     flex-direction: column;
-    height: 300px;
-    padding-top: 170px;
     gap: 8px;
     color: #989A9C;
     background-color: #2A3647;
@@ -118,7 +120,7 @@ a {
 
 a.active,
 a.active .menu-summary-btn {
-  cursor: default !important;
+    cursor: default !important;
 }
 
 .menu-summary-btn:hover {
