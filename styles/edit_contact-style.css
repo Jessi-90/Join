@@ -8,6 +8,13 @@
     background: rgba(0, 0, 0, 0.2);
     justify-content: center;
     align-items: center;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.overlay.show {
+    transform: translateX(0);
 }
 
 .modal {
@@ -78,7 +85,7 @@
     margin-bottom: 20px;
 }
 
-.join-logo {
+.join-logo-edit-contact {
     height: 66.48px;
     width: 55.6px;
     display: flex;
@@ -216,4 +223,8 @@ input:focus {
 .save:hover {
     background-color: #29ABE2;
     box-shadow: 2px 5px 2px rgb(209, 209, 209);    
+}
+
+.d-none {
+    display: none;
 }
