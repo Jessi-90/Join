@@ -135,3 +135,6 @@ main {
     height: 71px;
     width: 312px;
 }
+.pwd-mismatch {
+  border: 1px solid rgba(255, 0, 31, 1);
+}

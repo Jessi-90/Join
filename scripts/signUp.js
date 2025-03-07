@@ -47,6 +47,7 @@ function disableSignUpBtn() {
 
 function checkConfirmPasswordlength(isPasswordMatch, confirmPasswordInput, passwordMismatchWarning) {
     if (confirmPasswordInput.value.length > 0) {
+        confirmPasswordInput.classList.toggle("pwd-mismatch", !isPasswordMatch);
         passwordMismatchWarning.classList.toggle("d-none", isPasswordMatch);
     } else {
         passwordMismatchWarning.classList.add("d-none");
