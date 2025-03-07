@@ -156,9 +156,9 @@ function renderContactDetail(contact) {
             <div class="namefield">
             <span>${contact.name}</span>
            <div class="contact-actions">
-              <button class="edit-button">
+              <button class="edit-button" onclick="showEditContactOverlay()">
               <img src="../assets/icons/edit.svg" alt="Edit" class="button-icon">Edit</button>
-              <button class="delete-button" onclick="showEditContactOverlay()">
+              <button class="delete-button" onclick="deleteEditContactOverlay()">
               <img src="../assets/icons/delete.svg" alt="Delete" class="button-icon">Delete</button>
              </div>
             </div>

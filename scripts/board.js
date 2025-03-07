@@ -1,10 +1,4 @@
 /**
- * The base URL for accessing the database.
- * @constant {string}
- */
-const BASE_URL = "https://da-join-project-default-rtdb.europe-west1.firebasedatabase.app/";
-
-/**
  * An array to store the data of individual tasks after fetching.
  * @type {Array}
  */
