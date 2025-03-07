@@ -47,11 +47,23 @@ function disableSignUpBtn() {
 
 function checkConfirmPasswordlength(isPasswordMatch, confirmPasswordInput, passwordMismatchWarning) {
     if (confirmPasswordInput.value.length > 0) {
-        confirmPasswordInput.classList.toggle("pwd-mismatch", !isPasswordMatch);
+        confirmPasswordInput.classList.toggle("input-mismatch", !isPasswordMatch);
         passwordMismatchWarning.classList.toggle("d-none", isPasswordMatch);
     } else {
         passwordMismatchWarning.classList.add("d-none");
     }
+}
+
+function handleSignUpSubmit(event) {
+    event.preventDefault();
+    let overlay = document.getElementById("overlaySignUp");
+    overlay.classList.remove("d-none");
+    let overlayContainer = document.querySelector('.sign-up-overlay-box');
+    overlayContainer.classList.add('show');
+    
+    setTimeout(() => {
+        window.location.href = "../index.html";
+    }, 800);
 }
 
 setupValidation();
