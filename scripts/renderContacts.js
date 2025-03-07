@@ -2,22 +2,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     await initContacts();
 });
 
-/**
- * Initializes the contacts page.
- * 
- * This function selects the `<main>` element in the document and injects the 
- * HTML returned by `renderContacts()` into the `main` element. 
- * 
- * This is the main entry point for rendering the contact page layout after the page loads.
- */
-function initContacts() {
-    const mainElement = document.querySelector('main');
-    mainElement.innerHTML = renderContacts();
 
-    const contacts = getMockContacts();
-    renderContactList(contacts);
-    addContactClickEvents();
-}
+async function initContacts() {
+        const mainElement = document.querySelector('main');
+        mainElement.innerHTML = renderContacts(); 
+
+        addContactClickEvents();                    
+    }
 
 /**
  * Sets up the page initialization process.
@@ -56,18 +47,9 @@ function getMockContacts() {
 }
 
 /**
- * Groups a list of contacts into categories based on the first letter of their name.
- * Each letter (A-Z) serves as a key, with the associated value being an array of contacts whose names start with that letter.
- *
- * @param {Array<Object>} contacts - An array of contact objects.
- * Each contact object must have a `name` property.
- *
- * @returns {Object} An object where each key is a letter (A-Z), and the value is an array of contacts whose names start with that letter.
- *
- * @example
- * const contacts = getMockContacts();
- * const grouped = groupContactsAlphabetically(contacts);
- * console.log(grouped['B']); // Array of contacts whose names start with "B"
+ * Groups the contacts alphabetically by their first name letter.
+ * @param {Array} contacts - List of contacts.
+ * @returns {Object} Grouped contacts.
  */
 function groupContactsAlphabetically(contacts) {
     const grouped = {};
@@ -77,21 +59,31 @@ function groupContactsAlphabetically(contacts) {
         if (!grouped[letter]) grouped[letter] = [];
         grouped[letter].push(contact);
     });
-
+    for (const letter in grouped) {
+        grouped[letter].sort((a, b) => a.name.localeCompare(b.name));
+    }
     return grouped;
 }
 
 /**
- * Adds click event listeners to all contacts.
- * 
- * When a contact is clicked, it gets marked as active, and all other contacts lose their active state.
- * This function should be called after rendering the contact list.
+ * Handles the event when a contact is clicked to view detailed information.
+ * @param {Object} contact - The clicked contact.
  */
+function onContactClick(contact) {
+    renderContactDetail(contact);
+}
+
 function addContactClickEvents() {
-    const contactItems = document.querySelectorAll('.contact-placeholder-item');
+   
+    const contactItems = document.querySelectorAll('.contact-placeholder-item');    
     contactItems.forEach(item => {
         item.addEventListener('click', function () {
-            setActiveContact(item);
+            setActiveContact(item); 
+            const contactId = item.getAttribute('data-contact-id'); 
+            const contact = currentContactsData.find(c => c.id === contactId);
+            if (contact) {
+                renderContactDetail(contact); 
+            }
         });
     });
 }

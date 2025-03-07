@@ -17,7 +17,7 @@ function renderContacts() {
                         </button>
                     </div>
                     <div id="contactList">
-                        ${renderAlphabeticalContactList()}
+                    ${renderContactList(currentContactsData)}
                     </div>
                 </div>
             </section>
@@ -68,27 +68,21 @@ function renderAlphabeticalContactList() {
 }
 
 /**
- * Renders the contact list grouped alphabetically into the given container.
- * 
- * This function takes a list of contact objects, groups them alphabetically by their first letter,
- * and dynamically generates and inserts HTML into the element with the ID `contactList`.
- * 
- * Each section corresponds to one letter, with a header showing the letter, a horizontal divider,
- * and a list of all contacts whose names start with that letter.
- * 
- * @param {Array} contacts - An array of contact objects to be rendered. Each contact should have 
- *                            properties like `name`, `email`, `phone`, `color`, and `initials`.
- * 
- * The output is directly injected into the `#contactList` container in the DOM.
+ * Generates the complete HTML for the contact list.
+ * @param {Array} contacts - Array mit allen Kontakten.
  */
 function renderContactList(contacts) {
-    const container = document.getElementById('contactList');
-    container.innerHTML = '';
+    const contactListContainer = document.getElementById('contactList');
+    if (!contacts || contacts.length === 0) {
+        contactListContainer.innerHTML = `<p class="no-contacts">No contacts available.</p>`;
+        return;
+    }
 
     const groupedContacts = groupContactsAlphabetically(contacts);
+    contactListContainer.innerHTML = '';
 
     for (const letter in groupedContacts) {
-        container.innerHTML += `
+        contactListContainer.innerHTML += `
             <div class="contact-letter-section">
                 <div class="contact-letter">${letter}</div>
                 <div class="contact-divider"></div>
@@ -158,7 +152,7 @@ function renderContactDetail(contact) {
            <div class="contact-actions">
               <button class="edit-button" onclick="showEditContactOverlay()">
               <img src="../assets/icons/edit.svg" alt="Edit" class="button-icon">Edit</button>
-              <button class="delete-button" onclick="deleteEditContactOverlay()">
+              <button class="delete-button" onclick="deleteEditContactOverlay(${contact.id})">
               <img src="../assets/icons/delete.svg" alt="Delete" class="button-icon">Delete</button>
              </div>
             </div>
