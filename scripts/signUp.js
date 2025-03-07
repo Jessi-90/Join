@@ -18,13 +18,8 @@ function validateSignUpForm() {
     let isPasswordMatch = passwordInput.value === confirmPasswordInput.value;
     let isPrivacyChecked = privacyCheckbox.checked;
 
-    checkConfirmPasswordlength(isPasswordMatch, confirmPasswordInput, passwordMismatchWarning);
-
-    if (isNameFilled && isEmailValid && isPasswordFilled && isConfirmPasswordFilled && isPasswordMatch && isPrivacyChecked) {
-        enableSignUpBtn();
-    } else {
-        disableSignUpBtn();
-    }
+    checkConfirmPasswordLength(isPasswordMatch, confirmPasswordInput, passwordMismatchWarning);
+    checkFormFields(isNameFilled, isEmailValid, isPasswordFilled, isConfirmPasswordFilled, isPasswordMatch, isPrivacyChecked);
 }
 
 function setupValidation() {
@@ -64,6 +59,14 @@ function handleSignUpSubmit(event) {
     setTimeout(() => {
         window.location.href = "../index.html";
     }, 800);
+}
+
+function checkFormFields(isNameFilled, isEmailValid, isPasswordFilled, isConfirmPasswordFilled, isPasswordMatch, isPrivacyChecked) {
+    if (isNameFilled && isEmailValid && isPasswordFilled && isConfirmPasswordFilled && isPasswordMatch && isPrivacyChecked) {
+        enableSignUpBtn();
+    } else {
+        disableSignUpBtn();
+    }
 }
 
 setupValidation();
