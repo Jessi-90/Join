@@ -44,3 +44,31 @@ async function fetchContactsData() {
 function showAddContactOverlay() {
     return
 }
+
+/**
+ * Adds a new contact with a sequential ID to the database.
+ * 
+ * @async
+ * @param {Object} contact - The contact to be added.
+ */
+async function postContact(contact) {
+    try {
+        const response = await fetch(`${BASE_URL}/contacts.json`);
+        if (!response.ok) throw new Error("Fehler beim Abrufen der Kontakte");
+
+        const contacts = await response.json();
+        const nextId = Object.keys(contacts || {}).length + 1; 
+
+        const putResponse = await fetch(`${BASE_URL}/contacts/${nextId}.json`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: nextId, ...contact }),
+        });
+
+        if (!putResponse.ok) throw new Error("Fehler beim Speichern des Kontakts");
+
+        console.log(`Kontakt ${contact.name} mit ID ${nextId} gespeichert.`);
+    } catch (error) {
+        console.error("Fehler beim Hinzufügen eines Kontakts:", error);
+    }
+}
