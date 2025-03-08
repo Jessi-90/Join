@@ -2,7 +2,7 @@
  * An array to store the data of individual contacs after fetching.
  * @type {Array}
  */
-let currentContactsData;
+let currentContactsData = [];
 
 /**
  * Initializes the application by fetching task data.
@@ -23,15 +23,23 @@ async function fetchContactsData() {
         if (!databaseResponse.ok) {
             throw new Error(`Status: ${databaseResponse.status}`);
         }
-
-        currentContactsData = await databaseResponse.json();
+        const data = await databaseResponse.json(); 
+        
+        if (!data) {
+            currentContactsData = [];
+        } else {
+            currentContactsData = Object.keys(data).map(key => ({
+                firebaseId: key,   
+                ...data[key]       
+            }));
+        }
+        console.log("Geladene Kontakte:", currentContactsData);
 
     } catch (error) {
         console.error("Error fetching data:", error);
-        currentContactsData = {};
+        currentContactsData = [];
     }
 }
-
 
 function showAddContactOverlay() {
     return
