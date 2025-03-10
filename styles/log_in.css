@@ -5,7 +5,7 @@
     width: 100%;
     height: 100%;
     max-width: 1920px;
-    background-color: white;
+    background-color: #f6f7f8;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,19 +24,21 @@
 
 .start-logo {
     position: fixed;
-    top: 56px;
+    top: 75.3px;
     left: calc(50% - 137px);
     width: 274px;
     height: 334.07px;
     max-width: 1920px;
     z-index: 101;
-    transition: transform 1.2s ease-in-out, width 1.2s ease-in-out, top 1.2s ease-in-out, left 1.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, width 0.2s ease-in-out, top 0.2s ease-in-out, left 0.2s ease-in-out;
 }
 
 @keyframes shrinkToLogo {
     0% {
         width: 274px;
         height: 334.07px;
+        top: 56px;
+        left: calc(50% - 137px);
     }
 
     100% {
@@ -56,6 +58,22 @@
 .log-in-header #start-logo {
     transition: all 0.3s ease;
 }
+
+.log-in-header, .log-in-content, .log-in-footer {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+   
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 
 .log-in-page {
     max-width: 1920px;
