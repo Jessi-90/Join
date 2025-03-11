@@ -63,6 +63,7 @@ function renderTasks(tasks) {
             renderTask(taskId, tasks[taskId]);
         }
     }
+    createUserFeedbackForEmptyBoardContainers();
 }
 
 /**
@@ -279,4 +280,28 @@ function getPriorityImage(priority) {
         default:
             return "../assets/icons/priority-normal.svg";
     }
+}
+
+function createUserFeedbackForEmptyBoardContainers() {
+    let boardContainerIds = getBoardContainers();
+
+    for (let id in boardContainerIds) {
+        let boardContainer = document.getElementById(id);
+        if (isEmptyContainer(boardContainer)) {
+            boardContainer.innerHTML = emptyBoardContainerTemplate(boardContainerIds[id]);
+        }
+    }
+}
+
+function isEmptyContainer(boardContainer) {
+    return boardContainer && boardContainer.innerHTML.trim() === '';
+}
+
+function getBoardContainers() {
+    return {
+        'to-do': 'No tasks To do',
+        'in-progress': 'No tasks In progress',
+        'await-feedback': 'No tasks Awaiting feedback',
+        'done': 'No tasks Done'
+    };
 }

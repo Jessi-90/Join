@@ -6,7 +6,7 @@ h1 {
   font-size: 61px;
   font-weight: 700;
   color: rgba(0, 0, 0, 1);
-  margin: 0 0 0 64px;
+  margin: 0 0 0 64px !important;
 }
 
 .top-bar {
@@ -83,6 +83,10 @@ input[type="search"]::-webkit-search-cancel-button {
   align-items: center;
   gap: 8px;
   padding: 8px 16px 8px 16px !important;
+}
+
+.column-header {
+  margin: 48px 0 24px 0;
 }
 
 #boardCardDetails {

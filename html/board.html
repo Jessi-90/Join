@@ -15,6 +15,7 @@
     <link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg" type="image/svg+xml" />
     <script src="../scripts/board.js" defer></script>
+    <script src="../scripts/templates/emptyBoardContainerTemplate.js" defer></script>
     <script src="../scripts/db.js" defer></script>
     <script src="../scripts/templates/boardCardTemplate.js" defer></script>
     <script src="../scripts/templates/addTaskOverlayTemplate.js" defer></script>
@@ -96,9 +97,6 @@
                     </div>
                 </div>
                 <div class="card-container" id="to-do">
-                    <div class="empty-container-card">
-                        <p>No tasks To do</p>
-                    </div>
                 </div>
             </div>
             <div class="column" id="in-progress-column">
@@ -108,9 +106,6 @@
                     </div>
                 </div>
                 <div class="card-container" id="in-progress">
-                    <div class="empty-container-card">
-                        <p>No tasks To do</p>
-                    </div>
                 </div>
             </div>
             <div class="column" id="await-feedback-column">
@@ -121,9 +116,6 @@
                 </div>
                 <div class="card-container" id="await-feedback">
                     <div class="card-container">
-                        <div class="empty-container-card">
-                            <p>No tasks To do</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -132,9 +124,6 @@
                     <h2>Done</h2>
                 </div>
                 <div class="card-container" id="done">
-                    <div class="empty-container-card">
-                        <p>No tasks To do</p>
-                    </div>
                 </div>
             </div>
         </section>
