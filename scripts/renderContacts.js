@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await initContacts();
 });
 
+
 /**
  * Initializes the contacts page by rendering the contact list and setting up event listeners.
  * 
@@ -28,6 +29,7 @@ async function initContacts() {
         addContactClickEvents();                    
     }
 
+
 /**
  * Sets up the page initialization process.
  * 
@@ -36,6 +38,7 @@ async function initContacts() {
  * to render the contact page.
  */
 document.addEventListener('DOMContentLoaded', initContacts);
+
 
 /**
  * Returns a random color from a predefined color palette.
@@ -47,6 +50,18 @@ function getRandomColor() {
     const colors = ['#6E52FF', '#FC71FF', '#FFBB2B', '#1FD7C1', '#462F8A', '#20B2AA'];
     return colors[Math.floor(Math.random() * colors.length)];
 }
+
+
+/**
+ * Handles the event when a contact is clicked.
+ * 
+ * This function receives the contact object and triggers the rendering 
+ * of the detailed view for that specific contact.
+ */
+function onContactClick(contact) {
+    renderContactDetail(contact);
+}
+
 
 /**
  * Groups the contacts alphabetically by their first name letter.
@@ -66,6 +81,7 @@ function groupContactsAlphabetically(contacts) {
     }
     return grouped;
 }
+ 
 
 /**
  * Handles the event when a contact is clicked to view detailed information.
@@ -75,6 +91,16 @@ function onContactClick(contact) {
     renderContactDetail(contact);
 }
 
+
+/**
+ * Adds click event listeners to all contact items.
+ * 
+ * When a contact item is clicked, it:
+ * - Sets the clicked item as the active contact.
+ * - Retrieves the contact ID from the `data-contact-id` attribute.
+ * - Searches for the contact in `currentContactsData`.
+ * - If the contact exists, it renders the contact's details.
+ */
 function addContactClickEvents() {
    
     const contactItems = document.querySelectorAll('.contact-placeholder-item');    
@@ -90,6 +116,7 @@ function addContactClickEvents() {
     });
 }
 
+
 /**
  * Sets the clicked contact as active.
  * 
@@ -103,4 +130,90 @@ function setActiveContact(clickedElement) {
     allContacts.forEach(contact => contact.classList.remove('active'));
 
     clickedElement.classList.add('active');
+}
+
+
+/**
+ * Generates the alphabetical contact list HTML.
+ * Iterates over each letter of the alphabet and calls `generateLetterSection`.
+ *
+ * @param {Array} contacts - Array of contact objects.
+ * @returns {string} - HTML string for the contact list.
+ */
+function renderAlphabeticalContactList(contacts) {
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    return alphabet.map(letter => generateLetterSection(letter, contacts)).join('');
+}
+
+
+/**
+ * Generates the contact items for a specific letter.
+ *
+ * @param {string} letter - The letter to filter contacts.
+ * @param {Array} contacts - Array of contact objects.
+ * @returns {string} HTML string for the contacts or placeholders.
+ */
+function generateContactItemsForLetter(letter, contacts) {
+    const contactsForLetter = contacts.filter(contact => contact.name[0].toUpperCase() === letter);
+
+    if (contactsForLetter.length > 0) {
+        return contactsForLetter.map(contact => renderContactListItem(contact)).join('');
+    } else {
+        return generatePlaceholderItem(letter);
+    }
+}
+
+
+/**
+ * Generates the complete HTML for the contact list.
+ * @param {Array} contacts - Array mit allen Kontakten.
+ */
+function renderContactList(contacts) {
+    const contactListContainer = document.getElementById('contactList');
+
+    if (!contacts || contacts.length === 0) {
+        renderNoContactsMessage(contactListContainer);
+        return;
+    }
+
+    const groupedContacts = groupContactsAlphabetically(contacts);
+    contactListContainer.innerHTML = generateContactListHTML(groupedContacts);
+}
+
+
+/**
+ * Generates the HTML for the entire contact list.
+ * @param {Object} groupedContacts - Contacts grouped by letter.
+ * @returns {string} HTML string for the contact list.
+ */
+function generateContactListHTML(groupedContacts) {
+    return Object.keys(groupedContacts)
+        .map(letter => generateLetterSectionHTML(letter, groupedContacts[letter]))
+        .join('');
+}
+
+
+/**
+ * Renders a message when no contacts are available.
+ * @param {HTMLElement} container - The container element for the contact list.
+ */
+function renderNoContactsMessage(container) {
+    container.innerHTML = `<p class="no-contacts">No contacts available.</p>`;
+}
+
+
+/**
+ * Displays the detailed view of a selected contact.
+ * Injects the generated contact details template into the DOM.
+ * 
+ * @param {Object} contact - Contact data.
+ * @param {string} contact.name - Full name.
+ * @param {string} contact.email - Email address.
+ * @param {string} contact.phone - Phone number.
+ * @param {string} contact.color - Background color for initials.
+ * @param {string} contact.initials - Contact initials.
+ */
+function renderContactDetail(contact) {
+    const container = document.getElementById('contactDetail');
+    container.innerHTML = renderContactDetailTemplate(contact);
 }
