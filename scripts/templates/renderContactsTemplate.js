@@ -36,33 +36,62 @@ function renderContacts() {
 }
 
 /**
- * Generates the alphabetically sorted list of placeholder contacts.
- * For each letter from A to Z, a section with dummy contact data is created.
- * Each contact gets a random background color for its icon.
- *
- * @returns {string} HTML string representing the alphabetically sorted contact list.
+ * Generates the alphabetical contact list HTML.
+ * 
+ * Iterates over each letter of the alphabet and creates sections.
+ * Calls `generateContactItemsForLetter` to add contacts or placeholders.
+ * 
+ * @param {Array} contacts - Array of contact objects.
+ * @returns {string} HTML string for the contact list.
  */
-function renderAlphabeticalContactList() {
-    const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+function renderAlphabeticalContactList(contacts) {
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     let html = '';
 
     alphabet.forEach(letter => {
         html += `
             <div class="contact-letter-section">
                 <div class="contact-letter">${letter}</div>
-                   <div class="contact-divider"></div>
-                          <div class="contact-placeholder">
-                               <div class="contact-placeholder-item">
-                                  <div class="contact-icon-placeholder"style="background-color: ${getRandomColor()}">AA</div>
-                                  <div class="contact-info-placeholder">
-                               <div class="contact-name-placeholder" id="contact-name">Name ${letter}</div>
-                            <div class="contact-email-placeholder" id="e-mail-contact">example@domain.com</div>
-                         </div>
-                    </div>
+                <div class="contact-divider"></div>
+                <div class="contact-placeholder">
+                    ${generateContactItemsForLetter(letter, contacts)}
                 </div>
             </div>
         `;
     });
+
+    return html;
+}
+
+/**
+ * Generates the contact items for a specific letter.
+ * 
+ * Filters contacts by the given letter and returns the corresponding HTML.
+ * If no contacts are found, it generates a placeholder.
+ * 
+ * @param {string} letter - The letter to filter contacts.
+ * @param {Array} contacts - Array of contact objects.
+ * @returns {string} HTML string for the contacts or placeholders.
+ */
+function generateContactItemsForLetter(letter, contacts) {
+    const contactsForLetter = contacts.filter(contact => contact.name[0].toUpperCase() === letter);
+    let html = '';
+
+    if (contactsForLetter.length > 0) {
+        contactsForLetter.forEach(contact => {
+            html += renderContactListItem(contact);
+        });
+    } else {
+        html += `
+            <div class="contact-placeholder-item">
+                <div class="contact-icon-placeholder" style="background-color: ${getRandomColor()}">AA</div>
+                <div class="contact-info-placeholder">
+                    <div class="contact-name-placeholder">Name ${letter}</div>
+                    <div class="contact-email-placeholder">example@domain.com</div>
+                </div>
+            </div>
+        `;
+    }
 
     return html;
 }

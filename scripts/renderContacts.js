@@ -2,10 +2,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     await initContacts();
 });
 
-
+/**
+ * Initializes the contacts page by rendering the contact list and setting up event listeners.
+ * 
+ * This function:
+ * - Replaces the main content with the contact list layout.
+ * - Fetches contact data asynchronously.
+ * - Renders the contact list grouped alphabetically.
+ * - Updates the contact list section with the rendered contacts.
+ * - Adds click event listeners for interactivity.
+ * 
+ * @async
+ * @function initContacts
+ * @returns {Promise<void>} A promise that resolves when the initialization is complete.
+ */
 async function initContacts() {
         const mainElement = document.querySelector('main');
         mainElement.innerHTML = renderContacts(); 
+
+        await fetchContactsData();
+        renderContactList(currentContactsData);
+
+        document.getElementById('contactList').innerHTML = renderAlphabeticalContactList(contacts);
 
         addContactClickEvents();                    
     }
@@ -28,22 +46,6 @@ document.addEventListener('DOMContentLoaded', initContacts);
 function getRandomColor() {
     const colors = ['#6E52FF', '#FC71FF', '#FFBB2B', '#1FD7C1', '#462F8A', '#20B2AA'];
     return colors[Math.floor(Math.random() * colors.length)];
-}
-
-/**
- * Returns a list of mock contact objects.
- * Each contact contains an id, name, email, phone number, color, and initials.
- * This is used as sample data to simulate real contact data in the application.
- */
-function getMockContacts() {
-    return [
-        { id: '1', name: 'Benedikt Ziegler', email: 'benedikt@gmail.com', phone: '12345678', color: '#6E52FF', initials: 'BZ' },
-        { id: '2', name: 'David Eisenberg', email: 'davideberg@gmail.com', phone: '12345678', color: '#FC71FF', initials: 'DE' },
-        { id: '3', name: 'Eva Fischer', email: 'eva@gmail.com', phone: '12345678', color: '#FFBB2B', initials: 'EF' },
-        { id: '4', name: 'Emmanuel Mauer', email: 'emmanuelma@gmail.com', phone: '12345678', color: '#1FD7C1', initials: 'EM' },
-        { id: '5', name: 'Marcel Bauer', email: 'bauer@gmail.com', phone: '12345678', color: '#462F8A', initials: 'MB' },
-        { id: '6', name: 'Tatjana Wolf', email: 'wolf@gmail.com', phone: '+49 2222 222 22 2', color: '#FFA500', initials: 'TW' },
-    ];
 }
 
 /**
