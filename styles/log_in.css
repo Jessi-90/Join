@@ -20,11 +20,11 @@
 }
 
 .link-to-sing-up-page {
+    position: absolute;
+    top: 61px;
     display: flex;
     align-items: center;
     gap: 35px;
-    position: relative;
-    top: 32px;
     right: 122px;
 }
 
