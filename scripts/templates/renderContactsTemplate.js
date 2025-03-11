@@ -17,7 +17,7 @@ function renderContacts() {
                         </button>
                     </div>
                     <div id="contactList">
-                        ${renderAlphabeticalContactList()}
+                    ${renderContactList(currentContactsData)}
                     </div>
                 </div>
             </section>
@@ -35,68 +35,62 @@ function renderContacts() {
     `;
 }
 
+
 /**
- * Generates the alphabetically sorted list of placeholder contacts.
- * For each letter from A to Z, a section with dummy contact data is created.
- * Each contact gets a random background color for its icon.
+ * Generates the HTML template for a letter section.
  *
- * @returns {string} HTML string representing the alphabetically sorted contact list.
+ * @param {string} letter - The letter of the alphabet.
+ * @param {Array} contacts - Array of contact objects.
+ * @returns {string} - HTML string for the section.
  */
-function renderAlphabeticalContactList() {
-    const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-    let html = '';
-
-    alphabet.forEach(letter => {
-        html += `
-            <div class="contact-letter-section">
-                <div class="contact-letter">${letter}</div>
-                   <div class="contact-divider"></div>
-                          <div class="contact-placeholder">
-                               <div class="contact-placeholder-item">
-                                  <div class="contact-icon-placeholder"style="background-color: ${getRandomColor()}">AA</div>
-                                  <div class="contact-info-placeholder">
-                               <div class="contact-name-placeholder" id="contact-name">Name ${letter}</div>
-                            <div class="contact-email-placeholder" id="e-mail-contact">example@domain.com</div>
-                         </div>
-                    </div>
-                </div>
+function generateLetterSection(letter, contacts) {
+    return `
+        <div class="contact-letter-section">
+            <div class="contact-letter">${letter}</div>
+            <div class="contact-divider"></div>
+            <div class="contact-placeholder">
+                ${generateContactItemsForLetter(letter, contacts)}
             </div>
-        `;
-    });
-
-    return html;
+        </div>
+    `;
 }
+
 
 /**
- * Renders the contact list grouped alphabetically into the given container.
- * 
- * This function takes a list of contact objects, groups them alphabetically by their first letter,
- * and dynamically generates and inserts HTML into the element with the ID `contactList`.
- * 
- * Each section corresponds to one letter, with a header showing the letter, a horizontal divider,
- * and a list of all contacts whose names start with that letter.
- * 
- * @param {Array} contacts - An array of contact objects to be rendered. Each contact should have 
- *                            properties like `name`, `email`, `phone`, `color`, and `initials`.
- * 
- * The output is directly injected into the `#contactList` container in the DOM.
+ * Generates a placeholder item if no contacts exist for a letter.
+ *
+ * @param {string} letter - The letter for which no contacts exist.
+ * @returns {string} HTML string for the placeholder.
  */
-function renderContactList(contacts) {
-    const container = document.getElementById('contactList');
-    container.innerHTML = '';
-
-    const groupedContacts = groupContactsAlphabetically(contacts);
-
-    for (const letter in groupedContacts) {
-        container.innerHTML += `
-            <div class="contact-letter-section">
-                <div class="contact-letter">${letter}</div>
-                <div class="contact-divider"></div>
-                ${groupedContacts[letter].map(renderContactListItem).join('')}
+function generatePlaceholderItem(letter) {
+    return `
+        <div class="contact-placeholder-item">
+            <div class="contact-icon-placeholder" style="background-color: ${getRandomColor()}">AA</div>
+            <div class="contact-info-placeholder">
+                <div class="contact-name-placeholder">Name ${letter}</div>
+                <div class="contact-email-placeholder">example@domain.com</div>
             </div>
-        `;
-    }
+        </div>
+    `;
 }
+
+
+/**
+ * Generates the HTML for a single letter section.
+ * @param {string} letter - The letter representing the section.
+ * @param {Array} contacts - Contacts under this letter.
+ * @returns {string} HTML string for the letter section.
+ */
+function generateLetterSectionHTML(letter, contacts) {
+    return `
+        <div class="contact-letter-section">
+            <div class="contact-letter">${letter}</div>
+            <div class="contact-divider"></div>
+            ${contacts.map(renderContactListItem).join('')}
+        </div>
+    `;
+}
+
 
 /**
  * Creates an HTML string for a single contact item in the contact list.
@@ -124,43 +118,29 @@ function renderContactListItem(contact) {
     `;
 }
 
-/**
- * Handles the event when a contact is clicked.
- * 
- * This function receives the contact object and triggers the rendering 
- * of the detailed view for that specific contact.
- */
-function onContactClick(contact) {
-    renderContactDetail(contact);
-}
 
 /**
- * Displays the detailed view of a selected contact.
- * Shows contact's initials, name, email, and phone number.
- *
+ * Generates the HTML template for the contact details.
+ * 
  * @param {Object} contact - Contact data.
- * @param {string} contact.name - Full name.
- * @param {string} contact.email - Email address.
- * @param {string} contact.phone - Phone number.
- * @param {string} contact.color - Background color for initials.
- * @param {string} contact.initials - Contact initials.
+ * @returns {string} HTML string for the contact details.
  */
-function renderContactDetail(contact) {
-    const container = document.getElementById('contactDetail');
-    container.innerHTML = '';
-    container.innerHTML = `
+function renderContactDetailTemplate(contact) {
+    return `
         <div class="contact-detail-name">
             <div class="contact-icon-placeholder-large" style="background-color: ${contact.color}">
                 ${contact.initials}
             </div>
             <div class="namefield">
-            <span>${contact.name}</span>
-           <div class="contact-actions">
-              <button class="edit-button" onclick="showEditContactOverlay()">
-              <img src="../assets/icons/edit.svg" alt="Edit" class="button-icon">Edit</button>
-              <button class="delete-button" onclick="deleteEditContactOverlay()">
-              <img src="../assets/icons/delete.svg" alt="Delete" class="button-icon">Delete</button>
-             </div>
+                <span>${contact.name}</span>
+                <div class="contact-actions">
+                    <button class="edit-button" onclick="showEditContactOverlay()">
+                        <img src="../assets/icons/edit.svg" alt="Edit" class="button-icon">Edit
+                    </button>
+                    <button class="delete-button" onclick="deleteEditContactOverlay(${contact.id})">
+                        <img src="../assets/icons/delete.svg" alt="Delete" class="button-icon">Delete
+                    </button>
+                </div>
             </div>
         </div>
         <div class="contact-info-section">

@@ -5,11 +5,14 @@
 let currentContactsData = [];
 
 /**
- * Initializes the application by fetching task data.
+ * Initializes the app by fetching data and rendering the contacts.
  */
 async function init() {
     await fetchContactsData();
-}
+    renderContacts();
+    renderContactList(currentContactsData);
+    addContactClickEvents();
+} 
 
 /**
  * Fetches contacts data from the server and updates the currentTasksData array.
@@ -35,6 +38,10 @@ async function fetchContactsData() {
         }
         console.log("Geladene Kontakte:", currentContactsData);
 
+        if (!Array.isArray(currentContactsData)) {
+            throw new Error('Fetched data is not an array');
+        }
+    
     } catch (error) {
         console.error("Error fetching data:", error);
         currentContactsData = [];

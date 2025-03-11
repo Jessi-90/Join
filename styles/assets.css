@@ -107,3 +107,7 @@
   align-items: center;
   gap: 16px;
 }
+
+button:disabled {
+  cursor: not-allowed !important;
+}
