@@ -51,7 +51,7 @@ function showAddContactOverlay() {
  * @async
  * @param {Object} contact - The contact to be added.
  */
-async function postContact(contact) {
+async function putContact(contact) {
     try {
         const response = await fetch(`${BASE_URL}/contacts.json`);
         if (!response.ok) throw new Error("Fehler beim Abrufen der Kontakte");
