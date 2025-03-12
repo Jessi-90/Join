@@ -12,6 +12,7 @@ async function init() {
     renderContacts();
     renderContactList(currentContactsData);
     addContactClickEvents();
+    summaryGreetingUser();
 } 
 
 /**
