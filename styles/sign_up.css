@@ -143,3 +143,15 @@ main {
 .input-mismatch {
   border: 1px solid rgba(255, 0, 31, 1);
 }
+.input-password-wrapper {
+  position: relative;
+}
+.input-password-wrapper img {
+  position: absolute;
+  top: 25px;
+  right: 27px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
