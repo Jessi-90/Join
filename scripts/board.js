@@ -63,6 +63,7 @@ function renderTasks(tasks) {
             renderTask(taskId, tasks[taskId]);
         }
     }
+    createUserFeedbackForEmptyBoardContainers();
 }
 
 /**
@@ -279,4 +280,40 @@ function getPriorityImage(priority) {
         default:
             return "../assets/icons/priority-normal.svg";
     }
+}
+
+/**
+ * Updates empty board containers with a template message.
+ */
+function createUserFeedbackForEmptyBoardContainers() {
+    let boardContainerIds = getBoardContainers();
+
+    for (let id in boardContainerIds) {
+        let boardContainer = document.getElementById(id);
+        if (isEmptyContainer(boardContainer)) {
+            boardContainer.innerHTML = emptyBoardContainerTemplate(boardContainerIds[id]);
+        }
+    }
+}
+
+/**
+ * Checks if a board container is empty.
+ * @param {HTMLElement} boardContainer - The board container element.
+ * @returns {boolean} - Returns true if the board container is empty, false otherwise.
+ */
+function isEmptyContainer(boardContainer) {
+    return boardContainer && boardContainer.innerHTML.trim() === '';
+}
+
+/**
+ * Returns an object containing board container IDs and their corresponding messages.
+ * @returns {Object} - An object where keys are container IDs and values are messages.
+ */
+function getBoardContainers() {
+    return {
+        'to-do': 'No tasks To do',
+        'in-progress': 'No tasks In progress',
+        'await-feedback': 'No tasks Awaiting feedback',
+        'done': 'No tasks Done'
+    };
 }
