@@ -3,8 +3,9 @@ a {
 }
 
 main {
+    max-width: 1016px;
     padding: 20px;
-    padding-left: 272px;
+    padding-left: 328px;
 }
 
 h1, h2 {
