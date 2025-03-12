@@ -282,6 +282,9 @@ function getPriorityImage(priority) {
     }
 }
 
+/**
+ * Updates empty board containers with a template message.
+ */
 function createUserFeedbackForEmptyBoardContainers() {
     let boardContainerIds = getBoardContainers();
 
@@ -293,10 +296,19 @@ function createUserFeedbackForEmptyBoardContainers() {
     }
 }
 
+/**
+ * Checks if a board container is empty.
+ * @param {HTMLElement} boardContainer - The board container element.
+ * @returns {boolean} - Returns true if the board container is empty, false otherwise.
+ */
 function isEmptyContainer(boardContainer) {
     return boardContainer && boardContainer.innerHTML.trim() === '';
 }
 
+/**
+ * Returns an object containing board container IDs and their corresponding messages.
+ * @returns {Object} - An object where keys are container IDs and values are messages.
+ */
 function getBoardContainers() {
     return {
         'to-do': 'No tasks To do',
