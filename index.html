@@ -15,22 +15,23 @@
     <script src="./scripts/db.js"></script>
 </head>
 
-  <body onclick="resetInputIcon()">
-    <div class="log-in-page">
-      <div class="log-in-header">
-        <img src="./assets/img/Capa.svg" alt="Join_logo" />
-        <div class="link-to-sing-up-page">
-          <p>Not a Join user?</p>
-          <a href="./sign_up.html" class="btn-dark sign-up-btn"> Sign up </a>
-        </div>
+<body onclick="resetInputIcon()">
+  <div class="animation-overlay" id="animation-overlay">
+  </div>
+  <div class="log-in-page">
+    <div class="log-in-header">
+      <img id="start-logo" src="./assets/img/Capa.svg" alt="Join_logo" />
+      <div class="link-to-sing-up-page">
+        <p>Not a Join user?</p>
+        <a href="./html/sign_up.html" class="btn-dark sign-up-btn"> Sign up </a>
       </div>
-      <div class="log-in-content">
-        <div class="log-in-wrapper">
-          <div class="log-in-title">
-            <div class="log-in-title-text">
-              <h1>Log in</h1>
-              <div class="horizontal-line"></div>
-            </div>
+    </div>
+    <div class="log-in-content">
+      <div class="log-in-wrapper">
+        <div class="log-in-title">
+          <div class="log-in-title-text">
+            <h1>Log in</h1>
+            <div class="horizontal-line"></div>
           </div>
           <form action="submit" class="log-in-form">
             <input id="input-mail" type="email" placeholder="Email" class="input-bg-email log-in-input-field" />
@@ -57,12 +58,13 @@
               <button type="submit" class="btn-light" id="guest-login" onclick="guestLogIn(event)">Guest Log in</button>
             </div>
           </form>
-        </div>
-      </div>
-      <div class="log-in-footer">
-        <a href="./privacy_policy.html"> Privacy Policy </a>
-        <a href="./legal_notice.html"> Legal Notice </a>
       </div>
     </div>
-  </body>
+    <div class="log-in-footer">
+      <a href="./privacy_policy.html"> Privacy Policy </a>
+      <a href="./legal_notice.html"> Legal Notice </a>
+    </div>
+  </div>
+</body>
+
 </html>
