@@ -24,7 +24,7 @@ async function initContacts() {
         await fetchContactsData();
         renderContactList(currentContactsData);
 
-        document.getElementById('contactList').innerHTML = renderAlphabeticalContactList(contacts);
+        document.getElementById('contactList').innerHTML = renderAlphabeticalContactList(currentContactsData);
 
         addContactClickEvents();                    
     }
@@ -64,24 +64,30 @@ function onContactClick(contact) {
 
 
 /**
- * Groups the contacts alphabetically by their first name letter.
- * @param {Array} contacts - List of contacts.
- * @returns {Object} Grouped contacts.
+ * Groups contacts alphabetically based on the first letter of their name.
+ * Invalid contacts (missing or incorrectly formatted) are ignored.
+ * 
+ * @function groupContactsAlphabetically
+ * @param {Array<Object>} contacts - An array of contact objects.
+ * @param {string} contacts[].name - The name of the contact.
+ * @returns {Object} - An object where keys are uppercase letters (A-Z) and values are arrays of contacts.
  */
 function groupContactsAlphabetically(contacts) {
     const grouped = {};
 
     contacts.forEach(contact => {
+        if (!contact || typeof contact !== 'object' || !contact.name) {
+            return;
+        }
+
         const letter = contact.name[0].toUpperCase();
         if (!grouped[letter]) grouped[letter] = [];
         grouped[letter].push(contact);
     });
-    for (const letter in grouped) {
-        grouped[letter].sort((a, b) => a.name.localeCompare(b.name));
-    }
+
     return grouped;
 }
- 
+
 
 /**
  * Handles the event when a contact is clicked to view detailed information.
@@ -147,20 +153,28 @@ function renderAlphabeticalContactList(contacts) {
 
 
 /**
- * Generates the contact items for a specific letter.
- *
- * @param {string} letter - The letter to filter contacts.
- * @param {Array} contacts - Array of contact objects.
- * @returns {string} HTML string for the contacts or placeholders.
+ * Generates a list of contact items for a given letter.
+ * If there are no valid contacts for the letter, it returns a placeholder item.
+ * 
+ * @function generateContactItemsForLetter
+ * @param {string} letter - The letter to filter contacts by (should be an uppercase letter).
+ * @param {Array<Object>} contacts - An array of contact objects.
+ * @param {string} contacts[].name - The name of the contact.
+ * @returns {string} - An HTML string containing contact list items or a placeholder.
  */
 function generateContactItemsForLetter(letter, contacts) {
-    const contactsForLetter = contacts.filter(contact => contact.name[0].toUpperCase() === letter);
-
-    if (contactsForLetter.length > 0) {
-        return contactsForLetter.map(contact => renderContactListItem(contact)).join('');
-    } else {
-        return generatePlaceholderItem(letter);
+    if (!Array.isArray(contacts)) {
+        console.warn(`⚠️ Keine gültigen Kontakte für "${letter}" gefunden!`, contacts);
+        return generatePlaceholderItem(letter); 
     }
+
+    const contactsForLetter = contacts.filter(contact => 
+        contact.name && contact.name[0]?.toUpperCase() === letter
+    );
+
+    return contactsForLetter.length > 0 
+        ? contactsForLetter.map(contact => renderContactListItem(contact)).join('') 
+        : generatePlaceholderItem(letter);
 }
 
 

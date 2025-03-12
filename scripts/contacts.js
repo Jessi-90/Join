@@ -15,10 +15,13 @@ async function init() {
 } 
 
 /**
- * Fetches contacts data from the server and updates the currentTasksData array.
- * Uses the fetch API to get data from the specified endpoint.
+ * Fetches contact data from the Firebase database and stores it in `currentContactsData`.
+ * Filters out invalid data and excludes the "counter" field.
  * 
- * @throws Will throw an error if the fetch operation fails or the response is not okay.
+ * @async
+ * @function fetchContactsData
+ * @returns {Promise<void>} - A promise that resolves when the data is fetched and processed.
+ * @throws {Error} - Logs an error if the fetch request fails.
  */
 async function fetchContactsData() {
     try {
@@ -27,30 +30,30 @@ async function fetchContactsData() {
             throw new Error(`Status: ${databaseResponse.status}`);
         }
         const data = await databaseResponse.json(); 
-        
-        if (!data) {
+
+        if (!data || typeof data !== 'object') {
             currentContactsData = [];
         } else {
-            currentContactsData = Object.keys(data).map(key => ({
-                firebaseId: key,   
-                ...data[key]       
-            }));
+            currentContactsData = Object.keys(data)
+                .filter(key => key !== "counter") 
+                .map(key => ({
+                    firebaseId: key, 
+                    ...data[key] 
+                }))
+                .filter(contact => contact.name); 
         }
-        console.log("Geladene Kontakte:", currentContactsData);
 
-        if (!Array.isArray(currentContactsData)) {
-            throw new Error('Fetched data is not an array');
-        }
-    
     } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("❌ Fehler beim Laden der Kontakte:", error);
         currentContactsData = [];
     }
 }
 
+
 function showAddContactOverlay() {
     return
 }
+
 
 /**
  * Adds a new contact with a sequential ID to the database.
