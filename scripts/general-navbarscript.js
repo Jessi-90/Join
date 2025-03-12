@@ -1,6 +1,6 @@
 /**
- * Waits until the DOM is loaded and sets the `active` class for the current page in the navigation.
- * Additionally, ensures that user buttons and dropdowns are correctly initialized.
+ * Initializes the navigation and dropdown functionality once the DOM is fully loaded.
+ * Removes the user dropdown menu on specific pages where it is not needed.
  */
 document.addEventListener("DOMContentLoaded", function () {
   let currentPage = window.location.pathname.split("/").pop();
@@ -9,6 +9,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const dropdownContent = document.getElementById("dropdownContent");
   let menuLinks = document.querySelectorAll(".summary-menu a");
   let footerLinks = document.querySelectorAll(".summary-btn a");
+
+  const noDropdownPages = ["legal_notice.html", "privacy_policy.html"];
+    
+    if (noDropdownPages.includes(currentPage)) {
+        const userDropdown = document.querySelector(".dropdown");
+        if (userDropdown) {
+            userDropdown.remove(); 
+        }
+        return; 
+    }
 
   /**
    * Adds the `active` class to the appropriate navigation link and removes it from others.
@@ -39,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+
   // Applies the `active` class to menu and footer links
   updateActiveLink(menuLinks, "active");
   updateActiveLink(footerLinks, "active");
@@ -48,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.error("User button or dropdown content not found!");
     return;
   }
+
 
   /**
    * Toggles the visibility of the dropdown menu.
@@ -60,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   userButton.addEventListener("click", toggleDropdown);
+
 
   /**
    * Closes the dropdown menu when clicking outside of it.
