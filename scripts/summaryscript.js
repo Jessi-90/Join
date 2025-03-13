@@ -1,4 +1,20 @@
 /**
+ * Initializes the application after the DOM has fully loaded.
+ * 
+ * This event listener ensures that:
+ * - Contact data is fetched asynchronously via `fetchContactsData()`.
+ * - The greeting message is updated based on the logged-in user and current time using `summaryGreetingUser()`.
+ * 
+ * @listens DOMContentLoaded
+ * @async
+ */
+document.addEventListener("DOMContentLoaded", async () => {
+    await fetchContactsData(); 
+    summaryGreetingUser(); 
+});
+
+
+/**
  * Updates the greeting message based on the logged-in user's name and current time.
  * Assumes that `loggedInUserEmail` contains the email of the logged-in user.
  */
@@ -28,7 +44,10 @@ function summaryGreetingUser() {
  */
 function getLoggedInUser() {
     const loggedInEmail = localStorage.getItem("loggedInUserEmail");
-    if (!loggedInEmail) return null;
+    console.log("Logged in email:", loggedInEmail);
+    console.log("Contacts data:", currentContactsData);
+
+    if (!loggedInEmail || !currentContactsData) return null;
 
     return currentContactsData.find(contact => contact.email === loggedInEmail) || null;
 }
