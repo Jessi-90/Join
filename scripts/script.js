@@ -185,3 +185,74 @@ function LogInValidation() {
 document.addEventListener("DOMContentLoaded", function () {
   LogInValidation();
 });
+
+/**
+ * Login function that validates user credentials against contacts
+ * and redirects to summary page on success.
+ * @param {Event} event - The form submit event.
+ */
+async function login(event) {
+  event.preventDefault();
+  await fetchContactsData();
+
+  let emailInput = document.getElementById('input-mail').value.trim();
+  let passwordInput = document.getElementById('input-password').value;
+  let matchedContact = currentContactsData.find(contact => contact.email === emailInput);
+  
+  if (matchedContact && String(matchedContact.password) === String(passwordInput)) {
+      storeUserAndForwardToSummary(matchedContact);
+  } else {
+      showUserFeedbackForFailedLoginAttempt();
+  }
+}
+
+/**
+ * Stores user information in sessionStorage and redirects to the summary page.
+ * @param {Object} user - The user object containing user details.
+ */
+function storeUserAndForwardToSummary(user) {
+  sessionStorage.setItem('currentUser', JSON.stringify({
+      email: user.email,
+      name: user.name,
+      color: user.color,
+      initials: user.initials,
+      phone: user.phone
+  }));
+  window.location.href = './html/summary.html';
+}
+
+/**
+ * Shows user feedback for a failed login attempt by highlighting the input fields
+ * and displaying an error message below the password input field.
+ */
+function showUserFeedbackForFailedLoginAttempt() {
+    document.getElementById('input-mail').classList.add('input-mismatch');
+    document.getElementById('input-password').classList.add('input-mismatch');
+    
+    let passwordInputElement = document.getElementById('input-password');
+    passwordInputElement.insertAdjacentHTML('afterend', failedLoginTemplate());
+}
+
+/**
+ * Sets up event listeners for the login form and login button
+ * after the DOM content is fully loaded.
+ */
+document.addEventListener('DOMContentLoaded', function() {
+  /**
+   * Adds a submit event listener to the login form.
+   * @type {HTMLFormElement}
+   */
+  let loginForm = document.querySelector('.log-in-form');
+  if (loginForm) {
+      loginForm.addEventListener('submit', login);
+  }
+
+  /**
+   * Adds a click event listener to the login button.
+   * @type {HTMLButtonElement}
+   */
+  let loginBtn = document.getElementById('logInBtn');
+  if (loginBtn) {
+      loginBtn.addEventListener('click', login);
+  }
+});

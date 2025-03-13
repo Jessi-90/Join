@@ -165,4 +165,14 @@
 .input-mismatch {
     border: 1px solid rgba(255, 0, 31, 1);
   }
+
+.failed-login {
+    position: absolute;
+    top: calc(100% - 12px);
+    left: 0;
+    color: red;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 120%;
+}
   
