@@ -161,3 +161,8 @@
     color: grey;
     text-decoration: none;
 }
+
+.input-mismatch {
+    border: 1px solid rgba(255, 0, 31, 1);
+  }
+  
