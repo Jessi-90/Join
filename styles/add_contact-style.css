@@ -5,26 +5,50 @@ body {
 }
 
 .overlay {
-    display: flex;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.2);
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.overlay .modal {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    transform: translateY(-50px);
+    transition: transform 0.3s ease-in-out;
+}
+
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.overlay .modal.show {
+    transform: translateY(0);
 }
 
 .modal {
-    position: relative;
-    display: flex;
+    position: fixed;
+    top: 50%;
+    right: -500px; 
+    transform: translateY(-50%);
     background: white;
     height: 594px;
-    max-width: 1920px;
+    max-width: 467px;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease-in-out;
 }
 
 .sidebar {
@@ -72,7 +96,7 @@ body {
     margin-left: 0px;
 }
 
-.join-logo {
+.join-logo-add-contact {
     height: 66.48px;
     width: 55.6px;
     display: flex;
@@ -160,54 +184,54 @@ input:focus {
     outline: none; 
 }
 
-.buttons {
+.add-contact-buttons {
     display: flex;
     gap: 20px;
     margin-top: 46px;
 }
 
-.cancel {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 126px;
-    height: 56px;
-    background: none;
-    border: 1px solid black;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 8px;
-    font-size: 21px;
-    box-sizing: border-box;
+.add-contact-cancel {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 126px !important;
+    height: 56px !important;
+    background: none !important;
+    border: 1px solid black !important;
+    padding: 10px 15px !important;
+    cursor: pointer !important;
+    border-radius: 8px !important;
+    font-size: 21px !important;
+    box-sizing: border-box !important;
 }
 
-.cancel:hover {
+.add-contact-cancel:hover {
     border: 2px solid #29ABE2;
     color: #29ABE2;
     box-shadow: 2px 5px 2px rgb(209, 209, 209);
 }
 
-.cancel:hover img {
+.add-contact-cancel:hover img {
     filter: brightness(0) saturate(100%) invert(30%) sepia(95%) saturate(600%) hue-rotate(170deg);
     color: #29ABE2;
 }
 
-.create {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 214px;
-    height: 57px;
-    background: #2A3647;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 8px;
-    font-size: 21px;
+.add-contact-create {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    width: 214px !important;
+    height: 57px !important;
+    background: #2A3647 !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 15px !important;
+    cursor: pointer !important;
+    border-radius: 8px !important;
+    font-size: 21px !important;
 }
 
-.create:hover {
-    background-color: #29ABE2;
-    box-shadow: 2px 5px 2px rgb(209, 209, 209);    
+.add-contact-create:hover {
+    background-color: #29ABE2 !important;
+    box-shadow: 2px 5px 2px rgb(209, 209, 209)!important;    
 }

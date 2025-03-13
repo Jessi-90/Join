@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../styles/general-navbar-style.css">
     <link rel="stylesheet" href="../styles/render_contacts.css">
     <link rel="stylesheet" href="../styles/edit_contact-style.css">
+    <link rel="stylesheet" href="../styles/add_contact_overlay.css">
     <link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg" type="image/svg+xml" />
     <script src="../scripts/contacts.js" defer></script>
@@ -20,6 +21,8 @@
     <script src="../scripts/renderContacts.js"></script>
     <script src="../scripts/templates/editContactOverlayTemplate.js"></script>
     <script src="../scripts/editContactOverlayContacts.js"></script>
+    <script src="../scripts/templates/addContactOverlayTemplate.js"></script>
+    <script src="../scripts/add_contact-script.js" defer></script>
 </head>
 
   <body onload="init()">
@@ -98,5 +101,6 @@
       </section>
     </main>
     <div id="editContactOverlay" class="d-none"></div>
+    <div id="overlay" class="d-none"></div>
   </body>
 </html>
