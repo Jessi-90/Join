@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return; 
     }
 
+    
   /**
    * Adds the `active` class to the appropriate navigation link and removes it from others.
    *
@@ -85,3 +86,32 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+
+/**
+ * Logs out the current user and redirects to the login page.
+ *
+ * - If the user is a guest, it removes the "userType" from localStorage.
+ * - If the user is a registered user, it removes their session data from
+ *   localStorage and sessionStorage.
+ * - If Firebase authentication is available, it signs the user out.
+ * - Finally, it redirects the user to the index.html (login page).
+ */
+function logoutUser() {
+  let userType = localStorage.getItem("userType");
+
+  if (userType === "guest") {
+      localStorage.removeItem("userType");
+  } else {
+      localStorage.removeItem("currentUser");
+      sessionStorage.removeItem("currentUser");
+
+      if (typeof firebase !== "undefined") {
+        firebase.auth().signOut()
+            .then(() => console.log("User ausgeloggt"))
+            .catch(error => console.error("Fehler beim Ausloggen:", error));
+    }
+}
+
+  window.location.href = "../index.html";
+}
