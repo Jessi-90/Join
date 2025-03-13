@@ -4,7 +4,7 @@
  * Also attaches an event listener to handle form submission.
  */
 function showAddContactOverlay() {
-    let addContactOverlayRef = document.getElementById('overlay');
+    let addContactOverlayRef = document.getElementById('addContactOverlay');
     addContactOverlayRef.innerHTML = "";
     addContactOverlayRef.innerHTML += showAddContactOverlayHTMLTemplate();
     addContactOverlayRef.classList.remove('d-none');
@@ -12,6 +12,8 @@ function showAddContactOverlay() {
     setTimeout(() => {
         let overlayContainerRef = document.querySelector('.overlay');
         overlayContainerRef.classList.add('show');
+
+        document.addEventListener("click", handleOutsideClick);
     }, 10);
 
     let form = document.querySelector(".form-container form");
@@ -28,21 +30,33 @@ function showAddContactOverlay() {
  * 
  * @param {Event} event - The click event that triggers the function.
  */
-function closeAddContactOverlay(event) {
-    let overlay = document.getElementById('overlay');
+function closeAddContactOverlay() {
+    let addContactOverlay = document.getElementById('addContactOverlay');
     let overlayContainer = document.querySelector('.overlay');
-
-    if (event.target.closest('.overlay') && !event.target.closest('.close-btn') && 
-       !event.target.closest('.add-contact-cancel')) {
-        event.stopPropagation();
-        return;
-    }
 
     overlayContainer.classList.remove('show');
 
     setTimeout(() => {
-        overlay.classList.add('d-none');
+        addContactOverlay.classList.add('d-none');
+
+
+        document.removeEventListener("click", handleOutsideClick);
     }, 300);
+}
+
+
+/**
+ * Handles clicks outside of the overlay.
+ * @param {Event} event - The click event.
+ */
+function handleOutsideClick(event) {
+    let overlayContainer = document.querySelector('.form-container');
+
+    if (overlayContainer.contains(event.target)) {
+        return;
+    }
+
+    closeAddContactOverlay();
 }
 
 
@@ -60,7 +74,6 @@ function handleAddContact(event) {
     let phone = document.querySelector("input[placeholder='Phone']").value;
 
     if (!name || !email) {
-        alert("Name and Email are required!");
         return;
     }
 

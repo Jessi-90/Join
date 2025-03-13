@@ -22,13 +22,13 @@ function showAddContactOverlayHTMLTemplate() {
         </div>
         <form>
             <div class="input-group">
-                <input type="text" placeholder="Name" required>
+                <input type="text" placeholder="Name">
                 <span class="icon">
                     <img src="../img/icon/person.svg" alt="User">
                 </span>
             </div>
             <div class="input-group">
-                <input type="email" placeholder="Email" required>
+                <input type="email" placeholder="Email">
                 <span class="icon">
                     <img src="../img/icon/mail.svg" alt="Email">
                 </span>

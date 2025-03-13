@@ -49,3 +49,15 @@
     background-color: #29ABE2 !important;
     box-shadow: 2px 5px 2px rgb(209, 209, 209)!important;    
 }
+
+.input-error {
+    border: 2px solid red !important;
+    background-color: #ffe6e6 !important;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: none;
+}
