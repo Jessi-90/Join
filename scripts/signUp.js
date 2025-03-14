@@ -150,7 +150,8 @@ function collectSignUpData() {
  */
 async function handleSignUpFormSubmission(event) {
     let signUpData = collectSignUpData();
-    let addNewContact = await addNewContact(signUpData);
+    console.log("signUpData: ", signUpData)
+    let newContact = await addNewContact(signUpData);
     showSignUpSubmitFeedback(event)
 }
 

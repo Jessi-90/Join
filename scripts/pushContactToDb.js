@@ -4,11 +4,15 @@
  */
 async function getContacts() {
     try {
-        let response = await fetch(`${BASE_URL}/contacts.json`);
+        let response = await fetch(BASE_URL + "contacts.json");
+        if (!response.ok) {
+            throw new Error(`Status: ${response.status}`);
+        }
         let contacts = await response.json();
+        console.log("contacts: ", contacts)
         return contacts || {}; 
     } catch (error) {
-        console.error("❌ Fehler beim Abrufen der Kontakte:", error);
+        console.error("Error while fetching conacts data", error);
         return null;
     }
 };
@@ -47,6 +51,6 @@ async function addNewContact(newContact) {
 
         console.log(`New Contact (ID: ${newContactKey}) added to database!`);
     } catch (error) {
-        console.error("error at adding the contact:", error);
+        console.error("error at adding the contacts to the database:", error);
     }
 };
