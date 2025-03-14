@@ -30,11 +30,26 @@ function summaryGreetingUser() {
         greetingText = "Good evening";
     }
 
-    const loggedInUser = getLoggedInUser(); 
-    const userName = loggedInUser ? loggedInUser.name : "Guest";
-
     document.querySelector(".greeting").textContent = greetingText + ",";
-    document.querySelector("#greetingName").textContent = userName;
+    document.querySelector("#greetingName").textContent = getUserName();
+}
+
+
+/**
+ * Determines the name of the logged-in user or returns "Guest" if no user is logged in.
+ * @returns {string} The name of the logged-in user or "Guest".
+ */
+function getUserName() {
+    const loggedInUser = getLoggedInUser();
+    
+    if (loggedInUser) {
+        return loggedInUser.name;
+    } 
+    if (localStorage.getItem("userType") === "guest") {
+        return "Guest";
+    }
+    
+    return "Guest"; 
 }
 
 
