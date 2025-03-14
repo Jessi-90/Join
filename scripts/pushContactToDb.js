@@ -2,7 +2,8 @@
  * Fetches the current contacts from the database.
  * @returns {Promise<Array>} an object with the contacts and the counter.
  */
-async function getContacts() {
+async function getContacts(event) {
+    event.preventDefault();
     try {
         let response = await fetch(BASE_URL + "contacts.json");
         if (!response.ok) {
@@ -23,9 +24,9 @@ async function getContacts() {
 
  * @param {Object} newContact - The newContact data to push to the database.
  */
-async function addNewContact(newContact) {
+async function addNewContact(event, contacts, newContact) {
+    event.preventDefault();
     try {
-        let contacts = await this.getContacts();
 
         let counter = contacts?.counter || 0;
         counter++; 
