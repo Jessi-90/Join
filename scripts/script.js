@@ -39,7 +39,7 @@ function togglePointerToIcon() {
  */
 function togglePasswordVisibility() {
   let inputPasswd = document.getElementById('input-password');
-  
+
   let cursorPosition = inputPasswd.value.length;
 
   if (inputPasswd.type === "password") {
@@ -86,63 +86,173 @@ function resetInputIcon() {
  */
 function protectionEventBubbeling(event) {
   event.stopPropagation();
-
 }
 
-  /**
-   * Handles the user input in the password field.
-   * - If the user types something, the icon changes to the "eye closed" icon.
-   * - If the field is empty, the icon resets to the default lock icon.
-   * - Ensures that the cursor indicates when the icon is clickable.
-   */
-  document.addEventListener("DOMContentLoaded", function () {
-    let inputPasswd = document.getElementById("input-password");
-    let inputPasswdIcon = document.getElementById("input-password-icon");
-    let isPasswordVisible = false;
-  
-    inputPasswd.addEventListener("input", function () {
-      if (inputPasswd.value.length > 0) {
-        if (!isPasswordVisible) {
-          inputPasswdIcon.src = "./assets/icons/visibility_off_icon.svg"; 
-        }
-        inputPasswdIcon.style.cursor = "pointer";
-      } else {
-        resetInputIcon();
+/**
+ * Handles the user input in the password field.
+ * - If the user types something, the icon changes to the "eye closed" icon.
+ * - If the field is empty, the icon resets to the default lock icon.
+ * - Ensures that the cursor indicates when the icon is clickable.
+ */
+document.addEventListener("DOMContentLoaded", function () {
+  let inputPasswd = document.getElementById("input-password");
+  let inputPasswdIcon = document.getElementById("input-password-icon");
+  let isPasswordVisible = false;
+
+  inputPasswd.addEventListener("input", function () {
+    if (inputPasswd.value.length > 0) {
+      if (!isPasswordVisible) {
+        inputPasswdIcon.src = "./assets/icons/visibility_off_icon.svg";
       }
-    });
-  
-    /**
-   * Toggles the visibility of the password field when the eye icon is clicked.
-   * - Prevents event bubbling to avoid unintended side effects.
-   * - Does nothing if the password field is empty.
-   * - Switches between text and password input types.
-   * - Updates the icon accordingly (open or closed eye).
-   * 
-   * @param {Event} event - The click event on the password visibility icon.
-   */
-    inputPasswdIcon.addEventListener("click", function (event) {
-      event.stopPropagation(); 
-  
-      if (inputPasswd.value.length === 0) return; 
-  
-      isPasswordVisible = !isPasswordVisible; 
-  
-      if (isPasswordVisible) {
-        inputPasswd.type = "text";
-        inputPasswdIcon.src = "./assets/icons/visibility_icon.svg"; 
-      } else {
-        inputPasswd.type = "password"
-        inputPasswdIcon.src = "./assets/icons/visibility_off_icon.svg"; 
-      }
-    });
-  
-     /**
-     * Resets the password icon to the lock symbol 
-     * when the input field is empty.
-     */
-    function resetInputIcon() {
-      inputPasswdIcon.src = "./assets/icons/lock_icon.svg"; 
-      inputPasswdIcon.style.cursor = "default";
-      isPasswordVisible = false; 
+      inputPasswdIcon.style.cursor = "pointer";
+    } else {
+      resetInputIcon();
     }
   });
+
+  /**
+ * Toggles the visibility of the password field when the eye icon is clicked.
+ * - Prevents event bubbling to avoid unintended side effects.
+ * - Does nothing if the password field is empty.
+ * - Switches between text and password input types.
+ * - Updates the icon accordingly (open or closed eye).
+ * 
+ * @param {Event} event - The click event on the password visibility icon.
+ */
+  inputPasswdIcon.addEventListener("click", function (event) {
+    event.stopPropagation();
+
+    if (inputPasswd.value.length === 0) return;
+
+    isPasswordVisible = !isPasswordVisible;
+
+    if (isPasswordVisible) {
+      inputPasswd.type = "text";
+      inputPasswdIcon.src = "./assets/icons/visibility_icon.svg";
+    } else {
+      inputPasswd.type = "password"
+      inputPasswdIcon.src = "./assets/icons/visibility_off_icon.svg";
+    }
+  });
+
+  /**
+  * Resets the password icon to the lock symbol 
+  * when the input field is empty.
+  */
+  function resetInputIcon() {
+    inputPasswdIcon.src = "./assets/icons/lock_icon.svg";
+    inputPasswdIcon.style.cursor = "default";
+    isPasswordVisible = false;
+  }
+});
+
+/**
+ * Validates the log-in form fields and updates UI accordingly.
+ */
+function validateLogInForm() {
+  let emailInput = document.getElementById("input-mail");
+  let passwordInput = document.getElementById("input-password");
+
+  let isEmailValid = validateEmail(emailInput.value);
+  let isPasswordFilled = passwordInput.value.trim() !== "";
+
+  checkEmailValidity(isEmailValid, emailInput);
+  checkLogInFormFields(isEmailValid, isPasswordFilled);
+}
+
+/**
+ * Checks if all required login form fields are valid and enables/disables the log-in button accordingly.
+ *
+ * @param {boolean} isEmailValid - Whether the email is valid.
+ * @param {boolean} isPasswordFilled - Whether the password field is filled.
+ */
+function checkLogInFormFields(isEmailValid, isPasswordFilled) {
+  if (isEmailValid && isPasswordFilled) {
+    enableBtn("logInBtn");
+  } else {
+    disableBtn("logInBtn");
+  }
+}
+
+/**
+ * Sets up input event listeners for form validation.
+ */
+function LogInValidation() {
+  document.getElementById("input-mail").oninput = validateLogInForm;
+  document.getElementById("input-password").oninput = validateLogInForm;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  LogInValidation();
+});
+
+/**
+ * Login function that validates user credentials against contacts
+ * and redirects to summary page on success.
+ * @param {Event} event - The form submit event.
+ */
+async function login(event) {
+  event.preventDefault();
+  await fetchContactsData();
+
+  let emailInput = document.getElementById('input-mail').value.trim();
+  let passwordInput = document.getElementById('input-password').value;
+  let matchedContact = currentContactsData.find(contact => contact.email === emailInput);
+  
+  if (matchedContact && String(matchedContact.password) === String(passwordInput)) {
+      storeUserAndForwardToSummary(matchedContact);
+  } else {
+      showUserFeedbackForFailedLoginAttempt();
+  }
+}
+
+/**
+ * Stores user information in sessionStorage and redirects to the summary page.
+ * @param {Object} user - The user object containing user details.
+ */
+function storeUserAndForwardToSummary(user) {
+  sessionStorage.setItem('currentUser', JSON.stringify({
+      email: user.email,
+      name: user.name,
+      color: user.color,
+      initials: user.initials,
+      phone: user.phone
+  }));
+  window.location.href = './html/summary.html';
+}
+
+/**
+ * Shows user feedback for a failed login attempt by highlighting the input fields
+ * and displaying an error message below the password input field.
+ */
+function showUserFeedbackForFailedLoginAttempt() {
+    document.getElementById('input-mail').classList.add('input-mismatch');
+    document.getElementById('input-password').classList.add('input-mismatch');
+    
+    let passwordInputElement = document.getElementById('input-password');
+    passwordInputElement.insertAdjacentHTML('afterend', failedLoginTemplate());
+}
+
+/**
+ * Sets up event listeners for the login form and login button
+ * after the DOM content is fully loaded.
+ */
+document.addEventListener('DOMContentLoaded', function() {
+  /**
+   * Adds a submit event listener to the login form.
+   * @type {HTMLFormElement}
+   */
+  let loginForm = document.querySelector('.log-in-form');
+  if (loginForm) {
+      loginForm.addEventListener('submit', login);
+  }
+
+  /**
+   * Adds a click event listener to the login button.
+   * @type {HTMLButtonElement}
+   */
+  let loginBtn = document.getElementById('logInBtn');
+  if (loginBtn) {
+      loginBtn.addEventListener('click', login);
+  }
+});

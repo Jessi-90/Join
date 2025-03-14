@@ -44,18 +44,24 @@ function signUpValidation() {
 }
 
 /**
- * Enables the sign-up button.
+ * Enables the specified button by its ID.
+ * This function can be used to enable both the sign-up and log-in buttons.
+ *
+ * @param {string} btnId - The ID of the button to be enabled.
  */
-function enableSignUpBtn() {
-    let signUpBtn = document.getElementById("signUpBtn");
+function enableBtn(btnId) {
+    let signUpBtn = document.getElementById(btnId);
     signUpBtn.disabled = false;
 }
 
 /**
- * Disables the sign-up button.
+ * Disables the specified button by its ID.
+ * This function can be used to disable both the sign-up and log-in buttons.
+ *
+ * @param {string} btnId - The ID of the button to be disabled.
  */
-function disableSignUpBtn() {
-    let signUpBtn = document.getElementById("signUpBtn");
+function disableBtn(btnId) {
+    let signUpBtn = document.getElementById(btnId);
     signUpBtn.disabled = true;
 }
 
@@ -98,7 +104,7 @@ function handleSignUpSubmit(event) {
     overlay.classList.remove("d-none");
     let overlayContainer = document.querySelector('.sign-up-overlay-box');
     overlayContainer.classList.add('show');
-    
+
     setTimeout(() => {
         window.location.href = "../index.html";
     }, 800);
@@ -116,11 +122,24 @@ function handleSignUpSubmit(event) {
  */
 function checkFormFields(isNameFilled, isEmailValid, isPasswordFilled, isConfirmPasswordFilled, isPasswordMatch, isPrivacyChecked) {
     if (isNameFilled && isEmailValid && isPasswordFilled && isConfirmPasswordFilled && isPasswordMatch && isPrivacyChecked) {
-        enableSignUpBtn();
+        enableBtn("signUpBtn");
     } else {
-        disableSignUpBtn();
+        disableBtn("signUpBtn");
     }
 }
 
-// Initialize validation event listeners
-signUpValidation();
+/**
+ * Sets up event listeners for form validation when the DOM content is fully loaded.
+ * Only initializes form validation if the current page is sign_up.html.
+ *
+ * @file This script should be included in the HTML file that requires form validation.
+ * @see {@link signUpValidation}
+ */
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (window.location.pathname.endsWith("sign_up.html")) {
+        signUpValidation();
+    }
+});
+
+
