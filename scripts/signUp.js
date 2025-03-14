@@ -139,7 +139,7 @@ function collectSignUpData() {
  */
 async function handleSignUpFormSubmission() {
     let signUpData = collectSignUpData();
-    let contactsCounter = await fetchContacts();
+    let contactsCounter = await fetchContactsCounter();
     let newId = `contact_${contactsCounter + 1}`;
     signUpData.id = newId;
     // await pushContactToDb(signUpData);
