@@ -1,40 +1,52 @@
 /**
  * Fetches the current contacts from the database.
- * @returns {Promise<Array>} The list of current contacts.
+ * @returns {Promise<Array>} an object with the contacts and the counter.
  */
-async function fetchContactsCounter() {
+async function getContacts() {
     try {
-        const response = await fetch(`${BASE_URL}/contacts/counter.json`);
-        if (!response.ok) {
-            throw new Error('Failed to fetch contacts from the database');
-        }
-        return await response.json();
+        let response = await fetch(`${BASE_URL}/contacts.json`);
+        let contacts = await response.json();
+        return contacts || {}; 
     } catch (error) {
-        console.error('Error:', error);
-        return [];
+        console.error("❌ Fehler beim Abrufen der Kontakte:", error);
+        return null;
     }
-}
+};
+
 
 /**
- * Pushes the contact data to the database.
- * @param {Object} contactData - The contact data to push.
+ * Pushes all the contact data to the database using PUT.
+
+ * @param {Object} newContact - The newContact data to push to the database.
  */
-async function pushContactToDb(contactData) {
+async function addNewContact(newContact) {
     try {
-        const response = await fetch(`${BASE_URL}/contacts`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(contactData)
+        let contacts = await this.getContacts();
+
+        let counter = contacts?.counter || 0;
+        counter++; 
+
+        let newContactKey = `contact_${counter}`;
+
+        contacts[newContactKey] = {
+            name: newContact.name || "",
+            email: newContact.email || "",
+            phone: newContact.phone || "",
+            color: newContact.color || "",
+            initials: newContact.initials || "",
+            password: newContact.password || ""
+        };
+
+        contacts.counter = counter; 
+
+        await fetch(`${BASE_URL}/contacts.json`, {
+            method: "PUT",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(contacts) 
         });
 
-        if (!response.ok) {
-            throw new Error('Failed to push contact to the database');
-        }
-
-        console.log('Contact successfully pushed to the database');
+        console.log(`New Contact (ID: ${newContactKey}) added to database!`);
     } catch (error) {
-        console.error('Error:', error);
+        console.error("error at adding the contact:", error);
     }
-}
+};
