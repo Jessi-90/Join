@@ -88,8 +88,7 @@ function checkConfirmPasswordLength(isPasswordMatch, confirmPasswordInput, passw
 }
 
 /**
- * Handles form submission for sign-up, displays overlay, and redirects after a delay.
- *
+ * Displays the overlay after submitting the form, and redirects after a delay.
  * @param {Event} event - The form submit event.
  */
 function showSignUpSubmitFeedback(event) {
@@ -132,6 +131,10 @@ function getRandomColor() {
     return colors[Math.floor(Math.random() * colors.length)];
 }
 
+/**
+ * Returns the first characters of the first two words (if given) of the new contact in capital letters.
+ * @returns {string} The initials of the contact.
+ */
 function getContactInitials() {
     const name = document.getElementById("signUpName").value.trim();
     const nameParts = name.split(" ");
@@ -158,6 +161,7 @@ function collectSignUpData() {
 
 /**
  * Handles the sign-up form submission.
+ * @param {Event} event - The form submit event.
  */
 async function handleSignUpFormSubmission(event) {
     event.preventDefault();
