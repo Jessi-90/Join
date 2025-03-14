@@ -92,13 +92,12 @@ function checkConfirmPasswordLength(isPasswordMatch, confirmPasswordInput, passw
  *
  * @param {Event} event - The form submit event.
  */
-function handleSignUpSubmit(event) {
+function showSignUpSubmitFeedback(event) {
     event.preventDefault();
     let overlay = document.getElementById("overlaySignUp");
     overlay.classList.remove("d-none");
     let overlayContainer = document.querySelector('.sign-up-overlay-box');
     overlayContainer.classList.add('show');
-    
     setTimeout(() => {
         window.location.href = "../index.html";
     }, 800);
@@ -123,6 +122,17 @@ function checkFormFields(isNameFilled, isEmailValid, isPasswordFilled, isConfirm
 }
 
 /**
+ * Returns a random color from a predefined color palette.
+ * This ensures that contact icons have varied colors.
+ *
+ * @returns {string} A random hex color code (e.g., "#FF5733").
+ */
+function getRandomColor() {
+    const colors = ['#6E52FF', '#FC71FF', '#FFBB2B', '#1FD7C1', '#462F8A', '#20B2AA'];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+/**
  * Collects data from the sign-up form fields.
  * @returns {Object} The collected data.
  */
@@ -131,24 +141,18 @@ function collectSignUpData() {
         name: document.getElementById("signUpName").value.trim(),
         email: document.getElementById("signUpEmail").value.trim(),
         password: document.getElementById("signUpPassword").value.trim(),
+        color: getRandomColor(),
     };
 }
 
 /**
  * Handles the sign-up form submission.
  */
-async function handleSignUpFormSubmission() {
+async function handleSignUpFormSubmission(event) {
     let signUpData = collectSignUpData();
-    let contactsCounter = await fetchContactsCounter();
-    let newId = `contact_${contactsCounter + 1}`;
-    signUpData.id = newId;
-    // await pushContactToDb(signUpData);
-    setTimeout(() => {
-        window.location.href = "../index.html";
-    }, 800);
+    let addNewContact = await addNewContact(signUpData);
+    showSignUpSubmitFeedback(event)
 }
-
-document.getElementById("signUpBtn").addEventListener("click", handleSignUpFormSubmission);
 
 // Initialize validation event listeners
 signUpValidation();
