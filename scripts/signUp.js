@@ -132,6 +132,16 @@ function getRandomColor() {
     return colors[Math.floor(Math.random() * colors.length)];
 }
 
+function getContactInitials() {
+    const name = document.getElementById("signUpName").value.trim();
+    const nameParts = name.split(" ");
+    let initials = nameParts[0].charAt(0).toUpperCase();
+    if (nameParts.length > 1) {
+        initials += nameParts[1].charAt(0).toUpperCase();
+    }
+    return initials;
+}
+
 /**
  * Collects data from the sign-up form fields.
  * @returns {Object} The collected data.
@@ -142,6 +152,7 @@ function collectSignUpData() {
         email: document.getElementById("signUpEmail").value.trim(),
         password: document.getElementById("signUpPassword").value.trim(),
         color: getRandomColor(),
+        initials: getContactInitials(),
     };
 }
 
@@ -152,7 +163,7 @@ async function handleSignUpFormSubmission(event) {
     event.preventDefault();
     let signUpData = collectSignUpData();
     let contacts = await getContacts(event);
-    await addNewContact(event, contacts,  signUpData);
+    await addNewContact(event, contacts, signUpData);
     showSignUpSubmitFeedback(event)
 }
 
