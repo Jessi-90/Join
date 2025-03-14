@@ -10,7 +10,6 @@ async function getContacts(event) {
             throw new Error(`Status: ${response.status}`);
         }
         let contacts = await response.json();
-        console.log("contacts: ", contacts)
         return contacts || {}; 
     } catch (error) {
         console.error("Error while fetching conacts data", error);
@@ -50,7 +49,6 @@ async function addNewContact(event, contacts, newContact) {
             body: JSON.stringify(contacts) 
         });
 
-        console.log(`New Contact (ID: ${newContactKey}) added to database!`);
     } catch (error) {
         console.error("error at adding the contacts to the database:", error);
     }
