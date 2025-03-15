@@ -28,20 +28,12 @@ async function addNewContact(event, contacts, newContact) {
     event.preventDefault();
     try {
 
-        let counter = contacts?.counter || 0;
-        counter++; 
+        let counter = increaseContactsCounter(contacts);
 
         let newContactKey = `contact_${counter}`;
 
-        contacts[newContactKey] = {
-            name: newContact.name || "",
-            email: newContact.email || "",
-            phone: newContact.phone || "",
-            color: newContact.color || "",
-            initials: newContact.initials || "",
-            password: newContact.password || ""
-        };
-
+        let newContacts = createNewContact(contacts, newContact, newContactKey);
+        
         contacts.counter = counter; 
 
         await fetch(`${BASE_URL}/contacts.json`, {
@@ -54,3 +46,34 @@ async function addNewContact(event, contacts, newContact) {
         console.error("error at adding the contacts to the database:", error);
     }
 };
+
+/**
+ * Returns the updated counter of contacts.
+ * @param {Object} contacts 
+ * @returns {number} The updated counter.
+ */
+function increaseContactsCounter(contacts) {
+    let counter = contacts?.counter || 0;
+    counter++; 
+    return counter;
+}
+
+/**
+ * Returns the updated contacts object with the new contact.
+ * @param {Object} contacts The current contacts object.
+ * @param {Object} newContact The new contact to add.
+ * @param {string} newContactKey The key for the new contact.
+ * @returns {Object} The updated contacts object.
+ */
+function createNewContact(contacts, newContact, newContactKey) {
+    contacts[newContactKey] = {
+        name: newContact.name || "",
+        email: newContact.email || "",
+        phone: newContact.phone || "",
+        color: newContact.color || "",
+        initials: newContact.initials || "",
+        password: newContact.password || ""
+    };
+
+    return contacts;
+}
