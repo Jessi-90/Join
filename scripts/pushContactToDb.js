@@ -20,7 +20,8 @@ async function getContacts(event) {
 
 /**
  * Pushes all the contact data to the database using PUT.
-
+ * @param {Event} event - The form submit event.
+ * @param {Object} contacts - The contacts data from the database.
  * @param {Object} newContact - The newContact data to push to the database.
  */
 async function addNewContact(event, contacts, newContact) {
