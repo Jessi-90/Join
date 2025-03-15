@@ -44,18 +44,24 @@ function signUpValidation() {
 }
 
 /**
- * Enables the sign-up button.
+ * Enables the specified button by its ID.
+ * This function can be used to enable both the sign-up and log-in buttons.
+ *
+ * @param {string} btnId - The ID of the button to be enabled.
  */
-function enableSignUpBtn() {
-    let signUpBtn = document.getElementById("signUpBtn");
+function enableBtn(btnId) {
+    let signUpBtn = document.getElementById(btnId);
     signUpBtn.disabled = false;
 }
 
 /**
- * Disables the sign-up button.
+ * Disables the specified button by its ID.
+ * This function can be used to disable both the sign-up and log-in buttons.
+ *
+ * @param {string} btnId - The ID of the button to be disabled.
  */
-function disableSignUpBtn() {
-    let signUpBtn = document.getElementById("signUpBtn");
+function disableBtn(btnId) {
+    let signUpBtn = document.getElementById(btnId);
     signUpBtn.disabled = true;
 }
 
@@ -114,9 +120,9 @@ function showSignUpSubmitFeedback(event) {
  */
 function checkFormFields(isNameFilled, isEmailValid, isPasswordFilled, isConfirmPasswordFilled, isPasswordMatch, isPrivacyChecked) {
     if (isNameFilled && isEmailValid && isPasswordFilled && isConfirmPasswordFilled && isPasswordMatch && isPrivacyChecked) {
-        enableSignUpBtn();
+        enableBtn("signUpBtn");
     } else {
-        disableSignUpBtn();
+        disableBtn("signUpBtn");
     }
 }
 
