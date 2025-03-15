@@ -13,7 +13,7 @@ async function init() {
     renderContactList(currentContactsData);
     addContactClickEvents();
     summaryGreetingUser();
-} 
+}
 
 /**
  * Fetches contact data from the Firebase database and stores it in `currentContactsData`.
@@ -30,18 +30,19 @@ async function fetchContactsData() {
         if (!databaseResponse.ok) {
             throw new Error(`Status: ${databaseResponse.status}`);
         }
-        const data = await databaseResponse.json(); 
+        const data = await databaseResponse.json();
 
         if (!data || typeof data !== 'object') {
             currentContactsData = [];
         } else {
             currentContactsData = Object.keys(data)
-                .filter(key => key !== "counter") 
+                .filter(key => key !== "counter")
                 .map(key => ({
-                    firebaseId: key, 
-                    ...data[key] 
+                    firebaseId: key,
+                    ...data[key]
                 }))
-                .filter(contact => contact.name); 
+                .filter(contact => contact.name)
+                .sort((a, b) => a.name.localeCompare(b.name));
         }
 
     } catch (error) {
@@ -68,7 +69,7 @@ async function putContact(contact) {
         if (!response.ok) throw new Error("Fehler beim Abrufen der Kontakte");
 
         const contacts = await response.json();
-        const nextId = Object.keys(contacts || {}).length + 1; 
+        const nextId = Object.keys(contacts || {}).length + 1;
 
         const putResponse = await fetch(`${BASE_URL}/contacts/${nextId}.json`, {
             method: "PUT",
@@ -79,6 +80,9 @@ async function putContact(contact) {
         if (!putResponse.ok) throw new Error("Fehler beim Speichern des Kontakts");
 
         console.log(`Kontakt ${contact.name} mit ID ${nextId} gespeichert.`);
+        await fetchContactsData();
+        renderContactList(currentContactsData);
+
     } catch (error) {
         console.error("Fehler beim Hinzufügen eines Kontakts:", error);
     }
