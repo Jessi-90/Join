@@ -133,10 +133,10 @@ function getRandomColor() {
 
 /**
  * Returns the first characters of the first two words (if given) of the new contact in capital letters.
+ * @param {string} name - The name of the contact.
  * @returns {string} The initials of the contact.
  */
-function getContactInitials() {
-    const name = document.getElementById("signUpName").value.trim();
+function getContactInitials(name) {
     const nameParts = name.split(" ");
     let initials = nameParts[0].charAt(0).toUpperCase();
     if (nameParts.length > 1) {
@@ -150,12 +150,13 @@ function getContactInitials() {
  * @returns {Object} The collected data.
  */
 function collectSignUpData() {
+    let signUpName = document.getElementById("signUpName").value.trim();
     return {
-        name: document.getElementById("signUpName").value.trim(),
+        name: signUpName,
         email: document.getElementById("signUpEmail").value.trim(),
         password: document.getElementById("signUpPassword").value.trim(),
         color: getRandomColor(),
-        initials: getContactInitials(),
+        initials: getContactInitials(signUpName),
     };
 }
 
