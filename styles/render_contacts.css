@@ -148,6 +148,12 @@
     flex-direction: column;
     width: 100%;
     min-width: 515px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.contact-detail.show {
+    transform: translateX(0);
 }
 
 .contact-view {
