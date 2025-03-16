@@ -53,17 +53,6 @@ function getRandomColor() {
 
 
 /**
- * Handles the event when a contact is clicked.
- * 
- * This function receives the contact object and triggers the rendering 
- * of the detailed view for that specific contact.
- */
-function onContactClick(contact) {
-    renderContactDetail(contact);
-}
-
-
-/**
  * Groups contacts alphabetically based on the first letter of their name.
  * Invalid contacts (missing or incorrectly formatted) are ignored.
  * 
@@ -116,7 +105,7 @@ function addContactClickEvents() {
             const contactId = item.getAttribute('data-contact-id'); 
             const contact = currentContactsData.find(c => c.id === contactId);
             if (contact) {
-                renderContactDetail(contact); 
+                onContactClick(contact); 
             }
         });
     });
