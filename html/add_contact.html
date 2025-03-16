@@ -18,14 +18,14 @@
         <div class="modal">
             <div class="sidebar">
                 <div class="logo-container">
-                    <img class="join-logo" src="../img/icon/Capa 2 (2).svg">
+                    <img class="join-logo-add-contact" src="../img/icon/Capa 2 (2).svg">
                 </div>
                 <h1>Add contact</h1>
                 <p>Tasks are better with a team!</p>
                 <div class="divider"></div>
             </div>
             <div class="form-container">
-                <button class="close-btn" onclick="closeOverlay()">✖</button>
+                <button class="close-btn" id="close-add-contact-btn">✖</button>
                 <div class="profile-picture">
                     <img src="../img/icon/Group 13.svg" alt="Profilbild">
                 </div>
@@ -48,18 +48,16 @@
                             <img src="../img/icon/call.svg" alt="Phone">
                         </span>
                     </div>
-                    <div class="buttons">
-                        <button type="button" class="cancel" onclick="closeOverlay()">Cancel <img class="cancel-x"
+                    <div class="add-contact-buttons">
+                        <button class="add-contact-cancel" id="cancel-contact">Cancel <img class="cancel-x"
                                 src="../img/icon/iconoir_cancel.svg"></button>
-                        <button type="submit" class="create">Create contact <img class="create-check"
+                        <button class="add-contact-create" id="create-contact">Create contact <img class="create-check"
                                 src="../img/icon/check.svg"></button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-    <button onclick="openOverlay()">Open Contact Form</button>
 
 </body>
 
