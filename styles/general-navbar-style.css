@@ -237,3 +237,9 @@ a.active .menu-summary-btn {
 .active {
     background-color: #091931;
 }
+
+.userCredentials {
+    color: rgba(41, 171, 226, 1);
+    font-size: medium;
+    font-weight: bold;
+}
