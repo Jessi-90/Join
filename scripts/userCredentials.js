@@ -10,5 +10,12 @@ currentUser = currentUser ? JSON.parse(currentUser) : { initials: "G"};
 let initials = currentUser.initials;
 
 console.log("Initials:", initials);
-console.log("Color:", color);
+return initials;
+}
+
+function renderCurrentUserInitials() {
+    let initials = getCurrentUserInitials();
+    let userButton = document.getElementById('userButton');
+    userButton.innerText = initials;
+    userButton.classList.add('userCredentials');
 }
