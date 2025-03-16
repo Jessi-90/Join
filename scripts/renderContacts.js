@@ -218,5 +218,6 @@ function renderNoContactsMessage(container) {
  */
 function renderContactDetail(contact) {
     const container = document.getElementById('contactDetail');
+    container.classList.add('show');
     container.innerHTML = renderContactDetailTemplate(contact);
 }
