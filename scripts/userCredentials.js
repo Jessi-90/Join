@@ -9,7 +9,6 @@ currentUser = currentUser ? JSON.parse(currentUser) : { initials: "G"};
 
 let initials = currentUser.initials;
 
-console.log("Initials:", initials);
 return initials;
 }
 
