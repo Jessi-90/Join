@@ -9,7 +9,7 @@
  * @async
  */
 document.addEventListener("DOMContentLoaded", async () => {
-    await fetchContactsData(); 
+    await fetchContactsData();
     summaryGreetingUser(); 
 });
 
@@ -30,24 +30,41 @@ function summaryGreetingUser() {
         greetingText = "Good evening";
     }
 
-    const loggedInUser = getLoggedInUser(); 
-    const userName = loggedInUser ? loggedInUser.name : "Guest";
-
     document.querySelector(".greeting").textContent = greetingText + ",";
-    document.querySelector("#greetingName").textContent = userName;
+    document.querySelector("#greetingName").textContent = getUserName();
 }
 
 
 /**
- * Retrieves the logged-in user from `currentContactsData` based on the email stored in localStorage.
- * @returns {Object|null} - The logged-in user object or null if not found.
+ * Retrieves the name of the currently logged-in user or returns "Guest" if no user is found.
+ * 
+ * @returns {string} The name of the logged-in user or "Guest" if no user is found.
+ */
+function getUserName() {
+  
+    if (localStorage.getItem("userType") === "guest") {
+        return "Guest";
+    }
+
+    const loggedInUser = getLoggedInUser();
+    return loggedInUser ? loggedInUser.name : "Guest";
+}
+
+
+/**
+ * Retrieves the logged-in user from sessionStorage.
+ * 
+ * @returns {Object|null} The logged-in user object if found, otherwise `null`.
  */
 function getLoggedInUser() {
-    const loggedInEmail = localStorage.getItem("loggedInUserEmail");
-    console.log("Logged in email:", loggedInEmail);
-    console.log("Contacts data:", currentContactsData);
+    
+    let loggedInUser = sessionStorage.getItem("currentUser");
 
-    if (!loggedInEmail || !currentContactsData) return null;
+    if (!loggedInUser) {
+        return null;
+    }
 
-    return currentContactsData.find(contact => contact.email === loggedInEmail) || null;
+    loggedInUser = JSON.parse(loggedInUser);
+
+    return loggedInUser;
 }

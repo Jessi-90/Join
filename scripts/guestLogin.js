@@ -11,19 +11,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
 /**
  * Handles the guest login process.
  * 
  * This function:
- * 1. Prevents the default behavior of the button (in case it's part of a form).
- * 2. Stores the user type as 'guest' in localStorage, so the guest status can be checked on other pages.
- * 3. Logs a message to the console for debugging purposes.
- * 4. Redirects the user to the `summary.html` page, completing the guest login process.
+ * - Prevents the default button behavior (in case it's part of a form).
+ * - Clears any existing user session by removing `currentUser` from sessionStorage.
+ * - Removes the `loggedInUserEmail` from localStorage to ensure no user is logged in.
+ * - Sets the `userType` in localStorage to "guest" to indicate guest mode.
+ * - Redirects the user to the `summary.html` page to complete the guest login process.
  * 
- * @param {Event} event - The click event object passed by the event listener.
+ * @param {Event} event - The click event triggering the guest login.
  */
 function guestLogIn(event) {
     event.preventDefault();
-    localStorage.setItem('userType', 'guest');
+    
+    sessionStorage.removeItem('currentUser'); 
+    localStorage.removeItem('loggedInUserEmail'); 
+
+    localStorage.setItem('userType', 'guest'); 
+
     window.location.href = './html/summary.html';
 }

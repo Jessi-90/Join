@@ -211,6 +211,8 @@ async function login(event) {
  * @param {Object} user - The user object containing user details.
  */
 function storeUserAndForwardToSummary(user) {
+  localStorage.setItem("userType", "loggedIn");
+  localStorage.setItem("loggedInUserEmail", user.email);
   sessionStorage.setItem('currentUser', JSON.stringify({
       email: user.email,
       name: user.name,
