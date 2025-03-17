@@ -270,7 +270,6 @@ document.addEventListener('click', (event) => {
 async function populateContacts() {
     await fetchContactsData();
 
-    // Prepare contacts with their name, color, and initials
     let contacts = currentContactsData.map(contact => ({
         name: contact.name,
         userDetails: {
@@ -279,16 +278,14 @@ async function populateContacts() {
         }
     }));
 
-    // Sort contacts alphabetically by last name
     contacts = contacts.sort((a, b) => {
         let lastNameA = a.name.split(' ').slice(-1).join('');
         let lastNameB = b.name.split(' ').slice(-1).join('');
         return lastNameA.localeCompare(lastNameB);
     });
 
-    // Populate the dropdown with contacts
     const dropdown = document.getElementById('dropdownOptions');
-    dropdown.innerHTML = ''; // Clear previous dropdown content
+    dropdown.innerHTML = '';
     contacts.forEach(contact => {
         const listItem = document.createElement('li');
         listItem.classList.add('dropdown-item');
