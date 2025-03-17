@@ -94,7 +94,7 @@ function validateTaskForm() {
     isValid &= validateDueDate();
     isValid &= validateCategory(category);
 
-    return !!isValid;  
+    return !!isValid;
 }
 
 /**
@@ -243,22 +243,63 @@ function initDueDateInput() {
 }
 
 /**
- * Fetches contacts from Firestore and populates the assigned contacts select field.
+ * Toggles the visibility of the dropdown menu.
+ * If the dropdown is currently open, it will close, and vice versa.
+ */
+function toggleDropdown() {
+    const dropdown = document.getElementById('dropdownOptions');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+/**
+ * Closes the dropdown menu when a click occurs outside of the dropdown area.
+ */
+document.addEventListener('click', (event) => {
+    const dropdown = document.getElementById('dropdownOptions');
+    const assignedDropdown = document.getElementById('assignedDropdown');
+
+    if (!assignedDropdown.contains(event.target)) {
+        dropdown.style.display = 'none';
+    }
+});
+
+/**
+ * Populates the dropdown menu with a list of contacts.
+ * Fetches contact data, sorts it alphabetically by last name, and displays each contact with an avatar and a checkbox.
  */
 async function populateContacts() {
-    const assignedSelect = document.getElementById('assigned');
-    assignedSelect.innerHTML = '<option value="" disabled selected>Select contact</option>';
+    await fetchContactsData();
 
-    try {
-        const querySnapshot = await getDocs(collection(db, 'contacts'));
-        querySnapshot.forEach(doc => {
-            const contact = doc.data();
-            const option = document.createElement('option');
-            option.value = contact.email;
-            option.textContent = contact.name;
-            assignedSelect.appendChild(option);
-        });
-    } catch (error) {
-        console.error('Fehler beim Laden der Kontakte:', error);
-    }
+    // Prepare contacts with their name, color, and initials
+    let contacts = currentContactsData.map(contact => ({
+        name: contact.name,
+        userDetails: {
+            color: contact.color,
+            initials: contact.initials
+        }
+    }));
+
+    // Sort contacts alphabetically by last name
+    contacts = contacts.sort((a, b) => {
+        let lastNameA = a.name.split(' ').slice(-1).join('');
+        let lastNameB = b.name.split(' ').slice(-1).join('');
+        return lastNameA.localeCompare(lastNameB);
+    });
+
+    // Populate the dropdown with contacts
+    const dropdown = document.getElementById('dropdownOptions');
+    dropdown.innerHTML = ''; // Clear previous dropdown content
+    contacts.forEach(contact => {
+        const listItem = document.createElement('li');
+        listItem.classList.add('dropdown-item');
+        listItem.innerHTML = `
+            <div class="dropdown-avatar-and-name">
+                ${UserAvatarTemplate(contact.userDetails)}
+                ${contact.name}
+            </div>
+            ${checkboxTemplate()}
+        `;
+
+        dropdown.appendChild(listItem);
+    });
 }
