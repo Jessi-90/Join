@@ -55,9 +55,10 @@ async function fetchTasksData() {
  * @param {string} tasks[].priority - The priority level of the task.
  * @param {number} tasks[].status - The status of the task (1 = to-do, 2 = in-progress, 3 = await-feedback, 4 = done).
  */
-function renderTasks(tasks) {
+async function renderTasks(tasks) {
     clearAllContainers();
-
+    await fetchContactsData();
+    
     for (let taskId in tasks) {
         if (taskId !== 'counter') {
             renderTask(taskId, tasks[taskId]);
@@ -213,55 +214,36 @@ function truncateTaskDescription(text) {
 }
 
 /**
- * Generates initials from a full name.
- * @param {string} name - The full name of the user.
- * @returns {string} - The initials (e.g., "JD" for "John Doe").
- */
-function getInitials(name) {
-    let nameParts = name.split(" ");
-    let initials = nameParts[0].charAt(0).toUpperCase();
-    if (nameParts.length > 1) {
-        initials += nameParts[1].charAt(0).toUpperCase();
-    }
-    return initials;
-}
-
-/**
- * Generates a background color based on the name.
- * @param {string} name - The full name of the user.
- * @returns {string} - A hex color code.
- */
-function getColorForName(name) {
-    let hash = 0;
-    for (let i = 0; i < name.length; i++) {
-        hash = name.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    let color = "#";
-    for (let i = 0; i < 3; i++) {
-        let value = (hash >> (i * 8)) & 0xff;
-        color += ("00" + value.toString(16)).substr(-2);
-    }
-    return color;
-}
-
-/**
  * Generates user avatar HTML based on assigned users.
  * @param {string[]} users - An array of user names.
- * @returns {string} - HTML string for user avatars.
+ * @param {string} id - The ID for the container element.
+ * @param {Array} currentContactsData - Local array with contact data.
+ * @returns {void}
  */
-function generateUserAvatars(users, id) {
+function generateUserAvatars(users, id, currentContactsData) {
     let userIcons = document.getElementById(`user-icons-${id}`);
-
     if (!users || users.length === 0) {
         userIcons.innerHTML = "";
-
     } else {
-        users.map(user => {
-            let initials = getInitials(user);
-            let bgColor = getColorForName(user);
-            userIcons.innerHTML += `<div class="user-avatar" style="background-color: ${bgColor};">${initials}</div>`
+        userIcons.innerHTML = "";
+        users.forEach(assignedUser => {
+            let userDetails = getContactDetails(assignedUser);
+            if (userDetails) {
+                userIcons.innerHTML += boardCardAssignedUsersTemplate(userDetails);
+            }
         });
     }
+}
+
+/**
+ * Retrieves the color and initials of a specific user from the local contacts data.
+ * 
+ * @param {string} assignedUser - The name of the user to search for.
+ * @returns {{color: string, initials: string} | null} - An object containing the user's color and initials, or null if not found.
+ */
+function getContactDetails(assignedUser) {
+    let contact = currentContactsData.find(contact => contact.name === assignedUser);
+    return contact ? { color: contact.color, initials: contact.initials } : null;
 }
 
 /**
