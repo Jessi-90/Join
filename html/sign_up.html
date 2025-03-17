@@ -10,6 +10,8 @@
 		<link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml" />
 		<link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg" type="image/svg+xml" />
 		<script src="../scripts/db.js"></script>
+		<script src="../scripts/pushContactToDb.js" defer></script>
+		<script src="../scripts/generateContactData.js" defer></script>
 		<script src="../scripts/signUp.js" defer></script>
 		<script src="../scripts/signUpRevealPwd.js" defer></script>
 	</head>
@@ -51,7 +53,7 @@
 								>I accept the <a href="./privacy_policy.html">Privacy Policy</a></label
 							>
 						</div>
-						<button type="submit" id="signUpBtn" class="btn-dark" onclick="handleSignUpSubmit(event)" disabled>Sign Up</button>
+						<button type="submit" id="signUpBtn" class="btn-dark" onclick="handleSignUpFormSubmission(event)" disabled>Sign Up</button>
 					</form>
 				</div>
 				<div class="sign-up-footer">

@@ -94,17 +94,15 @@ function checkConfirmPasswordLength(isPasswordMatch, confirmPasswordInput, passw
 }
 
 /**
- * Handles form submission for sign-up, displays overlay, and redirects after a delay.
- *
+ * Displays the overlay after submitting the form, and redirects after a delay.
  * @param {Event} event - The form submit event.
  */
-function handleSignUpSubmit(event) {
+function showSignUpSubmitFeedback(event) {
     event.preventDefault();
     let overlay = document.getElementById("overlaySignUp");
     overlay.classList.remove("d-none");
     let overlayContainer = document.querySelector('.sign-up-overlay-box');
     overlayContainer.classList.add('show');
-
     setTimeout(() => {
         window.location.href = "../index.html";
     }, 800);
@@ -129,17 +127,31 @@ function checkFormFields(isNameFilled, isEmailValid, isPasswordFilled, isConfirm
 }
 
 /**
- * Sets up event listeners for form validation when the DOM content is fully loaded.
- * Only initializes form validation if the current page is sign_up.html.
- *
- * @file This script should be included in the HTML file that requires form validation.
- * @see {@link signUpValidation}
+ * Collects data from the sign-up form fields.
+ * @returns {Object} The collected data.
  */
+function collectSignUpData() {
+    let signUpName = document.getElementById("signUpName").value.trim();
+    return {
+        name: signUpName,
+        email: document.getElementById("signUpEmail").value.trim(),
+        password: document.getElementById("signUpPassword").value.trim(),
+        color: getRandomColor(),
+        initials: getContactInitials(signUpName),
+    };
+}
 
-document.addEventListener("DOMContentLoaded", function () {
-    if (window.location.pathname.endsWith("sign_up.html")) {
-        signUpValidation();
-    }
-});
+/**
+ * Handles the sign-up form submission.
+ * @param {Event} event - The form submit event.
+ */
+async function handleSignUpFormSubmission(event) {
+    event.preventDefault();
+    let signUpData = collectSignUpData();
+    let contacts = await getContacts(event);
+    await addNewContact(event, contacts, signUpData);
+    showSignUpSubmitFeedback(event)
+}
 
-
+// Initialize validation event listeners
+signUpValidation();
