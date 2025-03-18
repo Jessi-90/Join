@@ -87,3 +87,40 @@ async function putContact(contact) {
         console.error("Fehler beim Hinzufügen eines Kontakts:", error);
     }
 }
+
+
+/**
+ * Deletes a contact from the Firebase database and updates the UI.
+ * 
+ * This function sends a DELETE request to remove the contact from the database.
+ * After deletion, it fetches the updated contact list and re-renders it.
+ * If the deleted contact's details are currently displayed, they will be removed from the UI.
+ * 
+ * @async
+ * @function deleteContact
+ * @param {string} firebaseId - The unique Firebase ID of the contact to be deleted.
+ * @returns {Promise<void>} - A promise that resolves once the contact is deleted and the UI is updated.
+ * @throws {Error} - Logs an error if the deletion request fails.
+ */
+async function deleteContact(firebaseId) {
+    try {
+        const response = await fetch(`${BASE_URL}contacts/${firebaseId}.json`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Fehler beim Löschen des Kontakts: ${response.status}`);
+        }
+        
+        await fetchContactsData();
+        renderContactList(currentContactsData);
+        const contactDetailContainer = document.getElementById("contact-detail");
+        if (contactDetailContainer && contactDetailContainer.dataset.firebaseId === firebaseId) {
+            contactDetailContainer.innerHTML = "";
+        }
+
+    } catch (error) {
+        console.error("Fehler beim Löschen des Kontakts:", error);
+    }
+}

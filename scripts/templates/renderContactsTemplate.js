@@ -127,26 +127,28 @@ function renderContactListItem(contact) {
  */
 function renderContactDetailTemplate(contact) {
     return `
-        <div class="contact-detail-name">
-            <div class="contact-icon-placeholder-large" style="background-color: ${contact.color}">
-                ${contact.initials}
-            </div>
-            <div class="namefield">
-                <span>${contact.name}</span>
-                <div class="contact-actions">
-                    <button class="edit-button" onclick="showEditContactOverlay()">
-                        <img src="../assets/icons/edit.svg" alt="Edit" class="button-icon">Edit
-                    </button>
-                    <button class="delete-button" onclick="deleteEditContactOverlay(${contact.id})">
-                        <img src="../assets/icons/delete.svg" alt="Delete" class="button-icon">Delete
-                    </button>
+        <div id="contact-detail" data-firebase-id="${contact.firebaseId}">
+            <div class="contact-detail-name">
+                <div class="contact-icon-placeholder-large" style="background-color: ${contact.color}">
+                    ${contact.initials}
+                </div>
+                <div class="namefield">
+                    <span>${contact.name}</span>
+                    <div class="contact-actions">
+                        <button class="edit-button" onclick="showEditContactOverlay()">
+                            <img src="../assets/icons/edit.svg" alt="Edit" class="button-icon">Edit
+                        </button>
+                        <button class="delete-button" onclick="deleteContact('${contact.firebaseId}')">
+                            <img src="../assets/icons/delete.svg" alt="Delete" class="button-icon">Delete
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="contact-info-section">
-            <h4>Contact Information</h4>
-            <p><strong>Email</strong> <a href="mailto:${contact.email}">${contact.email}</a></p>
-            <p><strong>Phone</strong> ${contact.phone}</p>
+            <div class="contact-info-section">
+                <h4>Contact Information</h4>
+                <p><strong>Email</strong> <a href="mailto:${contact.email}">${contact.email}</a></p>
+                <p><strong>Phone</strong> ${contact.phone}</p>
+            </div>
         </div>
     `;
 }
