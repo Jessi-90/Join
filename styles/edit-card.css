@@ -83,15 +83,15 @@
   gap: 12px;
 }
 
-ul {
+.edit-card-subtasks-list ul {
   padding: 6px 16px;
 }
 
-li {
+.edit-card-subtasks-list li {
   padding-bottom: 12px;
 }
 
-li:hover {
+.edit-card-subtasks-list li:hover {
   cursor: pointer;
   background-color: #efeeee;
   background-size: cover;

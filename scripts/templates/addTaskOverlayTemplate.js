@@ -12,87 +12,91 @@ function showAddTaskOverlayHTMLTemplate() {
                 <img src="../assets/icons/close_btn.svg" alt="close">
             </button>
         </div>
-        <form>
-            <div class="form-container">
-                <div class="form-column-left">
-                    <div class="form-group">
-                        <label for="title">Title<span class="star">*</span></label>
-                        <input type="text" id="title" placeholder="Enter a title" required>
-                        <span class="error-message">This field is required</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea id="description" placeholder="Enter a Description"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="assigned">Assigned to</label>
-                        <div class="custom-select-wrapper">
-                            <select id="assigned">
-                                <option>Select contacts to assign</option>
-                            </select>
-                            <img class="custom-arrow" src="../img/icon/arrow_drop_down.svg" alt="Dropdown Arrow">
+             <form>
+                <div class="form-container" id="taskForm">
+                    <div class="form-column-left">
+                        <div class="form-group">
+                            <label for="title">Title<span class="star">*</span></label>
+                            <input type="text" id="title" placeholder="Enter a title" required>
+                            <span class="error-message">This field is required</span>
                         </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" placeholder="Enter a Description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="due-date">Due date<span class="star">*</span></label>
+                            <div class="date-input">
+                                <input id="due-date" type="text" required placeholder="dd/mm/yyyy" maxlength="10">
+                                <button type="button" class="calendar-button">
+                                    <img src="../img/icon/event.svg" alt="Kalender öffnen">
+                                </button>
+                            </div>
+                            <span class="error-message">This field is required</span>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="form-column-right">
+                        <div class="form-group">
+                            <label>Prio</label>
+                            <div class="prio-buttons">
+                                <button type="button" class="prio-btn urgent">Urgent <img class="urgent-image"
+                                        src="../img/icon/Prio alta.svg"></button>
+                                <button type="button" class="prio-btn medium">Medium <img class="medium-image"
+                                        src="../img/icon/Prio media (1).svg"></button>
+                                <button type="button" class="prio-btn low">Low <img
+                                        src="../img/icon/Prio baja.svg"></button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="assigned">Assigned to</label>
+                            <div class="custom-dropdown" id="assignedDropdown">
+                                <div class="selected-option" onclick="toggleDropdown()">
+                                    Select contacts to assign
+                                    <img class="custom-arrow" src="../img/icon/arrow_drop_down.svg"
+                                        alt="Dropdown Arrow">
+                                </div>
+                                <ul class="dropdown-options" id="dropdownOptions"></ul>
+                            </div>
+                            <div id="selectedContactsContainer" class="selected-contacts-container"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category<span class="star">*</span></label>
+                            <div class="custom-select-wrapper">
+                                <select id="category" required>
+                                    <option>Select task category</option>
+                                    <option>Technical Task</option>
+                                    <option>User Story</option>
+                                </select>
+                                <img class="custom-arrow" src="../img/icon/arrow_drop_down.svg" alt="Dropdown Arrow">
+                            </div>
+                            <span class="error-message">This field is required</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="subtasks">Subtasks</label>
+                            <div class="input-container">
+                                <input type="text" id="subtasks" class="input-field" placeholder="Add new subtask">
+                                <button id="addSubtask" class="plus-button">+</button>
+                                <div class="subtask-buttons">
+                                    <button type="button" class="subtask-cancel">❌</button>
+                                    <button type="button" class="subtask-confirm">✔️</button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-
-                <div class="divider"></div>
-
-                <div class="form-column-right">
-                    <div class="form-group">
-                        <label for="due-date">Due date<span class="star">*</span></label>
-                        <div class="date-input">
-                            <input id="due-date" required placeholder="dd/mm/yyyy">
-                            <button type="button" class="calendar-button">
-                                <img src="../img/icon/event.svg" alt="Kalender öffnen">
-                            </button>
-                        </div>
-                        <span class="error-message">This field is required</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Prio</label>
-                        <div class="prio-buttons">
-                            <button type="button" class="prio-btn urgent">Urgent <img class="urgent-image"
-                                    src="../img/icon/Prio alta.svg"></button>
-                            <button type="button" class="prio-btn medium">Medium <img class="medium-image"
-                                    src="../img/icon/Prio media (1).svg"></button>
-                            <button type="button" class="prio-btn low">Low <img src="../img/icon/Prio baja.svg"></button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="category">Category<span class="star">*</span></label>
-                        <div class="custom-select-wrapper">
-                            <select id="category" required>
-                                <option>Select task category</option>
-                                <option>Technical Task</option>
-                                <option>User Story</option>
-                            </select>
-                            <img class="custom-arrow" src="../img/icon/arrow_drop_down.svg" alt="Dropdown Arrow">
-                        </div>
-                        <span class="error-message">This field is required</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="subtasks">Subtasks</label>
-                        <div class="input-container">
-                            <input type="text" id="subtasks" class="input-field" placeholder="Add new subtask">
-                            <button class="plus-button">+</button>
-                        </div>
-                    </div>
+                <div class="buttons">
+                    <button type="reset" class="clear" id="clear-button">Clear <img
+                            src="../img/icon/iconoir_cancel.svg"></button>
+                    <button type="submit" class="create" id="create-task" disabled>Create Task <img
+                            src="../img/icon/check.svg"></button>
                 </div>
+            </form>
+            <div class="field-required">
+                <span class="star">*</span>
+                <p class="note">This field is required</p>
             </div>
-
-            <div class="buttons">
-                <button type="reset" class="btn-light">Clear <img src="../img/icon/iconoir_cancel.svg"></button>
-                <button type="submit" class="btn-dark">Create Task <img src="../img/icon/check.svg"></button>
-            </div>
-        </form>
-
-        <div class="field-required">
-            <span class="star">*</span>
-            <p class="note">This field is required</p>
         </div>
-    </div>
     `;
 }

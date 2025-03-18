@@ -258,16 +258,24 @@ function toggleDropdown() {
 }
 
 /**
- * Closes the dropdown menu when a click occurs outside of the dropdown area.
+ * Closes the dropdown menu when a click occurs outside of the dropdown area,
+ * but only if the user is on the 'add_task.html' page or the overlay is visible.
  */
 document.addEventListener('click', (event) => {
-    let dropdown = document.getElementById('dropdownOptions');
-    let assignedDropdown = document.getElementById('assignedDropdown');
+    let isAddTaskPage = window.location.pathname.includes('add_task.html');
+    let overlay = document.querySelector('.add-task-overlay-container');
+    let isOverlayVisible = overlay && getComputedStyle(overlay).display !== 'none';
 
-    if (!assignedDropdown.contains(event.target)) {
-        dropdown.style.display = 'none';
+    if (isAddTaskPage || isOverlayVisible) {
+        let dropdown = document.getElementById('dropdownOptions');
+        let assignedDropdown = document.getElementById('assignedDropdown');
+
+        if (dropdown && assignedDropdown && !assignedDropdown.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
     }
 });
+
 
 /**
  * Populates the dropdown menu with a list of contacts.

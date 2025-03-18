@@ -29,6 +29,8 @@
     <script src="../scripts/general-navbarscript.js" defer></script>
     <script src="../scripts/userCredentials.js"></script>
     <script src="../scripts/contacts.js"></script>
+    <script src="../scripts/templates/addTaskUserDropdownItemTemplate.js"></script>
+    <script src="../scripts/templates/checkboxTemplate.js"></script>
 </head>
 
 <body onload="init()">
@@ -85,7 +87,7 @@
                     </div>
                 </div>
                 <div class="#">
-                    <button class="btn-dark add-task-btn" onclick="showAddTaskOverlay()">
+                    <button class="btn-dark add-task-btn" onclick="showAddTaskOverlay(); initAddTaskPage(); populateContacts()">
                         Add task
                         <img src="../assets/icons/add-plus-symbol.svg" alt="add-plus-symbol" />
                     </button>
