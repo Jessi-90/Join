@@ -127,19 +127,94 @@ async function deleteContact(firebaseId) {
 
 
 /**
- * Deletes the contact currently being edited and closes the overlay.
+ * Deletes the currently edited contact from the database and removes it from all assigned tasks.
+ * 
+ * This function retrieves the contact ID from the edit overlay, removes the contact 
+ * from all tasks where it was assigned, updates the tasks in the database, 
+ * and then deletes the contact itself. Finally, it closes the edit contact overlay.
+ * 
+ * @async
+ * @function deleteContactFromEditOverlay
+ * @returns {Promise<void>} - A promise that resolves after the contact has been deleted and the overlay is closed.
  */
 async function deleteContactFromEditOverlay() {
     const firebaseId = document.querySelector('.form-container').dataset.firebaseId; 
     if (!firebaseId) {
-        console.error(" No contact ID found.");
+        console.error("No contact ID found.");
         return;
     }
 
-    await deleteContact(firebaseId); 
-    console.log("Kontakt gelöscht!");
+    let updatedTasks = await removeContactFromTasks(firebaseId);
+    await updateTasksInDatabase(updatedTasks); 
+    await deleteContact(firebaseId);
 
     setTimeout(() => {
         closeEditContactOverlay();
-    }, 100); 
+    }, 100);
+}
+
+
+/**
+ * Removes a contact from all tasks where it is assigned.
+ * 
+ * This function fetches all tasks from the database, iterates through them, 
+ * and removes the given contact ID from the `assignedContacts` array in each task.
+ * It returns an updated list of tasks without modifying the database directly.
+ * 
+ * @async
+ * @function removeContactFromTasks
+ * @param {string} firebaseId - The unique Firebase ID of the contact to be removed from tasks.
+ * @returns {Promise<Object>} - A promise that resolves to an updated tasks object with the contact removed.
+ */
+async function removeContactFromTasks(firebaseId) {
+    try {
+        let tasksResponse = await fetch(`${BASE_URL}tasks.json`);
+        if (!tasksResponse.ok) throw new Error("Fehler beim Abrufen der Aufgaben");
+
+        let tasks = await tasksResponse.json();
+        if (!tasks) return {};
+
+        let updatedTasks = {};
+
+        for (let taskId in tasks) {
+            let task = tasks[taskId];
+
+            if (task.assignedContacts && Array.isArray(task.assignedContacts)) {
+                task.assignedContacts = task.assignedContacts.filter(id => id !== firebaseId);
+            }
+
+            updatedTasks[taskId] = task;
+        }
+
+        return updatedTasks;
+
+    } catch (error) {
+        console.error("Fehler beim Entfernen des Kontakts aus Aufgaben:", error);
+        return {};
+    }
+}
+
+
+/**
+ * Updates the task data in the Firebase database.
+ * 
+ * This function sends a PUT request to update the `tasks.json` file in Firebase 
+ * with the provided `updatedTasks` object, which contains all tasks with any modifications.
+ * 
+ * @async
+ * @function updateTasksInDatabase
+ * @param {Object} updatedTasks - An object containing the updated tasks data.
+ * @returns {Promise<void>} - A promise that resolves once the tasks have been updated in the database.
+ */
+async function updateTasksInDatabase(updatedTasks) {
+    try {
+        await fetch(`${BASE_URL}tasks.json`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedTasks),
+        });
+
+    } catch (error) {
+        console.error("Fehler beim Aktualisieren der Aufgaben in der Datenbank:", error);
+    }
 }
