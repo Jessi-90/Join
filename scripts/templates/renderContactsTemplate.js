@@ -135,7 +135,7 @@ function renderContactDetailTemplate(contact) {
                 <div class="namefield">
                     <span>${contact.name}</span>
                     <div class="contact-actions">
-                        <button class="edit-button" onclick="showEditContactOverlay()">
+                        <button class="edit-button" onclick="showEditContactOverlay('${contact.firebaseId}')">
                             <img src="../assets/icons/edit.svg" alt="Edit" class="button-icon">Edit
                         </button>
                         <button class="delete-button" onclick="deleteContact('${contact.firebaseId}')">

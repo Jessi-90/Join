@@ -124,3 +124,22 @@ async function deleteContact(firebaseId) {
         console.error("Fehler beim Löschen des Kontakts:", error);
     }
 }
+
+
+/**
+ * Deletes the contact currently being edited and closes the overlay.
+ */
+async function deleteContactFromEditOverlay() {
+    const firebaseId = document.querySelector('.form-container').dataset.firebaseId; 
+    if (!firebaseId) {
+        console.error(" No contact ID found.");
+        return;
+    }
+
+    await deleteContact(firebaseId); 
+    console.log("Kontakt gelöscht!");
+
+    setTimeout(() => {
+        closeEditContactOverlay();
+    }, 100); 
+}
