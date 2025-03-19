@@ -421,6 +421,7 @@ function loadAssignedUsersFromSession() {
     selectedContacts = new Set(storedContacts);
 }
 
+/**
  * Sets the current date into the input field with the ID "due-date".
  * The date is formatted as "dd/mm/yyyy".
  */
