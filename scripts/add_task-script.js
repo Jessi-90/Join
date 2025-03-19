@@ -284,6 +284,7 @@ document.addEventListener('click', (event) => {
  * 
  * @async
  * @returns {Promise<void>} - A promise that resolves once the contacts are populated in the dropdown.
+ * Fetches contacts from Firebase and populates the assigned contacts select field.
  */
 async function populateContacts() {
     await fetchContactsData();
@@ -418,4 +419,26 @@ function saveAssignedUsersToSession() {
 function loadAssignedUsersFromSession() {
     let storedContacts = JSON.parse(sessionStorage.getItem('selectedContacts')) || [];
     selectedContacts = new Set(storedContacts);
+}
+
+ * Sets the current date into the input field with the ID "due-date".
+ * The date is formatted as "dd/mm/yyyy".
+ */
+function setTodayDate() {
+    let dateInput = document.getElementById("due-date");
+    let today = new Date();
+    let formattedDate = formatDate(today);
+    dateInput.value = formattedDate;
+}
+
+/**
+ * Formats a given Date object into the format "dd/mm/yyyy".
+ * @param {Date} date - The Date object to format.
+ * @returns {string} The formatted date as a string in "dd/mm/yyyy" format.
+ */
+function formatDate(date) {
+    let day = String(date.getDate()).padStart(2, "0");
+    let month = String(date.getMonth() + 1).padStart(2, "0");
+    let year = date.getFullYear();
+    return `${day}/${month}/${year}`;
 }

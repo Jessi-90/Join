@@ -83,7 +83,7 @@ function groupContactsAlphabetically(contacts) {
  * @param {Object} contact - The clicked contact.
  */
 function onContactClick(contact) {
-    renderContactDetail(contact);
+    toggleContactDetail(contact);
 }
 
 
@@ -103,7 +103,7 @@ function addContactClickEvents() {
         item.addEventListener('click', function () {
             setActiveContact(item); 
             const contactId = item.getAttribute('data-contact-id'); 
-            const contact = currentContactsData.find(c => c.id === contactId);
+            const contact = currentContactsData.find(c => String(c.id) === contactId);
             if (contact) {
                 onContactClick(contact); 
             }
@@ -220,4 +220,74 @@ function renderContactDetail(contact) {
     const container = document.getElementById('contactDetail');
     container.classList.add('show');
     container.innerHTML = renderContactDetailTemplate(contact);
+}
+
+
+/**
+ * Toggles the contact detail view. 
+ * If the selected contact is already open, it closes the detail view. 
+ * Otherwise, it opens the details of the new contact.
+ * 
+ * @param {Object} contact - The contact object to be displayed.
+ * @param {number|string} contact.id - The unique identifier of the contact.
+ */
+function toggleContactDetail(contact) {
+    const container = document.getElementById('contactDetail');
+    const currentOpenContact = container.getAttribute('data-contact-id') || null;
+
+    if (currentOpenContact === String(contact.id)) {
+        closeContactDetail();
+    } else {
+        openNewContact(contact); 
+    }
+}
+ 
+
+/**
+ * Opens the contact detail view and highlights the selected contact.
+ * It removes the active state from all contacts and applies it to the newly selected contact.
+ * The contact details are then displayed with a smooth transition effect.
+ * 
+ * @param {Object} contact - The contact object to be displayed.
+ * @param {number|string} contact.id - The unique identifier of the contact.
+ */
+function openNewContact(contact) {
+    const container = document.getElementById('contactDetail');
+
+    document.querySelectorAll('.contact-placeholder-item').forEach(item => {
+        item.classList.remove('active');
+    });
+
+    const clickedItem = document.querySelector(`[data-contact-id="${contact.id}"]`);
+    if (clickedItem) {
+        clickedItem.classList.add('active');
+    }
+
+    container.setAttribute('data-contact-id', contact.id);
+    container.innerHTML = renderContactDetailTemplate(contact);
+    container.classList.add('show');
+
+    setTimeout(() => {
+        container.style.transform = 'translateX(0)';
+    }, 10);
+}
+
+
+/**
+ * Closes the contact detail view with a smooth transition.
+ * The contact details slide out to the right before being cleared from the DOM.
+ * 
+ * - Moves the contact detail container out of view.
+ * - Waits for the animation to complete before removing the content.
+ * - Clears the contact ID attribute to reset the state.
+ */
+function closeContactDetail() {
+    const container = document.getElementById('contactDetail');
+    container.style.transform = 'translateX(100%)';
+
+    setTimeout(() => {
+        container.classList.remove('show');
+        container.innerHTML = ''; 
+        container.removeAttribute('data-contact-id');
+    }, 300); 
 }

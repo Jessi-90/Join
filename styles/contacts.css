@@ -1,3 +1,6 @@
+body, html {
+  overflow: hidden;
+}
 .contact-view {
   display: flex;
   justify-content: flex-start;
@@ -11,9 +14,10 @@
   flex-direction: column;
   align-items: center;
   width: 456px;
-  height: calc(100dvh - 160px);
+  max-height: calc(100vh - 160px);
   padding: 32px 24px;
-  overflow: visible;
+  overflow-y: auto;
+  overflow-x: hidden;
   scrollbar-width: 24px;
   scrollbar-color: rgba(168, 168, 168, 1);
   background-color: rgba(255, 255, 255, 1);
