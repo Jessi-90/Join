@@ -100,7 +100,6 @@ function getContactFormData() {
     const phone = document.querySelector('input[placeholder="Phone"]').value.trim();
 
     if (!name || !email || !phone) {
-        alert("Please fill in all fields.");
         return null;
     }
 
