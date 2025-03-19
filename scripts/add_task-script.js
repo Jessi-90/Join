@@ -1,8 +1,8 @@
 /**
- * Initializes all form functionalities when the DOM is fully loaded.
- * Sets up event listeners and preselects medium priority.
+ * Initializes all form functionalities when the page is fully loaded.
+ * Calls individual setup functions for different form components.
  */
-document.addEventListener("DOMContentLoaded", function () {
+function initAddTaskPage() {
     initPriorityButtons();
     initFormValidation();
     initSubtasks();
@@ -10,15 +10,21 @@ document.addEventListener("DOMContentLoaded", function () {
     initDueDateInput();
     populateContacts();
     initFormSubmitHandler();
-    initSubtasksInput();
+    setDefaultMediumPriority();
+}
 
-    const mediumButton = document.querySelector(".prio-btn.medium");
+/**
+ * Sets the default priority to medium if the corresponding button is found.
+ * Logs a warning if the medium priority button is not present in the DOM.
+ */
+function setDefaultMediumPriority() {
+    let mediumButton = document.querySelector(".prio-btn.medium");
     if (mediumButton) {
         mediumButton.classList.add("active");
     } else {
         console.warn('Medium priority button not found');
     }
-});
+}
 
 /**
  * Initializes the priority buttons.
@@ -94,7 +100,7 @@ function validateTaskForm() {
     isValid &= validateDueDate();
     isValid &= validateCategory(category);
 
-    return !!isValid;  
+    return !!isValid;
 }
 
 /**
@@ -243,27 +249,178 @@ function initDueDateInput() {
 }
 
 /**
- * Fetches contacts from Firebase and populates the assigned contacts select field.
+ * Toggles the visibility of the dropdown menu.
+ * If the dropdown is currently open, it will close, and vice versa.
  */
-async function populateContacts() {
-    const assignedSelect = document.getElementById('assigned');
-    assignedSelect.innerHTML = '<option value="" disabled selected>Select contact</option>';
-
-    try {
-        const querySnapshot = await getDocs(collection(db, 'contacts'));
-        querySnapshot.forEach(doc => {
-            const contact = doc.data();
-            const option = document.createElement('option');
-            option.value = contact.email;
-            option.textContent = contact.name;
-            assignedSelect.appendChild(option);
-        });
-    } catch (error) {
-        console.error('Fehler beim Laden der Kontakte:', error);
-    }
+function toggleDropdown() {
+    let dropdown = document.getElementById('dropdownOptions');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
 }
 
 /**
+ * Closes the dropdown menu when a click occurs outside of the dropdown area,
+ * but only if the user is on the 'add_task.html' page or the overlay is visible.
+ */
+document.addEventListener('click', (event) => {
+    let isAddTaskPage = window.location.pathname.includes('add_task.html');
+    let overlay = document.querySelector('.add-task-overlay-container');
+    let isOverlayVisible = overlay && getComputedStyle(overlay).display !== 'none';
+
+    if (isAddTaskPage || isOverlayVisible) {
+        let dropdown = document.getElementById('dropdownOptions');
+        let assignedDropdown = document.getElementById('assignedDropdown');
+
+        if (dropdown && assignedDropdown && !assignedDropdown.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
+    }
+});
+
+
+/**
+ * Populates the dropdown menu with a list of contacts.
+ * Fetches contact data, sorts it alphabetically by last name, and displays each contact with an avatar and a checkbox.
+ * Additionally, renders avatars for selected contacts.
+ * 
+ * @async
+ * @returns {Promise<void>} - A promise that resolves once the contacts are populated in the dropdown.
+ * Fetches contacts from Firebase and populates the assigned contacts select field.
+ */
+async function populateContacts() {
+    await fetchContactsData();
+
+    let contacts = prepareContacts(currentContactsData);
+
+    loadAssignedUsersFromSession();
+    renderDropdownOptions(contacts);
+    renderAvatars(contacts);
+}
+
+/**
+ * Prepares the contact data by mapping and sorting it alphabetically by last name.
+ * 
+ * @param {Array<Object>} data - The array of contact objects from the fetched data.
+ * @returns {Array<Object>} - The sorted array of contact objects with their formatted details.
+ */
+function prepareContacts(data) {
+    let contacts = data.map(contact => ({
+        name: contact.name,
+        userDetails: {
+            color: contact.color,
+            initials: contact.initials
+        }
+    }));
+    return contacts.sort((a, b) => {
+        let lastNameA = a.name.split(' ').slice(-1).join('');
+        let lastNameB = b.name.split(' ').slice(-1).join('');
+        return lastNameA.localeCompare(lastNameB);
+    });
+}
+
+/**
+ * Renders the dropdown options using the provided contacts.
+ * Clears the current dropdown and dynamically creates list items for each contact.
+ * 
+ * @param {Array<Object>} contacts - The array of contacts to render as dropdown options.
+ */
+function renderDropdownOptions(contacts) {
+    let dropdown = document.getElementById('dropdownOptions');
+    dropdown.innerHTML = '';
+
+    contacts.forEach(contact => {
+        let listItem = createDropdownItem(contact, contacts);
+        dropdown.appendChild(listItem);
+    });
+}
+
+/**
+ * Creates a single dropdown item for a contact.
+ * Adds event listeners for selection and deselection of the contact.
+ * 
+ * @param {Object} contact - The contact object containing name and user details.
+ * @param {Array<Object>} contacts - The array of all contacts for reference.
+ * @returns {HTMLElement} - The DOM element for the created dropdown item.
+ */
+function createDropdownItem(contact, contacts) {
+    let listItem = document.createElement('li');
+    listItem.classList.add('dropdown-item');
+    listItem.innerHTML = addTaskUserDropdownItemTemplate(contact);
+
+    if (selectedContacts.has(contact.name)) {
+        listItem.classList.add('selected');
+    }
+    listItem.onclick = function () {
+        toggleItem(listItem, contact, contacts);
+    };
+    return listItem;
+}
+
+/**
+ * Renders the avatars of selected contacts in the designated container.
+ * Clears any previously rendered avatars before rendering new ones.
+ * 
+ * @param {Array<Object>} contacts - The array of all contacts to cross-reference selected contacts.
+ */
+function renderAvatars(contacts) {
+    let avatarContainer = document.getElementById('selectedContactsContainer');
+    avatarContainer.innerHTML = '';
+
+    selectedContacts.forEach(contactName => {
+        let contact = contacts.find(c => c.name === contactName);
+        if (contact) {
+            let avatarElement = document.createElement('div');
+            avatarElement.innerHTML = UserAvatarTemplate(contact.userDetails)
+            avatarElement.setAttribute('data-name', contact.name);
+            avatarContainer.appendChild(avatarElement.firstElementChild);
+        }
+    });
+}
+
+/**
+ * Toggles the selection state of a dropdown item.
+ * Updates the list of selected contacts by adding or removing the contact, 
+ * re-renders the avatars of the selected contacts, and saves the updated state to session storage.
+ * 
+ * @param {HTMLElement} listItem - The dropdown item that is being toggled.
+ * @param {Object} contact - The contact object containing the contact's details.
+ * @param {string} contact.name - The name of the contact.
+ * @param {Object} contact.userDetails - Additional user details (e.g., avatar color, initials).
+ * @param {Array<Object>} contacts - The array of all contacts to ensure the state remains synchronized.
+ */
+function toggleItem(listItem, contact, contacts) {
+    let isSelected = listItem.classList.contains('selected');
+
+    if (isSelected) {
+        listItem.classList.remove('selected');
+        selectedContacts.delete(contact.name);
+    } else {
+        listItem.classList.add('selected');
+        selectedContacts.add(contact.name);
+    }
+
+    renderAvatars(contacts);
+    saveAssignedUsersToSession();
+}
+
+/**
+ * Saves the current list of selected contacts to the session storage.
+ * This ensures the selected contacts persist during the current browser session.
+ */
+function saveAssignedUsersToSession() {
+    sessionStorage.setItem('selectedContacts', JSON.stringify([...selectedContacts]));
+}
+
+/**
+ * Loads the list of selected contacts from the session storage.
+ * Restores the state of selected contacts from the current browser session.
+ * 
+ * @returns {void} - Updates the global `selectedContacts` variable with the restored data.
+ */
+function loadAssignedUsersFromSession() {
+    let storedContacts = JSON.parse(sessionStorage.getItem('selectedContacts')) || [];
+    selectedContacts = new Set(storedContacts);
+}
+
  * Sets the current date into the input field with the ID "due-date".
  * The date is formatted as "dd/mm/yyyy".
  */
@@ -285,4 +442,3 @@ function formatDate(date) {
     let year = date.getFullYear();
     return `${day}/${month}/${year}`;
 }
-
