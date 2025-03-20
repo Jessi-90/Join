@@ -16,10 +16,11 @@ function showEditContactOverlay(firebaseId) {
     overlay.classList.remove('d-none', 'hide');
     overlay.classList.add('show');
 
-    setTimeout(() => document.querySelector('.overlay')?.classList.add('show'), 10);
-    
-    overlay.removeEventListener('click', closeEditContactOverlay);
-    overlay.addEventListener('click', closeEditContactOverlay);
+    setTimeout(() => {
+        document.querySelector('.overlay')?.classList.add('show');
+    }, 10);
+
+    document.getElementById('editContactOverlay')?.addEventListener('click', closeEditContactOverlay);
 }
 
 
@@ -31,14 +32,14 @@ function showEditContactOverlay(firebaseId) {
  */
 function closeEditContactOverlay(event) {
     let overlay = document.getElementById('editContactOverlay');
-    let modal = document.querySelector('.overlay-container');
+    let modal = document.querySelector('.modal');
 
-    if (!event || !overlay || !modal) {
+    if (!overlay || !modal) {
         hideOverlay(overlay);
         return;
     }
 
-    if (event.target.closest('.close-btn') || !modal.contains(event.target)) {
+    if (!modal.contains(event.target) || event.target.closest('.close-btn')) {
         hideOverlay(overlay);
     }
 }
@@ -52,7 +53,7 @@ function closeEditContactOverlay(event) {
  */
 function hideOverlay(overlay) {
     overlay.classList.remove('show');
-    
+
     setTimeout(() => {
         overlay.classList.add('d-none');
     }, 300);
