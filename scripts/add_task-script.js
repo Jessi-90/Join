@@ -249,34 +249,6 @@ function initDueDateInput() {
 }
 
 /**
- * Toggles the visibility of the dropdown menu.
- * If the dropdown is currently open, it will close, and vice versa.
- */
-function toggleDropdown() {
-    let dropdown = document.getElementById('dropdownOptions');
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-}
-
-/**
- * Closes the dropdown menu when a click occurs outside of the dropdown area,
- * but only if the user is on the 'add_task.html' page or the overlay is visible.
- */
-document.addEventListener('click', (event) => {
-    let isAddTaskPage = window.location.pathname.includes('add_task.html');
-    let overlay = document.querySelector('.add-task-overlay-container');
-    let isOverlayVisible = overlay && getComputedStyle(overlay).display !== 'none';
-
-    if (isAddTaskPage || isOverlayVisible) {
-        let dropdown = document.getElementById('dropdownOptions');
-        let assignedDropdown = document.getElementById('assignedDropdown');
-
-        if (dropdown && assignedDropdown && !assignedDropdown.contains(event.target)) {
-            dropdown.style.display = 'none';
-        }
-    }
-});
-
-/**
  * Sets the current date into the input field with the ID "due-date".
  * The date is formatted as "dd/mm/yyyy".
  */

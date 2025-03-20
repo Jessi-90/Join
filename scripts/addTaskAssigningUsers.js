@@ -1,6 +1,34 @@
 const assignedUsersLimit = 5;
 
 /**
+ * Toggles the visibility of the dropdown menu.
+ * If the dropdown is currently open, it will close, and vice versa.
+ */
+function toggleDropdown() {
+    let dropdown = document.getElementById('dropdownOptions');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+/**
+ * Closes the dropdown menu when a click occurs outside of the dropdown area,
+ * but only if the user is on the 'add_task.html' page or the overlay is visible.
+ */
+document.addEventListener('click', (event) => {
+    let isAddTaskPage = window.location.pathname.includes('add_task.html');
+    let overlay = document.querySelector('.add-task-overlay-container');
+    let isOverlayVisible = overlay && getComputedStyle(overlay).display !== 'none';
+
+    if (isAddTaskPage || isOverlayVisible) {
+        let dropdown = document.getElementById('dropdownOptions');
+        let assignedDropdown = document.getElementById('assignedDropdown');
+
+        if (dropdown && assignedDropdown && !assignedDropdown.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
+    }
+});
+
+/**
  * Populates the dropdown menu with a list of contacts.
  * Fetches contact data, sorts it alphabetically by last name, and displays each contact with an avatar and a checkbox.
  * Additionally, renders avatars for selected contacts.
