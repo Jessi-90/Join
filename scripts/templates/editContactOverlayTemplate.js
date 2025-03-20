@@ -11,8 +11,8 @@ return `
             </div>
             <div class="form-container" data-firebase-id="${contact.firebaseId}">
                 <button class="close-btn" onclick="closeOverlayEditContact()">✖</button>
-                <div class="profile-picture" id="profile-photo">
-                    <img src="../assets/img/circle_orange.svg" alt="Profilbild">
+                      <div class="contact-icon-placeholder-large" style="background-color: ${contact.color}">
+                    ${contact.initials}
                 </div>
                 <form class="form">
                     <div class="input-group">

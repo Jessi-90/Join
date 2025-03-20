@@ -110,21 +110,6 @@
 .close-btn:hover {
     border-radius: 50%;
     background: #efeeee;    
-   
-  
-   
-}
-
-.profile-picture {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    padding-right: 15px;
-}
-
-.profile-picture img {
-    width: 120px;
-    height: 120px;
 }
 
 .profile-section {
