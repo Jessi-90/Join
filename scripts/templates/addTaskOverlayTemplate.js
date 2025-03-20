@@ -28,7 +28,7 @@ function showAddTaskOverlayHTMLTemplate() {
                             <label for="due-date">Due date<span class="star">*</span></label>
                             <div class="date-input">
                                 <input id="due-date" type="text" required placeholder="dd/mm/yyyy" maxlength="10">
-                                <button type="button" class="calendar-button">
+                                <button onclick="setTodayDate()" type="button" class="calendar-button">
                                     <img src="../img/icon/event.svg" alt="Kalender öffnen">
                                 </button>
                             </div>
