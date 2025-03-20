@@ -114,46 +114,55 @@ function getContactFormData() {
 
 
 /**
- * Saves a new contact to the Firebase database and updates the UI.
- *
- * @async
- * @param {Object} contact - The contact data to be saved.
- * @returns {Promise<void>} A promise that resolves when the contact is saved and the UI is updated.
- */
-async function saveContactToDatabase(contact) {
-    try {
-        const response = await fetch(`${BASE_URL}contacts.json`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(contact)
-        });
-
-        if (!response.ok) {
-            throw new Error("Error creating contact.");
-        }
-
-        await fetchContactsData();
-        renderContactList(currentContactsData);
-        closeAddContactOverlay();
-
-    } catch (error) {
-        console.error("Error adding contact:", error);
-    }
-}
-
-
-/**
  * Handles the form submission to create a new contact.
  *
+ * Retrieves contact data from the form, fetches contacts from the database,
+ * adds the new contact, updates the UI, and provides feedback.
+ *
  * @async
- * @param {Event} event - The event object.
+ * @function createContact
+ * @param {Event} event - The form submission event.
+ * @returns {Promise<void>} A promise that resolves after the contact is added and UI is updated.
  */
 async function createContact(event) {
     event.preventDefault();
     const contact = getContactFormData();
     if (contact) {
-        await saveContactToDatabase(contact);
+        try {
+            let contacts = await getContacts(event); 
+            if (!contacts) {
+                console.error("Fehler: Kontakte konnten nicht geladen werden.");
+                return;
+            }
+            await addNewContact(event, contacts, contact); 
+            await fetchContactsData(); 
+            renderContactList(currentContactsData);
+            setNewContactActive(contact); 
+            showFeedbackImage();
+            closeAddContactOverlay();
+        } catch (error) {
+            console.error("Fehler beim Speichern des Kontakts:", error);
+        }
     }
+}
+
+
+/**
+ * Sets the newly added contact as active.
+ * @param {Object} contact - The newly created contact.
+ */
+function setNewContactActive(contact) {
+    setTimeout(() => {
+        const allContacts = document.querySelectorAll('.contact-placeholder-item');
+
+        const newContactElement = Array.from(allContacts).find(el => 
+            el.textContent.includes(contact.name)
+        );
+
+        if (newContactElement) {
+            setActiveContact(newContactElement);
+        }
+    }, 100); 
 }
 
 
