@@ -1,19 +1,25 @@
 /**
  * Function to show the Edit Contact Overlay and animate the appearance with a delay.
  */
-function showEditContactOverlay() {
-        let editContactOverlayRef = document.getElementById('editContactOverlay');
-        editContactOverlayRef.innerHTML = "";
-        editContactOverlayRef.innerHTML += showEditContactOverlayHTMLTemplate();
-        editContactOverlayRef.classList.remove('d-none');
-        editContactOverlayRef.classList.add('show');
-        setTimeout(() => {
-            let overlayContainerRef = document.querySelector('.overlay');
-            overlayContainerRef.classList.add('show');
-        }, 10);
+function showEditContactOverlay(firebaseId) {
+    let contact = currentContactsData.find(c => c.firebaseId === firebaseId);
+    let editContactOverlayRef = document.getElementById('editContactOverlay');
 
-        document.getElementById('editContactOverlay').addEventListener('click', closeEditContactOverlay);
-    }
+    editContactOverlayRef.innerHTML = showEditContactOverlayHTMLTemplate(contact);
+    editContactOverlayRef.classList.remove('d-none');
+    editContactOverlayRef.classList.add('show');
+
+    setTimeout(() => {
+        let overlayContainerRef = document.querySelector('.overlay');
+        if (overlayContainerRef) {
+            overlayContainerRef.classList.add('show');
+        }
+    }, 10);
+
+    document.getElementById('editContactOverlay').addEventListener('click', closeEditContactOverlay);
+}
+
+
 
 
 /**
@@ -23,11 +29,11 @@ function showEditContactOverlay() {
  * 
  * @param {Event} event - click-event.
  */
-function closeEditContactOverlay(event) {
+function closeEditContactOverlay(event = null) {
     let overlay = document.getElementById('editContactOverlay');
     let overlayContainer = document.querySelector('.overlay');
 
-    if (event.target.closest('.overlay') && !event.target.closest('.close-btn')) {
+    if (event && event.target.closest('.overlay') && !event.target.closest('.close-btn')) {
         event.stopPropagation();
         return;
     }
