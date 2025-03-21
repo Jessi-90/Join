@@ -254,10 +254,6 @@ function toggleContactDetail(contact) {
 function openNewContact(contact) {
     const container = document.getElementById('contactDetail');
 
-    document.querySelectorAll('.contact-placeholder-item').forEach(item => {
-        item.classList.remove('active');
-    });
-
     const clickedItem = document.querySelector(`[data-contact-id="${contact.id}"]`);
     if (clickedItem) {
         clickedItem.classList.add('active');
@@ -283,8 +279,11 @@ function openNewContact(contact) {
 function closeContactDetail() {
     const container = document.getElementById('contactDetail');
     container.classList.remove('show');
-    
+
     setTimeout(() => {
+        document.querySelectorAll('.contact-placeholder-item').forEach(item => {
+            item.classList.remove('active');
+        });
         container.innerHTML = ''; 
         container.removeAttribute('data-contact-id');
     }, 300); 
