@@ -242,7 +242,11 @@ function toggleContactDetail(contact) {
     if (currentOpenContact === String(contact.firebaseId)) {
         closeContactDetail();
     } else {
-        openNewContact(contact); 
+        easeContactDetailTransitionOut();
+        setTimeout(() => {
+            openNewContact(contact); 
+        }, 125);
+        
     }
 }
  
@@ -263,7 +267,7 @@ function openNewContact(contact) {
         clickedItem.classList.add('active');
     }
 
-    container.setAttribute('data-contact-id', contact.id);
+    // container.setAttribute('data-contact-id', contact.id);
     container.innerHTML = renderContactDetailTemplate(contact);
 
     setTimeout(() => {
@@ -291,4 +295,9 @@ function closeContactDetail() {
         container.innerHTML = ''; 
         container.removeAttribute('data-contact-id');
     }, 75); 
+}
+
+function easeContactDetailTransitionOut() {
+    let contactDetailContainer = document.getElementById('contactDetail');
+    contactDetailContainer.classList.remove('show');
 }
