@@ -216,11 +216,11 @@ function renderNoContactsMessage(container) {
  * @param {string} contact.color - Background color for initials.
  * @param {string} contact.initials - Contact initials.
  */
-function renderContactDetail(contact) {
-    const container = document.getElementById('contactDetail');
-    container.classList.add('show');
-    container.innerHTML = renderContactDetailTemplate(contact);
-}
+// function renderContactDetail(contact) {
+//     const container = document.getElementById('contactDetail');
+//     container.classList.add('show');
+//     container.innerHTML = renderContactDetailTemplate(contact);
+// }
 
 
 /**
