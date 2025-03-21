@@ -204,25 +204,6 @@ function renderNoContactsMessage(container) {
     container.innerHTML = `<p class="no-contacts">No contacts available.</p>`;
 }
 
-
-/**
- * Displays the detailed view of a selected contact.
- * Injects the generated contact details template into the DOM.
- * 
- * @param {Object} contact - Contact data.
- * @param {string} contact.name - Full name.
- * @param {string} contact.email - Email address.
- * @param {string} contact.phone - Phone number.
- * @param {string} contact.color - Background color for initials.
- * @param {string} contact.initials - Contact initials.
- */
-// function renderContactDetail(contact) {
-//     const container = document.getElementById('contactDetail');
-//     container.classList.add('show');
-//     container.innerHTML = renderContactDetailTemplate(contact);
-// }
-
-
 /**
  * Toggles the contact detail view. 
  * If the selected contact is already open, it closes the detail view. 
