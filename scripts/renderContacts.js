@@ -226,10 +226,10 @@ function renderContactDetail(contact) {
 /**
  * Toggles the contact detail view. 
  * If the selected contact is already open, it closes the detail view. 
- * Otherwise, it opens the details of the new contact.
- * 
+ * Otherwise, it applies a transition effect and opens the new contact details.
+ *
  * @param {Object} contact - The contact object to be displayed.
- * @param {number|string} contact.id - The unique identifier of the contact.
+ * @param {number|string} contact.firebaseId - The unique Firebase identifier of the contact.
  */
 function toggleContactDetail(contact) {
     const container = document.getElementById('contact-detail');
@@ -246,15 +246,13 @@ function toggleContactDetail(contact) {
         setTimeout(() => {
             openNewContact(contact); 
         }, 125);
-        
     }
 }
  
 
 /**
- * Opens the contact detail view and highlights the selected contact.
- * It removes the active state from all contacts and applies it to the newly selected contact.
- * The contact details are then displayed with a smooth transition effect.
+ * Opens the contact detail view and displays the selected contact's information.
+ * Adds an 'active' class to the selected contact item and updates the contact detail container.
  * 
  * @param {Object} contact - The contact object to be displayed.
  * @param {number|string} contact.id - The unique identifier of the contact.
@@ -267,7 +265,6 @@ function openNewContact(contact) {
         clickedItem.classList.add('active');
     }
 
-    // container.setAttribute('data-contact-id', contact.id);
     container.innerHTML = renderContactDetailTemplate(contact);
 
     setTimeout(() => {
@@ -277,12 +274,8 @@ function openNewContact(contact) {
 
 
 /**
- * Closes the contact detail view with a smooth transition.
- * The contact details slide out to the right before being cleared from the DOM.
- * 
- * - Moves the contact detail container out of view.
- * - Waits for the animation to complete before removing the content.
- * - Clears the contact ID attribute to reset the state.
+ * Closes the contact detail view by removing the 'show' class and clearing the content.
+ * Also removes the 'active' class from all contact list items and resets the container attributes.
  */
 function closeContactDetail() {
     const container = document.getElementById('contactDetail');
@@ -297,6 +290,10 @@ function closeContactDetail() {
     }, 75); 
 }
 
+/**
+ * Applies a transition effect to hide the contact detail view.
+ * Removes the 'show' class from the contact detail container.
+ */
 function easeContactDetailTransitionOut() {
     let contactDetailContainer = document.getElementById('contactDetail');
     contactDetailContainer.classList.remove('show');
