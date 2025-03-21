@@ -286,5 +286,5 @@ function closeContactDetail() {
         });
         container.innerHTML = ''; 
         container.removeAttribute('data-contact-id');
-    }, 300); 
+    }, 75); 
 }
