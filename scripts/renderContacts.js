@@ -282,10 +282,9 @@ function openNewContact(contact) {
  */
 function closeContactDetail() {
     const container = document.getElementById('contactDetail');
-    container.style.transform = 'translateX(100%)';
-
+    container.classList.remove('show');
+    
     setTimeout(() => {
-        container.classList.remove('show');
         container.innerHTML = ''; 
         container.removeAttribute('data-contact-id');
     }, 300); 
