@@ -229,7 +229,7 @@ function generateUserAvatars(users, id, currentContactsData) {
         users.forEach(assignedUser => {
             let userDetails = getContactDetails(assignedUser);
             if (userDetails) {
-                userIcons.innerHTML += boardCardAssignedUsersTemplate(userDetails);
+                userIcons.innerHTML += UserAvatarTemplate(userDetails);
             }
         });
     }
