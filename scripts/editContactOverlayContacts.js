@@ -61,20 +61,6 @@ function hideOverlay(overlay) {
 
 
 /**
- * Generiert Initialen aus einem Namen (z. B. "John Doe" → "JD").
- * @param {string} name - Der vollständige Name des Kontakts.
- * @returns {string} - Die Initialen.
- */
-function getInitials(name) {
-    if (!name) return "?";
-    const nameParts = name.split(" ");
-    return nameParts.length > 1
-        ? (nameParts[0][0] + nameParts[1][0]).toUpperCase()
-        : nameParts[0][0].toUpperCase();
-}
-
-
-/**
  * Initializes contact data by ensuring the contact has initials and a color.
  * If initials or color are missing, they are generated automatically.
  *
@@ -87,17 +73,8 @@ function getInitials(name) {
 function initializeContactData(contact) {
     return {
         ...contact,
-        initials: contact.initials || getInitials(contact.name),
-        color: contact.color || getRandomColor()
+        initials: contact.initials || getContactInitials(contact.name), 
+        color: contact.color || getRandomColor() 
     };
 }
 
-
-/**
- * Gibt eine zufällige Farbe für das Kontaktbild zurück.
- * @returns {string} - Eine zufällige Hex-Farbe.
- */
-function getRandomColor() {
-    const colors = ['#6E52FF', '#FC71FF', '#FFBB2B', '#1FD7C1', '#462F8A', '#20B2AA'];
-    return colors[Math.floor(Math.random() * colors.length)];
-}
