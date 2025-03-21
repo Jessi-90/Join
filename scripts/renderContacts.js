@@ -265,10 +265,9 @@ function openNewContact(contact) {
 
     container.setAttribute('data-contact-id', contact.id);
     container.innerHTML = renderContactDetailTemplate(contact);
-    container.classList.add('show');
 
     setTimeout(() => {
-        container.style.transform = 'translateX(0)';
+        container.classList.add('show');
     }, 10);
 }
 
