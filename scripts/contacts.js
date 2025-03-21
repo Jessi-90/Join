@@ -52,11 +52,6 @@ async function fetchContactsData() {
 }
 
 
-function showAddContactOverlay() {
-    return
-}
-
-
 /**
  * Adds a new contact with a sequential ID to the database.
  * 
