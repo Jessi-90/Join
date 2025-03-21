@@ -232,10 +232,14 @@ function renderContactDetail(contact) {
  * @param {number|string} contact.id - The unique identifier of the contact.
  */
 function toggleContactDetail(contact) {
-    const container = document.getElementById('contactDetail');
-    const currentOpenContact = container.getAttribute('data-contact-id') || null;
+    const container = document.getElementById('contact-detail');
+    if (!container) {
+        openNewContact(contact);
+        return;
+    }
+    const currentOpenContact = container.getAttribute('data-firebase-id') || null;
 
-    if (currentOpenContact === String(contact.id)) {
+    if (currentOpenContact === String(contact.firebaseId)) {
         closeContactDetail();
     } else {
         openNewContact(contact); 
