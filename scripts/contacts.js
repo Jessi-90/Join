@@ -90,6 +90,82 @@ async function putContact(contact) {
 
 
 /**
+ * Retrieves and validates contact form data.
+ *
+ * @returns {Object|null} The contact object if valid, otherwise null.
+ */
+function getContactFormData() {
+    const name = document.querySelector('input[placeholder="Name"]').value.trim();
+    const email = document.querySelector('input[placeholder="Email"]').value.trim();
+    const phone = document.querySelector('input[placeholder="Phone"]').value.trim();
+
+    if (!name || !email || !phone) {
+        return null;
+    }
+
+    return {
+        name,
+        email,
+        phone,
+        initials: getContactInitials(name),
+        color: getRandomColor()
+    };
+}
+
+
+/**
+ * Handles the form submission to create a new contact.
+ *
+ * Retrieves contact data from the form, fetches contacts from the database,
+ * adds the new contact, updates the UI, and provides feedback.
+ *
+ * @async
+ * @function createContact
+ * @param {Event} event - The form submission event.
+ * @returns {Promise<void>} A promise that resolves after the contact is added and UI is updated.
+ */
+async function createContact(event) {
+    event.preventDefault();
+    const contact = getContactFormData();
+    if (contact) {
+        try {
+            let contacts = await getContacts(event); 
+            if (!contacts) {
+                console.error("Fehler: Kontakte konnten nicht geladen werden.");
+                return;
+            }
+            await addNewContact(event, contacts, contact); 
+            await fetchContactsData(); 
+            renderContactList(currentContactsData);
+            setNewContactActive(contact); 
+            showFeedbackImage();
+            closeAddContactOverlay();
+        } catch (error) {
+            console.error("Fehler beim Speichern des Kontakts:", error);
+        }
+    }
+}
+
+
+/**
+ * Sets the newly added contact as active.
+ * @param {Object} contact - The newly created contact.
+ */
+function setNewContactActive(contact) {
+    setTimeout(() => {
+        const allContacts = document.querySelectorAll('.contact-placeholder-item');
+
+        const newContactElement = Array.from(allContacts).find(el => 
+            el.textContent.includes(contact.name)
+        );
+
+        if (newContactElement) {
+            setActiveContact(newContactElement);
+        }
+    }, 100); 
+}
+
+/**
  * Deletes a contact from the Firebase database and updates the UI.
  * 
  * This function sends a DELETE request to remove the contact from the database.
