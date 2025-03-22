@@ -34,7 +34,7 @@ function cardDetailsOverlayHTMLTemplate(taskId) {
             </div>
             <div class="card-detail-assignee">
                 <p class="card-detail-list-title">Assigned To:</p>
-                <div class="card-deatil-assignee-content">
+                <div class="card-deatil-assignee-content" id="cardDetailAssigneeContent">
                     <div class="card-detail-assignee-user">
                         <img src="../assets/icons/Profile badge1.svg" alt="User" class="user-avatar" />
                         <p>Anton Mayer</p>
@@ -68,4 +68,13 @@ function cardDetailsOverlayHTMLTemplate(taskId) {
             </div>
         </div>
           `;
+}
+
+function cardDetailAssigneeContent(task, assigneeId) {
+    return `
+        <div class="card-detail-assignee-user">
+            <img src="../assets/icons/Profile badge1.svg" alt="User" class="user-avatar" />
+            <p>${task.assignedUsers[assigneeId]}</p>
+        </div>
+    `;
 }

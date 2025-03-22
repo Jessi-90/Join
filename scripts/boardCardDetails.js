@@ -5,6 +5,7 @@ function showBoardCardDetails(taskId) {
     let addTaskOverlayRef = document.getElementById('boardCardDetails');
     addTaskOverlayRef.innerHTML = "";
     addTaskOverlayRef.innerHTML += cardDetailsOverlayHTMLTemplate(taskId);
+    renderCardDetailsAssignedUsers(currentTasksData[taskId]);
     addTaskOverlayRef.classList.remove('d-none');
     setTimeout(() => {
         let overlayContainerRef = document.querySelector('.board-card-detail-container');
@@ -33,4 +34,14 @@ function closeBoardCardDetails(event) {
     setTimeout(() => {
         overlay.classList.add('d-none');
     }, 300);
+}
+
+function renderCardDetailsAssignedUsers(task) {
+    console.log(task);
+    console.log(task.assignedUsers.length);
+    const assignedUsersContent = document.getElementById('cardDetailAssigneeContent');
+    assignedUsersContent.innerHTML = "";
+    for (let assigneeIndex = 0; assigneeIndex < task.assignedUsers.length; assigneeIndex++) {
+        assignedUsersContent.innerHTML += cardDetailAssigneeContent(task, assigneeIndex);
+    }
 }
