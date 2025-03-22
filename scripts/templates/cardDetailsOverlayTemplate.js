@@ -11,6 +11,8 @@
  */
 function cardDetailsOverlayHTMLTemplate(taskId) {
     const task = currentTasksData[taskId];
+    const priorityImage = getPriorityImage(task.priority);
+    console.log("task", task);
     return `
         <div class="board-card-detail-container" id="boardCardDetailContainer">
             <div class="board-card-detail-header">
@@ -21,13 +23,13 @@ function cardDetailsOverlayHTMLTemplate(taskId) {
             <p class="card-detail-description">${task.description}</p>
             <div class="card-detail-due-date">
                 <p class="card-detail-list-title">Due Date:</p>
-                <p>${task.dueDate}</p>
+                <p>${task.dueDate}</p> 
             </div>
             <div class="card-detail-priority">
                 <p class="card-detail-list-title">Priority:</p>
                 <div class="card-deatil-priority-content">
                     <p>${task.priority}</p>
-                    <img class="card-priority" src="../assets/icons/Priority-normal.svg" alt="priority" />
+                    <img class="card-priority" src="${priorityImage}" alt="priority" />
                 </div>
             </div>
             <div class="card-detail-assignee">
