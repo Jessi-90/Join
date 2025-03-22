@@ -16,26 +16,26 @@ return `
                 </div>
                 <form class="form">
                     <div class="input-group">
-                        <input type="text" placeholder="Name" value="${contact.name}" required>
+                        <input id="editContactName" type="text" placeholder="Name" value="${contact.name}" required>
                         <span class="icon">
                             <img src="../assets/icons/person_icon.svg" alt="User">
                         </span>
                     </div>
                     <div class="input-group">
-                        <input type="email" placeholder="Email" value="${contact.email}" required>
+                        <input id="editContactEmail" type="email" placeholder="Email" value="${contact.email}" required>
                         <span class="icon">
                             <img src="../assets/icons/mail_icon.svg" alt="Email">
                         </span>
                     </div>
                     <div class="input-group">
-                        <input type="tel" placeholder="Phone" value="${contact.phone}">
+                        <input id="editContactPhone" type="tel" placeholder="Phone" value="${contact.phone}">
                         <span class="icon">
                             <img src="../assets/icons/call.svg" alt="Phone">
                         </span>
                     </div>
                     <div class="buttons">
                         <button type="button" class="delete" onclick="deleteContactFromEditOverlay()">Delete</button>
-                        <button type="submit" class="save">Save<img class="create-check"
+                        <button id="saveContactButton" type="submit" class="save" onclick="saveContactFromEditOverlay()">Save<img class="create-check"
                                 src="../assets/icons/check.svg"></button>
                     </div>
                 </form>
