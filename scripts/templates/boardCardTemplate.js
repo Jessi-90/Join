@@ -26,7 +26,7 @@ function boardCardTemplate(
     priorityImage
 ) {
     return `
-    <div class="card" id="${taskId}" draggable="true" onclick="showBoardCardDetails(${taskId})">
+    <div class="card" id="${taskId}" draggable="true" onclick="showBoardCardDetails('${taskId}')">
         <div class="card-header">
             <span class="card-category" id="category-task">${category}</span>
         </div>

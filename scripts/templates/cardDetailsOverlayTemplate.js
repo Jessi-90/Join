@@ -9,7 +9,8 @@
  * @param {string} task.priority - The priority level of the task.
  * @returns {string} The HTML template as a string.
  */
-function cardDetailsOverlayHTMLTemplate(task) {
+function cardDetailsOverlayHTMLTemplate(taskId) {
+    const task = currentTasksData[taskId];
     return `
         <div class="board-card-detail-container" id="boardCardDetailContainer">
             <div class="board-card-detail-header">
