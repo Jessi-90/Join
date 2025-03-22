@@ -17,12 +17,11 @@ function showBoardCardDetails(taskId) {
  * Closes the Card Details Overlay, if clicked outside the container or the close button.
  * Clicks inside the container prevent closing.
  * The overlay will be hidden with a delay.
- * 
  * @param {Event} event - click-event.
  */
 function closeBoardCardDetails(event) {
     let overlay = document.getElementById('boardCardDetails');
-    let overlayContainer = document.querySelector('.board-card-detail-container');
+    let overlayContainer = document.getElementById('boardCardDetailContainer');
 
     if (event.target.closest('.board-card-detail-container') && !event.target.closest('.close-btn')) {
         event.stopPropagation();
