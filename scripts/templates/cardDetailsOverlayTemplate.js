@@ -12,7 +12,6 @@
 function cardDetailsOverlayHTMLTemplate(taskId) {
     const task = currentTasksData[taskId];
     const priorityImage = getPriorityImage(task.priority);
-    console.log("task", task);
     return `
         <div class="board-card-detail-container" id="boardCardDetailContainer">
             <div class="board-card-detail-header">
@@ -70,10 +69,10 @@ function cardDetailsOverlayHTMLTemplate(taskId) {
           `;
 }
 
-function cardDetailAssigneeContent(task, assigneeId) {
+function cardDetailAssigneeContent(task, assigneeId, taskId) {
     return `
         <div class="card-detail-assignee-user">
-            <img src="../assets/icons/Profile badge1.svg" alt="User" class="user-avatar" />
+            <div id="user-icons-${taskId}-detail-${assigneeId}" class="user"></div>
             <p>${task.assignedUsers[assigneeId]}</p>
         </div>
     `;

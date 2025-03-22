@@ -2,10 +2,12 @@
  * Function to show the Card Details Overlay and animate the appearance with a delay.
  */
 function showBoardCardDetails(taskId) {
+    const task = currentTasksData[taskId];
     let addTaskOverlayRef = document.getElementById('boardCardDetails');
     addTaskOverlayRef.innerHTML = "";
     addTaskOverlayRef.innerHTML += cardDetailsOverlayHTMLTemplate(taskId);
-    renderCardDetailsAssignedUsers(currentTasksData[taskId]);
+    renderCardDetailsAssignedUsers(currentTasksData[taskId], taskId);
+    // generateUserAvatars(task.assignedUsers, `${taskId}-detail`);
     addTaskOverlayRef.classList.remove('d-none');
     setTimeout(() => {
         let overlayContainerRef = document.querySelector('.board-card-detail-container');
@@ -36,12 +38,12 @@ function closeBoardCardDetails(event) {
     }, 300);
 }
 
-function renderCardDetailsAssignedUsers(task) {
-    console.log(task);
-    console.log(task.assignedUsers.length);
+function renderCardDetailsAssignedUsers(task, taskId) {
     const assignedUsersContent = document.getElementById('cardDetailAssigneeContent');
     assignedUsersContent.innerHTML = "";
     for (let assigneeIndex = 0; assigneeIndex < task.assignedUsers.length; assigneeIndex++) {
-        assignedUsersContent.innerHTML += cardDetailAssigneeContent(task, assigneeIndex);
+        assignedUsersContent.innerHTML += cardDetailAssigneeContent(task, assigneeIndex, taskId);
+        const user = [task.assignedUsers[assigneeIndex]];
+        generateUserAvatars(user, `${taskId}-detail-${assigneeIndex}`);
     }
 }
