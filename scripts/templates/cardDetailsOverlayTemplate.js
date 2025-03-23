@@ -56,6 +56,14 @@ function cardDetailsOverlayHTMLTemplate(task) {
           `;
 }
 
+/**
+ * Generates an HTML template for displaying an assignee in the task detail view.
+ *
+ * @param {Object} task - The task object containing assigned users.
+ * @param {number|string} assigneeId - The unique identifier of the assignee.
+ * @param {number|string} taskId - The unique identifier of the task.
+ * @returns {string} The HTML string representing the assignee's details.
+ */
 function cardDetailAssigneeContentTemplate(task, assigneeId, taskId) {
     return `
         <div class="card-detail-assignee-user">
@@ -65,6 +73,15 @@ function cardDetailAssigneeContentTemplate(task, assigneeId, taskId) {
     `;
 }
 
+/**
+ * Generates an HTML template for displaying a subtask in the task detail view.
+ *
+ * @param {Object} subtask - The subtask object containing its details.
+ * @param {number|string} subtask.id - The unique identifier of the subtask.
+ * @param {string} subtask.title - The title of the subtask.
+ * @param {boolean} subtask.completed - Indicates whether the subtask is completed.
+ * @returns {string} The HTML string representing the subtask element.
+ */
 function cardDetailSubtasksContentTemplate(subtask) {
     return `
         <div class="card-deatil-subtasks-tasks">
