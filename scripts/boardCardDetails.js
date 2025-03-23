@@ -5,7 +5,8 @@ function showBoardCardDetails(taskId) {
     const task = currentTasksData[taskId];
     let addTaskOverlayRef = document.getElementById('boardCardDetails');
     addTaskOverlayRef.innerHTML = "";
-    addTaskOverlayRef.innerHTML += cardDetailsOverlayHTMLTemplate(task);
+    const categoryClassName = transformTaskCategoryToClassName(task.category);
+    addTaskOverlayRef.innerHTML += cardDetailsOverlayHTMLTemplate(task, categoryClassName);
     renderCardDetailsAssignedUsers(currentTasksData[taskId], taskId);
     renderCardDetailsSubtasks(task);
     addTaskOverlayRef.classList.remove('d-none');
@@ -82,4 +83,9 @@ function generateSubtasksArray(task) {
         ...data
     }));
     return subtasksArray;
+}
+
+function transformTaskCategoryToClassName(taskCategory) {
+    const categoryClassName = taskCategory.toLowerCase().replace(/\s+/g, '-');
+    return categoryClassName;
 }
