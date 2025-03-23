@@ -9,12 +9,12 @@
  * @param {string} task.priority - The priority level of the task.
  * @returns {string} The HTML template as a string.
  */
-function cardDetailsOverlayHTMLTemplate(task) {
+function cardDetailsOverlayHTMLTemplate(task, categoryClassName) {
     const priorityImage = getPriorityImage(task.priority);
     return `
         <div class="board-card-detail-container" id="boardCardDetailContainer">
             <div class="board-card-detail-header">
-                <span class="card-category ${task.category}">${task.category}</span>
+                <span class="card-category ${categoryClassName}">${task.category}</span>
                 <button class="close-btn"><img src="../assets/icons/close_btn.svg" alt="close" /></button>
             </div>
             <h4 class="card-detail-title">${task.title}</h4>
