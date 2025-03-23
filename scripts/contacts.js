@@ -53,29 +53,27 @@ async function fetchContactsData() {
 
 
 /**
- * Adds a new contact with a sequential ID to the database.
+ * Adds a new contact to the database and updates the UI.
+ * 
+ * This function retrieves the current contacts from the database, adds the new contact, 
+ * updates the database, fetches the latest contact list, and re-renders the UI.
  * 
  * @async
- * @param {Object} contact - The contact to be added.
+ * @function putContact
+ * @param {Object} contact - The new contact to be added.
+ * @returns {Promise<void>} - A promise that resolves after the contact is added and the UI is updated.
+ * @throws {Error} - Logs an error if the process fails.
  */
 async function putContact(contact) {
     try {
-        const response = await fetch(`${BASE_URL}/contacts.json`);
-        if (!response.ok) throw new Error("Fehler beim Abrufen der Kontakte");
+        let contacts = await getContacts();
+        if (!contacts) {
+            console.error("Fehler: Kontakte konnten nicht geladen werden.");
+            return;
+        }
 
-        const contacts = await response.json();
-        const nextId = Object.keys(contacts || {}).length + 1;
-
-        const putResponse = await fetch(`${BASE_URL}/contacts/${nextId}.json`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: nextId, ...contact }),
-        });
-
-        if (!putResponse.ok) throw new Error("Fehler beim Speichern des Kontakts");
-
-        console.log(`Kontakt ${contact.name} mit ID ${nextId} gespeichert.`);
-        await fetchContactsData();
+        await addNewContact(contacts, contact);
+        await fetchContactsData();  
         renderContactList(currentContactsData);
 
     } catch (error) {
