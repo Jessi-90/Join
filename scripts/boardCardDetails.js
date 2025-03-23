@@ -5,7 +5,7 @@ function showBoardCardDetails(taskId) {
     const task = currentTasksData[taskId];
     let addTaskOverlayRef = document.getElementById('boardCardDetails');
     addTaskOverlayRef.innerHTML = "";
-    addTaskOverlayRef.innerHTML += cardDetailsOverlayHTMLTemplate(taskId);
+    addTaskOverlayRef.innerHTML += cardDetailsOverlayHTMLTemplate(task);
     renderCardDetailsAssignedUsers(currentTasksData[taskId], taskId);
     renderCardDetailsSubtasks(task);
     addTaskOverlayRef.classList.remove('d-none');
