@@ -38,6 +38,12 @@ function closeBoardCardDetails(event) {
     }, 300);
 }
 
+/**
+ * Renders the assigned users for a task in the task detail view.
+ *
+ * @param {Object} task - The task object containing assigned users.
+ * @param {number|string} taskId - The unique identifier of the task.
+ */
 function renderCardDetailsAssignedUsers(task, taskId) {
     const assignedUsersContent = document.getElementById('cardDetailAssigneeContent');
     assignedUsersContent.innerHTML = "";
@@ -48,6 +54,11 @@ function renderCardDetailsAssignedUsers(task, taskId) {
     }
 }
 
+/**
+ * Renders the subtasks for a given task in the task detail view.
+ *
+ * @param {Object} task - The task object containing subtasks.
+ */
 function renderCardDetailsSubtasks(task) {
     const subtasksContent = document.getElementById('cardDetailSubtasksContent');
     subtasksContent.innerHTML = "";
@@ -58,6 +69,13 @@ function renderCardDetailsSubtasks(task) {
     }
 }
 
+/**
+ * Converts the subtasks object of a task into an array of subtask objects.
+ *
+ * @param {Object} task - The task object containing subtasks.
+ * @param {Object} task.subtasks - An object where keys are subtask IDs and values are subtask data.
+ * @returns {Array} An array of subtask objects, each containing an `id` and its corresponding subtask data.
+ */
 function generateSubtasksArray(task) {
     const subtasksArray = Object.entries(task.subtasks).map(([id, data]) => ({
         id,
