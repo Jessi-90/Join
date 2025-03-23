@@ -53,36 +53,6 @@ async function fetchContactsData() {
 
 
 /**
- * Adds a new contact to the database and updates the UI.
- * 
- * This function retrieves the current contacts from the database, adds the new contact, 
- * updates the database, fetches the latest contact list, and re-renders the UI.
- * 
- * @async
- * @function putContact
- * @param {Object} contact - The new contact to be added.
- * @returns {Promise<void>} - A promise that resolves after the contact is added and the UI is updated.
- * @throws {Error} - Logs an error if the process fails.
- */
-async function putContact(contact) {
-    try {
-        let contacts = await getContacts();
-        if (!contacts) {
-            console.error("Fehler: Kontakte konnten nicht geladen werden.");
-            return;
-        }
-
-        await addNewContact(contacts, contact);
-        await fetchContactsData();  
-        renderContactList(currentContactsData);
-
-    } catch (error) {
-        console.error("Fehler beim Hinzufügen eines Kontakts:", error);
-    }
-}
-
-
-/**
  * Retrieves and validates contact form data.
  *
  * @returns {Object|null} The contact object if valid, otherwise null.
