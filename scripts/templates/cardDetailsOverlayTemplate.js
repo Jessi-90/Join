@@ -40,25 +40,13 @@ function cardDetailsOverlayHTMLTemplate(taskId) {
                     </div>
                     <div class="card-detail-assignee-user">
                         <img src="../assets/icons/Profile badge2.svg" alt="User" class="user-avatar" />
-                        <p>Emmanuel Mauer</p>
-                    </div>
-                    <div class="card-detail-assignee-user">
-                        <img src="../assets/icons/Profile badge3.svg" alt="User" class="user-avatar" />
-                        <p>Marcel Bauer</p>
+                        <p>No assigned user</p>
                     </div>
                 </div>
             </div>
             <div class="card-detail-subtasks">
                 <p class="card-detail-list-title">Subtasks:</p>
                 <div class="card-deatil-subtasks-content" id="cardDetailSubtasksContent">
-                    <div class="card-deatil-subtasks-tasks">
-                        <input type="checkbox" id="subtask1" name="subtask1" value="subtask1">
-                        <label for="subtask1">Implement Recipe Recommendation</label>
-                    </div>
-                    <div class="card-detail-subtasks-tasks">
-                        <input type="checkbox" id="subtask2" name="subtask2" value="subtask2">
-                        <label for="subtask2">Start Page Layout</label>
-                    </div>
                 </div>
             </div>
             <div class="card-detail-footer">
