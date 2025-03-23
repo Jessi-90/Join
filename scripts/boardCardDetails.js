@@ -1,5 +1,8 @@
 /**
- * Function to show the Card Details Overlay and animate the appearance with a delay.
+ * Displays the details of a specific task in the board's card detail overlay.
+ * It retrieves task data, generates the overlay content, and renders assigned users and subtasks.
+ *
+ * @param {string|number} taskId - The unique identifier of the task.
  */
 function showBoardCardDetails(taskId) {
     const task = currentTasksData[taskId];
@@ -18,10 +21,11 @@ function showBoardCardDetails(taskId) {
 
 
 /**
- * Closes the Card Details Overlay, if clicked outside the container or the close button.
- * Clicks inside the container prevent closing.
- * The overlay will be hidden with a delay.
- * @param {Event} event - click-event.
+ * Closes the board card details overlay when the user clicks outside the container
+ * or on the close button. If the click is inside the container (excluding the close button),
+ * the event is ignored.
+ *
+ * @param {Event} event - The click event that triggered the function.
  */
 function closeBoardCardDetails(event) {
     let overlay = document.getElementById('boardCardDetails');
@@ -85,6 +89,13 @@ function generateSubtasksArray(task) {
     return subtasksArray;
 }
 
+/**
+ * Transforms a task category string into a valid CSS class name format.
+ * Converts the string to lowercase and replaces spaces with hyphens.
+ *
+ * @param {string} taskCategory - The task category name.
+ * @returns {string} The transformed category name formatted as a CSS class name.
+ */
 function transformTaskCategoryToClassName(taskCategory) {
     const categoryClassName = taskCategory.toLowerCase().replace(/\s+/g, '-');
     return categoryClassName;

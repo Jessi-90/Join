@@ -1,13 +1,18 @@
 /**
- * Generates an HTML template string for displaying task details in an overlay.
+ * Generates the HTML template for displaying detailed information about a task
+ * in the board card details overlay.
  *
- * @param {Object} task - The task object containing details.
- * @param {string} task.category - The category of the task.
+ * @param {Object} task - The task object containing the details to be displayed.
  * @param {string} task.title - The title of the task.
- * @param {string} task.description - A description of the task.
+ * @param {string} task.description - A brief description of the task.
+ * @param {string} task.category - The category of the task.
  * @param {string} task.dueDate - The due date of the task.
- * @param {string} task.priority - The priority level of the task.
- * @returns {string} The HTML template as a string.
+ * @param {string} task.priority - The priority level of the task (e.g., "Low", "Medium", "High").
+ * @param {Object} task.assignedUsers - The users assigned to the task.
+ * @param {Object} task.subtasks - The subtasks related to the task.
+ * @param {string} categoryClassName - The CSS class name corresponding to the task category.
+ * 
+ * @returns {string} The HTML string representing the board card details overlay.
  */
 function cardDetailsOverlayHTMLTemplate(task, categoryClassName) {
     const priorityImage = getPriorityImage(task.priority);
