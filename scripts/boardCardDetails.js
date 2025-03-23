@@ -7,7 +7,7 @@ function showBoardCardDetails(taskId) {
     addTaskOverlayRef.innerHTML = "";
     addTaskOverlayRef.innerHTML += cardDetailsOverlayHTMLTemplate(taskId);
     renderCardDetailsAssignedUsers(currentTasksData[taskId], taskId);
-    // generateUserAvatars(task.assignedUsers, `${taskId}-detail`);
+    renderCardDetailsSubtasks(task);
     addTaskOverlayRef.classList.remove('d-none');
     setTimeout(() => {
         let overlayContainerRef = document.querySelector('.board-card-detail-container');
@@ -42,8 +42,22 @@ function renderCardDetailsAssignedUsers(task, taskId) {
     const assignedUsersContent = document.getElementById('cardDetailAssigneeContent');
     assignedUsersContent.innerHTML = "";
     for (let assigneeIndex = 0; assigneeIndex < task.assignedUsers.length; assigneeIndex++) {
-        assignedUsersContent.innerHTML += cardDetailAssigneeContent(task, assigneeIndex, taskId);
+        assignedUsersContent.innerHTML += cardDetailAssigneeContentTemplate(task, assigneeIndex, taskId);
         const user = [task.assignedUsers[assigneeIndex]];
         generateUserAvatars(user, `${taskId}-detail-${assigneeIndex}`);
+    }
+}
+
+function renderCardDetailsSubtasks(task) {
+    const subtasksContent = document.getElementById('cardDetailSubtasksContent');
+    subtasksContent.innerHTML = "";
+    const subtasksArray = Object.entries(task.subtasks).map(([id, data]) => ({
+        id,
+        ...data
+    }));
+    console.log("subtaskArray", subtasksArray);
+    for (let subtaskIndex = 0; subtaskIndex < subtasksArray.length; subtaskIndex++) {
+        const subtask = subtasksArray[subtaskIndex];
+        subtasksContent.innerHTML += cardDetailSubtasksContentTemplate(subtask);
     }
 }

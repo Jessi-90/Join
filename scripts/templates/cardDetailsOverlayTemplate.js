@@ -50,12 +50,12 @@ function cardDetailsOverlayHTMLTemplate(taskId) {
             </div>
             <div class="card-detail-subtasks">
                 <p class="card-detail-list-title">Subtasks:</p>
-                <div class="card-deatil-subtasks-content">
+                <div class="card-deatil-subtasks-content" id="cardDetailSubtasksContent">
                     <div class="card-deatil-subtasks-tasks">
                         <input type="checkbox" id="subtask1" name="subtask1" value="subtask1">
                         <label for="subtask1">Implement Recipe Recommendation</label>
                     </div>
-                    <div class="card-deatil-subtasks-tasks">
+                    <div class="card-detail-subtasks-tasks">
                         <input type="checkbox" id="subtask2" name="subtask2" value="subtask2">
                         <label for="subtask2">Start Page Layout</label>
                     </div>
@@ -69,11 +69,20 @@ function cardDetailsOverlayHTMLTemplate(taskId) {
           `;
 }
 
-function cardDetailAssigneeContent(task, assigneeId, taskId) {
+function cardDetailAssigneeContentTemplate(task, assigneeId, taskId) {
     return `
         <div class="card-detail-assignee-user">
             <div id="user-icons-${taskId}-detail-${assigneeId}" class="user"></div>
             <p>${task.assignedUsers[assigneeId]}</p>
+        </div>
+    `;
+}
+
+function cardDetailSubtasksContentTemplate(subtask) {
+    return `
+        <div class="card-deatil-subtasks-tasks">
+            <input type="checkbox" id="${subtask.id}" name="${subtask.id}" value="subtask.completed">
+            <label for="${subtask.id}">${subtask.title}</label>
         </div>
     `;
 }
