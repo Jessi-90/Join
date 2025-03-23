@@ -81,7 +81,7 @@ function cardDetailAssigneeContentTemplate(task, assigneeId, taskId) {
 function cardDetailSubtasksContentTemplate(subtask) {
     return `
         <div class="card-deatil-subtasks-tasks">
-            <input type="checkbox" id="${subtask.id}" name="${subtask.id}" value="subtask.completed">
+            <input type="checkbox" id="${subtask.id}" name="${subtask.id}" checked="${subtask.completed}">
             <label for="${subtask.id}">${subtask.title}</label>
         </div>
     `;
