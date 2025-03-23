@@ -51,13 +51,17 @@ function renderCardDetailsAssignedUsers(task, taskId) {
 function renderCardDetailsSubtasks(task) {
     const subtasksContent = document.getElementById('cardDetailSubtasksContent');
     subtasksContent.innerHTML = "";
-    const subtasksArray = Object.entries(task.subtasks).map(([id, data]) => ({
-        id,
-        ...data
-    }));
-    console.log("subtaskArray", subtasksArray);
+    const subtasksArray = generateSubtasksArray(task);
     for (let subtaskIndex = 0; subtaskIndex < subtasksArray.length; subtaskIndex++) {
         const subtask = subtasksArray[subtaskIndex];
         subtasksContent.innerHTML += cardDetailSubtasksContentTemplate(subtask);
     }
+}
+
+function generateSubtasksArray(task) {
+    const subtasksArray = Object.entries(task.subtasks).map(([id, data]) => ({
+        id,
+        ...data
+    }));
+    return subtasksArray;
 }
