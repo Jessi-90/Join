@@ -5,10 +5,10 @@
 function initAddTaskPage() {
     initPriorityButtons();
     initFormValidation();
-    initSubtasks();
     initClearButton();
     initDueDateInput();
     populateContacts();
+    initSubtasksInput();
     initFormSubmitHandler();
     setDefaultMediumPriority();
 }
@@ -178,25 +178,6 @@ function hideError(field) {
         error.style.display = "none";
         field.classList.remove("invalid");
     }
-}
-
-/**
- * Initializes the subtask input, allowing new subtasks to be added to the list.
- */
-function initSubtasks() {
-    const addSubtaskButton = document.getElementById("addSubtask");
-    const subtasksInput = document.getElementById("subtasks");
-    const subtaskList = document.getElementById("subtaskList");
-
-    addSubtaskButton.addEventListener("click", function () {
-        const subtask = subtasksInput.value.trim();
-        if (subtask) {
-            const li = document.createElement("li");
-            li.textContent = subtask;
-            subtaskList.appendChild(li);
-            subtasksInput.value = "";
-        }
-    });
 }
 
 /**
