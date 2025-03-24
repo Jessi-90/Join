@@ -1,3 +1,6 @@
+let currentDraggedCardId;
+
+
 function dragoverHandler(ev) {
     ev.preventDefault();
   }
