@@ -166,34 +166,6 @@ async function deleteContact(firebaseId) {
 
 
 /**
- * Deletes the currently edited contact from the database and removes it from all assigned tasks.
- * 
- * This function retrieves the contact ID from the edit overlay, removes the contact 
- * from all tasks where it was assigned, updates the tasks in the database, 
- * and then deletes the contact itself. Finally, it closes the edit contact overlay.
- * 
- * @async
- * @function deleteContactFromEditOverlay
- * @returns {Promise<void>} - A promise that resolves after the contact has been deleted and the overlay is closed.
- */
-async function deleteContactFromEditOverlay() {
-    const firebaseId = document.querySelector('.form-container').dataset.firebaseId; 
-    if (!firebaseId) {
-        console.error("No contact ID found.");
-        return;
-    }
-
-    let updatedTasks = await removeContactFromTasks(firebaseId);
-    await updateTasksInDatabase(updatedTasks); 
-    await deleteContact(firebaseId);
-
-    setTimeout(() => {
-        closeEditContactOverlay();
-    }, 100);
-}
-
-
-/**
  * Removes a contact from all tasks where it is assigned.
  * 
  * This function fetches all tasks from the database, iterates through them, 
