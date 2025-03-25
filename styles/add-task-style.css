@@ -288,7 +288,7 @@ textarea::placeholder {
     background-image: url(../assets/icons/addTask-clear-input-button.svg);
 }
 
-.subtask-input-vector {
+.subtask-separator {
     width: 1px;
     height: 24px;
     background-color: #D1D1D1;
@@ -559,13 +559,84 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     gap: 8px;
 }
 
+#subtasks {
+    margin-bottom: 6px;
+}
+
+#subtask-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 0;
+}
+
 #subtask-list li {
     font-size: 16px;
     font-weight: 400;
     line-height: 120%;
     border-radius: 8px;
+    padding: 3px 10px 3px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    list-style: none;
+}
+
+#subtask-list li::before {
+    content: "•";
+    color: black;
+    font-size: 18px;
+    position: absolute;
+    left: 10px;
 }
 
 #subtask-list li:hover {
-    background-color: #e0e0e0;
+    background-color: #eeeeee;
+    cursor: pointer;
+}
+
+.subtask-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.subtask-actions button {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background-color: #eeeeee;
+}
+
+.subtask-actions img {
+    width: 18px;
+    height: 18px;
+}
+
+.subtask-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-right: 8px;
+    opacity: 0;
+    transition: all 0.1s ease-in-out;
+}
+
+.subtask-item:hover .subtask-actions {
+    opacity: 1;
+}
+
+.subtask-actions button:hover {
+    scale: 105%;
+    cursor: pointer;
+}
+
+.subtask-edit-input {
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    padding: 4px;
+    border-radius: 4px;
+    background-color: white;
 }

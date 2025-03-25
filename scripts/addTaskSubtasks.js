@@ -46,9 +46,12 @@ function addSubtask() {
 
 function createSubtaskElement(subtaskContent) {
     let subtaskList = document.getElementById("subtask-list");
-    let newSubtask = document.createElement("li");
+    let templateWrapper = document.createElement("div"); 
 
-    newSubtask.textContent = subtaskContent;
+    templateWrapper.innerHTML = addTaskSubtasksListTemplate();
+    let newSubtask = templateWrapper.firstElementChild; 
+
+    newSubtask.querySelector(".subtask-text").textContent = subtaskContent;
     subtaskList.appendChild(newSubtask);
 }
 
@@ -57,5 +60,44 @@ function clearInputField() {
     inputField.value = "";
     toggleSubtaskControlsVisibility(inputField, subtaskNav, plusButton);
 }
+
+function deleteSubtask(button) {
+    let subtaskItem = button.closest('.subtask-item');
+
+    if (subtaskItem) {
+        subtaskItem.remove();
+    }
+}
+
+function editSubtask(button) {
+    // Das li-Element, das den Button enthält
+    const subtaskItem = button.closest('.subtask-item');
+
+    // Finde das Span mit dem Text des Subtasks
+    const subtaskText = subtaskItem.querySelector('.subtask-text');
+
+    // Wenn der Text bereits in einem Input-Feld ist, speichere die Änderungen
+    if (subtaskText.querySelector('input')) {
+        const inputField = subtaskText.querySelector('input');
+        const newText = inputField.value.trim();
+
+        // Setze den bearbeiteten Text zurück in das Span
+        subtaskText.textContent = newText;
+    } else {
+        // Erstelle ein Input-Feld mit dem aktuellen Text
+        const inputField = document.createElement('input');
+        inputField.type = 'text';
+        inputField.value = subtaskText.textContent.trim();
+        inputField.classList.add('subtask-edit-input');
+
+        // Ersetze den Text mit dem Input-Feld
+        subtaskText.textContent = ''; // Leere das Span
+        subtaskText.appendChild(inputField);
+
+        // Setze den Fokus auf das Input-Feld
+        inputField.focus();
+    }
+}
+
 
 
