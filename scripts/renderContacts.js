@@ -41,18 +41,6 @@ document.addEventListener('DOMContentLoaded', initContacts);
 
 
 /**
- * Returns a random color from a predefined color palette.
- * This ensures that contact icons have varied colors.
- *
- * @returns {string} A random hex color code (e.g., "#FF5733").
- */
-function getRandomColor() {
-    const colors = ['#6E52FF', '#FC71FF', '#FFBB2B', '#1FD7C1', '#462F8A', '#20B2AA'];
-    return colors[Math.floor(Math.random() * colors.length)];
-}
-
-
-/**
  * Groups contacts alphabetically based on the first letter of their name.
  * Invalid contacts (missing or incorrectly formatted) are ignored.
  * 
@@ -204,49 +192,36 @@ function renderNoContactsMessage(container) {
     container.innerHTML = `<p class="no-contacts">No contacts available.</p>`;
 }
 
-
-/**
- * Displays the detailed view of a selected contact.
- * Injects the generated contact details template into the DOM.
- * 
- * @param {Object} contact - Contact data.
- * @param {string} contact.name - Full name.
- * @param {string} contact.email - Email address.
- * @param {string} contact.phone - Phone number.
- * @param {string} contact.color - Background color for initials.
- * @param {string} contact.initials - Contact initials.
- */
-function renderContactDetail(contact) {
-    const container = document.getElementById('contactDetail');
-    container.classList.add('show');
-    container.innerHTML = renderContactDetailTemplate(contact);
-}
-
-
 /**
  * Toggles the contact detail view. 
  * If the selected contact is already open, it closes the detail view. 
- * Otherwise, it opens the details of the new contact.
- * 
+ * Otherwise, it applies a transition effect and opens the new contact details.
+ *
  * @param {Object} contact - The contact object to be displayed.
- * @param {number|string} contact.id - The unique identifier of the contact.
+ * @param {number|string} contact.firebaseId - The unique Firebase identifier of the contact.
  */
 function toggleContactDetail(contact) {
-    const container = document.getElementById('contactDetail');
-    const currentOpenContact = container.getAttribute('data-contact-id') || null;
+    const container = document.getElementById('contact-detail');
+    if (!container) {
+        openNewContact(contact);
+        return;
+    }
+    const currentOpenContact = container.getAttribute('data-firebase-id') || null;
 
-    if (currentOpenContact === String(contact.id)) {
+    if (currentOpenContact === String(contact.firebaseId)) {
         closeContactDetail();
     } else {
-        openNewContact(contact); 
+        easeContactDetailTransitionOut();
+        setTimeout(() => {
+            openNewContact(contact); 
+        }, 125);
     }
 }
  
 
 /**
- * Opens the contact detail view and highlights the selected contact.
- * It removes the active state from all contacts and applies it to the newly selected contact.
- * The contact details are then displayed with a smooth transition effect.
+ * Opens the contact detail view and displays the selected contact's information.
+ * Adds an 'active' class to the selected contact item and updates the contact detail container.
  * 
  * @param {Object} contact - The contact object to be displayed.
  * @param {number|string} contact.id - The unique identifier of the contact.
@@ -254,40 +229,41 @@ function toggleContactDetail(contact) {
 function openNewContact(contact) {
     const container = document.getElementById('contactDetail');
 
-    document.querySelectorAll('.contact-placeholder-item').forEach(item => {
-        item.classList.remove('active');
-    });
-
     const clickedItem = document.querySelector(`[data-contact-id="${contact.id}"]`);
     if (clickedItem) {
         clickedItem.classList.add('active');
     }
 
-    container.setAttribute('data-contact-id', contact.id);
     container.innerHTML = renderContactDetailTemplate(contact);
-    container.classList.add('show');
 
     setTimeout(() => {
-        container.style.transform = 'translateX(0)';
+        container.classList.add('show');
     }, 10);
 }
 
 
 /**
- * Closes the contact detail view with a smooth transition.
- * The contact details slide out to the right before being cleared from the DOM.
- * 
- * - Moves the contact detail container out of view.
- * - Waits for the animation to complete before removing the content.
- * - Clears the contact ID attribute to reset the state.
+ * Closes the contact detail view by removing the 'show' class and clearing the content.
+ * Also removes the 'active' class from all contact list items and resets the container attributes.
  */
 function closeContactDetail() {
     const container = document.getElementById('contactDetail');
-    container.style.transform = 'translateX(100%)';
+    container.classList.remove('show');
 
     setTimeout(() => {
-        container.classList.remove('show');
+        document.querySelectorAll('.contact-placeholder-item').forEach(item => {
+            item.classList.remove('active');
+        });
         container.innerHTML = ''; 
         container.removeAttribute('data-contact-id');
-    }, 300); 
+    }, 75); 
+}
+
+/**
+ * Applies a transition effect to hide the contact detail view.
+ * Removes the 'show' class from the contact detail container.
+ */
+function easeContactDetailTransitionOut() {
+    let contactDetailContainer = document.getElementById('contactDetail');
+    contactDetailContainer.classList.remove('show');
 }

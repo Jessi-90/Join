@@ -63,6 +63,11 @@
   border-radius: 8px;
 }
 
+.card-category-detail {
+  font-size: 23px;
+  line-height: 120%;
+}
+
 .technical-task {
   background-color: #1fd7c1;
 }
