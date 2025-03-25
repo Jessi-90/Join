@@ -3,20 +3,35 @@
  * 
  * This event listener ensures that:
  * - Contact data is fetched asynchronously via `fetchContactsData()`.
- * - The greeting message is updated based on the logged-in user and current time using `summaryGreetingUser()`.
+ * - The greeting message is updated based on the logged-in user and current time using `summaryGreetingUser()`, 
+ *   but only if the relevant HTML elements (`.greeting` and `#greetingName`) exist in the DOM.
  * 
  * @listens DOMContentLoaded
  * @async
  */
 document.addEventListener("DOMContentLoaded", async () => {
     await fetchContactsData();
-    summaryGreetingUser(); 
+
+    if (document.querySelector(".greeting") && document.querySelector("#greetingName")) {
+        summaryGreetingUser();
+    }
 });
 
 
 /**
- * Updates the greeting message based on the logged-in user's name and current time.
- * Assumes that `loggedInUserEmail` contains the email of the logged-in user.
+ * Updates the greeting message based on the current time of day and the logged-in user's name.
+ * The greeting is displayed in an element with the class `.greeting` and the user's name is shown 
+ * in an element with the ID `#greetingName`. 
+ * 
+ * The function checks the current hour and displays one of the following greetings:
+ * - "Good morning" for 5 AM - 12 PM
+ * - "Good afternoon" for 12 PM - 6 PM
+ * - "Good evening" for 6 PM - 5 AM
+ * 
+ * If the elements are not found in the DOM, no changes are made.
+ * 
+ * @function
+ * @returns {void}
  */
 function summaryGreetingUser() {
     const hour = new Date().getHours();
@@ -30,8 +45,13 @@ function summaryGreetingUser() {
         greetingText = "Good evening";
     }
 
-    document.querySelector(".greeting").textContent = greetingText + ",";
-    document.querySelector("#greetingName").textContent = getUserName();
+    const greetingElement = document.querySelector(".greeting");
+    const nameElement = document.querySelector("#greetingName");
+
+    if (greetingElement && nameElement) {
+        greetingElement.textContent = greetingText + ",";
+        nameElement.textContent = getUserName();
+    }
 }
 
 
