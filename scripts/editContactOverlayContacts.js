@@ -196,7 +196,7 @@ function saveContactFromEditOverlay(event) {
     saveContactChanges(firebaseId);
 }
 
-
+/**
  * Deletes the currently edited contact from the database and removes it from all assigned tasks.
  * 
  * This function retrieves the contact ID from the edit overlay, removes the contact 
