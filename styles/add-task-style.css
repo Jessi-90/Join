@@ -528,3 +528,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     gap: 8px;
 }
 
+.extra-users {
+    display: flex;
+    align-items: center;
+}
