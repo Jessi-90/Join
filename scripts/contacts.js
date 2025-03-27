@@ -42,7 +42,7 @@ async function fetchContactsData() {
                     ...data[key]
                 }))
                 .filter(contact => contact.name)
-                .sort((a, b) => a.name.localeCompare(b.name));
+                currentContactsData = sortContactsByName(currentContactsData);
         }
 
     } catch (error) {
