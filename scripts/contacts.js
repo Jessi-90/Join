@@ -90,6 +90,10 @@ function getContactFormData() {
 async function createContact(event) {
     event.preventDefault();
     const contact = getContactFormData();
+    
+    if (!validateContactForm()) {
+        return; 
+    }
     if (contact) {
         try {
             let contacts = await getContacts(event); 
