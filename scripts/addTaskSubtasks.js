@@ -16,21 +16,32 @@ function initSubtasksInput() {
 
 function toggleSubtaskControlsVisibility(inputField, subtaskNav, plusButton) {
     let isNotEmpty = inputField.value.trim() !== "";
-    
-    
-    subtaskNav.classList.toggle("d-none", !isNotEmpty);
-    
-    
-    plusButton.classList.toggle("d-none", isNotEmpty);
 
-   
-    if (isNotEmpty && !document.getElementById("add-subtask-btn").hasAttribute("data-listener-added")) {
-        let addSubtaskButton = document.getElementById("add-subtask-btn");
+    toggleVisibility(subtaskNav, isNotEmpty);
+    toggleVisibility(plusButton, !isNotEmpty);
 
-        addSubtaskButton.addEventListener("click", addSubtask);
-        addSubtaskButton.setAttribute("data-listener-added", "true");
+    addEventListenerOnce(inputField, "keydown", handleEnterKey, "data-enter-listener", isNotEmpty);
+    addEventListenerOnce(document.getElementById("add-subtask-btn"), "click", addSubtask, "data-listener-added", isNotEmpty);
+}
+
+function toggleVisibility(element, shouldShow) {
+    element.classList.toggle("d-none", !shouldShow);
+}
+
+function addEventListenerOnce(element, event, handler, dataAttr, condition) {
+    if (condition && !element.hasAttribute(dataAttr)) {
+        element.addEventListener(event, handler);
+        element.setAttribute(dataAttr, "true");
     }
 }
+
+function handleEnterKey(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        addSubtask();
+    }
+}
+
 
 function addSubtask() {
     let { inputField, plusButton, subtaskNav } = getSubtaskElements();
@@ -46,13 +57,20 @@ function addSubtask() {
 
 function createSubtaskElement(subtaskContent) {
     let subtaskList = document.getElementById("subtask-list");
-    let templateWrapper = document.createElement("div"); 
+    let templateWrapper = document.createElement("div");
 
     templateWrapper.innerHTML = addTaskSubtasksListTemplate();
-    let newSubtask = templateWrapper.firstElementChild; 
+    let newSubtask = templateWrapper.firstElementChild;
 
     newSubtask.querySelector(".subtask-text").textContent = subtaskContent;
     subtaskList.appendChild(newSubtask);
+
+    const subtaskItem = newSubtask;
+    subtaskItem.addEventListener('click', (event) => {
+        if (!event.target.closest('.subtask-actions')) {
+            editSubtask(subtaskItem.querySelector('.subtask-edit-btn'));
+        }
+    });
 }
 
 function clearInputField() {
@@ -62,42 +80,62 @@ function clearInputField() {
 }
 
 function deleteSubtask(button) {
-    let subtaskItem = button.closest('.subtask-item');
+    let wrapper = button.closest('.edit-input-wrapper');
 
-    if (subtaskItem) {
-        subtaskItem.remove();
+    if (wrapper) {
+        const subtaskItem = wrapper.closest('.subtask-item') || wrapper.previousElementSibling;
+
+        if (subtaskItem && subtaskItem.classList.contains('subtask-item')) {
+            subtaskItem.remove();
+        }
+    } else {
+        let subtaskItem = button.closest('.subtask-item');
+        if (subtaskItem) {
+            subtaskItem.remove();
+        }
     }
 }
 
 function editSubtask(button) {
-    // Das li-Element, das den Button enthält
     const subtaskItem = button.closest('.subtask-item');
+    const inputWrapper = document.createElement('div');
+    inputWrapper.classList.add('edit-input-wrapper');
 
-    // Finde das Span mit dem Text des Subtasks
-    const subtaskText = subtaskItem.querySelector('.subtask-text');
+    const inputField = document.createElement('input');
+    inputField.type = 'text';
+    inputField.value = subtaskItem.querySelector('.subtask-text').textContent.trim();
+    inputField.classList.add('subtask-edit-input');
 
-    // Wenn der Text bereits in einem Input-Feld ist, speichere die Änderungen
-    if (subtaskText.querySelector('input')) {
-        const inputField = subtaskText.querySelector('input');
-        const newText = inputField.value.trim();
+    inputWrapper.innerHTML = editSubtaskControlsTemplate();
+    inputWrapper.prepend(inputField);
+    let isDeleting = false;
 
-        // Setze den bearbeiteten Text zurück in das Span
-        subtaskText.textContent = newText;
-    } else {
-        // Erstelle ein Input-Feld mit dem aktuellen Text
-        const inputField = document.createElement('input');
-        inputField.type = 'text';
-        inputField.value = subtaskText.textContent.trim();
-        inputField.classList.add('subtask-edit-input');
-
-        // Ersetze den Text mit dem Input-Feld
-        subtaskText.textContent = ''; // Leere das Span
-        subtaskText.appendChild(inputField);
-
-        // Setze den Fokus auf das Input-Feld
-        inputField.focus();
+    const deleteButton = inputWrapper.querySelector('#delete-edit-subtask-btn');
+    if (deleteButton) {
+        deleteButton.addEventListener('mousedown', () => {
+            isDeleting = true;
+            subtaskItem.remove();
+            inputWrapper.remove();
+        });
     }
+
+    const saveButton = inputWrapper.querySelector('#edit-add-subtask-btn');
+    if (saveButton) {
+        saveButton.addEventListener('click', () => {
+            const subtaskText = inputField.value.trim();
+            subtaskItem.querySelector('.subtask-text').textContent = subtaskText;
+            inputWrapper.replaceWith(subtaskItem);
+        });
+    }
+    subtaskItem.replaceWith(inputWrapper);
+    inputField.focus();
+    inputField.addEventListener('blur', () => {
+        if (isDeleting) {
+            return;
+        }
+
+        const subtaskText = inputField.value.trim();
+        subtaskItem.querySelector('.subtask-text').textContent = subtaskText;
+        inputWrapper.replaceWith(subtaskItem);
+    });
 }
-
-
-
