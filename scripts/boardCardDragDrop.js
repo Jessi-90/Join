@@ -17,6 +17,7 @@ function startCardDragging(taskId) {
 function moveCardTo(category, columnCategory) {
     currentTasksData[currentDraggedCardId]['status'] = category;
     removeHighlightCardContainer(columnCategory);
+    updateTasksInDatabase(currentTasksData)
     renderTasks(currentTasksData);
 }
 
