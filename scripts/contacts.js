@@ -143,6 +143,10 @@ function setNewContactActive(contact) {
  */
 async function deleteContact(firebaseId) {
     try {
+        const updatedTasks = await removeContactFromTasks(firebaseId);
+        if (Object.keys(updatedTasks).length > 0) {
+            await updateTasksInDatabase(updatedTasks);}
+
         const response = await fetch(`${BASE_URL}contacts/${firebaseId}.json`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" }
@@ -154,11 +158,11 @@ async function deleteContact(firebaseId) {
         
         await fetchContactsData();
         renderContactList(currentContactsData);
+        
         const contactDetailContainer = document.getElementById("contact-detail");
         if (contactDetailContainer && contactDetailContainer.dataset.firebaseId === firebaseId) {
             contactDetailContainer.innerHTML = "";
         }
-
     } catch (error) {
         console.error("Fehler beim Löschen des Kontakts:", error);
     }
@@ -202,30 +206,5 @@ async function removeContactFromTasks(firebaseId) {
     } catch (error) {
         console.error("Fehler beim Entfernen des Kontakts aus Aufgaben:", error);
         return {};
-    }
-}
-
-
-/**
- * Updates the task data in the Firebase database.
- * 
- * This function sends a PUT request to update the `tasks.json` file in Firebase 
- * with the provided `updatedTasks` object, which contains all tasks with any modifications.
- * 
- * @async
- * @function updateTasksInDatabase
- * @param {Object} updatedTasks - An object containing the updated tasks data.
- * @returns {Promise<void>} - A promise that resolves once the tasks have been updated in the database.
- */
-async function updateTasksInDatabase(updatedTasks) {
-    try {
-        await fetch(`${BASE_URL}tasks.json`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updatedTasks),
-        });
-
-    } catch (error) {
-        console.error("Fehler beim Aktualisieren der Aufgaben in der Datenbank:", error);
     }
 }
