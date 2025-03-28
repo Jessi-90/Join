@@ -13,6 +13,8 @@ function showEditContactOverlay(firebaseId) {
     if (!overlay) return;
 
     overlay.innerHTML = showEditContactOverlayHTMLTemplate(updatedContact);
+    overlay.setAttribute("data-firebase-id", firebaseId);
+    document.getElementById('saveContactButton')?.addEventListener('click', saveContactFromEditOverlay);
     overlay.classList.remove('d-none', 'hide');
     overlay.classList.add('show');
 
@@ -24,6 +26,7 @@ function showEditContactOverlay(firebaseId) {
 }
 
 
+
 /**
  * Closes the Edit Contact Overlay if clicking outside the modal or on the close button.
  * Prevents closing when clicking inside the modal.
@@ -32,15 +35,16 @@ function showEditContactOverlay(firebaseId) {
  */
 function closeEditContactOverlay(event) {
     let overlay = document.getElementById('editContactOverlay');
+    if (!overlay) return;
+
     let modal = document.querySelector('.modal');
 
-    if (!overlay || !modal) {
-        hideOverlay(overlay);
-        return;
-    }
-
-    if (!modal.contains(event.target) || event.target.closest('.close-btn')) {
-        hideOverlay(overlay);
+    if (event) {
+        if (!modal || !modal.contains(event.target) || event.target.closest('.close-btn')) {
+            hideOverlay(overlay);
+        }
+    } else {
+        hideOverlay(overlay); 
     }
 }
 
@@ -80,6 +84,119 @@ function initializeContactData(contact) {
 
 
 /**
+ * Retrieves updated contact data from the form inputs.
+ *
+ * @param {Object} contact - The original contact object.
+ * @returns {Object|null} - The updated data object or null if no changes exist.
+ */
+function getUpdatedContactData(contact) {
+    let updatedName = document.getElementById('editContactName').value.trim();
+    let updatedEmail = document.getElementById('editContactEmail').value.trim();
+    let updatedPhone = document.getElementById('editContactPhone').value.trim();
+
+    let updatedData = {};
+    if (updatedName && updatedName !== contact.name) updatedData.name = updatedName;
+    if (updatedEmail && updatedEmail !== contact.email) updatedData.email = updatedEmail;
+    if (updatedPhone && updatedPhone !== contact.phone) updatedData.phone = updatedPhone;
+
+    return Object.keys(updatedData).length > 0 ? updatedData : null;
+}
+
+
+/**
+ * Saves the updated contact data to Firebase using PATCH.
+ *
+ * @param {string} firebaseId - The unique ID of the contact in Firebase.
+ */
+async function saveContactChanges(firebaseId) {
+    let contact = currentContactsData.find(c => c.firebaseId === firebaseId);
+    if (!contact) return;
+
+    let updatedData = getUpdatedContactData(contact);
+    if (!updatedData) {
+        console.log("Keine Änderungen vorhanden.");
+        return;
+    }
+
+    try {
+        let response = await updateContactOnServer(firebaseId, updatedData);
+        if (!response.ok) throw new Error("Fehler beim Aktualisieren des Kontakts");
+
+        handleSuccessfulUpdate(firebaseId, updatedData);
+
+    } catch (error) {
+        console.error("Fehler beim Speichern der Kontaktänderungen:", error);
+    }
+}
+
+
+/**
+ * Sends the updated contact data to Firebase.
+ *
+ * @param {string} firebaseId - The unique ID of the contact in Firebase.
+ * @param {Object} updatedData - The data to be updated.
+ * @returns {Promise<Response>} - The fetch response.
+ */
+async function updateContactOnServer(firebaseId, updatedData) {
+    return fetch(`${BASE_URL}/contacts/${firebaseId}.json`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData),
+    });
+}
+
+
+/**
+ * Handles UI updates after a successful contact update.
+ *
+ * @param {string} firebaseId - The unique ID of the contact in Firebase.
+ * @param {Object} updatedData - The data that was updated.
+ */
+function handleSuccessfulUpdate(firebaseId, updatedData) {
+    updateContactList(firebaseId, updatedData);
+
+    let contactDetailContainer = document.getElementById("contact-detail");
+    if (contactDetailContainer && contactDetailContainer.getAttribute("data-firebase-id") === firebaseId) {
+        let updatedContact = currentContactsData.find(c => c.firebaseId === firebaseId);
+        contactDetailContainer.innerHTML = renderContactDetailTemplate(updatedContact);
+    }
+
+    closeEditContactOverlay();
+    fetchContactsData(); 
+}
+
+
+/**
+ * Updates the contact list in memory and re-renders it.
+ *
+ * @param {string} firebaseId - The ID of the contact being updated.
+ * @param {Object} updatedData - The updated contact data.
+ */
+function updateContactList(firebaseId, updatedData) {
+    currentContactsData = currentContactsData.map(c => 
+        c.firebaseId === firebaseId ? { ...c, ...updatedData } : c
+    );
+    renderContactList(currentContactsData);
+}
+
+
+/**
+ * Handles the save button click from the edit overlay.
+ * Extracts the firebaseId and calls saveContactChanges.
+ */
+function saveContactFromEditOverlay(event) {
+    if (event) event.preventDefault(); 
+
+    let overlay = document.getElementById('editContactOverlay');
+    if (!overlay) return;
+
+    let firebaseId = overlay.getAttribute("data-firebase-id"); 
+    if (!firebaseId) return;
+
+    saveContactChanges(firebaseId);
+}
+
+/**
  * Deletes the currently edited contact from the database and removes it from all assigned tasks.
  * 
  * This function retrieves the contact ID from the edit overlay, removes the contact 
@@ -108,3 +225,4 @@ async function deleteContactFromEditOverlay() {
         }
     }, 100);
 }
+

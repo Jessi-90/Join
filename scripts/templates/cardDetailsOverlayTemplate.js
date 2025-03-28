@@ -30,14 +30,14 @@ function cardDetailsOverlayHTMLTemplate(task, categoryClassName) {
             </div>
             <div class="card-detail-priority">
                 <p class="card-detail-list-title">Priority:</p>
-                <div class="card-deatil-priority-content">
+                <div class="card-detail-priority-content">
                     <p>${task.priority}</p>
                     <img class="card-priority" src="${priorityImage}" alt="priority" />
                 </div>
             </div>
             <div class="card-detail-assignee">
                 <p class="card-detail-list-title">Assigned To:</p>
-                <div class="card-deatil-assignee-content" id="cardDetailAssigneeContent">
+                <div class="card-detail-assignee-content" id="cardDetailAssigneeContent">
                     <div class="card-detail-assignee-user">
                         <img src="../assets/icons/Profile badge1.svg" alt="User" class="user-avatar" />
                         <p>Anton Mayer</p>
@@ -49,9 +49,19 @@ function cardDetailsOverlayHTMLTemplate(task, categoryClassName) {
                 </div>
             </div>
             <div class="card-detail-subtasks">
-                <p class="card-detail-list-title">Subtasks:</p>
-                <div class="card-deatil-subtasks-content" id="cardDetailSubtasksContent">
-                </div>
+                        <p class="card-detail-list-title">Subtasks:</p>
+              <div class="card-detail-subtasks-content" id="cardDetailSubtasksContent">
+                  <div class="subtasks">
+                      <label class="subtask">
+                          <input type="checkbox" checked>
+                          <span class="subtask-text">Implement Recipe Recommendation</span>
+                      </label>
+                      <label class="subtask">
+                          <input type="checkbox">
+                          <span class="subtask-text">Start Page Layout</span>
+                      </label>
+                  </div>
+              </div>
             </div>
             <div class="card-detail-footer">
                 <button class="card-detail-delete-btn btn-no-bg" onclick="deleteTask()"></button>
@@ -88,10 +98,13 @@ function cardDetailAssigneeContentTemplate(task, assigneeId, taskId) {
  * @returns {string} The HTML string representing the subtask element.
  */
 function cardDetailSubtasksContentTemplate(subtask) {
-    return `
-        <div class="card-deatil-subtasks-tasks">
-            <input type="checkbox" id="${subtask.id}" name="${subtask.id}" ${subtask.completed ? 'checked' : ''}>
-            <label for="${subtask.id}">${subtask.title}</label>
+       return `
+        <div class="card-detail-subtasks-tasks">
+            <label class="custom-checkbox">
+                <input type="checkbox" id="${subtask.id}" name="${subtask.id}" ${subtask.completed ? 'checked' : ''}>
+                <span class="checkmark"></span>
+                <span class="subtask-title">${subtask.title}</span>
+            </label>
         </div>
     `;
 }
