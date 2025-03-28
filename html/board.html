@@ -96,7 +96,7 @@
             </div>
         </section>
         <section class="board">
-            <div class="column" id="to-do-column" ondragover="dragoverHandler(event)" ondrop="moveCardTo(1)">
+            <div class="column" id="to-do-column" ondragleave="removehighlightCardContainer(1)" ondragover="dragoverHandler(event); highlightCardContainer(1)" ondrop="moveCardTo(1)">
                 <div class="column-header">
                     <h2>To do</h2>
                     <div onclick="showAddTaskOverlay()" class="add-card">
@@ -105,7 +105,7 @@
                 <div class="card-container" id="to-do">
                 </div>
             </div>
-            <div class="column" id="in-progress-column" ondragover="dragoverHandler(event)" ondrop="moveCardTo(2)">
+            <div class="column" id="in-progress-column" ondragleave="removehighlightCardContainer(1)" ondragover="dragoverHandler(event); highlightCardContainer(2)" ondrop="moveCardTo(2)">
                 <div class="column-header">
                     <h2>In progress</h2>
                     <div onclick="showAddTaskOverlay()" class="add-card">
@@ -114,7 +114,7 @@
                 <div class="card-container" id="in-progress">
                 </div>
             </div>
-            <div class="column" id="await-feedback-column" ondragover="dragoverHandler(event)" ondrop="moveCardTo(3)">
+            <div class="column" id="await-feedback-column" ondragleave="removehighlightCardContainer(1)" ondragover="dragoverHandler(event); highlightCardContainer(3)" ondrop="moveCardTo(3)">
                 <div class="column-header">
                     <h2>Await feedback</h2>
                     <div onclick="showAddTaskOverlay()" class="add-card">
@@ -125,7 +125,7 @@
                     </div>
                 </div>
             </div>
-            <div class="column" id="done-column" ondragover="dragoverHandler(event)" ondrop="moveCardTo(4)">
+            <div class="column" id="done-column" ondragleave="removehighlightCardContainer(1)" ondragover="dragoverHandler(event); highlightCardContainer(4)" ondrop="moveCardTo(4)">
                 <div class="column-header">
                     <h2>Done</h2>
                 </div>
