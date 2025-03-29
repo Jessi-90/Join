@@ -37,7 +37,7 @@ async function init() {
  */
 async function renderTasks(tasks) {
     clearAllContainers();
-    await fetchContactsData();
+    await mapContactsData();
     
     for (let taskId in tasks) {
         if (taskId !== 'counter') {

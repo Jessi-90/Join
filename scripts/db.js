@@ -33,8 +33,7 @@ async function fetchTasksData() {
  * Fetches the current contacts from the database.
  * @returns {Promise<Array>} an object with the contacts and the counter.
  */
-async function getContacts(event) {
-    event.preventDefault();
+async function getContacts() {
     let contacts;
     try {
         let response = await fetch(BASE_URL + "contacts.json");

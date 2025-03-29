@@ -162,7 +162,7 @@ function handleSuccessfulUpdate(firebaseId, updatedData) {
     }
 
     closeEditContactOverlay();
-    fetchContactsData(); 
+    mapContactsData(); 
 }
 
 
