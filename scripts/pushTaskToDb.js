@@ -29,9 +29,7 @@ async function addNewTask(event, tasks, newTask) {
     try {
 
         let counter = increaseTasksCounter(tasks);
-
         let newTaskKey = `task_${counter}`;
-
         let newTasks = createNewTask(tasks, newTask, newTaskKey);
         
         tasks.counter = counter;  
@@ -39,7 +37,7 @@ async function addNewTask(event, tasks, newTask) {
         await fetch(`${BASE_URL}/tasks.json`, {
             method: "PUT",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(tasks) 
+            body: JSON.stringify(newTasks) 
         });
 
     } catch (error) {
