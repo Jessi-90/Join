@@ -13,6 +13,7 @@ function initAddTaskPage() {
     setDefaultMediumPriority();
 }
 
+
 /**
  * Sets the default priority to medium if the corresponding button is found.
  * Logs a warning if the medium priority button is not present in the DOM.
@@ -25,6 +26,7 @@ function setDefaultMediumPriority() {
         console.warn('Medium priority button not found');
     }
 }
+
 
 /**
  * Initializes the priority buttons.
@@ -46,6 +48,7 @@ function initPriorityButtons() {
     });
 }
 
+
 /**
  * Sets up the form submit handler to validate the form.
  * Prevents form submission if validation fails.
@@ -62,6 +65,7 @@ function initFormSubmitHandler() {
     });
 }
 
+
 /**
  * Adds blur validation for required fields.
  */
@@ -70,6 +74,7 @@ function initFormValidation() {
         input.addEventListener("blur", () => checkValidity(input));
     });
 }
+
 
 /**
  * Checks individual field validity and displays an error if needed.
@@ -85,6 +90,7 @@ function checkValidity(field) {
         field.classList.remove("invalid");
     }
 }
+
 
 /* Validates the entire task form.
 * @returns {boolean} Whether the form is valid.
@@ -103,6 +109,7 @@ function validateTaskForm() {
     return !!isValid;
 }
 
+
 /**
  * Validates a single field.
  * @param {HTMLElement} field - The field to validate.
@@ -118,6 +125,7 @@ function validateField(field, message) {
         return true;
     }
 }
+
 
 /**
  * Validates the due date input.
@@ -139,6 +147,7 @@ function validateDueDate() {
     }
 }
 
+
 /**
  * Validates the category selection.
  * @param {HTMLElement} categoryField - The category select element.
@@ -154,6 +163,7 @@ function validateCategory(categoryField) {
     }
 }
 
+
 /**
  * Displays an error message for a field.
  * @param {HTMLElement} field - The field element.
@@ -168,6 +178,7 @@ function showError(field, message) {
     }
 }
 
+
 /**
  * Hides the error message for a field.
  * @param {HTMLElement} field - The field element.
@@ -179,6 +190,7 @@ function hideError(field) {
         field.classList.remove("invalid");
     }
 }
+
 
 /**
  * Initializes the subtask input, allowing new subtasks to be added to the list.
@@ -198,6 +210,7 @@ function initSubtasks() {
         }
     });
 }
+
 
 /**
  * Adds a click listener to clear buttons to reset the form and clear all errors.
@@ -228,6 +241,7 @@ function initClearButton() {
     });
 }
 
+
 /**
  * Formats the due date input to enforce DD/MM/YYYY format as the user types.
  */
@@ -248,6 +262,7 @@ function initDueDateInput() {
     });
 }
 
+
 /**
  * Sets the current date into the input field with the ID "due-date".
  * The date is formatted as "dd/mm/yyyy".
@@ -259,6 +274,7 @@ function setTodayDate() {
     dateInput.value = formattedDate;
 }
 
+
 /**
  * Formats a given Date object into the format "dd/mm/yyyy".
  * @param {Date} date - The Date object to format.
@@ -269,4 +285,60 @@ function formatDate(date) {
     let month = String(date.getMonth() + 1).padStart(2, "0");
     let year = date.getFullYear();
     return `${day}/${month}/${year}`;
+}
+
+
+/**
+ * Initializes the form logic.
+ * This function adds the submit event listener to the form when called.
+ */
+function initializeFormLogic() {
+    const form = document.querySelector("form");
+    form.addEventListener("submit", function(event) {
+        handleFormSubmission(event);
+    });
+}
+
+
+/**
+ * Handles the form submission.
+ * This function collects the form data and calls the `addNewTask` logic.
+ * @param {Event} event - The form submit event.
+ */
+function handleFormSubmission(event) {
+    const newTask = getFormData();
+    const tasks = {}; // Replace this with the loaded tasks object
+    addNewTask(event, tasks, newTask);
+}
+
+/**
+ * Collects the form data and returns it as an object.
+ * @returns {Object} The collected form data.
+ */
+function getFormData() {
+    const title = document.getElementById("title").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const dueDate = document.getElementById("due-date").value.trim();
+    const priorityButtons = document.querySelectorAll(".prio-btn");
+    let priority = "low";
+    priorityButtons.forEach((button) => {
+        if (button.classList.contains("selected")) {
+            priority = button.textContent.trim().toLowerCase();
+        }
+    });
+    const assignedUsers = Array.from(document.querySelectorAll("#selectedContactsContainer .selected-contact"))
+        .map(contact => contact.textContent.trim());
+    const category = document.getElementById("category").value.trim();
+    const subtasks = Array.from(document.querySelectorAll("#subtask-list li"))
+        .map(subtask => subtask.textContent.trim());
+
+    return {
+        title,
+        description,
+        dueDate,
+        priority,
+        assignedUsers,
+        category,
+        subtasks
+    };
 }

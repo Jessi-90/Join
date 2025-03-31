@@ -278,7 +278,6 @@ textarea::placeholder {
     justify-content: end;
     gap: 10px;
     margin-top: 20px;
-    
 }
 
 .clear,
@@ -292,21 +291,16 @@ textarea::placeholder {
 }
 
 .clear {
-    background-color: white;
-    color: rgba(42, 54, 71, 1);
-    border-radius: 8px;
-    font-weight: 500;
+    font-weight: 500 !important;
     font-size: 20px;
     line-height: 25.2px;
     width: 110px;
     height: 56px;
-    border: solid 1px rgba(42, 54, 71, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: all 150ms;
-    cursor: context-menu;
+    padding: 10px !important;
+}
+
+#clear-button:hover #clear-icon {
+    content: url("../assets/icons/clear-btn-hover.svg");
 }
 
 .create {
