@@ -1,13 +1,11 @@
 /**
- * Initializes the application after the DOM has fully loaded.
+ * Event listener for the `DOMContentLoaded` event.
  * 
- * This event listener ensures that:
- * - Contact data is fetched asynchronously via `mapContactsData()`.
- * - The greeting message is updated based on the logged-in user and current time using `summaryGreetingUser()`, 
- *   but only if the relevant HTML elements (`.greeting` and `#greetingName`) exist in the DOM.
+ * Executes initial data fetching and rendering processes once the DOM is fully loaded.
  * 
- * @listens DOMContentLoaded
- * @async
+ * - Loads and processes contact data.
+ * - Displays a greeting message if the corresponding elements exist.
+ * - Fetches task data and renders the task overview.
  */
 document.addEventListener("DOMContentLoaded", async () => {
     await mapContactsData();
@@ -94,6 +92,10 @@ function getLoggedInUser() {
 }
 
 
+/**
+ * Renders the number of tasks for different statuses in the UI.
+ * Retrieves task data, calculates task counts, and updates the HTML elements.
+ */
 function renderNumberTasks() {
     let tasksArray = mapTasksData();
     let numberTasksData = getNumberTasks(tasksArray);
@@ -106,6 +108,12 @@ function renderNumberTasks() {
 }
 
 
+/**
+ * Maps the current task data into an array of task objects.
+ * Filters out only the valid tasks based on their key format.
+ *
+ * @returns {Array<Object>} An array of task objects with their ID and properties.
+ */
 function mapTasksData() {
     const tasksArray = Object.entries(currentTasksData)
     .filter(([key]) => key.startsWith('taskid_'))  
@@ -113,6 +121,13 @@ function mapTasksData() {
     return tasksArray;
 }
 
+
+/**
+ * Calculates the number of tasks in different categories.
+ *
+ * @param {Array<Object>} tasksArray - The array of task objects.
+ * @returns {Object} An object containing counts for different task statuses and priorities.
+ */
 function getNumberTasks(tasksArray) {
     let numberTotalTasks = tasksArray.length;
     let numberTasksDone = tasksArray.filter(task => task.status === 4).length;
@@ -123,6 +138,12 @@ function getNumberTasks(tasksArray) {
     return {numberTotalTasks, numberTasksDone, numberTasksAwaitingFeedback, numberTasksInProgress, numberTasksToDo, numberTasksUrgent};
 }
 
+
+/**
+ * Finds the task with the nearest upcoming deadline that is not yet completed.
+ *
+ * @returns {Object|null} An object containing the next task and its formatted due date, or null if no task is found.
+ */
 function getUpcomingDeadlineTask() {
     let tasksArray = mapTasksData();
     const filteredTasks = tasksArray.filter(task => task.status !== 4);
@@ -141,6 +162,11 @@ function getUpcomingDeadlineTask() {
     return { nextTask, formattedDate };
 }
 
+
+/**
+ * Renders the upcoming task deadline date in the UI.
+ * If no upcoming task is found, displays "No" as a placeholder.
+ */
 function renderUpcomingDate() {
     let upcomingDateTask = getUpcomingDeadlineTask();
     if (!upcomingDateTask) {
