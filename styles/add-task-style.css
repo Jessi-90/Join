@@ -153,6 +153,7 @@ textarea {
 .prio-buttons {
     display: flex;
     gap: 10px;
+    width: 100%; 
 }
 
 .prio-buttons button {
