@@ -632,16 +632,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
 }
 
-.subtask-edit-input {
-    position: relative;
-    width: 100%;
-    border: none;
-    font-size: 16px;
-    padding: 4px;
-    border-radius: 4px;
-    background-color: white;
-}
-
 .edit-subtask-nav {
     position: absolute;
     right: 10;
@@ -657,11 +647,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     align-items: center;
 }
 
-.subtask-edit-input {
+.edit-input-wrapper input.subtask-edit-input{
+    all: unset;
+    position: relative;
     width: 100%;
-    padding: 3px 10px 3px 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    padding: 4px 75px 4px 10px;
+    background-color: white;
+    width: 100%;
+    border: none !important;
+    border-bottom: 1px solid #005DFF !important;
     box-sizing: border-box;
 }
 
