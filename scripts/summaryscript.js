@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     await fetchTasksData();
-    console.log(currentTasksData);
     renderNumberTasks();
 });
 
@@ -97,8 +96,12 @@ function getLoggedInUser() {
 function renderNumberTasks() {
     let tasksArray = mapTasksData();
     let numberTasksData = getNumberTasks(tasksArray);
-    console.log(numberTasksData);
-
+    document.getElementById('numberTasksToDo').innerHTML = numberTasksData.numberTasksToDo;
+    document.getElementById('numberTasksDone').innerHTML = numberTasksData.numberTasksDone;
+    document.getElementById('numberTasksUrgent').innerHTML = numberTasksData.numberTasksUrgent;
+    document.getElementById('numberTasksTotal').innerHTML = numberTasksData.numberTotalTasks;
+    document.getElementById('numberTasksInProgress').innerHTML = numberTasksData.numberTasksInProgress;
+    document.getElementById('numberTasksAwaitingFeedback').innerHTML = numberTasksData.numberTasksAwaitingFeedback;
 }
 
 
@@ -106,8 +109,6 @@ function mapTasksData() {
     const tasksArray = Object.entries(currentTasksData)
     .filter(([key]) => key.startsWith('taskid_'))  
     .map(([id, task]) => ({ id, ...task }));  
-
-    console.log(tasksArray);
     return tasksArray;
 }
 
