@@ -2,7 +2,7 @@
  * Initializes the application after the DOM has fully loaded.
  * 
  * This event listener ensures that:
- * - Contact data is fetched asynchronously via `fetchContactsData()`.
+ * - Contact data is fetched asynchronously via `mapContactsData()`.
  * - The greeting message is updated based on the logged-in user and current time using `summaryGreetingUser()`, 
  *   but only if the relevant HTML elements (`.greeting` and `#greetingName`) exist in the DOM.
  * 
@@ -10,7 +10,7 @@
  * @async
  */
 document.addEventListener("DOMContentLoaded", async () => {
-    await fetchContactsData();
+    await mapContactsData();
 
     if (document.querySelector(".greeting") && document.querySelector("#greetingName")) {
         summaryGreetingUser();

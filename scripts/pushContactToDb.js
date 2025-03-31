@@ -1,24 +1,4 @@
 /**
- * Fetches the current contacts from the database.
- * @returns {Promise<Array>} an object with the contacts and the counter.
- */
-async function getContacts(event) {
-    event.preventDefault();
-    try {
-        let response = await fetch(BASE_URL + "contacts.json");
-        if (!response.ok) {
-            throw new Error(`Status: ${response.status}`);
-        }
-        let contacts = await response.json();
-        return contacts || {}; 
-    } catch (error) {
-        console.error("Error while fetching conacts data", error);
-        return null;
-    }
-};
-
-
-/**
  * Pushes all the contact data to the database using PUT.
  * @param {Event} event - The form submit event.
  * @param {Object} contacts - The contacts data from the database.

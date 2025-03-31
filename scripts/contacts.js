@@ -8,7 +8,7 @@ let currentContactsData = [];
  * Initializes the app by fetching data and rendering the contacts.
  */
 async function init() {
-    await fetchContactsData();
+    await mapContactsData();
     renderContacts();
     renderContactList(currentContactsData);
     addContactClickEvents();
@@ -20,17 +20,13 @@ async function init() {
  * Filters out invalid data and excludes the "counter" field.
  * 
  * @async
- * @function fetchContactsData
+ * @function mapContactsData
  * @returns {Promise<void>} - A promise that resolves when the data is fetched and processed.
  * @throws {Error} - Logs an error if the fetch request fails.
  */
-async function fetchContactsData() {
+async function mapContactsData() {
     try {
-        let databaseResponse = await fetch(BASE_URL + "contacts.json");
-        if (!databaseResponse.ok) {
-            throw new Error(`Status: ${databaseResponse.status}`);
-        }
-        const data = await databaseResponse.json();
+        const data = await getContacts();
 
         if (!data || typeof data !== 'object') {
             currentContactsData = [];
@@ -102,7 +98,7 @@ async function createContact(event) {
                 return;
             }
             await addNewContact(event, contacts, contact); 
-            await fetchContactsData(); 
+            await mapContactsData(); 
             renderContactList(currentContactsData);
             setNewContactActive(contact); 
             showFeedbackImage();
@@ -160,7 +156,7 @@ async function deleteContact(firebaseId) {
             throw new Error(`Fehler beim Löschen des Kontakts: ${response.status}`);
         }
         
-        await fetchContactsData();
+        await mapContactsData();
         renderContactList(currentContactsData);
         
         const contactDetailContainer = document.getElementById("contact-detail");
@@ -187,7 +183,7 @@ async function deleteContact(firebaseId) {
  */
 async function removeContactFromTasks(firebaseId) {
     try {
-        let tasksResponse = await fetch(`${BASE_URL}tasks.json`);
+        let tasksResponse = await fetchTasksData();
         if (!tasksResponse.ok) throw new Error("Fehler beim Abrufen der Aufgaben");
 
         let tasks = await tasksResponse.json();
