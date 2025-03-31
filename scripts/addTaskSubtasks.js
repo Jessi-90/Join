@@ -130,6 +130,7 @@ function createNewSubtaskElement(subtaskContent) {
  */
 function addClickEventToSubtask(subtaskItem) {
     subtaskItem.addEventListener('click', (event) => {
+        event.stopPropagation();
         if (!event.target.closest('.subtask-actions')) {
             editSubtask(subtaskItem.querySelector('.subtask-edit-btn'));
         }
@@ -276,7 +277,7 @@ function editSubtask(button) {
     });
   }
   
-  
+
   /**
    * Updates the text content of the subtask item.
    * @param {HTMLElement} inputWrapper - The input wrapper element.
