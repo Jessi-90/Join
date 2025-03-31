@@ -15,6 +15,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (document.querySelector(".greeting") && document.querySelector("#greetingName")) {
         summaryGreetingUser();
     }
+
+    await fetchTasksData();
+    console.log(currentTasksData);
+    renderNumberTasks();
 });
 
 
@@ -87,4 +91,32 @@ function getLoggedInUser() {
     loggedInUser = JSON.parse(loggedInUser);
 
     return loggedInUser;
+}
+
+
+function renderNumberTasks() {
+    let tasksArray = mapTasksData();
+    let numberTasksData = getNumberTasks(tasksArray);
+    console.log(numberTasksData);
+
+}
+
+
+function mapTasksData() {
+    const tasksArray = Object.entries(currentTasksData)
+    .filter(([key]) => key.startsWith('taskid_'))  
+    .map(([id, task]) => ({ id, ...task }));  
+
+    console.log(tasksArray);
+    return tasksArray;
+}
+
+function getNumberTasks(tasksArray) {
+    let numberTotalTasks = tasksArray.length;
+    let numberTasksDone = tasksArray.filter(task => task.status === 4).length;
+    let numberTasksAwaitingFeedback = tasksArray.filter(task => task.status === 3).length;
+    let numberTasksInProgress = tasksArray.filter(task => task.status === 2).length;
+    let numberTasksToDo = tasksArray.filter(task => task.status === 1).length;
+    let numberTasksUrgent = tasksArray.filter(task => task.priority === "Urgent").length;
+    return {numberTotalTasks, numberTasksDone, numberTasksAwaitingFeedback, numberTasksInProgress, numberTasksToDo, numberTasksUrgent};
 }
