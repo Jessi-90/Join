@@ -69,11 +69,11 @@ function createNewTask(tasks, newTask, newTaskKey) {
         title: newTask.title || "",
         description: newTask.description || "",
         category: newTask.category || "",
-        assignees: newTask.assignees || [],  
+        assignedUsers: newTask.assignedUsers || [],   
         subtasks: newTask.subtasks || [],  
-        priority: newTask.priority || "normal",  
-        dueDate: newTask.dueDate || null,  
-        status: newTask.status || "pending",  
+        priority: newTask.priority || "low",  
+        dueDate: newTask.dueDate || "",  
+        status: newTask.status ?? columnStatus,    
     };
 
     return tasks;
