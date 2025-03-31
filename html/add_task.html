@@ -139,16 +139,15 @@
                                 </div>
                             </div>
                             <ul id="subtask-list"></ul>
-                            <ul id="subtask-list"></ul>
                         </div>
                     </div>
                 </div>
                 <div class="buttons">
-                    <button type="reset" class="clear btn-light" id="clear-button">
+                    <button onclick="clearFormAndData()" type="reset" class="clear btn-light" id="clear-button">
                         Clear
                         <img id="clear-icon" src="../img/icon/iconoir_cancel.svg">
                     </button>
-                    <button type="submit" class="create" id="create-task" onclick="initializeFormLogic()">
+                    <button type="submit" class="create" id="create-task" onclick="sendTaskFormToDb()">
                         Create Task
                         <img src="../img/icon/check.svg">
                     </button>

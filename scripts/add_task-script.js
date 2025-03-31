@@ -5,7 +5,7 @@
 function initAddTaskPage() {
     initPriorityButtons();
     initFormValidation();
-    initClearButton();
+    // initClearButton();
     initDueDateInput();
     populateContacts();
     initSubtasksInput();
@@ -212,34 +212,84 @@ function initSubtasks() {
 }
 
 
+// /**
+//  * Adds a click listener to clear buttons to reset the form, clear all errors, and remove users and subtasks.
+//  */
+// function initClearButton() {
+//     document.addEventListener("click", function (event) {
+//         if (event.target.classList.contains("clear-button")) {
+//             const form = event.target.closest("form");
+
+//             if (form) {
+//                 event.preventDefault();
+//                 form.reset();
+
+//                 // Clear error messages and invalid fields
+//                 form.querySelectorAll(".error-message").forEach(error => {
+//                     error.style.display = "none";
+//                 });
+//                 form.querySelectorAll(".invalid").forEach(field => {
+//                     field.classList.remove("invalid");
+//                 });
+
+//                 // Clear subtask list
+//                 const subtaskList = document.getElementById("subtaskList");
+//                 if (subtaskList) {
+//                     subtaskList.innerHTML = "";
+//                     console.log("✅ Subtasks entfernt.");
+//                 } else {
+//                     console.warn("⚠️ Keine Subtask-Liste gefunden.");
+//                 }
+
+//                 // Remove users from sessionStorage
+//                 if (sessionStorage.getItem("selectedContacts")) {
+//                     sessionStorage.removeItem("selectedContacts");
+//                     console.log("✅ Benutzer aus sessionStorage entfernt.");
+//                 } else {
+//                     console.warn("⚠️ Keine Benutzer im sessionStorage gefunden.");
+//                 }
+
+//                 console.log(`✅ Formular zurückgesetzt: ${form}`);
+//             } else {
+//                 console.error("❌ Fehler: Kein zugehöriges Formular gefunden!");
+//             }
+//         }
+//     });
+// }
+
 /**
- * Adds a click listener to clear buttons to reset the form and clear all errors.
+ * Clears the form, removes users from sessionStorage, and deletes subtasks.
  */
-function initClearButton() {
-    document.addEventListener("click", function (event) {
-        if (event.target.classList.contains("clear-button")) {
-            const form = event.target.closest("form");
+function clearFormAndData() {
+    // Zugriff auf das Formular
+    const form = document.querySelector("form");
+    if (form) {
+        // Alle Eingabefelder zurücksetzen
+        form.reset();
 
-            if (form) {
-                event.preventDefault();
-                form.reset();
-
-                form.querySelectorAll(".error-message").forEach(error => {
-                    error.style.display = "none";
-                });
-                form.querySelectorAll(".invalid").forEach(field => {
-                    field.classList.remove("invalid");
-                });
-
-                document.getElementById("subtaskList").innerHTML = "";
-
-                console.log(`✅ Formular zurückgesetzt: ${form}`);
-            } else {
-                console.error("❌ Fehler: Kein zugehöriges Formular gefunden!");
-            }
+        // Subtasks entfernen
+        const subtaskList = document.getElementById("subtaskList");
+        if (subtaskList) {
+            subtaskList.innerHTML = "";
+            console.log("✅ Subtasks entfernt.");
+        } else {
+            console.warn("⚠️ Keine Subtask-Liste gefunden.");
         }
-    });
+
+        // Benutzer aus dem sessionStorage entfernen
+        if (sessionStorage.getItem("selectedContacts")) {
+            sessionStorage.removeItem("selectedContacts");
+            console.log("✅ Benutzer aus sessionStorage entfernt.");
+        } else {
+            console.warn("⚠️ Keine Benutzer im sessionStorage gefunden.");
+        }
+
+        console.log("✅ Formular und Daten erfolgreich geleert.");
+    } else {
+        console.error("❌ Fehler: Kein Formular gefunden.");
+    }
 }
+
 
 
 /**
@@ -292,24 +342,31 @@ function formatDate(date) {
  * Initializes the form logic.
  * This function adds the submit event listener to the form when called.
  */
-function initializeFormLogic() {
+function sendTaskFormToDb() {
     const form = document.querySelector("form");
     form.addEventListener("submit", function(event) {
         handleFormSubmission(event);
     });
 }
 
-
 /**
- * Handles the form submission.
- * This function collects the form data and calls the `addNewTask` logic.
+ * Pushes all the task data to the database using PUT to replace the entire structure.
  * @param {Event} event - The form submit event.
  */
-function handleFormSubmission(event) {
+async function handleFormSubmission(event) {
+    event.preventDefault();
     const newTask = getFormData();
-    const tasks = {}; // Replace this with the loaded tasks object
-    addNewTask(event, tasks, newTask);
+    const tasks = await fetchTasksData();
+
+    let counter = increaseTasksCounter(tasks);
+    let newTaskKey = `taskid_${counter}`;
+
+    tasks[newTaskKey] = createNewTask(newTask, newTaskKey);
+    tasks.counter = counter;
+
+    await saveTasksToDatabase(tasks);
 }
+
 
 /**
  * Collects the form data and returns it as an object.
@@ -319,26 +376,33 @@ function getFormData() {
     const title = document.getElementById("title").value.trim();
     const description = document.getElementById("description").value.trim();
     const dueDate = document.getElementById("due-date").value.trim();
-    const priorityButtons = document.querySelectorAll(".prio-btn");
     let priority = "low";
-    priorityButtons.forEach((button) => {
-        if (button.classList.contains("selected")) {
-            priority = button.textContent.trim().toLowerCase();
+    document.querySelectorAll(".prio-btn").forEach(button => {
+        if (button.classList.contains("active")) {
+            priority = button.classList.contains("urgent")
+                ? "urgent"
+                : button.classList.contains("medium")
+                    ? "medium"
+                    : "low";
         }
     });
-    const assignedUsers = Array.from(document.querySelectorAll("#selectedContactsContainer .selected-contact"))
-        .map(contact => contact.textContent.trim());
+
+    let assignedUsers = [];
+    const storedUsers = sessionStorage.getItem("selectedContacts");
+    if (storedUsers) {
+        try {
+            assignedUsers = JSON.parse(storedUsers);
+        } catch (error) {
+            console.error("Error parsing assignedUsers from sessionStorage:", error);
+        }
+    }
+
     const category = document.getElementById("category").value.trim();
     const subtasks = Array.from(document.querySelectorAll("#subtask-list li"))
-        .map(subtask => subtask.textContent.trim());
+        .map(subtask => ({
+            title: subtask.textContent.trim(),
+            completed: false
+        }));
 
-    return {
-        title,
-        description,
-        dueDate,
-        priority,
-        assignedUsers,
-        category,
-        subtasks
-    };
+    return { title, description, dueDate, priority, assignedUsers, category, subtasks };
 }
