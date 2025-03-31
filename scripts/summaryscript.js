@@ -125,9 +125,10 @@ function getNumberTasks(tasksArray) {
 
 function getUpcomingDeadlineTask() {
     let tasksArray = mapTasksData();
-    if (!tasksArray.length) return null;
+    const filteredTasks = tasksArray.filter(task => task.status !== 4);
+    if (!filteredTasks.length) return null;
 
-    const nextTask = tasksArray.reduce((earliest, task) => {
+    const nextTask = filteredTasks.reduce((earliest, task) => {
         return new Date(task.dueDate) < new Date(earliest.dueDate) ? task : earliest;
     });
 
