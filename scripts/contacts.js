@@ -8,7 +8,7 @@ let currentContactsData = [];
  * Initializes the app by fetching data and rendering the contacts.
  */
 async function init() {
-    await fetchContactsData();
+    await mapContactsData();
     renderContacts();
     renderContactList(currentContactsData);
     addContactClickEvents();
@@ -20,17 +20,13 @@ async function init() {
  * Filters out invalid data and excludes the "counter" field.
  * 
  * @async
- * @function fetchContactsData
+ * @function mapContactsData
  * @returns {Promise<void>} - A promise that resolves when the data is fetched and processed.
  * @throws {Error} - Logs an error if the fetch request fails.
  */
-async function fetchContactsData() {
+async function mapContactsData() {
     try {
-        let databaseResponse = await fetch(BASE_URL + "contacts.json");
-        if (!databaseResponse.ok) {
-            throw new Error(`Status: ${databaseResponse.status}`);
-        }
-        const data = await databaseResponse.json();
+        const data = await getContacts();
 
         if (!data || typeof data !== 'object') {
             currentContactsData = [];
@@ -90,6 +86,10 @@ function getContactFormData() {
 async function createContact(event) {
     event.preventDefault();
     const contact = getContactFormData();
+    
+    if (!validateContactForm()) {
+        return; 
+    }
     if (contact) {
         try {
             let contacts = await getContacts(event); 
@@ -98,7 +98,7 @@ async function createContact(event) {
                 return;
             }
             await addNewContact(event, contacts, contact); 
-            await fetchContactsData(); 
+            await mapContactsData(); 
             renderContactList(currentContactsData);
             setNewContactActive(contact); 
             showFeedbackImage();
@@ -143,6 +143,10 @@ function setNewContactActive(contact) {
  */
 async function deleteContact(firebaseId) {
     try {
+        const updatedTasks = await removeContactFromTasks(firebaseId);
+        if (Object.keys(updatedTasks).length > 0) {
+            await updateTasksInDatabase(updatedTasks);}
+
         const response = await fetch(`${BASE_URL}contacts/${firebaseId}.json`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" }
@@ -152,44 +156,16 @@ async function deleteContact(firebaseId) {
             throw new Error(`Fehler beim Löschen des Kontakts: ${response.status}`);
         }
         
-        await fetchContactsData();
+        await mapContactsData();
         renderContactList(currentContactsData);
+        
         const contactDetailContainer = document.getElementById("contact-detail");
         if (contactDetailContainer && contactDetailContainer.dataset.firebaseId === firebaseId) {
             contactDetailContainer.innerHTML = "";
         }
-
     } catch (error) {
         console.error("Fehler beim Löschen des Kontakts:", error);
     }
-}
-
-
-/**
- * Deletes the currently edited contact from the database and removes it from all assigned tasks.
- * 
- * This function retrieves the contact ID from the edit overlay, removes the contact 
- * from all tasks where it was assigned, updates the tasks in the database, 
- * and then deletes the contact itself. Finally, it closes the edit contact overlay.
- * 
- * @async
- * @function deleteContactFromEditOverlay
- * @returns {Promise<void>} - A promise that resolves after the contact has been deleted and the overlay is closed.
- */
-async function deleteContactFromEditOverlay() {
-    const firebaseId = document.querySelector('.form-container').dataset.firebaseId; 
-    if (!firebaseId) {
-        console.error("No contact ID found.");
-        return;
-    }
-
-    let updatedTasks = await removeContactFromTasks(firebaseId);
-    await updateTasksInDatabase(updatedTasks); 
-    await deleteContact(firebaseId);
-
-    setTimeout(() => {
-        closeEditContactOverlay();
-    }, 100);
 }
 
 
@@ -207,7 +183,7 @@ async function deleteContactFromEditOverlay() {
  */
 async function removeContactFromTasks(firebaseId) {
     try {
-        let tasksResponse = await fetch(`${BASE_URL}tasks.json`);
+        let tasksResponse = await fetchTasksData();
         if (!tasksResponse.ok) throw new Error("Fehler beim Abrufen der Aufgaben");
 
         let tasks = await tasksResponse.json();
@@ -230,30 +206,5 @@ async function removeContactFromTasks(firebaseId) {
     } catch (error) {
         console.error("Fehler beim Entfernen des Kontakts aus Aufgaben:", error);
         return {};
-    }
-}
-
-
-/**
- * Updates the task data in the Firebase database.
- * 
- * This function sends a PUT request to update the `tasks.json` file in Firebase 
- * with the provided `updatedTasks` object, which contains all tasks with any modifications.
- * 
- * @async
- * @function updateTasksInDatabase
- * @param {Object} updatedTasks - An object containing the updated tasks data.
- * @returns {Promise<void>} - A promise that resolves once the tasks have been updated in the database.
- */
-async function updateTasksInDatabase(updatedTasks) {
-    try {
-        await fetch(`${BASE_URL}tasks.json`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updatedTasks),
-        });
-
-    } catch (error) {
-        console.error("Fehler beim Aktualisieren der Aufgaben in der Datenbank:", error);
     }
 }

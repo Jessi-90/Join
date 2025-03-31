@@ -24,7 +24,7 @@
     <script src="../scripts/add_task-script.js" defer></script>
     <script src="../scripts/addTaskOverlayBoard.js" defer></script>
     <script src="../scripts/boardCardDetails.js" defer></script>
-    <script src="../scripts/boardCardDetailsEdit.js" defer></script>
+    <!-- <script src="../scripts/boardCardDetailsEdit.js" defer></script> -->
     <script src="../scripts/templates/cardDetailsOverlayTemplate.js"></script>
     <script src="../scripts/general-navbarscript.js" defer></script>
     <script src="../scripts/userCredentials.js"></script>
@@ -34,6 +34,10 @@
     <script src="../scripts/addTaskSubtasks.js"></script>
     <script src="../scripts/templates/addTaskSubtasksListTemplate.js"></script>
     <script src="../scripts/templates/addTaskEditSubtaskControlsTemplate.js"></script>
+    <script src="../scripts/addTaskAssigningUsers.js"></script>
+    <script src="../scripts/boardCardDragDrop.js" defer></script>
+    <script src="../scripts/handleTaskInDatabase.js"></script>
+
 </head>
 
 <body onload="init()">
@@ -98,7 +102,7 @@
             </div>
         </section>
         <section class="board">
-            <div class="column" id="to-do-column">
+            <div class="column" id="to-do-column" ondragleave="removeHighlightCardContainer('to-do-column')" ondragover="dragoverHandler(event); highlightCardContainer('to-do-column')" ondrop="moveCardTo(1, 'to-do-column')">
                 <div class="column-header">
                     <h2>To do</h2>
                     <div onclick="showAddTaskOverlay()" class="add-card">
@@ -107,7 +111,7 @@
                 <div class="card-container" id="to-do">
                 </div>
             </div>
-            <div class="column" id="in-progress-column">
+            <div class="column" id="in-progress-column" ondragleave="removeHighlightCardContainer('in-progress-column')" ondragover="dragoverHandler(event); highlightCardContainer('in-progress-column')" ondrop="moveCardTo(2, 'in-progress-column')">
                 <div class="column-header">
                     <h2>In progress</h2>
                     <div onclick="showAddTaskOverlay()" class="add-card">
@@ -116,7 +120,7 @@
                 <div class="card-container" id="in-progress">
                 </div>
             </div>
-            <div class="column" id="await-feedback-column">
+            <div class="column" id="await-feedback-column" ondragleave="removeHighlightCardContainer('await-feedback-column')" ondragover="dragoverHandler(event); highlightCardContainer('await-feedback-column')" ondrop="moveCardTo(3, 'await-feedback-column')">
                 <div class="column-header">
                     <h2>Await feedback</h2>
                     <div onclick="showAddTaskOverlay()" class="add-card">
@@ -127,7 +131,7 @@
                     </div>
                 </div>
             </div>
-            <div class="column" id="done-column">
+            <div class="column" id="done-column" ondragleave="removeHighlightCardContainer('done-column')" ondragover="dragoverHandler(event); highlightCardContainer('done-column')" ondrop="moveCardTo(4, 'done-column')">
                 <div class="column-header">
                     <h2>Done</h2>
                 </div>

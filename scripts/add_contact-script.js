@@ -77,21 +77,15 @@ function validateContactForm() {
     let isValid = true;
 
     document.querySelectorAll(".input-group input").forEach(input => {
-        input.style.border = ""; 
+        input.classList.remove("input-mismatch");
     });
 
-    if (!nameInput.value.trim()) {
-        nameInput.style.border = "1px solid red";
-        isValid = false;
-    }
-    if (!emailInput.value.trim()) {
-        emailInput.style.border = "1px solid red";
-        isValid = false;
-    }
-    if (!phoneInput.value.trim()) {
-        phoneInput.style.border = "1px solid red";
-        isValid = false;
-    }
+    [nameInput, emailInput, phoneInput].forEach(input => {
+        const isEmpty = !input.value.trim();
+        input.classList.toggle("input-mismatch", isEmpty);
+        if (isEmpty) isValid = false;
+    });
+
     return isValid;
 }
 

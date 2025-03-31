@@ -672,3 +672,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .delete-edit-subtask-btn {
     background-image: url(../assets/icons/delete.svg);
 }
+
+.extra-users {
+    display: flex;
+    align-items: center;
+}
