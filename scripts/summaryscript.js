@@ -143,5 +143,9 @@ function getUpcomingDeadlineTask() {
 
 function renderUpcomingDate() {
     let upcomingDateTask = getUpcomingDeadlineTask();
+    if (!upcomingDateTask) {
+        document.getElementById('dateDeadline').innerHTML = "No";
+        return;
+    }
     document.getElementById('dateDeadline').innerHTML = upcomingDateTask.formattedDate;
 }
