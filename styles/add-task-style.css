@@ -68,7 +68,7 @@ label {
 
 .date-input input {
     width: 100%;
-    padding: 10px 40px 10px 10px; 
+    padding: 10px 40px 10px 10px;
     font-size: 16px;
 }
 
@@ -77,7 +77,7 @@ label {
     right: 10px;
     width: 20px;
     height: 20px;
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 .calendar-button {
@@ -145,9 +145,10 @@ textarea {
 #category {
     width: 100%;
     padding-right: 40px;
-    appearance: none; 
+    appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
+    cursor: pointer;
 }
 
 .prio-buttons {
@@ -168,7 +169,7 @@ textarea {
     align-items: center;
     gap: 8px;
     color: black;
-    background-color: white; 
+    background-color: white;
     border: 1px solid #d1d1d1;
     font-weight: normal;
     transition: background-color 0.3s, transform 0.2s, border-color 0.3s;
@@ -177,7 +178,7 @@ textarea {
 .prio-buttons button:hover {
     background-color: #f4f4f4;
     border-color: #bfbfbf;
-    color: black; 
+    color: black;
     box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -192,11 +193,13 @@ textarea {
 .urgent.active {
     background-color: #FF3D00;
 }
+
 .medium.active {
-    background-color: #FFA800; 
+    background-color: #FFA800;
 }
+
 .low.active {
-    background-color: #7AE229; 
+    background-color: #7AE229;
 }
 
 .medium img {
@@ -219,13 +222,13 @@ input:focus,
 select:focus,
 textarea:focus {
     border: 1px solid #5EC0E9 !important;
-    outline: none; 
+    outline: none;
 }
 
 input::placeholder,
 textarea::placeholder {
-    color: #b0b0b0; 
-    opacity: 1; 
+    color: #b0b0b0;
+    opacity: 1;
 }
 
 .input-container {
@@ -237,40 +240,69 @@ textarea::placeholder {
 
 .input-field {
     width: 100%;
-    padding: 10px 40px 10px 10px; 
+    padding: 10px 75px 10px 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 8px;
+    box-sizing: border-box;
 }
 
-.plus-button {
-    position: absolute;
-    right: 11px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: #fefeff;
-    color: rgb(3, 3, 3);
-    border: none !important;
-    outline: none !important;
-    width: 30px;
-    height: 30px;
+.subtask-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 20px;
-    border: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    transition: background-color 0.1s ease-in-out;
+    background-color: white;
 }
 
-.plus-button:focus {
+.subtask-btn:hover {
+    background-color: #F6F7F8;
+}
+
+.subtask-btn:focus {
     box-shadow: none !important;
 }
 
-.plus-button:hover {
-    background: #F6F7F8;
-    color: black;
-    border-radius: 50px;
+.plus-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-image: url(../assets/icons/addTask-add-symbol.svg);
+    background-size: 14px;
+}
+
+.add-subtask-btn {
+    background-image: url(../assets/icons/addTask-add-task-button.svg);
+}
+
+.clear-subtask-btn {
+    background-image: url(../assets/icons/addTask-clear-input-button.svg);
+}
+
+.subtask-separator {
+    width: 1px;
+    height: 24px;
+    background-color: #D1D1D1;
+}
+
+.subtask-nav {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .buttons {
@@ -338,11 +370,11 @@ textarea::placeholder {
 .field-required {
     display: flex;
     align-items: center;
-    color: #D9534F; 
+    color: #D9534F;
     font-size: 20px;
     font-weight: 400;
     position: relative;
-    margin-top: -25px; 
+    margin-top: -25px;
 }
 
 .error-message {
@@ -406,7 +438,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .subtask-buttons {
-    display: none;  /
+    display: none;/
 }
 
 .subtask-buttons button {
@@ -418,7 +450,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .subtask-input-wrapper.show-buttons .subtask-buttons {
-    display: flex;  
+    display: flex;
 }
 
 .custom-dropdown {
@@ -503,8 +535,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .dropdown-item.selected {
-    background-color: #2A3647; 
-    color: white; 
+    background-color: #2A3647;
+    color: white;
 }
 
 .dropdown-item.selected .assigned-user-checkbox {
@@ -520,6 +552,119 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     flex-wrap: wrap;
     margin-top: 5px;
     gap: 8px;
+}
+
+#subtask-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 0;
+    max-height: 70px;
+    overflow-y: auto;
+    margin: 6px 0 0 0;
+}
+
+#subtask-list li {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 120%;
+    border-radius: 8px;
+    padding: 3px 10px 3px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    list-style: none;
+}
+
+#subtask-list li::before {
+    content: "•";
+    color: black;
+    font-size: 18px;
+    position: absolute;
+    left: 10px;
+}
+
+#subtask-list li:hover {
+    background-color: #eeeeee;
+    cursor: pointer;
+}
+
+.subtask-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.subtask-actions button {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background-color: #eeeeee;
+}
+
+.subtask-actions img {
+    width: 18px;
+    height: 18px;
+}
+
+.subtask-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-right: 8px;
+    opacity: 0;
+    transition: all 0.1s ease-in-out;
+}
+
+.subtask-item:hover .subtask-actions {
+    opacity: 1;
+}
+
+.subtask-actions button:hover {
+    scale: 105%;
+    cursor: pointer;
+}
+
+.edit-subtask-nav {
+    position: absolute;
+    right: 10;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.edit-input-wrapper {
+    position: relative;
+    width: 100%; 
+    display: flex; 
+    align-items: center;
+}
+
+.edit-input-wrapper input.subtask-edit-input{
+    all: unset;
+    position: relative;
+    width: 100%;
+    font-size: 16px;
+    padding: 4px 75px 4px 10px;
+    background-color: white;
+    width: 100%;
+    border: none !important;
+    border-bottom: 1px solid #005DFF !important;
+    box-sizing: border-box;
+}
+
+.edit-subtask-nav {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 4px;
+}
+
+.delete-edit-subtask-btn {
+    background-image: url(../assets/icons/delete.svg);
 }
 
 .extra-users {

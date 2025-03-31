@@ -5,10 +5,10 @@
 function initAddTaskPage() {
     initPriorityButtons();
     initFormValidation();
-    initSubtasks();
     initClearButton();
     initDueDateInput();
     populateContacts();
+    initSubtasksInput();
     initFormSubmitHandler();
     setDefaultMediumPriority();
 }

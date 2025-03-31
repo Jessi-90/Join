@@ -13,6 +13,7 @@
     <link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg"
         type="image/svg+xml" />
     <script src="../scripts/add_task-script.js"></script>
+    <script src="../scripts/addTaskSubtasks.js"></script>
     <script src="../scripts/db.js"></script>
     <script src="../scripts/general-navbarscript.js" defer></script>
     <script src="../scripts/userCredentials.js"></script>
@@ -21,6 +22,8 @@
     <script src="../scripts/templates/UserAvatarTemplate.js"></script>
     <script src="../scripts/templates/checkboxTemplate.js"></script>
     <script src="../scripts/templates/addTaskUserDropdownItemTemplate.js"></script>
+    <script src="../scripts/templates/addTaskSubtasksListTemplate.js"></script>
+    <script src="../scripts/templates/addTaskEditSubtaskControlsTemplate.js"></script>
     <script src="../scripts/pushTaskToDb.js"></script>
 </head>
 
@@ -135,6 +138,7 @@
                                     <button id="add-subtask-btn" class="subtask-btn add-subtask-btn"></button>
                                 </div>
                             </div>
+                            <ul id="subtask-list"></ul>
                             <ul id="subtask-list"></ul>
                         </div>
                     </div>
