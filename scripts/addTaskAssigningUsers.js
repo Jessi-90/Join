@@ -47,6 +47,27 @@ async function populateContacts() {
 }
 
 /**
+ * Prepares the contact data by mapping and sorting it alphabetically by last name.
+ * 
+ * @param {Array<Object>} data - The array of contact objects from the fetched data.
+ * @returns {Array<Object>} - The sorted array of contact objects with their formatted details.
+ */
+function prepareContacts(data) {
+    let contacts = data.map(contact => ({
+        name: contact.name,
+        userDetails: {
+            color: contact.color,
+            initials: contact.initials
+        }
+    }));
+    return contacts.sort((a, b) => {
+        let lastNameA = a.name.split(' ').slice(-1).join('');
+        let lastNameB = b.name.split(' ').slice(-1).join('');
+        return lastNameA.localeCompare(lastNameB);
+    });
+}
+
+/**
  * Renders the dropdown options using the provided contacts.
  * Clears the current dropdown and dynamically creates list items for each contact.
  * 
