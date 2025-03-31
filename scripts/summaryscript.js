@@ -148,17 +148,10 @@ function getUpcomingDeadlineTask() {
     let tasksArray = mapTasksData();
     const filteredTasks = tasksArray.filter(task => task.status !== 4);
     if (!filteredTasks.length) return null;
-
     const nextTask = filteredTasks.reduce((earliest, task) => {
         return new Date(task.dueDate) < new Date(earliest.dueDate) ? task : earliest;
     });
-
-    const formattedDate = new Date(nextTask.dueDate).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-    });
-
+    let formattedDate = formatNextTaskDueDate(nextTask);
     return { nextTask, formattedDate };
 }
 
@@ -174,4 +167,24 @@ function renderUpcomingDate() {
         return;
     }
     document.getElementById('dateDeadline').innerHTML = upcomingDateTask.formattedDate;
+}
+
+
+/**
+ * Formats the due date of a task into a human-readable string.
+ * 
+ * Converts the task's `dueDate` property into a formatted date string 
+ * following the "Month Day, Year" format (e.g., "March 31, 2025").
+ * 
+ * @param {Object} task - The task object containing the due date.
+ * @param {string} task.dueDate - The due date of the task in a valid date format.
+ * @returns {string} The formatted due date as a string.
+ */
+function formatNextTaskDueDate(task) {
+    const formattedDate = new Date(task.dueDate).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+    return formattedDate;
 }
