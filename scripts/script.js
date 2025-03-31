@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
  */
 async function login(event) {
   event.preventDefault();
-  await fetchContactsData();
+  await mapContactsData();
 
   let emailInput = document.getElementById('input-mail').value.trim();
   let passwordInput = document.getElementById('input-password').value;
