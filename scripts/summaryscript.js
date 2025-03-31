@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     await fetchTasksData();
     renderNumberTasks();
+    renderUpcomingDate();
 });
 
 
@@ -120,4 +121,26 @@ function getNumberTasks(tasksArray) {
     let numberTasksToDo = tasksArray.filter(task => task.status === 1).length;
     let numberTasksUrgent = tasksArray.filter(task => task.priority === "Urgent").length;
     return {numberTotalTasks, numberTasksDone, numberTasksAwaitingFeedback, numberTasksInProgress, numberTasksToDo, numberTasksUrgent};
+}
+
+function getUpcomingDeadlineTask() {
+    let tasksArray = mapTasksData();
+    if (!tasksArray.length) return null;
+
+    const nextTask = tasksArray.reduce((earliest, task) => {
+        return new Date(task.dueDate) < new Date(earliest.dueDate) ? task : earliest;
+    });
+
+    const formattedDate = new Date(nextTask.dueDate).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+
+    return { nextTask, formattedDate };
+}
+
+function renderUpcomingDate() {
+    let upcomingDateTask = getUpcomingDeadlineTask();
+    document.getElementById('dateDeadline').innerHTML = upcomingDateTask.formattedDate;
 }
