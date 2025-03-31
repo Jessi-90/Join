@@ -7,7 +7,7 @@
   border-radius: 30px;
   padding: 48px 40px;
   gap: 24px;
-  max-width: 525px;
+  width: 525px;
   max-height: 900px;
   transform: translateX(100%);
   transition: transform 0.3s ease-in-out;
