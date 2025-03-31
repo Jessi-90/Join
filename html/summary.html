@@ -17,6 +17,7 @@
     <script src="../scripts/summaryscript.js"></script>
     <script src="../scripts/db.js"></script>
     <script src="../scripts/userCredentials.js"></script>
+    <script src="../scripts/board.js"></script>
 
 </head>
 
@@ -74,7 +75,7 @@
                         <div class="card card-todo">
                             <img class="card-pencil" src="../img/icon/pencil.svg">
                             <div>
-                                <h1>1</h1>
+                                <h1 id="numberTasksToDo">1</h1>
                                 <p>To-do</p>
                             </div>
                         </div>
@@ -84,7 +85,7 @@
                         <img class="card-ok" src="../img/icon/Frame 59.svg">
 
                         <div>
-                            <h1>1</h1>
+                            <h1 id="numberTasksDone">1</h1>
                             <p>Done</p>
                         </div>
                     </div>
@@ -94,11 +95,11 @@
             <a href="board.html" class="card large-card">
                 <img class="urgent-img" src="../img/icon/Group 7 (2).svg">
                 <div class="urgent-box">
-                    <h1>1</h1>
+                    <h1 id="numberTasksUrgent">1</h1>
                     <p>Urgent</p>
                 </div>
                 <div class="urgent-info">
-                    <p>October 16, 2022</p>
+                    <p id="dateDeadline">October 16, 2022</p>
                     <p>Upcoming Deadline</p>
                 </div>
             </a>
@@ -106,7 +107,7 @@
                 <a href="board.html">
                     <div class="card">
                         <div>
-                            <h1>5</h1>
+                            <h1 id="numberTasksTotal">5</h1>
                             <p>Tasks in Board</p>
                         </div>
                     </div>
@@ -114,7 +115,7 @@
                 <a href="board.html">
                     <div class="card">
                         <div>
-                            <h1>2</h1>
+                            <h1 id="numberTasksInProgress">2</h1>
                             <p>Tasks In Progress</p>
                         </div>
                     </div>
@@ -122,7 +123,7 @@
                 <a href="board.html">
                     <div class="card">
                         <div>
-                            <h1>2</h1>
+                            <h1 id="numberTasksAwaitingFeedback">2</h1>
                             <p>Awaiting Feedback</p>
                         </div>
                     </div>
