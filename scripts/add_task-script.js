@@ -5,12 +5,12 @@
 function initAddTaskPage() {
     initPriorityButtons();
     initFormValidation();
-    // initClearButton();
     initDueDateInput();
     populateContacts();
     initSubtasksInput();
     initFormSubmitHandler();
     setDefaultMediumPriority();
+    initCreateTaskButton();
 }
 
 
@@ -193,103 +193,69 @@ function hideError(field) {
 
 
 /**
- * Initializes the subtask input, allowing new subtasks to be added to the list.
+ * Clears the form, resets all input fields to their default state.
  */
-function initSubtasks() {
-    const addSubtaskButton = document.getElementById("addSubtask");
-    const subtasksInput = document.getElementById("subtasks");
-    const subtaskList = document.getElementById("subtaskList");
+function resetForm() {
+    const form = document.querySelector("form");
+    if (form) {
+        form.reset();
+    }
+}
 
-    addSubtaskButton.addEventListener("click", function () {
-        const subtask = subtasksInput.value.trim();
-        if (subtask) {
-            const li = document.createElement("li");
-            li.textContent = subtask;
-            subtaskList.appendChild(li);
-            subtasksInput.value = "";
-        }
+
+/**
+ * Deletes all subtasks from the subtask list.
+ */
+function clearSubtaskList() {
+    const subtaskList = document.getElementById("subtask-list");
+    if (subtaskList) {
+        subtaskList.innerHTML = "";
+    }
+}
+
+
+/**
+ * Removes selected contacts from sessionStorage.
+ */
+function removeSelectedContactsFromStorage() {
+    if (sessionStorage.getItem("selectedContacts")) {
+        sessionStorage.removeItem("selectedContacts");
+    }
+}
+
+
+/**
+ * Resets all error messages in the form.
+ */
+function resetErrorMessages() {
+    document.querySelectorAll(".error-message").forEach((errorMessage) => {
+        errorMessage.style.display = "none"; // Hide the error message
+        errorMessage.textContent = ""; // Clear the error message content
     });
 }
 
 
-// /**
-//  * Adds a click listener to clear buttons to reset the form, clear all errors, and remove users and subtasks.
-//  */
-// function initClearButton() {
-//     document.addEventListener("click", function (event) {
-//         if (event.target.classList.contains("clear-button")) {
-//             const form = event.target.closest("form");
-
-//             if (form) {
-//                 event.preventDefault();
-//                 form.reset();
-
-//                 // Clear error messages and invalid fields
-//                 form.querySelectorAll(".error-message").forEach(error => {
-//                     error.style.display = "none";
-//                 });
-//                 form.querySelectorAll(".invalid").forEach(field => {
-//                     field.classList.remove("invalid");
-//                 });
-
-//                 // Clear subtask list
-//                 const subtaskList = document.getElementById("subtaskList");
-//                 if (subtaskList) {
-//                     subtaskList.innerHTML = "";
-//                     console.log("✅ Subtasks entfernt.");
-//                 } else {
-//                     console.warn("⚠️ Keine Subtask-Liste gefunden.");
-//                 }
-
-//                 // Remove users from sessionStorage
-//                 if (sessionStorage.getItem("selectedContacts")) {
-//                     sessionStorage.removeItem("selectedContacts");
-//                     console.log("✅ Benutzer aus sessionStorage entfernt.");
-//                 } else {
-//                     console.warn("⚠️ Keine Benutzer im sessionStorage gefunden.");
-//                 }
-
-//                 console.log(`✅ Formular zurückgesetzt: ${form}`);
-//             } else {
-//                 console.error("❌ Fehler: Kein zugehöriges Formular gefunden!");
-//             }
-//         }
-//     });
-// }
-
 /**
- * Clears the form, removes users from sessionStorage, and deletes subtasks.
+ * Removes the "invalid" class from all invalid input fields.
  */
-function clearFormAndData() {
-    // Zugriff auf das Formular
-    const form = document.querySelector("form");
-    if (form) {
-        // Alle Eingabefelder zurücksetzen
-        form.reset();
-
-        // Subtasks entfernen
-        const subtaskList = document.getElementById("subtaskList");
-        if (subtaskList) {
-            subtaskList.innerHTML = "";
-            console.log("✅ Subtasks entfernt.");
-        } else {
-            console.warn("⚠️ Keine Subtask-Liste gefunden.");
-        }
-
-        // Benutzer aus dem sessionStorage entfernen
-        if (sessionStorage.getItem("selectedContacts")) {
-            sessionStorage.removeItem("selectedContacts");
-            console.log("✅ Benutzer aus sessionStorage entfernt.");
-        } else {
-            console.warn("⚠️ Keine Benutzer im sessionStorage gefunden.");
-        }
-
-        console.log("✅ Formular und Daten erfolgreich geleert.");
-    } else {
-        console.error("❌ Fehler: Kein Formular gefunden.");
-    }
+function clearInvalidInputStyles() {
+    document.querySelectorAll("input.invalid").forEach((input) => {
+        input.classList.remove("invalid");
+    });
 }
 
+
+/**
+ * Clears the form, removes users from sessionStorage, deletes subtasks, and resets all error messages.
+ */
+function clearFormAndData() {
+    resetForm();
+    clearSubtaskList();
+    removeSelectedContactsFromStorage();
+    resetErrorMessages();
+    clearInvalidInputStyles();
+    populateContacts();
+}
 
 
 /**
@@ -299,8 +265,9 @@ function initDueDateInput() {
     const dueDateInput = document.getElementById("due-date");
 
     dueDateInput.addEventListener("input", function () {
-        let value = this.value.replace(/[^0-9/]/g, "");
+        let value = this.value.replace(/[^0-9]/g, "");
 
+        // Füge / nach Tag und Monat hinzu
         value = value.replace(/^(\d{2})(\d{2})?(\d{0,4})?/, (match, day, month, year) => {
             let result = day;
             if (month) result += "/" + month;
@@ -339,70 +306,37 @@ function formatDate(date) {
 
 
 /**
- * Initializes the form logic.
- * This function adds the submit event listener to the form when called.
+ * Initializes the enable/disable functionality of the "Create Task" button.
  */
-function sendTaskFormToDb() {
-    const form = document.querySelector("form");
-    form.addEventListener("submit", function(event) {
-        handleFormSubmission(event);
-    });
-}
+function initCreateTaskButton() {
+    const title = document.getElementById("title");
+    const dueDate = document.getElementById("due-date");
+    const category = document.getElementById("category");
 
-/**
- * Pushes all the task data to the database using PUT to replace the entire structure.
- * @param {Event} event - The form submit event.
- */
-async function handleFormSubmission(event) {
-    event.preventDefault();
-    const newTask = getFormData();
-    const tasks = await fetchTasksData();
+    title.addEventListener("input", checkFormValidity);
+    dueDate.addEventListener("input", checkFormValidity);
+    category.addEventListener("change", checkFormValidity);
 
-    let counter = increaseTasksCounter(tasks);
-    let newTaskKey = `taskid_${counter}`;
-
-    tasks[newTaskKey] = createNewTask(newTask, newTaskKey);
-    tasks.counter = counter;
-
-    await saveTasksToDatabase(tasks);
+    checkFormValidity();
 }
 
 
 /**
- * Collects the form data and returns it as an object.
- * @returns {Object} The collected form data.
+ * Checks if all required fields are filled and enables/disables the "Create Task" button accordingly.
  */
-function getFormData() {
-    const title = document.getElementById("title").value.trim();
-    const description = document.getElementById("description").value.trim();
-    const dueDate = document.getElementById("due-date").value.trim();
-    let priority = "low";
-    document.querySelectorAll(".prio-btn").forEach(button => {
-        if (button.classList.contains("active")) {
-            priority = button.classList.contains("urgent")
-                ? "urgent"
-                : button.classList.contains("medium")
-                    ? "medium"
-                    : "low";
-        }
-    });
+function checkFormValidity() {
+    const title = document.getElementById("title");
+    const dueDate = document.getElementById("due-date");
+    const category = document.getElementById("category");
+    const createTaskButton = document.getElementById("create-task");
 
-    let assignedUsers = [];
-    const storedUsers = sessionStorage.getItem("selectedContacts");
-    if (storedUsers) {
-        try {
-            assignedUsers = JSON.parse(storedUsers);
-        } catch (error) {
-            console.error("Error parsing assignedUsers from sessionStorage:", error);
-        }
+    const isTitleValid = title.value.trim() !== "";
+    const isDueDateValid = dueDate.value.trim() !== "";
+    const isCategoryValid = category.value !== "Select task category";
+
+    if (isTitleValid && isDueDateValid && isCategoryValid) {
+        createTaskButton.disabled = false; // Enable button
+    } else {
+        createTaskButton.disabled = true; // Keep button disabled
     }
-
-    const category = document.getElementById("category").value.trim();
-    const subtasks = Array.from(document.querySelectorAll("#subtask-list li"))
-        .map(subtask => ({
-            title: subtask.textContent.trim(),
-            completed: false
-        }));
-
-    return { title, description, dueDate, priority, assignedUsers, category, subtasks };
 }

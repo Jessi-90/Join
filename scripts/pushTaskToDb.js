@@ -81,3 +81,84 @@ function convertSubtasksToObject(subtasksArray) {
     });
     return subtasksObject;
 }
+
+
+/**
+ * Initializes the form logic.
+ * This function adds the submit event listener to the form when called.
+ */
+function sendTaskFormToDb() {
+    const form = document.querySelector("form");
+    form.addEventListener("submit", async function (event) {
+        await handleFormSubmission(event); // Verarbeite die Formulardaten
+        clearFormAndData(); // Bereinige die Form nach erfolgreicher Verarbeitung
+        redirectToBoardPage(); // Weiterleiten zu board.html
+    });
+}
+
+
+/**
+ * Pushes all the task data to the database using PUT to replace the entire structure.
+ * @param {Event} event - The form submit event.
+ */
+async function handleFormSubmission(event) {
+    event.preventDefault();
+    const newTask = getFormData();
+    const tasks = await fetchTasksData();
+
+    let counter = increaseTasksCounter(tasks);
+    let newTaskKey = `taskid_${counter}`;
+
+    tasks[newTaskKey] = createNewTask(newTask, newTaskKey);
+    tasks.counter = counter;
+
+    await saveTasksToDatabase(tasks);
+}
+
+
+/**
+ * Redirects the user to the board page after task submission.
+ */
+function redirectToBoardPage() {
+    window.location.href = "board.html";
+}
+
+
+/**
+ * Collects the form data and returns it as an object.
+ * @returns {Object} The collected form data.
+ */
+function getFormData() {
+    const title = document.getElementById("title").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const dueDate = document.getElementById("due-date").value.trim();
+    let priority = "low";
+    document.querySelectorAll(".prio-btn").forEach(button => {
+        if (button.classList.contains("active")) {
+            priority = button.classList.contains("urgent")
+                ? "urgent"
+                : button.classList.contains("medium")
+                    ? "medium"
+                    : "low";
+        }
+    });
+
+    let assignedUsers = [];
+    const storedUsers = sessionStorage.getItem("selectedContacts");
+    if (storedUsers) {
+        try {
+            assignedUsers = JSON.parse(storedUsers);
+        } catch (error) {
+            console.error("Error parsing assignedUsers from sessionStorage:", error);
+        }
+    }
+
+    const category = document.getElementById("category").value.trim();
+    const subtasks = Array.from(document.querySelectorAll("#subtask-list li"))
+        .map(subtask => ({
+            title: subtask.textContent.trim(),
+            completed: false
+        }));
+
+    return { title, description, dueDate, priority, assignedUsers, category, subtasks };
+}

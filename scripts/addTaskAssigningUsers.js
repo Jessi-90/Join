@@ -1,5 +1,6 @@
 const assignedUsersLimit = 5;
 
+
 /**
  * Toggles the visibility of the dropdown menu.
  * If the dropdown is currently open, it will close, and vice versa.
@@ -8,6 +9,7 @@ function toggleDropdown() {
     let dropdown = document.getElementById('dropdownOptions');
     dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
 }
+
 
 /**
  * Closes the dropdown menu when a click occurs outside of the dropdown area,
@@ -28,6 +30,7 @@ document.addEventListener('click', (event) => {
     }
 });
 
+
 /**
  * Populates the dropdown menu with a list of contacts.
  * Fetches contact data, sorts it alphabetically by last name, and displays each contact with an avatar and a checkbox.
@@ -45,6 +48,7 @@ async function populateContacts() {
     renderDropdownOptions(contacts);
     renderAvatars(contacts);
 }
+
 
 /**
  * Prepares the contact data by mapping and sorting it alphabetically by last name.
@@ -67,6 +71,7 @@ function prepareContacts(data) {
     });
 }
 
+
 /**
  * Renders the dropdown options using the provided contacts.
  * Clears the current dropdown and dynamically creates list items for each contact.
@@ -82,6 +87,7 @@ function renderDropdownOptions(contacts) {
         dropdown.appendChild(listItem);
     });
 }
+
 
 /**
  * Creates a single dropdown item for a contact.
@@ -105,6 +111,7 @@ function createDropdownItem(contact, contacts) {
     return listItem;
 }
 
+
 /**
  * Renders the avatars of selected contacts in the designated container.
  * Clears any previously rendered avatars before rendering new ones.
@@ -125,6 +132,7 @@ function renderAvatars(contacts) {
         handleExtraUsersRendering(avatarContainer);
     }
 }
+
 
 /**
  * Handles the rendering of a single avatar for a contact.
@@ -147,6 +155,7 @@ function handleAvatarRendering(contactName, contacts, avatarContainer, renderedC
     return renderedCount;
 }
 
+
 /**
  * Handles the rendering of the additional user indicator.
  * 
@@ -160,6 +169,7 @@ function handleExtraUsersRendering(avatarContainer) {
     extraElement.innerHTML = `+${extraCount}`;
     avatarContainer.appendChild(extraElement);
 }
+
 
 /**
  * Toggles the selection state of a dropdown item.
@@ -187,6 +197,7 @@ function toggleItem(listItem, contact, contacts) {
     saveAssignedUsersToSession();
 }
 
+
 /**
  * Saves the current list of selected contacts to the session storage.
  * This ensures the selected contacts persist during the current browser session.
@@ -194,6 +205,7 @@ function toggleItem(listItem, contact, contacts) {
 function saveAssignedUsersToSession() {
     sessionStorage.setItem('selectedContacts', JSON.stringify([...selectedContacts]));
 }
+
 
 /**
  * Loads the list of selected contacts from the session storage.

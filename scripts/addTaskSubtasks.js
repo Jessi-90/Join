@@ -1,4 +1,24 @@
 /**
+ * Initializes the subtask input, allowing new subtasks to be added to the list.
+ */
+function initSubtasks() {
+    const addSubtaskButton = document.getElementById("addSubtask");
+    const subtasksInput = document.getElementById("subtasks");
+    const subtaskList = document.getElementById("subtaskList");
+
+    addSubtaskButton.addEventListener("click", function () {
+        const subtask = subtasksInput.value.trim();
+        if (subtask) {
+            const li = document.createElement("li");
+            li.textContent = subtask;
+            subtaskList.appendChild(li);
+            subtasksInput.value = "";
+        }
+    });
+}
+
+
+/**
  * Retrieves references to the subtask input elements.
  * @returns {Object} An object containing inputField, plusButton, and subtaskNav elements.
  */
@@ -8,6 +28,19 @@ function getSubtaskElements() {
     let subtaskNav = document.getElementById("subtask-controls");
 
     return { inputField, plusButton, subtaskNav };
+}
+
+
+/**
+ * Sets focus to the input field with the ID 'subtasks'.
+ * Prevents the default action of the event, which may include form submission.
+ *
+ * @param {Event} event - The event triggered by the button click.
+ */
+function setFocusOnInput(event) {
+    event.preventDefault(); // Prevents the default action (e.g., form submission)
+    const inputField = document.getElementById("subtasks");
+    inputField.focus(); // Sets focus to the input field
 }
 
 
@@ -73,7 +106,7 @@ function addEventListenerOnce(element, event, handler, dataAttr, condition) {
 function handleEnterKey(event) {
     if (event.key === "Enter") {
         event.preventDefault();
-        addSubtask();
+        addSubtask(event);
     }
 }
 
@@ -81,7 +114,8 @@ function handleEnterKey(event) {
 /**
  * Adds a new subtask based on the content of the input field.
  */
-function addSubtask() {
+function addSubtask(event) {
+    event.preventDefault();
     let { inputField, plusButton, subtaskNav } = getSubtaskElements();
     let subtaskContent = inputField.value.trim();
 
@@ -101,7 +135,7 @@ function addSubtask() {
 function createSubtaskElement(subtaskContent) {
     let subtaskList = document.getElementById("subtask-list");
     let newSubtask = createNewSubtaskElement(subtaskContent);
-    
+
     subtaskList.appendChild(newSubtask);
     addClickEventToSubtask(newSubtask);
 }
@@ -141,8 +175,11 @@ function addClickEventToSubtask(subtaskItem) {
 /**
  * Clears the subtask input field and resets the visibility of controls.
  */
-function clearInputField() {
+function clearInputField(event) {
+    event.preventDefault();
+
     let { inputField, subtaskNav, plusButton } = getSubtaskElements();
+
     inputField.value = "";
     toggleSubtaskControlsVisibility(inputField, subtaskNav, plusButton);
 }
@@ -192,99 +229,99 @@ function editSubtask(button) {
     const subtaskItem = button.closest('.subtask-item');
     const inputWrapper = createEditInputWrapper(subtaskItem);
     let isDeleting = false;
-    
+
     setupDeleteButton(inputWrapper, subtaskItem, () => isDeleting = true);
     setupSaveButton(inputWrapper, subtaskItem);
-    
+
     subtaskItem.replaceWith(inputWrapper);
     const inputField = inputWrapper.querySelector('.subtask-edit-input');
     inputField.focus();
-    
-    setupBlurHandler(inputField, subtaskItem, inputWrapper, () => isDeleting);
-  }
-  
 
-  /**
-   * Creates and configures the edit input wrapper with necessary elements.
-   * @param {HTMLElement} subtaskItem - The original subtask item element.
-   * @returns {HTMLElement} The configured input wrapper element.
-   */
-  function createEditInputWrapper(subtaskItem) {
+    setupBlurHandler(inputField, subtaskItem, inputWrapper, () => isDeleting);
+}
+
+
+/**
+ * Creates and configures the edit input wrapper with necessary elements.
+ * @param {HTMLElement} subtaskItem - The original subtask item element.
+ * @returns {HTMLElement} The configured input wrapper element.
+ */
+function createEditInputWrapper(subtaskItem) {
     const inputWrapper = document.createElement('div');
     inputWrapper.classList.add('edit-input-wrapper');
-    
+
     const inputField = document.createElement('input');
     inputField.type = 'text';
     inputField.value = subtaskItem.querySelector('.subtask-text').textContent.trim();
     inputField.classList.add('subtask-edit-input');
-    
+
     inputWrapper.innerHTML = editSubtaskControlsTemplate();
     inputWrapper.prepend(inputField);
-    
-    return inputWrapper;
-  }
-  
 
-  /**
-   * Sets up the delete button functionality.
-   * @param {HTMLElement} inputWrapper - The input wrapper element.
-   * @param {HTMLElement} subtaskItem - The original subtask item element.
-   * @param {Function} setDeleting - Callback to set the deleting state.
-   */
-  function setupDeleteButton(inputWrapper, subtaskItem, setDeleting) {
+    return inputWrapper;
+}
+
+
+/**
+ * Sets up the delete button functionality.
+ * @param {HTMLElement} inputWrapper - The input wrapper element.
+ * @param {HTMLElement} subtaskItem - The original subtask item element.
+ * @param {Function} setDeleting - Callback to set the deleting state.
+ */
+function setupDeleteButton(inputWrapper, subtaskItem, setDeleting) {
     const deleteButton = inputWrapper.querySelector('#delete-edit-subtask-btn');
     if (deleteButton) {
-      deleteButton.addEventListener('mousedown', () => {
-        setDeleting();
-        subtaskItem.remove();
-        inputWrapper.remove();
-      });
+        deleteButton.addEventListener('mousedown', () => {
+            setDeleting();
+            subtaskItem.remove();
+            inputWrapper.remove();
+        });
     }
-  }
-  
+}
 
-  /**
-   * Sets up the save button functionality.
-   * @param {HTMLElement} inputWrapper - The input wrapper element.
-   * @param {HTMLElement} subtaskItem - The original subtask item element.
-   */
-  function setupSaveButton(inputWrapper, subtaskItem) {
+
+/**
+ * Sets up the save button functionality.
+ * @param {HTMLElement} inputWrapper - The input wrapper element.
+ * @param {HTMLElement} subtaskItem - The original subtask item element.
+ */
+function setupSaveButton(inputWrapper, subtaskItem) {
     const saveButton = inputWrapper.querySelector('#edit-add-subtask-btn');
     if (saveButton) {
-      saveButton.addEventListener('click', () => {
+        saveButton.addEventListener('click', () => {
+            updateSubtaskText(inputWrapper, subtaskItem);
+            inputWrapper.replaceWith(subtaskItem);
+        });
+    }
+}
+
+
+/**
+ * Sets up the blur event handler for the input field.
+ * @param {HTMLElement} inputField - The input field element.
+ * @param {HTMLElement} subtaskItem - The original subtask item element.
+ * @param {HTMLElement} inputWrapper - The input wrapper element.
+ * @param {Function} isDeleting - Function to check if deletion is in progress.
+ */
+function setupBlurHandler(inputField, subtaskItem, inputWrapper, isDeleting) {
+    inputField.addEventListener('blur', () => {
+        if (isDeleting()) {
+            return;
+        }
+
         updateSubtaskText(inputWrapper, subtaskItem);
         inputWrapper.replaceWith(subtaskItem);
-      });
-    }
-  }
-  
-
-  /**
-   * Sets up the blur event handler for the input field.
-   * @param {HTMLElement} inputField - The input field element.
-   * @param {HTMLElement} subtaskItem - The original subtask item element.
-   * @param {HTMLElement} inputWrapper - The input wrapper element.
-   * @param {Function} isDeleting - Function to check if deletion is in progress.
-   */
-  function setupBlurHandler(inputField, subtaskItem, inputWrapper, isDeleting) {
-    inputField.addEventListener('blur', () => {
-      if (isDeleting()) {
-        return;
-      }
-      
-      updateSubtaskText(inputWrapper, subtaskItem);
-      inputWrapper.replaceWith(subtaskItem);
     });
-  }
-  
+}
 
-  /**
-   * Updates the text content of the subtask item.
-   * @param {HTMLElement} inputWrapper - The input wrapper element.
-   * @param {HTMLElement} subtaskItem - The subtask item to update.
-   */
-  function updateSubtaskText(inputWrapper, subtaskItem) {
+
+/**
+ * Updates the text content of the subtask item.
+ * @param {HTMLElement} inputWrapper - The input wrapper element.
+ * @param {HTMLElement} subtaskItem - The subtask item to update.
+ */
+function updateSubtaskText(inputWrapper, subtaskItem) {
     const inputField = inputWrapper.querySelector('.subtask-edit-input');
     const subtaskText = inputField.value.trim();
     subtaskItem.querySelector('.subtask-text').textContent = subtaskText;
-  }
+}
