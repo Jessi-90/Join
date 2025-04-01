@@ -29,23 +29,56 @@ function setDefaultMediumPriority() {
 
 
 /**
- * Initializes the priority buttons.
- * Ensures only one button is active at a time.
+ * Initializes the priority buttons by setting up event listeners and a default state.
  */
 function initPriorityButtons() {
-    const prioButtons = document.querySelectorAll(".prio-btn");
-    const mediumButton = document.querySelector(".prio-btn.medium");
+    setDefaultPriority();
+    addPriorityButtonListeners();
+}
 
+
+/**
+ * Sets the default priority button to medium if available.
+ */
+function setDefaultPriority() {
+    const mediumButton = document.querySelector(".prio-btn.medium");
     if (mediumButton) {
         mediumButton.classList.add("active");
+    } else {
+        console.warn("Medium priority button not found");
     }
+}
+
+
+/**
+ * Adds click event listeners to all priority buttons to ensure only one is active at a time.
+ */
+function addPriorityButtonListeners() {
+    const prioButtons = document.querySelectorAll(".prio-btn");
 
     prioButtons.forEach(button => {
         button.addEventListener("click", () => {
-            prioButtons.forEach(btn => btn.classList.remove("active"));
-            button.classList.add("active");
+            deactivateAllPriorityButtons(prioButtons);
+            activatePriorityButton(button);
         });
     });
+}
+
+
+/**
+ * Deactivates all priority buttons by removing the 'active' class.
+ * @param {NodeList} buttons - A list of all priority buttons.
+ */
+function deactivateAllPriorityButtons(buttons) {
+    buttons.forEach(btn => btn.classList.remove("active"));
+}
+
+/**
+ * Activates a single priority button by adding the 'active' class.
+ * @param {HTMLElement} button - The priority button to activate.
+ */
+function activatePriorityButton(button) {
+    button.classList.add("active");
 }
 
 
@@ -103,7 +136,7 @@ function validateTaskForm() {
     let isValid = true;
 
     isValid &= validateField(title, "Title is required");
-    isValid &= validateDueDate();
+    isValid &= validateDueDate(dueDate);
     isValid &= validateCategory(category);
 
     return !!isValid;
@@ -131,8 +164,7 @@ function validateField(field, message) {
  * Validates the due date input.
  * @returns {boolean} Whether the due date is valid.
  */
-function validateDueDate() {
-    const dueDateInput = document.getElementById("due-date");
+function validateDueDate(dueDateInput) {
     const datePattern = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
 
     if (!dueDateInput.value.trim()) {
@@ -259,53 +291,6 @@ function clearFormAndData() {
 
 
 /**
- * Formats the due date input to enforce DD/MM/YYYY format as the user types.
- */
-function initDueDateInput() {
-    const dueDateInput = document.getElementById("due-date");
-
-    dueDateInput.addEventListener("input", function () {
-        let value = this.value.replace(/[^0-9]/g, "");
-
-        // Füge / nach Tag und Monat hinzu
-        value = value.replace(/^(\d{2})(\d{2})?(\d{0,4})?/, (match, day, month, year) => {
-            let result = day;
-            if (month) result += "/" + month;
-            if (year) result += "/" + year;
-            return result;
-        });
-
-        this.value = value;
-    });
-}
-
-
-/**
- * Sets the current date into the input field with the ID "due-date".
- * The date is formatted as "dd/mm/yyyy".
- */
-function setTodayDate() {
-    let dateInput = document.getElementById("due-date");
-    let today = new Date();
-    let formattedDate = formatDate(today);
-    dateInput.value = formattedDate;
-}
-
-
-/**
- * Formats a given Date object into the format "dd/mm/yyyy".
- * @param {Date} date - The Date object to format.
- * @returns {string} The formatted date as a string in "dd/mm/yyyy" format.
- */
-function formatDate(date) {
-    let day = String(date.getDate()).padStart(2, "0");
-    let month = String(date.getMonth() + 1).padStart(2, "0");
-    let year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-}
-
-
-/**
  * Initializes the enable/disable functionality of the "Create Task" button.
  */
 function initCreateTaskButton() {
@@ -325,18 +310,92 @@ function initCreateTaskButton() {
  * Checks if all required fields are filled and enables/disables the "Create Task" button accordingly.
  */
 function checkFormValidity() {
-    const title = document.getElementById("title");
-    const dueDate = document.getElementById("due-date");
-    const category = document.getElementById("category");
-    const createTaskButton = document.getElementById("create-task");
+    const title = getTitleField();
+    const dueDate = getDueDateField();
+    const category = getCategoryField();
+    const createTaskButton = getCreateTaskButton();
 
-    const isTitleValid = title.value.trim() !== "";
-    const isDueDateValid = dueDate.value.trim() !== "";
-    const isCategoryValid = category.value !== "Select task category";
+    const isTitleValid = validateTitleField(title);
+    const isDueDateValid = validateDueDateField(dueDate);
+    const isCategoryValid = validateCategoryField(category);
 
-    if (isTitleValid && isDueDateValid && isCategoryValid) {
-        createTaskButton.disabled = false; // Enable button
-    } else {
-        createTaskButton.disabled = true; // Keep button disabled
-    }
+    toggleCreateTaskButton(createTaskButton, isTitleValid, isDueDateValid, isCategoryValid);
+}
+
+
+/**
+ * Gets the title input field.
+ * @returns {HTMLElement} The title input field element.
+ */
+function getTitleField() {
+    return document.getElementById("title");
+}
+
+
+/**
+ * Gets the due date input field.
+ * @returns {HTMLElement} The due date input field element.
+ */
+function getDueDateField() {
+    return document.getElementById("due-date");
+}
+
+
+/**
+ * Gets the category select field.
+ * @returns {HTMLElement} The category select element.
+ */
+function getCategoryField() {
+    return document.getElementById("category");
+}
+
+
+/**
+ * Gets the "Create Task" button.
+ * @returns {HTMLElement} The "Create Task" button element.
+ */
+function getCreateTaskButton() {
+    return document.getElementById("create-task");
+}
+
+
+/**
+ * Validates the title field by checking if it is not empty.
+ * @param {HTMLElement} titleField - The title input field element.
+ * @returns {boolean} True if valid, otherwise false.
+ */
+function validateTitleField(titleField) {
+    return titleField.value.trim() !== "";
+}
+
+
+/**
+ * Validates the due date field by checking if it is not empty.
+ * @param {HTMLElement} dueDateField - The due date input field element.
+ * @returns {boolean} True if valid, otherwise false.
+ */
+function validateDueDateField(dueDateField) {
+    return dueDateField.value.trim() !== "";
+}
+
+
+/**
+ * Validates the category field by checking if a valid category is selected.
+ * @param {HTMLElement} categoryField - The category select element.
+ * @returns {boolean} True if valid, otherwise false.
+ */
+function validateCategoryField(categoryField) {
+    return categoryField.value !== "Select task category";
+}
+
+
+/**
+ * Toggles the "Create Task" button's disabled state based on field validations.
+ * @param {HTMLElement} button - The "Create Task" button element.
+ * @param {boolean} isTitleValid - Whether the title field is valid.
+ * @param {boolean} isDueDateValid - Whether the due date field is valid.
+ * @param {boolean} isCategoryValid - Whether the category field is valid.
+ */
+function toggleCreateTaskButton(button, isTitleValid, isDueDateValid, isCategoryValid) {
+    button.disabled = !(isTitleValid && isDueDateValid && isCategoryValid);
 }

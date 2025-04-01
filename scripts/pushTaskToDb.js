@@ -129,9 +129,50 @@ function redirectToBoardPage() {
  * @returns {Object} The collected form data.
  */
 function getFormData() {
-    const title = document.getElementById("title").value.trim();
-    const description = document.getElementById("description").value.trim();
-    const dueDate = document.getElementById("due-date").value.trim();
+    const title = getTitle();
+    const description = getDescription();
+    const dueDate = getDueDate();
+    const priority = getPriority();
+    const assignedUsers = getAssignedUsers();
+    const category = getCategory();
+    const subtasks = getSubtasks();
+
+    return { title, description, dueDate, priority, assignedUsers, category, subtasks };
+}
+
+
+/**
+ * Retrieves the title from the form.
+ * @returns {string} The title entered in the form.
+ */
+function getTitle() {
+    return document.getElementById("title").value.trim();
+}
+
+
+/**
+ * Retrieves the description from the form.
+ * @returns {string} The description entered in the form.
+ */
+function getDescription() {
+    return document.getElementById("description").value.trim();
+}
+
+
+/**
+ * Retrieves the due date from the form.
+ * @returns {string} The due date entered in the form.
+ */
+function getDueDate() {
+    return document.getElementById("due-date").value.trim();
+}
+
+
+/**
+ * Determines the priority based on the active priority button.
+ * @returns {string} The priority (low, medium, or urgent).
+ */
+function getPriority() {
     let priority = "low";
     document.querySelectorAll(".prio-btn").forEach(button => {
         if (button.classList.contains("active")) {
@@ -142,7 +183,15 @@ function getFormData() {
                     : "low";
         }
     });
+    return priority;
+}
 
+
+/**
+ * Retrieves assigned users from sessionStorage.
+ * @returns {Array<string>} A list of assigned users.
+ */
+function getAssignedUsers() {
     let assignedUsers = [];
     const storedUsers = sessionStorage.getItem("selectedContacts");
     if (storedUsers) {
@@ -152,13 +201,27 @@ function getFormData() {
             console.error("Error parsing assignedUsers from sessionStorage:", error);
         }
     }
+    return assignedUsers;
+}
 
-    const category = document.getElementById("category").value.trim();
-    const subtasks = Array.from(document.querySelectorAll("#subtask-list li"))
+
+/**
+ * Retrieves the category from the form.
+ * @returns {string} The selected category.
+ */
+function getCategory() {
+    return document.getElementById("category").value.trim();
+}
+
+
+/**
+ * Retrieves the list of subtasks from the form.
+ * @returns {Array<Object>} An array of subtasks with title and completed status.
+ */
+function getSubtasks() {
+    return Array.from(document.querySelectorAll("#subtask-list li"))
         .map(subtask => ({
             title: subtask.textContent.trim(),
             completed: false
         }));
-
-    return { title, description, dueDate, priority, assignedUsers, category, subtasks };
 }
