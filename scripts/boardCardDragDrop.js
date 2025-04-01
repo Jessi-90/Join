@@ -2,7 +2,7 @@
  * The ID of the currently dragged card.
  * @type {string|number}
  */
-let currentDraggedCardId;
+let currentDraggedCardId = null;
 
 
 /**
@@ -28,6 +28,8 @@ function dragoverHandler(ev) {
  */
 function startCardDragging(taskId) {
     currentDraggedCardId = taskId;
+    const card = document.getElementById(taskId);
+    card.classList.add('tilt-animation');
 }
 
 
@@ -39,9 +41,11 @@ function startCardDragging(taskId) {
  * @param {string} columnCategory - The ID of the column where the task is being dropped.
  */
 function moveCardTo(category, columnCategory) {
+    const card = document.getElementById(currentDraggedCardId);
+    card.classList.remove('tilt-animation');
     currentTasksData[currentDraggedCardId]['status'] = category;
     removeHighlightCardContainer(columnCategory);
-    updateTasksInDatabase(currentTasksData)
+    updateTasksInDatabase(currentTasksData);
     renderTasks(currentTasksData);
 }
 

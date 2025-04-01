@@ -181,3 +181,7 @@
     border-radius: 10px;
 }
 
+.tilt-animation {
+  transform: rotate(5deg);
+  transition: transform 0.2s ease;
+}
