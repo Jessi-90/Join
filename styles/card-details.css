@@ -8,11 +8,13 @@
   padding: 48px 40px;
   gap: 24px;
   transform: translateX(100%);
-  transition: transform 0.3s ease-in-out;
+  opacity: 0;
+  transition: transform 300ms ease-in-out, opacity 100ms ease-in-out;
 }
 
 .board-card-detail-container.show {
   transform: translateX(0);
+  opacity: 1;
 }
 
 .board-card-detail {

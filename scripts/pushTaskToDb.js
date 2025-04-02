@@ -1,25 +1,5 @@
 /**
- * Fetches the current tasks from the database.
- * @returns {Promise<Object>} The tasks object from the database.
- */
-async function getTasks(event) {
-    event.preventDefault();
-    try {
-        let response = await fetch(BASE_URL + "tasks.json");  
-        if (!response.ok) {
-            throw new Error(`Status: ${response.status}`);
-        }
-        let tasks = await response.json();
-        return tasks || {}; 
-    } catch (error) {
-        console.error("Error while fetching tasks data", error);
-        return null;
-    }
-};
-
-
-/**
- * Pushes all the task data to the database using PUT.
+ * Pushes all the task data to the database using PUT to replace the entire structure.
  * @param {Event} event - The form submit event.
  * @param {Object} tasks - The tasks data from the database.
  * @param {Object} newTask - The newTask data to push to the database.
@@ -27,24 +7,33 @@ async function getTasks(event) {
 async function addNewTask(event, tasks, newTask) {
     event.preventDefault();
     try {
-
         let counter = increaseTasksCounter(tasks);
-        let newTaskKey = `task_${counter}`;
-        let newTasks = createNewTask(tasks, newTask, newTaskKey);
-        
-        tasks.counter = counter;  
-        
+        let newTaskKey = `taskid_${counter}`;
+
+        tasks[newTaskKey] = createNewTask(tasks, newTask, newTaskKey);
+        tasks.counter = counter;
+
+        await saveTasksToDatabase(tasks);
+    } catch (error) {
+        console.error("Error adding the task to the database:", error);
+    }
+}
+
+/**
+ * Saves the updated tasks object to the database using PUT.
+ * @param {Object} tasks - The updated tasks object to save.
+ */
+async function saveTasksToDatabase(tasks) {
+    try {
         await fetch(`${BASE_URL}/tasks.json`, {
             method: "PUT",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(newTasks) 
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(tasks),
         });
-
     } catch (error) {
-        console.error("error at adding the task to the database:", error);
+        console.error("Error saving tasks to the database:", error);
     }
-};
-
+}
 
 /**
  * Returns the updated counter of tasks.
@@ -53,28 +42,186 @@ async function addNewTask(event, tasks, newTask) {
  */
 function increaseTasksCounter(tasks) {
     let counter = tasks?.counter || 0;
-    counter++;  
+    counter++;
     return counter;
 }
 
 /**
  * Returns the updated tasks object with the new task.
- * @param {Object} tasks The current tasks object.
  * @param {Object} newTask The new task to add.
  * @param {string} newTaskKey The key for the new task.
- * @returns {Object} The updated tasks object.
+ * @returns {Object} The new task object.
  */
-function createNewTask(tasks, newTask, newTaskKey) {
-    tasks[newTaskKey] = {
+function createNewTask(newTask, newTaskKey) {
+    return {
         title: newTask.title || "",
         description: newTask.description || "",
         category: newTask.category || "",
-        assignedUsers: newTask.assignedUsers || [],   
-        subtasks: newTask.subtasks || [],  
-        priority: newTask.priority || "low",  
-        dueDate: newTask.dueDate || "",  
-        status: newTask.status ?? columnStatus,    
+        assignedUsers: newTask.assignedUsers || [],
+        subtasks: convertSubtasksToObject(newTask.subtasks || []),
+        priority: newTask.priority || "low",
+        dueDate: newTask.dueDate || "",
+        status: newTask.status !== undefined ? newTask.status : 1,
     };
+}
 
-    return tasks;
+/**
+ * Converts an array of subtasks into an object with unique IDs.
+ * @param {Array} subtasksArray - The array of subtasks.
+ * @returns {Object} The subtasks in object format.
+ */
+function convertSubtasksToObject(subtasksArray) {
+    const subtasksObject = {};
+    subtasksArray.forEach((subtask, index) => {
+        const subtaskId = `subtaskId${index + 1}`;
+        subtasksObject[subtaskId] = {
+            title: subtask.title || "",
+            completed: subtask.completed || false,
+        };
+    });
+    return subtasksObject;
+}
+
+
+/**
+ * Initializes the form logic.
+ * This function adds the submit event listener to the form when called.
+ */
+function sendTaskFormToDb() {
+    const form = document.querySelector("form");
+    form.addEventListener("submit", async function (event) {
+        await handleFormSubmission(event); // Verarbeite die Formulardaten
+        clearFormAndData(); // Bereinige die Form nach erfolgreicher Verarbeitung
+        redirectToBoardPage(); // Weiterleiten zu board.html
+    });
+}
+
+
+/**
+ * Pushes all the task data to the database using PUT to replace the entire structure.
+ * @param {Event} event - The form submit event.
+ */
+async function handleFormSubmission(event) {
+    event.preventDefault();
+    const newTask = getFormData();
+    const tasks = await fetchTasksData();
+
+    let counter = increaseTasksCounter(tasks);
+    let newTaskKey = `taskid_${counter}`;
+
+    tasks[newTaskKey] = createNewTask(newTask, newTaskKey);
+    tasks.counter = counter;
+
+    await saveTasksToDatabase(tasks);
+}
+
+
+/**
+ * Redirects the user to the board page after task submission.
+ */
+function redirectToBoardPage() {
+    window.location.href = "board.html";
+}
+
+
+/**
+ * Collects the form data and returns it as an object.
+ * @returns {Object} The collected form data.
+ */
+function getFormData() {
+    const title = getTitle();
+    const description = getDescription();
+    const dueDate = getDueDate();
+    const priority = getPriority();
+    const assignedUsers = getAssignedUsers();
+    const category = getCategory();
+    const subtasks = getSubtasks();
+
+    return { title, description, dueDate, priority, assignedUsers, category, subtasks };
+}
+
+
+/**
+ * Retrieves the title from the form.
+ * @returns {string} The title entered in the form.
+ */
+function getTitle() {
+    return document.getElementById("title").value.trim();
+}
+
+
+/**
+ * Retrieves the description from the form.
+ * @returns {string} The description entered in the form.
+ */
+function getDescription() {
+    return document.getElementById("description").value.trim();
+}
+
+
+/**
+ * Retrieves the due date from the form.
+ * @returns {string} The due date entered in the form.
+ */
+function getDueDate() {
+    return document.getElementById("due-date").value.trim();
+}
+
+
+/**
+ * Determines the priority based on the active priority button.
+ * @returns {string} The priority (low, medium, or urgent).
+ */
+function getPriority() {
+    let priority = "low";
+    document.querySelectorAll(".prio-btn").forEach(button => {
+        if (button.classList.contains("active")) {
+            priority = button.classList.contains("urgent")
+                ? "urgent"
+                : button.classList.contains("medium")
+                    ? "medium"
+                    : "low";
+        }
+    });
+    return priority;
+}
+
+
+/**
+ * Retrieves assigned users from sessionStorage.
+ * @returns {Array<string>} A list of assigned users.
+ */
+function getAssignedUsers() {
+    let assignedUsers = [];
+    const storedUsers = sessionStorage.getItem("selectedContacts");
+    if (storedUsers) {
+        try {
+            assignedUsers = JSON.parse(storedUsers);
+        } catch (error) {
+            console.error("Error parsing assignedUsers from sessionStorage:", error);
+        }
+    }
+    return assignedUsers;
+}
+
+
+/**
+ * Retrieves the category from the form.
+ * @returns {string} The selected category.
+ */
+function getCategory() {
+    return document.getElementById("category").value.trim();
+}
+
+
+/**
+ * Retrieves the list of subtasks from the form.
+ * @returns {Array<Object>} An array of subtasks with title and completed status.
+ */
+function getSubtasks() {
+    return Array.from(document.querySelectorAll("#subtask-list li"))
+        .map(subtask => ({
+            title: subtask.textContent.trim(),
+            completed: false
+        }));
 }

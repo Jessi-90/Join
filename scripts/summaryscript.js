@@ -1,13 +1,11 @@
 /**
- * Initializes the application after the DOM has fully loaded.
+ * Event listener for the `DOMContentLoaded` event.
  * 
- * This event listener ensures that:
- * - Contact data is fetched asynchronously via `mapContactsData()`.
- * - The greeting message is updated based on the logged-in user and current time using `summaryGreetingUser()`, 
- *   but only if the relevant HTML elements (`.greeting` and `#greetingName`) exist in the DOM.
+ * Executes initial data fetching and rendering processes once the DOM is fully loaded.
  * 
- * @listens DOMContentLoaded
- * @async
+ * - Loads and processes contact data.
+ * - Displays a greeting message if the corresponding elements exist.
+ * - Fetches task data and renders the task overview.
  */
 document.addEventListener("DOMContentLoaded", async () => {
     await mapContactsData();
@@ -15,6 +13,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (document.querySelector(".greeting") && document.querySelector("#greetingName")) {
         summaryGreetingUser();
     }
+
+    await fetchTasksData();
+    renderNumberTasks();
+    renderUpcomingDate();
 });
 
 
@@ -87,4 +89,102 @@ function getLoggedInUser() {
     loggedInUser = JSON.parse(loggedInUser);
 
     return loggedInUser;
+}
+
+
+/**
+ * Renders the number of tasks for different statuses in the UI.
+ * Retrieves task data, calculates task counts, and updates the HTML elements.
+ */
+function renderNumberTasks() {
+    let tasksArray = mapTasksData();
+    let numberTasksData = getNumberTasks(tasksArray);
+    document.getElementById('numberTasksToDo').innerHTML = numberTasksData.numberTasksToDo;
+    document.getElementById('numberTasksDone').innerHTML = numberTasksData.numberTasksDone;
+    document.getElementById('numberTasksUrgent').innerHTML = numberTasksData.numberTasksUrgent;
+    document.getElementById('numberTasksTotal').innerHTML = numberTasksData.numberTotalTasks;
+    document.getElementById('numberTasksInProgress').innerHTML = numberTasksData.numberTasksInProgress;
+    document.getElementById('numberTasksAwaitingFeedback').innerHTML = numberTasksData.numberTasksAwaitingFeedback;
+}
+
+
+/**
+ * Maps the current task data into an array of task objects.
+ * Filters out only the valid tasks based on their key format.
+ *
+ * @returns {Array<Object>} An array of task objects with their ID and properties.
+ */
+function mapTasksData() {
+    const tasksArray = Object.entries(currentTasksData)
+    .filter(([key]) => key.startsWith('taskid_'))  
+    .map(([id, task]) => ({ id, ...task }));  
+    return tasksArray;
+}
+
+
+/**
+ * Calculates the number of tasks in different categories.
+ *
+ * @param {Array<Object>} tasksArray - The array of task objects.
+ * @returns {Object} An object containing counts for different task statuses and priorities.
+ */
+function getNumberTasks(tasksArray) {
+    let numberTotalTasks = tasksArray.length;
+    let numberTasksDone = tasksArray.filter(task => task.status === 4).length;
+    let numberTasksAwaitingFeedback = tasksArray.filter(task => task.status === 3).length;
+    let numberTasksInProgress = tasksArray.filter(task => task.status === 2).length;
+    let numberTasksToDo = tasksArray.filter(task => task.status === 1).length;
+    let numberTasksUrgent = tasksArray.filter(task => task.priority === "Urgent").length;
+    return {numberTotalTasks, numberTasksDone, numberTasksAwaitingFeedback, numberTasksInProgress, numberTasksToDo, numberTasksUrgent};
+}
+
+
+/**
+ * Finds the task with the nearest upcoming deadline that is not yet completed.
+ *
+ * @returns {Object|null} An object containing the next task and its formatted due date, or null if no task is found.
+ */
+function getUpcomingDeadlineTask() {
+    let tasksArray = mapTasksData();
+    const filteredTasks = tasksArray.filter(task => task.status !== 4);
+    if (!filteredTasks.length) return null;
+    const nextTask = filteredTasks.reduce((earliest, task) => {
+        return new Date(task.dueDate) < new Date(earliest.dueDate) ? task : earliest;
+    });
+    let formattedDate = formatNextTaskDueDate(nextTask);
+    return { nextTask, formattedDate };
+}
+
+
+/**
+ * Renders the upcoming task deadline date in the UI.
+ * If no upcoming task is found, displays "No" as a placeholder.
+ */
+function renderUpcomingDate() {
+    let upcomingDateTask = getUpcomingDeadlineTask();
+    if (!upcomingDateTask) {
+        document.getElementById('dateDeadline').innerHTML = "No";
+        return;
+    }
+    document.getElementById('dateDeadline').innerHTML = upcomingDateTask.formattedDate;
+}
+
+
+/**
+ * Formats the due date of a task into a human-readable string.
+ * 
+ * Converts the task's `dueDate` property into a formatted date string 
+ * following the "Month Day, Year" format (e.g., "March 31, 2025").
+ * 
+ * @param {Object} task - The task object containing the due date.
+ * @param {string} task.dueDate - The due date of the task in a valid date format.
+ * @returns {string} The formatted due date as a string.
+ */
+function formatNextTaskDueDate(task) {
+    const formattedDate = new Date(task.dueDate).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+    return formattedDate;
 }
