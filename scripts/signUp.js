@@ -148,7 +148,7 @@ function collectSignUpData() {
 async function handleSignUpFormSubmission(event) {
     event.preventDefault();
     let signUpData = collectSignUpData();
-    let contacts = await getContacts(event);
+    let contacts = await getContacts();
     await addNewContact(event, contacts, signUpData);
     showSignUpSubmitFeedback(event)
 }

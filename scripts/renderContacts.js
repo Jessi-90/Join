@@ -21,7 +21,7 @@ async function initContacts() {
         const mainElement = document.querySelector('main');
         mainElement.innerHTML = renderContacts(); 
 
-        await fetchContactsData();
+        await mapContactsData();
         renderContactList(currentContactsData);
 
         document.getElementById('contactList').innerHTML = renderAlphabeticalContactList(currentContactsData);

@@ -37,7 +37,7 @@ document.addEventListener('click', (event) => {
  * @returns {Promise<void>} - A promise that resolves once the contacts are populated in the dropdown.
  */
 async function populateContacts() {
-    await fetchContactsData();
+    await mapContactsData();
 
     let contacts = prepareContacts(currentContactsData);
 
