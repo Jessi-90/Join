@@ -76,9 +76,10 @@ function showAddTaskOverlayHTMLTemplate() {
                             <label for="subtasks">Subtasks</label>
                             <div class="input-container">
                                 <input type="text" id="subtasks" class="input-field" placeholder="Add new subtask">
-                                <button id="standard-subtask-btn" class="subtask-btn plus-btn"></button>
+                                <button id="standard-subtask-btn" class="subtask-btn plus-btn" onclick="setFocusOnInput(event)"></button>
                                 <div id="subtask-controls" class="subtask-nav d-none">
-                                    <button onclick="clearInputField()" id="clear-subtask-btn" class="subtask-btn clear-subtask-btn"></button>
+                                    <button onclick="clearInputField(event)" id="clear-subtask-btn"
+                                        class="subtask-btn clear-subtask-btn"></button>
                                     <div class="subtask-separator"></div>
                                     <button id="add-subtask-btn" class="subtask-btn add-subtask-btn"></button>
                                 </div>
@@ -88,10 +89,14 @@ function showAddTaskOverlayHTMLTemplate() {
                     </div>
                 </div>
                 <div class="buttons">
-                    <button type="reset" class="clear" id="clear-button">Clear <img
-                            src="../img/icon/iconoir_cancel.svg"></button>
-                    <button type="submit" class="create" id="create-task" disabled>Create Task <img
-                            src="../img/icon/check.svg"></button>
+                    <button onclick="clearFormAndData()" type="reset" class="clear btn-light" id="clear-button">
+                        Clear
+                        <img id="clear-icon" src="../img/icon/iconoir_cancel.svg">
+                    </button>
+                    <button type="submit" class="create" id="create-task" onclick="sendTaskFormToDb()" disabled>
+                        Create Task
+                        <img src="../img/icon/check.svg">
+                    </button>
                 </div>
             </form>
             <div class="field-required">
