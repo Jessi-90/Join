@@ -65,7 +65,7 @@ function cardDetailsOverlayHTMLTemplate(task, categoryClassName) {
             </div>
             <div class="card-detail-footer">
                 <button class="card-detail-delete-btn btn-no-bg" onclick="deleteTask()"></button>
-                <button class="card-detail-edit-btn btn-no-bg" onclick="editTask()"></button>
+                <button class="card-detail-edit-btn btn-no-bg" onclick="editTask(getCurrentlyViewedTaskId())"></button>
             </div>
         </div>
           `;
