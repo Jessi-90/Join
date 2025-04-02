@@ -59,7 +59,7 @@ function prepareContacts(data) { let contacts = data.map(contact => ({
         initials: contact.initials
     }
 }));
-return contacts.sort((a, b) => a.name.localeCompare(b.name));
+return sortContactsByName(contacts);
 };
 
 /**
