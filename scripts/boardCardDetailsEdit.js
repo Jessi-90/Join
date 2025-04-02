@@ -33,36 +33,75 @@ async function initContactSelection(assignedUsers = []) {
 
 
 /**
- * Sets up the click event listener for the assigned users dropdown.
- * 
- * This function checks if the assigned dropdown element exists and 
- * attaches the toggleDropdown function to its onclick event.
+ * Initializes the toggle functionality for the 'assignedDropdown' element.
+ * Removes any previous click event listener to avoid duplicates, then adds a new one.
+ * Stops event propagation and toggles the dropdown visibility on click.
  */
 function setupDropdownToggle() {
-    const assignedDropdown = document.getElementById('assignedDropdown');
-    if (assignedDropdown) {
-        assignedDropdown.onclick = toggleDropdown; 
+    const dropdown = document.getElementById('assignedDropdown');
+    if (dropdown) {
+  
+        dropdown.removeEventListener('click', toggleDropdown);
+      
+        dropdown.addEventListener('click', function(event) {
+            event.stopPropagation(); 
+            toggleDropdown();
+        });
     }
 }
 
 
 /**
- * Shows the Edit Card Details Overlay.
- * Clears previous content and sets up the basic structure if not already present.
+ * Toggles the visibility of the 'dropdownOptions' element.
+ * Switches between 'block' and 'none' display styles on each call.
+ */
+function toggleDropdown() {
+    const dropdown = document.getElementById('dropdownOptions');
+    if (dropdown) {
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+}
+
+
+/**
+ * Creates an object to manage contact selection within a specified container.
+ * 
+ * @param {string} [containerId='assignedDropdown'] - The ID of the container element.
+ * @returns {Object} An object with methods to initialize contact selection and toggle the dropdown.
+ */
+function setupContactSelection(containerId = 'assignedDropdown') {
+    return {
+        init: (users) => initContactSelection(users),
+        toggle: toggleDropdown
+    };
+}
+
+
+/**
+ * Displays and initializes the edit overlay for a board card.
+ * 
+ * Finds the 'boardCardDetails' element and checks if the edit container is already present. 
+ * If not, it injects the HTML template for editing. 
+ * Attempts to initialize contact selection if the function exists, logging an error if not. 
+ * Finally, it makes the overlay visible and triggers an animation.
  */
 function showBoardCardDetailsEdit() {
     let boardCardOverlayRef = document.getElementById('boardCardDetails');
     
     if (!boardCardOverlayRef.querySelector('.board-card-edit-container')) {
         boardCardOverlayRef.innerHTML = cardDetailsEditOverlayHTMLTemplate();
+        
+        setTimeout(() => {
+            if (typeof initContactSelection === 'function') {
+                initContactSelection();
+            } else {
+                console.error('initContactSelection nicht gefunden!');
+            }
+        }, 0);
     }
 
     boardCardOverlayRef.classList.remove('d-none');
     animateEditOverlay();
-
-    setTimeout(() => {
-        initContactSelection();
-      }, 50);
 }
 
 
@@ -88,10 +127,9 @@ function populateBasicTaskData(task) {
  * @param {Object} task - The task object containing the data.
  */
 function populateComplexTaskData(task) {
-    const assigneeSelect = document.getElementById('editCardAssignee');
     const subtasksList = document.querySelector('.edit-card-subtasks-list ul');
     const prioButtons = document.querySelectorAll('.prio-btn');
-       
+    
     subtasksList.innerHTML = '';
     if (task.subtasks && task.subtasks.length > 0) {
         task.subtasks.forEach(subtask => {
@@ -100,12 +138,8 @@ function populateComplexTaskData(task) {
             subtasksList.appendChild(listItem);
         });
     }
-    prioButtons.forEach(button => {
-        button.classList.remove('selected');
-        if (button.classList.contains(task.priority.toLowerCase())) {
-            button.classList.add('selected');
-        }
-    });
+    
+    initPriorityButtons(task.priority.toLowerCase());
 }
 
 
@@ -113,20 +147,20 @@ function populateComplexTaskData(task) {
  * Populates the Edit Card Details Overlay with task data.
  * 
  * @param {string|number} taskId - The unique identifier of the task.
+ * Retrieves the task data and populates basic and complex information.
+ * Attempts to initialize contact selection with assigned users, logging an error if it fails.
  */
 function populateEditOverlay(taskId) {
-    const task = currentTasksData[taskId];  
-    if (!task) {
-        console.error(`Task with ID ${taskId} not found.`);
-        return;
-    }
-
+    const task = currentTasksData[taskId];
+    
     populateBasicTaskData(task);
     populateComplexTaskData(task);
-    initContactSelection(task.assignedUsers || []);
-    
-    const overlay = document.getElementById('boardCardDetails');
-    overlay.setAttribute('data-edit-task-id', taskId);
+
+    try {
+        initContactSelection(task.assignedUsers || []);
+    } catch (e) {
+        console.error('Fehler in initContactSelection:', e);
+    }
 }
 
 
