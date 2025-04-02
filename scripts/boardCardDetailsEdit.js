@@ -194,7 +194,6 @@ function animateEditOverlay(animate = true) {
  * @param {string|number} taskId - The unique identifier of the task to be edited.
  */
 function editTask(taskId = getCurrentlyViewedTaskId()) {
-    console.log("Editing Task ID:", taskId);  
     if (taskId) {
         showBoardCardDetailsEdit();   
         populateEditOverlay(taskId);    
