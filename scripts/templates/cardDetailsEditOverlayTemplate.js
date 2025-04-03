@@ -20,16 +20,16 @@ function cardDetailsEditOverlayHTMLTemplate() {
                 <div>
                     <label>Prio</label>
                     <div class="prio-buttons">
-                        <button type="button" class="prio-btn urgent">Urgent <img class="urgent-image" src="../img/icon/Prio alta.svg"></button>
-                        <button type="button" class="prio-btn medium">Medium <img class="medium-image" src="../img/icon/Prio media (1).svg"></button>
-                        <button type="button" class="prio-btn low">Low <img src="../img/icon/Prio baja.svg"></button>
+                        <button type="button" class="prio-btn urgent">Urgent <img class="urgent-image" src="../assets/icons/prio urgent.svg"></button>
+                        <button type="button" class="prio-btn medium">Medium <img class="medium-image" src="../assets/icons/prio medium.svg"></button>
+                        <button type="button" class="prio-btn low">Low <img src="../assets/icons/prio low.svg"></button>
                     </div>
                 </div>
                 <label for="assigned">Assigned to</label>
                 <div class="custom-dropdown" id="assignedDropdown">
                     <div class="selected-option" onclick="toggleDropdown()">
                         Select contacts to assign
-                        <img class="custom-arrow" src="../img/icon/arrow_drop_down.svg" alt="Dropdown Arrow">
+                        <img class="custom-arrow" src="../assets/icons/arrow_drop_down.svg" alt="Dropdown Arrow">
                     </div>
                     <ul class="dropdown-options" id="dropdownOptions"></ul>
                 </div>
