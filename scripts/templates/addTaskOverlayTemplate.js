@@ -91,7 +91,7 @@ function showAddTaskOverlayHTMLTemplate() {
                 <div class="buttons">
                     <button onclick="clearFormAndData()" type="reset" class="clear btn-light" id="clear-button">
                         Clear
-                        <img id="clear-icon" src="../assets/icons/iconoir_cancel.svg">
+                        <img id="clear-icon" src="../assets/icons/cancel.svg">
                     </button>
                     <button type="submit" class="create" id="create-task" onclick="sendTaskFormToDb()" disabled>
                         Create Task
