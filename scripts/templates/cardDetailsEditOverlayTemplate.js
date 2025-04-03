@@ -19,7 +19,7 @@ function cardDetailsEditOverlayHTMLTemplate() {
                 <input type="date" name="editCardDate" id="editCardDate">
                 <div>
                     <label>Prio</label>
-                    <div class="prio-buttons">
+                    <div class="prio-buttons prio-edit">
                         <button type="button" class="prio-btn urgent">Urgent <img class="urgent-image" src="../assets/icons/prio urgent.svg"></button>
                         <button type="button" class="prio-btn medium">Medium <img class="medium-image" src="../assets/icons/prio medium.svg"></button>
                         <button type="button" class="prio-btn low">Low <img src="../assets/icons/prio low.svg"></button>
@@ -34,14 +34,25 @@ function cardDetailsEditOverlayHTMLTemplate() {
                     <ul class="dropdown-options" id="dropdownOptions"></ul>
                 </div>
                 <div id="selectedContactsContainer" class="selected-contacts-container"></div>
-                <label for="editCardSubtasks">Subtasks</label>
-                <input type="text" name="editCardSubtasks" id="editCardSubtasks" placeholder="Add new subtask">
-                <div class="edit-card-subtasks-list">
-                    <ul>
-                        <li>Implement Recipe Recommendation</li>
-                        <li>Start Page Layout</li>
-                    </ul>
-                </div>
+                 <label for="editCardSubtasks">Subtasks</label>
+                  <div class="input-container">
+                 <input type="text" name="editCardSubtasks" id="editCardSubtasks" placeholder="Add new subtask">
+                 <button id="standard-subtask-btn" class="subtask-btn plus-btn" onclick="setFocusOnInput(event)"></button>
+                  </div>
+                      <div class="edit-card-subtasks-list" id="subtask-list">
+                    <li class="subtask-item">
+                        <span class="subtask-text">Example subtask</span>
+                        <div class="subtask-actions">
+                            <button class="subtask-edit-btn" onclick="editSubtask(this)">
+                                <img src="../assets/icons/subtask-edit.svg" alt="Edit">
+                            </button>
+                            <div class="subtask-separator"></div>
+                            <button class="subtask-delete-btn" onclick="deleteSubtask(this)">
+                                <img src="../assets/icons/subtask-delete.svg" alt="Delete">
+                            </button>
+                        </div>
+                    </li>
+                 </div>
             </div>
             <div class="card-edit-footer">
                 <button class="btn-dark ok-btn">OK <img src="../assets/icons/check.svg" alt="check"></button>
