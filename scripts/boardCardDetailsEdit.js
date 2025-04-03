@@ -130,7 +130,12 @@ function populateComplexTaskData(task) {
     const subtasksList = document.querySelector('.edit-card-subtasks-list ul');
     const prioButtons = document.querySelectorAll('.prio-btn');
     
+    if (!subtasksList) {
+        console.error('Subtasks list not found!');
+        return;
+    }
     subtasksList.innerHTML = '';
+    
     if (task.subtasks && task.subtasks.length > 0) {
         task.subtasks.forEach(subtask => {
             const listItem = document.createElement('li');
