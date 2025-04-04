@@ -19,10 +19,10 @@ function cardDetailsEditOverlayHTMLTemplate() {
                 <div class="date-input due-date-edit">
                 <input type="date" name="editCardDate" id="editCardDate">
                 <button onclick="setTodayDate()" type="button" class="calendar-button">
-                                    <img src="../img/icon/event.svg" alt="Kalender öffnen">
+                                    <img src="../assets/icons/calender.svg" alt="Kalender öffnen">
                                 </button>
                             </div>
-                <div>
+                         <div>
                     <label>Prio</label>
                     <div class="prio-buttons prio-edit">
                         <button type="button" class="prio-btn urgent">Urgent <img class="urgent-image" src="../assets/icons/prio urgent.svg"></button>

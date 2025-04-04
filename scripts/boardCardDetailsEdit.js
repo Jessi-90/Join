@@ -7,35 +7,18 @@
  * @param {Event} event - The click event triggered by the user.
  */
 document.addEventListener('click', (event) => {
+    console.log('Clicked:', event.target);
     if (event.target.closest('.close-btn')) {
-        closeOverlayWrapper(event); 
+        closeBoardCardDetails(event); 
         return;
     }
+
     if (event.target.closest('.board-card-edit-container') || event.target.closest('.input-container')) {
         event.stopPropagation();
         return;
     }
 
-    closeOverlayWrapper(event);
-});
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    const addSubtaskButton = document.getElementById("standard-subtask-btn");
-    if (addSubtaskButton) {
-        addSubtaskButton.addEventListener("click", function () {
-            const inputField = document.getElementById("subtasks");
-            const subtaskList = document.getElementById("subtask-list");
-            if (inputField && subtaskList) {
-                addSubtask(inputField, subtaskList);
-            } else {
-                console.error('Subtask-Eingabefeld oder Liste nicht gefunden!');
-            }
-        });
-    } else {
-        console.error('Der "Add Subtask"-Button wurde nicht gefunden!');
-    }
-    initSubtasks();
+    closeBoardCardDetails(event);
 });
 
 
@@ -114,26 +97,27 @@ function setupContactSelection(containerId = 'assignedDropdown') {
  */
 function showBoardCardDetailsEdit() {
     let boardCardOverlayRef = document.getElementById('boardCardDetails');
-    
+
     if (!boardCardOverlayRef.querySelector('.board-card-edit-container')) {
         boardCardOverlayRef.innerHTML = cardDetailsEditOverlayHTMLTemplate();
-        
-        setTimeout(() => {
+
+        requestAnimationFrame(() => {
             if (typeof initContactSelection === 'function') {
                 initContactSelection();
             } else {
                 console.error('initContactSelection nicht gefunden!');
             }
 
-            initSubtasks();
-            initSubtasksInput(); 
-            addSubtask();
-        }, 0);
+            setTimeout(() => {
+                initializeEditSubtasksFeatures(); 
+            }, 50);
+        });
     }
 
     boardCardOverlayRef.classList.remove('d-none');
     animateEditOverlay();
 }
+
 
 
 /**
@@ -158,7 +142,7 @@ function populateBasicTaskData(task) {
  * @param {Object} task - The task object containing the data.
  */
 function populateComplexTaskData(task) {
-    const subtasksList = document.querySelector('.edit-card-subtasks-list ul');
+    const subtasksList = document.getElementById('subtask-list');
     
     if (!subtasksList) {
         console.error('Subtasks list not found!');
@@ -287,3 +271,35 @@ function renderCardDetailsSubtasks(task) {
     }
 }
 
+
+function initializeEditSubtasksFeatures() {
+    try {
+        if (typeof initSubtasks === 'function') initSubtasks();
+        else console.warn("initSubtasks nicht gefunden.");
+
+        if (typeof initSubtasksInput === 'function') initSubtasksInput();
+        else console.warn("initSubtasksInput nicht gefunden.");
+
+        setupEditSubtaskListeners(); 
+    } catch (e) {
+        console.error("Fehler bei initializeEditSubtasksFeatures:", e);
+    }
+}
+
+
+function setupEditSubtaskListeners() {
+    const addSubtaskButton = document.getElementById("standard-subtask-btn");
+    if (addSubtaskButton) {
+        addSubtaskButton.addEventListener("click", function () {
+            const inputField = document.getElementById("subtasks");
+            const subtaskList = document.getElementById("subtask-list");
+            if (inputField && subtaskList) {
+                addSubtask(inputField, subtaskList);
+            } else {
+                console.error('Subtask-Eingabefeld oder Liste nicht gefunden!');
+            }
+        });
+    } else {
+        console.error('Der "Add Subtask"-Button wurde nicht gefunden!');
+    }
+}
