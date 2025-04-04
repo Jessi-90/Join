@@ -39,11 +39,11 @@ function cardDetailsOverlayHTMLTemplate(task, categoryClassName) {
                 <p class="card-detail-list-title">Assigned To:</p>
                 <div class="card-detail-assignee-content" id="cardDetailAssigneeContent">
                     <div class="card-detail-assignee-user">
-                        <img src="../assets/icons/Profile badge1.svg" alt="User" class="user-avatar" />
+                        <img src="#" alt="User" class="user-avatar" />
                         <p>Anton Mayer</p>
                     </div>
                     <div class="card-detail-assignee-user">
-                        <img src="../assets/icons/Profile badge2.svg" alt="User" class="user-avatar" />
+                        <img src="#" alt="User" class="user-avatar" />
                         <p>No assigned user</p>
                     </div>
                 </div>
