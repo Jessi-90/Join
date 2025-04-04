@@ -234,13 +234,13 @@ function getContactDetails(assignedUser) {
 function getPriorityImage(priority) {
     switch (priority.toLowerCase()) {
         case 'low':
-            return "../assets/icons/priority-low.svg";
+            return "../assets/icons/prio low.svg";
         case 'medium':
-            return "../assets/icons/priority-normal.svg";
+            return "../assets/icons/prio medium.svg";
         case 'urgent':
-            return "../assets/icons/priority-high.svg";
+            return "../assets/icons/prio urgent.svg";
         default:
-            return "../assets/icons/priority-normal.svg";
+            return "../assets/icons/prio medium.svg";
     }
 }
 
