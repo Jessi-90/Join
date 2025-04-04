@@ -7,14 +7,41 @@
  * @param {Event} event - The click event triggered by the user.
  */
 document.addEventListener('click', (event) => {
-       const closeButton = event.target.closest('.close-btn');
-    if (closeButton) {
-        const overlay = document.getElementById('boardCardDetails');
-        const detailContainer = overlay.querySelector('.board-card-detail-container');
-        const editContainer = overlay.querySelector('.board-card-edit-container');
-        closeOverlay(overlay, detailContainer, editContainer);
+    if (event.target.closest('.close-btn')) {
+        closeOverlayWrapper(event); 
+        return;
     }
+    if (event.target.closest('.board-card-edit-container') || event.target.closest('.input-container')) {
+        event.stopPropagation();
+        return;
+    }
+
+    closeOverlayWrapper(event);
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const addSubtaskButton = document.getElementById("standard-subtask-btn");
+    if (addSubtaskButton) {
+        addSubtaskButton.addEventListener("click", function () {
+            const inputField = document.getElementById("subtasks");
+            const subtaskList = document.getElementById("subtask-list");
+            if (inputField && subtaskList) {
+                addSubtask(inputField, subtaskList);
+            } else {
+                console.error('Subtask-Eingabefeld oder Liste nicht gefunden!');
+            }
+        });
+    } else {
+        console.error('Der "Add Subtask"-Button wurde nicht gefunden!');
+    }
+    initSubtasks();
+});
+
+
+function closeOverlayWrapper(event) {
+    return closeBoardCardDetails(event);
+}
 
 
 /**
@@ -97,6 +124,10 @@ function showBoardCardDetailsEdit() {
             } else {
                 console.error('initContactSelection nicht gefunden!');
             }
+
+            initSubtasks();
+            initSubtasksInput(); 
+            addSubtask();
         }, 0);
     }
 
@@ -128,14 +159,13 @@ function populateBasicTaskData(task) {
  */
 function populateComplexTaskData(task) {
     const subtasksList = document.querySelector('.edit-card-subtasks-list ul');
-    const prioButtons = document.querySelectorAll('.prio-btn');
     
     if (!subtasksList) {
         console.error('Subtasks list not found!');
         return;
     }
-    subtasksList.innerHTML = '';
     
+    subtasksList.innerHTML = '';  
     if (task.subtasks && task.subtasks.length > 0) {
         task.subtasks.forEach(subtask => {
             const listItem = document.createElement('li');
@@ -143,8 +173,6 @@ function populateComplexTaskData(task) {
             subtasksList.appendChild(listItem);
         });
     }
-    
-    initPriorityButtons(task.priority.toLowerCase());
 }
 
 
@@ -258,56 +286,4 @@ function renderCardDetailsSubtasks(task) {
         subtasksContent.innerHTML += cardDetailSubtasksContentTemplate(subtask);
     }
 }
-
-
-/**
- * Handles the click event to determine whether the board card details overlay should be closed.
- * 
- * This function checks if the click event occurred on specific elements that should prevent closing 
- * (like the edit button), or on elements that indicate a close action (like the close button or 
- * clicking outside the overlay). If a close action is detected, it calls the closeOverlay function.
- * 
- * @param {Event} event - The click event that triggered the function.
- */
-function handleCloseClick(event) {
-    let overlay = document.getElementById('boardCardDetails');
-    let detailContainer = overlay.querySelector('.board-card-detail-container');
-    let editContainer = overlay.querySelector('.board-card-edit-container');
-
-    if (event.target.closest('.card-detail-edit-btn')) {
-        return;
-    }
-
-    if (event.target.closest('.close-btn')) {
-        closeOverlay(overlay, detailContainer, editContainer);
-        return;
-    }
-
-    if (!event.target.closest('.board-card-detail-container') && 
-        !event.target.closest('.board-card-edit-container')) {
-        closeOverlay(overlay, detailContainer, editContainer);
-    }
-}
-
-
-/**
- * Closes the board card details overlay with an animation.
- * 
- * This function removes the 'show' class from the detail and edit containers,
- * then hides the overlay after a delay to allow for a smooth transition.
- * 
- * @param {HTMLElement} overlay - The overlay element to be hidden.
- * @param {HTMLElement} detailContainer - The container for card details.
- * @param {HTMLElement} editContainer - The container for editing card details.
- */
-
-function closeOverlay(overlay, detailContainer, editContainer) {
-    if (detailContainer) detailContainer.classList.remove('show');
-    if (editContainer) editContainer.classList.remove('show');
-    setTimeout(() => {
-        overlay.classList.add('d-none');
-    }, 300);
-}
-
-
 
