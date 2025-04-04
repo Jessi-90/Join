@@ -57,7 +57,7 @@ function createNewTask(newTask, newTaskKey) {
         title: newTask.title || "",
         description: newTask.description || "",
         category: newTask.category || "",
-        assignedUsers: newTask.assignedUsers || [],
+        assignedUsers: convertArrayToFirebaseObject(newTask.assignedUsers || []),
         subtasks: convertSubtasksToObject(newTask.subtasks || []),
         priority: newTask.priority || "low",
         dueDate: newTask.dueDate || "",
@@ -72,6 +72,11 @@ function createNewTask(newTask, newTaskKey) {
  */
 function convertSubtasksToObject(subtasksArray) {
     const subtasksObject = {};
+
+    if (!Array.isArray(subtasksArray) || subtasksArray.length === 0) {
+        return { placeholder: true }; 
+    }
+
     subtasksArray.forEach((subtask, index) => {
         const subtaskId = `subtaskId${index + 1}`;
         subtasksObject[subtaskId] = {
@@ -79,6 +84,7 @@ function convertSubtasksToObject(subtasksArray) {
             completed: subtask.completed || false,
         };
     });
+
     return subtasksObject;
 }
 
@@ -224,4 +230,16 @@ function getSubtasks() {
             title: subtask.textContent.trim(),
             completed: false
         }));
+}
+
+
+function convertArrayToFirebaseObject(arr) {
+    if (!arr || arr.length === 0) {
+        return { 0: "__placeholder__" }; 
+    }
+
+    return arr.reduce((acc, val, idx) => {
+        acc[idx] = val;
+        return acc;
+    }, {});
 }
