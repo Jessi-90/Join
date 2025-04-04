@@ -16,7 +16,12 @@ function cardDetailsEditOverlayHTMLTemplate() {
                 <label for="editCardDescription">Description</label>
                 <textarea name="editCardDescription" id="editCardDescription"></textarea>
                 <label for="editCardDate">Due Date</label>
+                <div class="date-input due-date-edit">
                 <input type="date" name="editCardDate" id="editCardDate">
+                <button onclick="setTodayDate()" type="button" class="calendar-button">
+                                    <img src="../img/icon/event.svg" alt="Kalender öffnen">
+                                </button>
+                            </div>
                 <div>
                     <label>Prio</label>
                     <div class="prio-buttons prio-edit">
@@ -33,25 +38,26 @@ function cardDetailsEditOverlayHTMLTemplate() {
                     </div>
                     <ul class="dropdown-options" id="dropdownOptions"></ul>
                 </div>
-                <div id="selectedContactsContainer" class="selected-contacts-container"></div>
-                 <label for="editCardSubtasks">Subtasks</label>
-                  <div class="input-container">
-                 <input type="text" name="editCardSubtasks" id="editCardSubtasks" placeholder="Add new subtask">
-                 <button id="standard-subtask-btn" class="subtask-btn plus-btn" onclick="setFocusOnInput(event)"></button>
-                  </div>
-                      <div class="edit-card-subtasks-list" id="subtask-list">
-                    <li class="subtask-item">
-                        <span class="subtask-text">Example subtask</span>
-                        <div class="subtask-actions">
-                            <button class="subtask-edit-btn" onclick="editSubtask(this)">
-                                <img src="../assets/icons/subtask-edit.svg" alt="Edit">
-                            </button>
-                            <div class="subtask-separator"></div>
-                            <button class="subtask-delete-btn" onclick="deleteSubtask(this)">
-                                <img src="../assets/icons/subtask-delete.svg" alt="Delete">
-                            </button>
-                        </div>
-                    </li>
+              <div id="selectedContactsContainer" class="selected-contacts-container"></div>
+              <label for="editCardSubtasks">Subtasks</label>
+              <div class="input-container">
+                  <input type="text" name="editCardSubtasks" id="subtasks" placeholder="Add new subtask">
+                  <button id="standard-subtask-btn" class="subtask-btn plus-btn" onclick="setFocusOnInput(event)">+</button>
+              </div>
+              <ul class="edit-card-subtasks-list" id="subtask-list">
+                  <li class="subtask-item">
+                      <span class="subtask-text">Example subtask</span>
+                      <div class="subtask-actions">
+                          <button class="subtask-edit-btn" onclick="editSubtask(this)">
+                              <img src="../assets/icons/subtask-edit.svg" alt="Edit">
+                          </button>
+                          <div class="subtask-separator"></div>
+                          <button class="subtask-delete-btn" onclick="deleteSubtask(this)">
+                          <img src="../assets/icons/subtask-delete.svg" alt="Delete">
+                          </button>
+                          </div>
+                      </li>
+                  </ul>              
                  </div>
             </div>
             <div class="card-edit-footer">

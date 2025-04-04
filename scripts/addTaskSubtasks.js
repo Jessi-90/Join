@@ -6,9 +6,13 @@ function initSubtasks() {
     const subtasksInput = document.getElementById("subtasks");
     const subtaskList = document.getElementById("subtaskList");
 
-    addSubtaskButton.addEventListener("click", function () {
-        addSubtask(subtasksInput, subtaskList);
-    });
+    if (addSubtaskButton && subtasksInput && subtaskList) {
+        addSubtaskButton.addEventListener("click", function () {
+            addSubtask(subtasksInput, subtaskList);
+        });
+    } else {
+        console.error("Elemente nicht gefunden! Bitte überprüfe die IDs.");
+    }
 }
 
 
