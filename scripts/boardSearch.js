@@ -88,7 +88,7 @@ function isSearchInputValid(searchInput) {
 function filterTasksBySearchInput(searchInput) {
     return Object.values(originalTasksData).filter(task => {
         if (typeof task !== "object" || !task.title) {
-            return false; // Skip invalid or incomplete tasks
+            return false;
         }
 
         const titleMatch = task.title.toLowerCase().includes(searchInput);
@@ -106,8 +106,8 @@ function filterTasksBySearchInput(searchInput) {
  * @param {array} matchingTasks - The filtered array of tasks matching the search input.
  */
 function updateTasksAndRender(matchingTasks) {
-    currentTasksData = matchingTasks; // Update the global state
-    renderTasks(currentTasksData);    // Render the updated tasks
+    currentTasksData = matchingTasks;
+    renderTasks(currentTasksData);
 }
 
 
