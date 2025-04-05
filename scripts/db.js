@@ -6,7 +6,7 @@ const BASE_URL = "https://da-join-project-default-rtdb.europe-west1.firebasedata
 
 
 /**
- * Fetches tasks data from the server and updates the currentTasksData array.
+ * Fetches tasks data from the server, cleans the data and updates the currentTasksData array.
  * Uses the fetch API to get data from the specified endpoint.
  * 
  * @throws Will throw an error if the fetch operation fails or the response is not okay.
