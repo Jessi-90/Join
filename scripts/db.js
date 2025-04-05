@@ -69,6 +69,13 @@ function cleanAssignedUsers(assignedUsersRaw) {
 }
 
 
+/**
+ * Cleans the raw subtasks object by removing placeholder entries if present.
+ *
+ * @function
+ * @param {Object} subtasksRaw - The raw subtasks data object.
+ * @returns {Object} A cleaned object containing only valid subtasks
+ */ 
 function cleanSubtasks(subtasksRaw) {
     if (!subtasksRaw || subtasksRaw.placeholder) {
         return {};
