@@ -85,6 +85,18 @@ function cleanSubtasks(subtasksRaw) {
 }
 
 
+/**
+ * Cleans the raw task data object by processing each task's `assignedUsers` and `subtasks` fields.
+ * 
+ * - If the key is `"counter"`, it is added as-is without modification.
+ * - For all other tasks, the function removes placeholder entries from `assignedUsers`
+ *   and sanitizes `subtasks`.
+ * 
+ * @function
+ * @param {Object} rawData - The raw task data object retrieved from the backend.
+ * @param {Object} rawData[key] - An object representing a task or a special key like "counter".
+ * @returns {Object} A new object containing the cleaned tasks with valid assigned users and subtasks.
+ */
 function cleanRawTasksData(rawData) {
     const cleanedData = {};
     for (const [key, value] of Object.entries(rawData)) {
