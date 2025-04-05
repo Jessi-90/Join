@@ -1,44 +1,68 @@
+function initEditTaskSubtasks() {
+    initSubtasksInput();      
+    initSubtasks();          
+    setFocusOnInput();       
+}
+
 /**
- * Closes the board card details overlay when the close button is clicked.
+ * Handles global click events for managing overlay visibility and dropdown behavior.
  * 
- * Listens for click events on elements with the class 'close-btn' and 
- * triggers the closeOverlay() function to hide the overlay.
+ * This listener:
+ * - Closes the assigned contacts dropdown if the user clicks outside of it.
+ * - Closes the board card edit overlay when the close button is clicked or a click occurs outside the overlay.
+ * - Prevents propagation when clicking inside the edit container to avoid unintended closures.
  * 
- * @param {Event} event - The click event triggered by the user.
+ * Note: Requires `isClickOutsideOverlay` and `closeBoardCardDetails()` to be defined elsewhere.
+ * 
+ * @param {MouseEvent} event - The click event triggered by the user.
  */
 document.addEventListener('click', (event) => {
-    console.log('Clicked:', event.target);
+    const dropdown = document.getElementById('dropdownOptions');
+    const dropdownToggle = document.getElementById('assignedDropdown');
+    const editContainer = document.querySelector('.board-card-edit-container');
+    const overlay = document.getElementById('boardCardDetails');
+
+    if (
+        dropdown && dropdownToggle &&
+        !dropdown.contains(event.target) &&
+        !dropdownToggle.contains(event.target)
+    ) {
+        dropdown.style.display = 'none';
+    }
     if (event.target.closest('.close-btn')) {
-        closeBoardCardDetails(event); 
+        closeBoardCardDetails(event);
         return;
     }
-
-    if (event.target.closest('.board-card-edit-container') || event.target.closest('.input-container')) {
+    if (editContainer && editContainer.contains(event.target)) {
         event.stopPropagation();
         return;
     }
-
-    closeBoardCardDetails(event);
+    if (overlay && !overlay.classList.contains('d-none')) {
+        closeBoardCardDetails(event);
+    }
 });
 
 
-function closeOverlayWrapper(event) {
-    return closeBoardCardDetails(event);
-}
-
-
 /**
- * Initializes the contact selection process by setting up the assigned users.
+ * Initializes the contact selection dropdown and pre-selects assigned users.
  * 
- * Creates a set of selected contacts based on the provided user list and 
- * asynchronously populates the contact list. Additionally, sets up the dropdown toggle.
+ * Converts the provided list of assigned users into a Set of selected contact names,
+ * populates the contact list in the dropdown, and sets up the dropdown toggle behavior.
+ * After rendering, it also initializes the subtask input functionality if available.
  * 
- * @param {Array<Object>} assignedUsers - An array of user objects with a 'name' property.
+ * @async
+ * @param {Array<Object>} [assignedUsers=[]] - An array of user objects with a 'name' property.
  */
 async function initContactSelection(assignedUsers = []) {
     selectedContacts = new Set(assignedUsers.map(user => user.name));
     await populateContacts(); 
     setupDropdownToggle(); 
+
+    requestAnimationFrame(() => {
+        if (typeof initEditTaskSubtasks === 'function') {
+            initEditTaskSubtasks(); 
+        }
+    });
 }
 
 
@@ -88,29 +112,37 @@ function setupContactSelection(containerId = 'assignedDropdown') {
 
 
 /**
- * Displays and initializes the edit overlay for a board card.
+ * Displays and initializes the edit overlay for a board task card.
  * 
- * Finds the 'boardCardDetails' element and checks if the edit container is already present. 
- * If not, it injects the HTML template for editing. 
- * Attempts to initialize contact selection if the function exists, logging an error if not. 
- * Finally, it makes the overlay visible and triggers an animation.
+ * Injects the edit HTML template into the overlay if it hasn't been rendered yet.
+ * Initializes contact selection, priority buttons, and subtask input functionality.
+ * Also makes the overlay visible and triggers its appearance animation.
+ * 
+ * This function safely checks if dependent functions exist before calling them.
  */
 function showBoardCardDetailsEdit() {
     let boardCardOverlayRef = document.getElementById('boardCardDetails');
 
     if (!boardCardOverlayRef.querySelector('.board-card-edit-container')) {
         boardCardOverlayRef.innerHTML = cardDetailsEditOverlayHTMLTemplate();
-
         requestAnimationFrame(() => {
-            if (typeof initContactSelection === 'function') {
-                initContactSelection();
-            } else {
-                console.error('initContactSelection nicht gefunden!');
-            }
-
-            setTimeout(() => {
-                initializeEditSubtasksFeatures(); 
-            }, 50);
+            requestAnimationFrame(() => {
+                if (typeof initContactSelection === 'function') {
+                    const taskId = getCurrentlyViewedTaskId(); 
+                    const task = currentTasksData[taskId] || {};
+                    initContactSelection(task.assignedUsers || []);
+                } else {
+                    console.error('initContactSelection nicht gefunden!');
+                }
+                if (typeof initPriorityButtons === 'function') {
+                    initPriorityButtons();
+                } else {
+                    console.error('initPriorityButtons nicht gefunden!');
+                }
+                if (typeof initEditTaskSubtasks === 'function') {
+                    initEditTaskSubtasks();
+                }
+            });
         });
     }
 
@@ -137,26 +169,45 @@ function populateBasicTaskData(task) {
 
 
 /**
- * Populates the complex task data (assignees, subtasks, priority) in the edit overlay.
+ * Populates the complex task data such as subtasks in the edit overlay.
  * 
- * @param {Object} task - The task object containing the data.
+ * Checks if the task contains a valid subtasks array and passes it to populateSubtasks().
+ * 
+ * @param {Object} task - The task object containing subtasks.
  */
 function populateComplexTaskData(task) {
-    const subtasksList = document.getElementById('subtask-list');
-    
-    if (!subtasksList) {
-        console.error('Subtasks list not found!');
+    const subtasks = task.subtasks;
+    if (!Array.isArray(subtasks) || subtasks.length === 0) return;
+    populateSubtasks(subtasks);
+}
+
+
+/**
+ * Populates the subtask list in the edit overlay with existing subtasks.
+ * 
+ * Iterates over the given subtasks array, creates DOM elements for each subtask, 
+ * attaches click event listeners, and appends them to the subtask list container.
+ * 
+ * @param {Array<Object|string>} subtasks - An array of subtask objects or strings.
+ * Each subtask should either be an object with a 'title' property or a string.
+ */
+function populateSubtasks(subtasks) {
+    if (!Array.isArray(subtasks)) {
+        console.error("populateSubtasks erwartet ein Array, erhalten:", subtasks);
         return;
     }
-    
-    subtasksList.innerHTML = '';  
-    if (task.subtasks && task.subtasks.length > 0) {
-        task.subtasks.forEach(subtask => {
-            const listItem = document.createElement('li');
-            listItem.textContent = subtask.title || subtask;
-            subtasksList.appendChild(listItem);
-        });
+    const subtasksList = document.getElementById('subtask-list');
+    if (!subtasksList) {
+        console.warn("Subtask-List Element nicht gefunden!");
+        return;
     }
+    subtasksList.innerHTML = '';
+
+    subtasks.forEach((subtask) => {
+        const subtaskElement = createSubtaskElement(subtask.title || subtask);
+        addClickEventToSubtask(subtaskElement);
+        subtasksList.appendChild(subtaskElement);
+    });
 }
 
 
@@ -257,49 +308,23 @@ function getCurrentlyViewedTaskId() {
 
 
 /**
- * Renders the subtasks for a given task in the task edit view.
- *
- * @param {Object} task - The task object containing subtasks.
+ * Initializes the toggle functionality for the assigned user dropdown.
+ * 
+ * - Removes any previously attached click event listener to prevent duplicates.
+ * - Adds a new click event listener to the 'assignedDropdown' element.
+ * - On click, it prevents the event from bubbling up (to avoid unwanted closing)
+ *   and toggles the visibility of the dropdown menu.
+ * 
+ * Relies on the 'toggleDropdown()' function and the presence of an element with the ID 'assignedDropdown'.
  */
-function renderCardDetailsSubtasks(task) {
-    const subtasksContent = document.getElementById('cardDetailSubtasksContent');
-    subtasksContent.innerHTML = '';
-    const subtasksArray = generateSubtasksArray(task);
-    for (let subtaskIndex = 0; subtaskIndex < subtasksArray.length; subtaskIndex++) {
-        const subtask = subtasksArray[subtaskIndex];
-        subtasksContent.innerHTML += cardDetailSubtasksContentTemplate(subtask);
-    }
-}
-
-
-function initializeEditSubtasksFeatures() {
-    try {
-        if (typeof initSubtasks === 'function') initSubtasks();
-        else console.warn("initSubtasks nicht gefunden.");
-
-        if (typeof initSubtasksInput === 'function') initSubtasksInput();
-        else console.warn("initSubtasksInput nicht gefunden.");
-
-        setupEditSubtaskListeners(); 
-    } catch (e) {
-        console.error("Fehler bei initializeEditSubtasksFeatures:", e);
-    }
-}
-
-
-function setupEditSubtaskListeners() {
-    const addSubtaskButton = document.getElementById("standard-subtask-btn");
-    if (addSubtaskButton) {
-        addSubtaskButton.addEventListener("click", function () {
-            const inputField = document.getElementById("subtasks");
-            const subtaskList = document.getElementById("subtask-list");
-            if (inputField && subtaskList) {
-                addSubtask(inputField, subtaskList);
-            } else {
-                console.error('Subtask-Eingabefeld oder Liste nicht gefunden!');
-            }
+function setupDropdownToggle() {
+    const dropdown = document.getElementById('assignedDropdown');
+    if (dropdown) {
+        dropdown.removeEventListener('click', toggleDropdown); 
+        dropdown.addEventListener('click', function(event) {
+            event.stopPropagation(); 
+            toggleDropdown();
         });
-    } else {
-        console.error('Der "Add Subtask"-Button wurde nicht gefunden!');
     }
 }
+
