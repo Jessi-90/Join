@@ -18,9 +18,9 @@ async function fetchTasksData() {
         if (!databaseResponse.ok) {
             throw new Error(`Status: ${databaseResponse.status}`);
         }
-
-        currentTasksData = await databaseResponse.json();
-
+        const rawData = await databaseResponse.json();
+        const cleanedData = cleanRawTasksData(rawData);
+        currentTasksData = cleanedData;
     } catch (error) {
         console.error("Error fetching data:", error);
         currentTasksData = {};
@@ -48,3 +48,40 @@ async function getContacts() {
     }
     return contacts; 
 };
+
+
+function cleanAssignedUsers(assignedUsersRaw) {
+    if (!assignedUsersRaw) return [];
+
+    const usersArray = Array.isArray(assignedUsersRaw)
+        ? assignedUsersRaw
+        : Object.values(assignedUsersRaw);
+
+    return usersArray.filter(user => user !== "__placeholder__");
+}
+
+
+function cleanSubtasks(subtasksRaw) {
+    if (!subtasksRaw || subtasksRaw.placeholder) {
+        return {};
+    }
+
+    return subtasksRaw;
+}
+
+
+function cleanRawTasksData(rawData) {
+    const cleanedData = {};
+    for (const [key, value] of Object.entries(rawData)) {
+        if (key === "counter") {
+            cleanedData[key] = value;
+            continue;
+        }
+        cleanedData[key] = {
+            ...value,
+            assignedUsers: cleanAssignedUsers(value.assignedUsers),
+            subtasks: cleanSubtasks(value.subtasks)
+        };
+    }
+    return cleanedData;
+}
