@@ -42,6 +42,7 @@
     <script src="../scripts/pushTaskToDb.js"></script>
     <script src="../scripts/sortContactData.js"></script>
     <script src="../scripts/addTaskDueDate.js"></script>
+    <script src="../scripts/boardSearch.js"></script>
 
 </head>
 
@@ -89,10 +90,9 @@
             <h1>Board</h1>
             <div class="search-and-add">
                 <div class="search-input">
-                    <input type="search" placeholder="Find Task" />
+                    <input id="search" type="search" placeholder="Find Task" />
                     <div class="search-input-icons">
-                        <img class="vertical-separator" src="../assets/icons/vertical-line-search-input.svg"
-                            alt="vertical-line" />
+                        <img class="vertical-separator" src="../assets/icons/vertical-line-search-input.svg" alt="vertical-line" />
                         <div class="search-btn-container">
                             <img class="search-btn" src="../assets/icons/search.svg" alt="search-btn" />
                         </div>
@@ -108,6 +108,7 @@
             </div>
         </section>
         <section class="board">
+            <div id="no-results-message" class="no-results" style="display: none;">No results found!</div>
             <div class="column" id="to-do-column" ondragleave="removeHighlightCardContainer('to-do-column')"
                 ondragover="dragoverHandler(event); highlightCardContainer('to-do-column')"
                 ondrop="moveCardTo(1, 'to-do-column')">
