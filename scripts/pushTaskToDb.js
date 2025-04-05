@@ -233,6 +233,19 @@ function getSubtasks() {
 }
 
 
+/**
+ * Converts an array into a Firebase-compatible object where each array index becomes a key.
+ * 
+ * - If the array is empty or falsy, it returns an object with a single placeholder entry.
+ * - Otherwise, it maps each item in the array to an object property using its index as the key.
+ * 
+ * This is useful for storing array-like data in Firebase Realtime Database,
+ * which does not natively support arrays.
+ * 
+ * @function
+ * @param {Array} arr - The input array to be converted.
+ * @returns {Object} An object representation of the array suitable for Firebase.
+ */
 function convertArrayToFirebaseObject(arr) {
     if (!arr || arr.length === 0) {
         return { 0: "__placeholder__" }; 
