@@ -50,6 +50,14 @@ async function getContacts() {
 };
 
 
+/**
+ * Cleans the raw assigned users data by converting it to an array (if necessary)
+ * and removing placeholder entries.
+ *
+ * @function
+ * @param {Array|string[]|Object} assignedUsersRaw - The raw assigned users data (array or object).
+ * @returns {Array<string>} An array of valid assigned user names.
+ */
 function cleanAssignedUsers(assignedUsersRaw) {
     if (!assignedUsersRaw) return [];
 
