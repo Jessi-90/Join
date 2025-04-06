@@ -5,7 +5,7 @@
  */
 function cardDetailsEditOverlayHTMLTemplate() {
     return `
-    <div class="board-card-edit-container">
+    <div id="boardCardDetailContainer" class="board-card-edit-container">
         <div class="board-card-edit-header">
             <button class="close-btn"><img src="../assets/icons/close_btn.svg" alt="close"/></button>
         </div>

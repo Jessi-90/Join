@@ -29,17 +29,12 @@ document.addEventListener('click', (event) => {
     ) {
         dropdown.style.display = 'none';
     }
-    if (event.target.closest('.close-btn')) {
-        closeBoardCardDetails(event);
-        return;
-    }
+    
     if (editContainer && editContainer.contains(event.target)) {
         event.stopPropagation();
         return;
     }
-    if (overlay && !overlay.classList.contains('d-none')) {
-        closeBoardCardDetails(event);
-    }
+    closeBoardCardDetails(event);
 });
 
 

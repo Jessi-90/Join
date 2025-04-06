@@ -57,13 +57,6 @@ function setFocusOnInput(event) {
     if (event && event.preventDefault) {
         event.preventDefault();
     }
-
-    const inputField = document.getElementById("subtasks");
-    if (inputField) {
-        inputField.focus(); 
-    } else {
-        console.warn('Input-Feld mit ID "subtasks" nicht gefunden.');
-    }
 }
 
 
@@ -102,10 +95,6 @@ function toggleSubtaskControlsVisibility(inputField, subtaskNav, plusButton) {
  * @param {boolean} shouldShow - Whether the element should be visible or not.
  */
 function toggleVisibility(element, shouldShow) {
-    if (!element) {
-        console.warn("toggleVisibility: Element ist null oder undefined");
-        return;
-    }
     element.classList.toggle("d-none", !shouldShow);
 }
 
