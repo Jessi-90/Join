@@ -1,6 +1,5 @@
 function initEditTaskSubtasks() {
-    initSubtasksInput();      
-    initSubtasks();          
+    initSubtasksInput();               
     setFocusOnInput();       
 }
 
