@@ -28,20 +28,18 @@ function showBoardCardDetails(taskId) {
  * @param {Event} event - The click event that triggered the function.
  */
 function closeBoardCardDetails(event) {
-    let overlay = document.getElementById('boardCardDetails');
-    let overlayContainer = document.getElementById('boardCardDetailContainer');
+    const overlay = document.getElementById('boardCardDetails');
+    const overlayContainer = document.getElementById('boardCardDetailContainer');
+    const isInsideEditOrInput = event.target.closest('.board-card-edit-container, .input-container');
 
-    if (event.target.closest('.board-card-edit-container') || event.target.closest('.input-container')) {
+    if (isInsideEditOrInput) {
         event.stopPropagation();
         return;
     }
 
     if (event.target.closest('.close-btn')) {
         overlayContainer.classList.remove('show');
-
-        setTimeout(() => {
-            overlay.classList.add('d-none');
-        }, 300);
+        setTimeout(() => overlay.classList.add('d-none'), 300);
     }
 }
 

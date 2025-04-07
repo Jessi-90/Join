@@ -1,8 +1,13 @@
+/**
+ * Initializes the editable subtasks section within the board card edit overlay.
+ * 
+ * This includes setting up the input field for new subtasks and automatically focusing it.
+ */
 function initEditTaskSubtasks() {
-    initSubtasksInput();      
-    initSubtasks();          
+    initSubtasksInput();            
     setFocusOnInput();       
 }
+
 
 /**
  * Handles global click events for managing overlay visibility and dropdown behavior.
@@ -107,36 +112,23 @@ function setupContactSelection(containerId = 'assignedDropdown') {
 
 
 /**
- * Displays and initializes the edit overlay for a board task card.
+ * Displays the board card edit overlay and initializes its content.
  * 
- * Injects the edit HTML template into the overlay if it hasn't been rendered yet.
- * Initializes contact selection, priority buttons, and subtask input functionality.
- * Also makes the overlay visible and triggers its appearance animation.
+ * If the edit overlay content has not been rendered yet, it injects the HTML template
+ * and initializes necessary UI components (e.g. contact selection, priority buttons, subtasks).
  * 
- * This function safely checks if dependent functions exist before calling them.
+ * Uses two nested `requestAnimationFrame` calls to ensure the DOM is ready before initialization.
+ * Then triggers the overlay's animation and makes it visible.
  */
 function showBoardCardDetailsEdit() {
     let boardCardOverlayRef = document.getElementById('boardCardDetails');
 
     if (!boardCardOverlayRef.querySelector('.board-card-edit-container')) {
         boardCardOverlayRef.innerHTML = cardDetailsEditOverlayHTMLTemplate();
+
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-                if (typeof initContactSelection === 'function') {
-                    const taskId = getCurrentlyViewedTaskId(); 
-                    const task = currentTasksData[taskId] || {};
-                    initContactSelection(task.assignedUsers || []);
-                } else {
-                    console.error('initContactSelection nicht gefunden!');
-                }
-                if (typeof initPriorityButtons === 'function') {
-                    initPriorityButtons();
-                } else {
-                    console.error('initPriorityButtons nicht gefunden!');
-                }
-                if (typeof initEditTaskSubtasks === 'function') {
-                    initEditTaskSubtasks();
-                }
+                initializeBoardCardEditContent();
             });
         });
     }
@@ -145,6 +137,33 @@ function showBoardCardDetailsEdit() {
     animateEditOverlay();
 }
 
+
+/**
+ * Initializes the interactive elements of the board card edit overlay.
+ * 
+ * This includes setting up:
+ * - the contact/user selection based on the assigned users of the current task,
+ * - the priority button group,
+ * - and the editable subtasks section.
+ * 
+ * Safely checks if each initializer function is defined before calling it.
+ */
+function initializeBoardCardEditContent() {
+    const taskId = getCurrentlyViewedTaskId(); 
+    const task = currentTasksData[taskId] || {};
+
+    if (typeof initContactSelection === 'function') {
+        initContactSelection(task.assignedUsers || []);
+    }
+
+    if (typeof initPriorityButtons === 'function') {
+        initPriorityButtons();
+    }
+
+    if (typeof initEditTaskSubtasks === 'function') {
+        initEditTaskSubtasks();
+    }
+}
 
 
 /**
@@ -193,11 +212,9 @@ function populateSubtasks(subtasks) {
     }
     const subtasksList = document.getElementById('subtask-list');
     if (!subtasksList) {
-        console.warn("Subtask-List Element nicht gefunden!");
         return;
     }
     subtasksList.innerHTML = '';
-
     subtasks.forEach((subtask) => {
         const subtaskElement = createSubtaskElement(subtask.title || subtask);
         addClickEventToSubtask(subtaskElement);
@@ -268,28 +285,47 @@ function editTask(taskId = getCurrentlyViewedTaskId()) {
 
 
 /**
- * Displays the details of a specific task in the board's card detail overlay.
- * Adds an Edit button to switch to the edit view.
+ * Displays the board card detail overlay for a specific task.
  * 
- * @param {string|number} taskId - The unique identifier of the task.
+ * This function prepares the overlay container, sets the current task ID,
+ * clears any previous content, renders the task details, and animates the appearance.
+ * 
+ * @param {string} taskId - The ID of the task to be shown in the detail overlay.
  */
 function showBoardCardDetails(taskId) {
     const task = currentTasksData[taskId];
-    let addTaskOverlayRef = document.getElementById('boardCardDetails');
+    const addTaskOverlayRef = document.getElementById('boardCardDetails');
+
     addTaskOverlayRef.setAttribute('data-task-id', taskId);
     addTaskOverlayRef.innerHTML = '';
-    const categoryClassName = transformTaskCategoryToClassName(task.category);
-    addTaskOverlayRef.innerHTML += cardDetailsOverlayHTMLTemplate(task, categoryClassName);
 
-    renderCardDetailsAssignedUsers(currentTasksData[taskId], taskId);
-    renderCardDetailsSubtasks(task);
+    renderBoardCardDetailsContent(taskId, task);
 
     addTaskOverlayRef.classList.remove('d-none');
 
     setTimeout(() => {
-        let overlayContainerRef = document.querySelector('.board-card-detail-container');
+        const overlayContainerRef = document.querySelector('.board-card-detail-container');
         overlayContainerRef.classList.add('show');
     }, 10);
+}
+
+
+/**
+ * Renders the content of the board card detail overlay for a given task.
+ * 
+ * This includes generating the HTML template with category-specific styling,
+ * rendering the assigned users, and displaying the subtasks for the task.
+ * 
+ * @param {string} taskId - The ID of the task to render.
+ * @param {Object} task - The task data object containing details like category, assigned users, and subtasks.
+ */
+function renderBoardCardDetailsContent(taskId, task) {
+    const addTaskOverlayRef = document.getElementById('boardCardDetails');
+    const categoryClassName = transformTaskCategoryToClassName(task.category);
+
+    addTaskOverlayRef.innerHTML += cardDetailsOverlayHTMLTemplate(task, categoryClassName);
+    renderCardDetailsAssignedUsers(task, taskId);
+    renderCardDetailsSubtasks(task);
 }
 
 
