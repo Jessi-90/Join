@@ -113,7 +113,7 @@
                 ondrop="moveCardTo(1, 'to-do-column')">
                 <div class="column-header">
                     <h2>To do</h2>
-                    <div onclick="showAddTaskOverlay()" class="add-card">
+                    <div onclick="showAddTaskOverlay(1); initAddTaskPage(); populateContacts()" class="add-card">
                     </div>
                 </div>
                 <div class="card-container" id="to-do">
@@ -124,7 +124,7 @@
                 ondrop="moveCardTo(2, 'in-progress-column')">
                 <div class="column-header">
                     <h2>In progress</h2>
-                    <div onclick="showAddTaskOverlay()" class="add-card">
+                    <div onclick="showAddTaskOverlay(2); initAddTaskPage(); populateContacts()" class="add-card">
                     </div>
                 </div>
                 <div class="card-container" id="in-progress">
@@ -136,7 +136,7 @@
                 ondrop="moveCardTo(3, 'await-feedback-column')">
                 <div class="column-header">
                     <h2>Await feedback</h2>
-                    <div onclick="showAddTaskOverlay()" class="add-card">
+                    <div onclick="showAddTaskOverlay(3); initAddTaskPage(); populateContacts()" class="add-card">
                     </div>
                 </div>
                 <div class="card-container" id="await-feedback">

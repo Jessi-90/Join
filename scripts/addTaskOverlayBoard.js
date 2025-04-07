@@ -1,8 +1,21 @@
 /**
- * Function to show the Add Task Overlay and animate the appearance with a delay.
+ * Displays the Add Task Overlay and animates its appearance with a delay.
+ * 
+ * @param {number} status - The status of the task being added.
+ * Possible values:
+ * 1 - To do
+ * 2 - In progress
+ * 3 - Await feedback
+ * 4 - Done
+ * 
+ * The function updates the overlay HTML content, makes it visible, and 
+ * adds an animation effect for smooth appearance. It uses the global 
+ * variable `currentTaskStatus` to store the provided status value for 
+ * further use during task creation.
  */
-function showAddTaskOverlay() {
+function showAddTaskOverlay(status) {
     let addTaskOverlayRef = document.getElementById('addTaskOverlay');
+    currentTaskStatus = status;
     addTaskOverlayRef.innerHTML = "";
     addTaskOverlayRef.innerHTML += showAddTaskOverlayHTMLTemplate();
     addTaskOverlayRef.classList.remove('d-none');

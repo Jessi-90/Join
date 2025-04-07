@@ -1,4 +1,16 @@
 /**
+ * Represents the current task status.
+ * This variable is used to determine the column in which a new task should be displayed.
+ * Possible values:
+ * 1 - To do
+ * 2 - In progress
+ * 3 - Await feedback
+ * Default value is 1 (To do).
+ */
+let currentTaskStatus = 1;
+
+
+/**
  * Pushes all the task data to the database using PUT to replace the entire structure.
  * @param {Event} event - The form submit event.
  * @param {Object} tasks - The tasks data from the database.
@@ -19,6 +31,7 @@ async function addNewTask(event, tasks, newTask) {
     }
 }
 
+
 /**
  * Saves the updated tasks object to the database using PUT.
  * @param {Object} tasks - The updated tasks object to save.
@@ -35,6 +48,7 @@ async function saveTasksToDatabase(tasks) {
     }
 }
 
+
 /**
  * Returns the updated counter of tasks.
  * @param {Object} tasks 
@@ -46,13 +60,13 @@ function increaseTasksCounter(tasks) {
     return counter;
 }
 
+
 /**
  * Returns the updated tasks object with the new task.
  * @param {Object} newTask The new task to add.
- * @param {string} newTaskKey The key for the new task.
  * @returns {Object} The new task object.
  */
-function createNewTask(newTask, newTaskKey) {
+function createNewTask(newTask) {
     return {
         title: newTask.title || "",
         description: newTask.description || "",
@@ -61,31 +75,44 @@ function createNewTask(newTask, newTaskKey) {
         subtasks: convertSubtasksToObject(newTask.subtasks || []),
         priority: newTask.priority || "low",
         dueDate: newTask.dueDate || "",
-        status: newTask.status !== undefined ? newTask.status : 1,
+        status: currentTaskStatus || 1,
     };
 }
 
+
 /**
- * Converts an array of subtasks into an object with unique IDs.
- * @param {Array} subtasksArray - The array of subtasks.
- * @returns {Object} The subtasks in object format.
+ * Converts an array of subtasks into an object format suitable for storage.
+ * 
+ * @param {Array} subtasksArray - The array of subtasks to be converted.
+ * @returns {Object} The object containing subtasks with their IDs as keys.
  */
 function convertSubtasksToObject(subtasksArray) {
     const subtasksObject = {};
 
     if (!Array.isArray(subtasksArray) || subtasksArray.length === 0) {
-        return { placeholder: true }; 
+        return { placeholder: true };
     }
 
     subtasksArray.forEach((subtask, index) => {
         const subtaskId = `subtaskId${index + 1}`;
-        subtasksObject[subtaskId] = {
-            title: subtask.title || "",
-            completed: subtask.completed || false,
-        };
+        subtasksObject[subtaskId] = processSubtask(subtask);
     });
 
     return subtasksObject;
+}
+
+
+/**
+ * Processes a single subtask into the desired format.
+ * 
+ * @param {Object} subtask - The subtask object to process.
+ * @returns {Object} The processed subtask object with default values.
+ */
+function processSubtask(subtask) {
+    return {
+        title: subtask.title || "",
+        completed: subtask.completed || false,
+    };
 }
 
 
@@ -96,9 +123,9 @@ function convertSubtasksToObject(subtasksArray) {
 function sendTaskFormToDb() {
     const form = document.querySelector("form");
     form.addEventListener("submit", async function (event) {
-        await handleFormSubmission(event); // Verarbeite die Formulardaten
-        clearFormAndData(); // Bereinige die Form nach erfolgreicher Verarbeitung
-        redirectToBoardPage(); // Weiterleiten zu board.html
+        await handleFormSubmission(event);
+        clearFormAndData();
+        redirectToBoardPage();
     });
 }
 
