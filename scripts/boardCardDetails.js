@@ -106,9 +106,12 @@ function transformTaskCategoryToClassName(taskCategory) {
 }
 
 /**
- * Sets up event listeners for the subtask checkboxes.
+ * Attaches change event listeners to all subtask checkboxes in the task detail view.
+ * 
+ * When a checkbox is toggled, the corresponding subtask's completion state is updated
+ * using the `updateSubtaskState` function.
  *
- * @param {number|string} taskId - The unique identifier of the task.
+ * @param {string} taskId - The unique identifier of the task whose subtasks are being tracked.
  */
 function setupSubtaskEventListeners(taskId) {
     const checkboxes = document.querySelectorAll('#cardDetailSubtasksContent input[type="checkbox"]');
@@ -116,16 +119,21 @@ function setupSubtaskEventListeners(taskId) {
         checkbox.addEventListener('change', (e) => {
             const subtaskId = e.target.id;
             const isChecked = e.target.checked;
-            updateSubtaskState(subtaskId, isChecked);        });
+            updateSubtaskState(subtaskId, isChecked);
+            });
     });
 }
 
+
 /**
- * Updates the state of a subtask.
+ * Updates the completion state of a specific subtask for the currently open task.
+ * 
+ * Retrieves the current open task from the DOM, identifies the subtask by its ID,
+ * and sets its `completed` property to the provided checkbox state.
+ * The updated subtask state is stored back in the global `currentTasksData`.
  *
- * @param {number|string} taskId - The unique identifier of the task.
- * @param {number|string} subtaskId - The unique identifier of the subtask.
- * @param {boolean} isChecked - The new completed state of the subtask.
+ * @param {string} subtaskId - The unique identifier of the subtask to update.
+ * @param {boolean} isChecked - Indicates whether the subtask is completed (`true`) or not (`false`).
  */
 function updateSubtaskState(subtaskId, isChecked) {
     const currentOpenTask = document.getElementById("boardCardDetails");
