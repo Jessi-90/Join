@@ -31,6 +31,7 @@ function closeBoardCardDetails(event) {
     let overlay = document.getElementById('boardCardDetails');
     let overlayContainer = document.getElementById('boardCardDetailContainer');
 
+    updateTasksInDatabase(currentTasksData);
     if (event.target.closest('.board-card-edit-container') || event.target.closest('.input-container')) {
         event.stopPropagation();
         return;
