@@ -1,7 +1,6 @@
 function initEditTaskSubtasks() {
-    initSubtasksInput();      
-    initSubtasks();          
-    setFocusOnInput();       
+    initSubtasksInput();
+    setFocusOnInput();
 }
 
 /**
@@ -29,7 +28,7 @@ document.addEventListener('click', (event) => {
     ) {
         dropdown.style.display = 'none';
     }
-    
+
     if (editContainer && editContainer.contains(event.target)) {
         event.stopPropagation();
         return;
@@ -50,12 +49,12 @@ document.addEventListener('click', (event) => {
  */
 async function initContactSelection(assignedUsers = []) {
     selectedContacts = new Set(assignedUsers.map(user => user.name));
-    await populateContacts(); 
-    setupDropdownToggle(); 
+    await populateContacts();
+    setupDropdownToggle();
 
     requestAnimationFrame(() => {
         if (typeof initEditTaskSubtasks === 'function') {
-            initEditTaskSubtasks(); 
+            initEditTaskSubtasks();
         }
     });
 }
@@ -69,11 +68,11 @@ async function initContactSelection(assignedUsers = []) {
 function setupDropdownToggle() {
     const dropdown = document.getElementById('assignedDropdown');
     if (dropdown) {
-  
+
         dropdown.removeEventListener('click', toggleDropdown);
-      
-        dropdown.addEventListener('click', function(event) {
-            event.stopPropagation(); 
+
+        dropdown.addEventListener('click', function (event) {
+            event.stopPropagation();
             toggleDropdown();
         });
     }
@@ -123,7 +122,7 @@ function showBoardCardDetailsEdit() {
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 if (typeof initContactSelection === 'function') {
-                    const taskId = getCurrentlyViewedTaskId(); 
+                    const taskId = getCurrentlyViewedTaskId();
                     const task = currentTasksData[taskId] || {};
                     initContactSelection(task.assignedUsers || []);
                 } else {
@@ -156,7 +155,7 @@ function populateBasicTaskData(task) {
     const titleInput = document.getElementById('editCardTitle');
     const descriptionTextarea = document.getElementById('editCardDescription');
     const dateInput = document.getElementById('editCardDate');
-    
+
     titleInput.value = task.title || '';
     descriptionTextarea.value = task.description || '';
     dateInput.value = task.dueDate || '';
@@ -215,7 +214,7 @@ function populateSubtasks(subtasks) {
  */
 function populateEditOverlay(taskId) {
     const task = currentTasksData[taskId];
-    
+
     populateBasicTaskData(task);
     populateComplexTaskData(task);
 
@@ -258,9 +257,9 @@ function animateEditOverlay(animate = true) {
  */
 function editTask(taskId = getCurrentlyViewedTaskId()) {
     if (taskId) {
-        showBoardCardDetailsEdit();   
-        populateEditOverlay(taskId);    
-        animateEditOverlay(true);     
+        showBoardCardDetailsEdit();
+        populateEditOverlay(taskId);
+        animateEditOverlay(true);
     } else {
         console.error("No taskId provided in editTask");
     }
@@ -315,9 +314,9 @@ function getCurrentlyViewedTaskId() {
 function setupDropdownToggle() {
     const dropdown = document.getElementById('assignedDropdown');
     if (dropdown) {
-        dropdown.removeEventListener('click', toggleDropdown); 
-        dropdown.addEventListener('click', function(event) {
-            event.stopPropagation(); 
+        dropdown.removeEventListener('click', toggleDropdown);
+        dropdown.addEventListener('click', function (event) {
+            event.stopPropagation();
             toggleDropdown();
         });
     }
