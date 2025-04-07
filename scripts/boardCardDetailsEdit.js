@@ -112,6 +112,7 @@ function setupContactSelection(containerId = 'assignedDropdown') {
  * Injects the edit HTML template into the overlay if it hasn't been rendered yet.
  * Initializes contact selection, priority buttons, and subtask input functionality.
  * Also makes the overlay visible and triggers its appearance animation.
+ * Adds a click event listener to handle dropdown interactions.
  * 
  * This function safely checks if dependent functions exist before calling them.
  */
@@ -143,8 +144,55 @@ function showBoardCardDetailsEdit() {
 
     boardCardOverlayRef.classList.remove('d-none');
     animateEditOverlay();
+    setupEditOverlayClickListenerForAssignedToDropdown();
 }
 
+
+/**
+ * Sets up a click event listener for the edit overlay to handle dropdown interactions.
+ * 
+ * Ensures that clicks outside the dropdown menu and toggle button close the dropdown,
+ * while clicks inside the dropdown or on the toggle button keep it open.
+ */
+function setupEditOverlayClickListenerForAssignedToDropdown() {
+    const overlayContainer = document.querySelector('.board-card-edit-container');
+    const dropdown = document.getElementById('dropdownOptions');
+    const toggleButton = document.querySelector('.selected-option');
+
+    overlayContainer.addEventListener('click', function(event) {
+        if (shouldKeepDropdownOpen(event, toggleButton, dropdown)) {
+            return; 
+        }
+
+        closeDropdownIfVisible(dropdown);
+    });
+}
+
+
+/**
+ * Helper function to determine if a click should keep the dropdown open.
+ * 
+ * @param {Event} event - The click event to evaluate.
+ * @param {Element} toggleButton - The element that toggles the dropdown.
+ * @param {Element} dropdown - The dropdown element itself.
+ * @returns {boolean} Returns true if the dropdown should remain open.
+ */
+function shouldKeepDropdownOpen(event, toggleButton, dropdown) {
+    return (toggleButton && toggleButton.contains(event.target)) ||
+           (dropdown && dropdown.contains(event.target));
+}
+
+
+/**
+ * Closes the dropdown menu if it is currently visible.
+ * 
+ * @param {Element} dropdown - The dropdown element to be closed.
+ */
+function closeDropdownIfVisible(dropdown) {
+    if (dropdown && dropdown.style.display === 'block') {
+        dropdown.style.display = 'none';
+    }
+}
 
 
 /**

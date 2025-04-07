@@ -56,7 +56,7 @@ function showAddTaskOverlayHTMLTemplate() {
                                     <img class="custom-arrow" src="../assets/icons/arrow_drop_down.svg"
                                         alt="Dropdown Arrow">
                                 </div>
-                                <ul class="dropdown-options" id="dropdownOptions"></ul>
+                                <ul class="dropdown-options d-none" id="dropdownOptions"></ul>
                             </div>
                             <div id="selectedContactsContainer" class="selected-contacts-container"></div>
                         </div>

@@ -470,7 +470,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .dropdown-options {
-    display: none;
     position: absolute;
     top: 100%;
     left: 0;

@@ -3,32 +3,35 @@ const assignedUsersLimit = 5;
 
 /**
  * Toggles the visibility of the dropdown menu.
- * If the dropdown is currently open, it will close, and vice versa.
+ * If the dropdown is currently hidden, it will remove the 'd-none' class to show it;
+ * otherwise, it will add the 'd-none' class to hide it.
  */
 function toggleDropdown() {
     let dropdown = document.getElementById('dropdownOptions');
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    if (dropdown) {
+        dropdown.classList.toggle('d-none');
+    }
 }
 
 
-/**
- * Closes the dropdown menu when a click occurs outside of the dropdown area,
- * but only if the user is on the 'add_task.html' page or the overlay is visible.
- */
-document.addEventListener('click', (event) => {
-    let isAddTaskPage = window.location.pathname.includes('add_task.html');
-    let overlay = document.querySelector('.add-task-overlay-container');
-    let isOverlayVisible = overlay && getComputedStyle(overlay).display !== 'none';
+// /**
+//  * Closes the dropdown menu when a click occurs outside of the dropdown area,
+//  * but only if the user is on the 'add_task.html' page or the overlay is visible.
+//  */
+// document.addEventListener('click', (event) => {
+//     let isAddTaskPage = window.location.pathname.includes('add_task.html');
+//     let overlay = document.querySelector('.add-task-overlay-container');
+//     let isOverlayVisible = overlay && !overlay.classList.contains('d-none');
 
-    if (isAddTaskPage || isOverlayVisible) {
-        let dropdown = document.getElementById('dropdownOptions');
-        let assignedDropdown = document.getElementById('assignedDropdown');
+//     if (isAddTaskPage || isOverlayVisible) {
+//         let dropdown = document.getElementById('dropdownOptions');
+//         let assignedDropdown = document.getElementById('assignedDropdown');
 
-        if (dropdown && assignedDropdown && !assignedDropdown.contains(event.target)) {
-            dropdown.style.display = 'none';
-        }
-    }
-});
+//         if (dropdown && assignedDropdown && !assignedDropdown.contains(event.target)) {
+//             dropdown.classList.add('d-none');
+//         }
+//     }
+// });
 
 
 /**
