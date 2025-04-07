@@ -44,7 +44,6 @@ function initializeTaskBackup() {
  */
 function searchTasks() {
     const searchInput = getSearchInput();
-
     const noResultsMessage = document.getElementById("no-results-message");
 
     if (!isSearchInputValid(searchInput)) {
@@ -54,9 +53,7 @@ function searchTasks() {
     }
 
     const matchingTasks = filterTasksBySearchInput(searchInput);
-
     toggleNoResultsMessage(noResultsMessage, matchingTasks.length);
-
     updateTasksAndRender(matchingTasks);
 }
 
@@ -112,16 +109,19 @@ function updateTasksAndRender(matchingTasks) {
 
 
 /**
- * Checks whether the search input field is empty. If it is empty, 
- * restores the original task data (`originalTasksData`) to `currentTasksData` 
- * and triggers the rendering of tasks.
+ * Checks whether the search input field is empty. If it is empty,
+ * restores the original task data (`originalTasksData`) to `currentTasksData`,
+ * triggers the rendering of tasks, and ensures the visibility of the
+ * "No results found" message is updated appropriately.
  */
 function checkSearchInput() {
     const searchInput = document.getElementById("search").value;
+    const noResultsMessage = document.getElementById("no-results-message");
 
     if (searchInput.trim() === "") {
         currentTasksData = JSON.parse(JSON.stringify(originalTasksData));
         renderTasks(currentTasksData);
+        toggleNoResultsMessage(noResultsMessage, currentTasksData.length); // Sichtbarkeit aktualisieren
     }
 }
 
@@ -132,9 +132,5 @@ function checkSearchInput() {
  * @param {number} matchingTasksLength - The length of the array of matching tasks.
  */
 function toggleNoResultsMessage(messageElement, matchingTasksLength) {
-    if (matchingTasksLength === 0) {
-        messageElement.style.display = "block";
-    } else {
-        messageElement.style.display = "none";
-    }
+    messageElement.classList.toggle('d-none', matchingTasksLength !== 0);
 }

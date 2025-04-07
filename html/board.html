@@ -26,7 +26,7 @@
     <script src="../scripts/add_task-script.js" defer></script>
     <script src="../scripts/addTaskOverlayBoard.js" defer></script>
     <script src="../scripts/boardCardDetails.js" defer></script>
-    <script src="../scripts/boardCardDetailsEdit.js" defer></script> 
+    <script src="../scripts/boardCardDetailsEdit.js" defer></script>
     <script src="../scripts/templates/cardDetailsOverlayTemplate.js"></script>
     <script src="../scripts/general-navbarscript.js" defer></script>
     <script src="../scripts/userCredentials.js"></script>
@@ -92,7 +92,8 @@
                 <div class="search-input">
                     <input id="search" type="search" placeholder="Find Task" />
                     <div class="search-input-icons">
-                        <img class="vertical-separator" src="../assets/icons/vertical-line-search-input.svg" alt="vertical-line" />
+                        <img class="vertical-separator" src="../assets/icons/vertical-line-search-input.svg"
+                            alt="vertical-line" />
                         <div class="search-btn-container">
                             <img class="search-btn" src="../assets/icons/search.svg" alt="search-btn" />
                         </div>
@@ -108,7 +109,7 @@
             </div>
         </section>
         <section class="board">
-            <div id="no-results-message" class="no-results" style="display: none;">No results found!</div>
+            <div id="no-results-message" class="no-results d-none">No results found!</div>
             <div class="column" id="to-do-column" ondragleave="removeHighlightCardContainer('to-do-column')"
                 ondragover="dragoverHandler(event); highlightCardContainer('to-do-column')"
                 ondrop="moveCardTo(1, 'to-do-column')">
