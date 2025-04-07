@@ -14,18 +14,19 @@
 	<link rel="icon" media="(prefers-color-scheme: dark)" href="./assets/icons/favicon-logo.svg" type="image/svg+xml" />
 	<script src="./scripts/script.js"></script>
 	<script src="./scripts/guestLogin.js"></script>
-	<script src="./scripts/summaryscript.js"></script>
+	<!-- <script src="./scripts/summaryscript.js"></script> -->
 	<script src="./scripts/signUp.js"></script>
 	<script src="./scripts/contacts.js"></script>
 	<script src="./scripts/templates/failedLoginTemplate.js"></script>
 	<script src="./scripts/db.js"></script>
+	<script src="./scripts/sortContactData.js"></script>
 </head>
 
 <body onclick="resetInputIcon()">
 	<div class="animation-overlay" id="animation-overlay"></div>
 	<div class="log-in-page">
 		<div class="log-in-header">
-			<img id="start-logo" src="./assets/img/Capa.svg" alt="Join_logo" />
+			<img id="start-logo" src="./assets/img/join-logo-dark.svg" alt="Join_logo" />
 			<div class="link-to-sing-up-page">
 				<p>Not a Join user?</p>
 				<a href="./html/sign_up.html" class="btn-dark sign-up-btn"> Sign up </a>
@@ -40,13 +41,13 @@
 					</div>
 				</div>
 				<form action="submit" class="log-in-form">
-					<input id="input-mail" type="email" placeholder="Email" class="input-bg-email log-in-input-field" />
+					<input id="input-mail" type="email" placeholder="Email" class="input-bg-email log-in-input-field" autocomplete="email"/>
 					<div class="input-password-wrapper">
 						<input onclick="protectionEventBubbeling(event)" onfocus="toggleInputIcon(event)"
 							onblur="toggleInputIcon(event)" id="input-password" type="password" placeholder="Password"
-							class="input-bg-pwd log-in-input-field margin-b20" />
+							class="input-bg-pwd log-in-input-field margin-b20" autocomplete="current-password"/>
 						<img onclick="protectionEventBubbeling(event), togglePasswordVisibility()"
-							id="input-password-icon" src="./assets/icons/lock_icon.svg" alt="lock-icon" />
+							id="input-password-icon" src="./assets/icons/lock_icon.svg" alt="lock-icon"/>
 					</div>
 					<div class="login-btn-wrapper">
 						<button type="submit" class="btn-dark" id="logInBtn" disabled>Log in</button>
@@ -57,8 +58,8 @@
 			</div>
 		</div>
 		<div class="log-in-footer">
-			<a href="./privacy_policy.html"> Privacy Policy </a>
-			<a href="./legal_notice.html"> Legal Notice </a>
+			<a href="./html/privacy_policy.html"> Privacy Policy </a>
+			<a href="./html/legal_notice.html"> Legal Notice </a>
 		</div>
 	</div>
 </body>

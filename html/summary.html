@@ -18,7 +18,8 @@
     <script src="../scripts/db.js"></script>
     <script src="../scripts/userCredentials.js"></script>
     <script src="../scripts/board.js"></script>
-
+    <script src="../scripts/sortContactData.js"></script>
+    <script src="../scripts/authGuard.js"></script>
 </head>
 
 <body>
@@ -27,7 +28,7 @@
             <p class="headline-kanban">Kanban Project Management Tool</p>
             <div class="dropdown" id="dropdown">
                 <a href="help.html">
-                    <img class="help-btn" src="../img/icon/help.png">
+                    <img class="help-btn" src="../assets/img/help.png">
                 </a>
                 <button class="user-btn" id="userButton">☰</button>
                 <div class="dropdown-content" id="dropdownContent">
@@ -41,20 +42,20 @@
     </header>
     <aside>
         <div class="navbar">
-            <img class="join-logo" src="../img/image/Capa 2 (2).svg">
+            <img class="join-logo" src="../assets/img/join-logo.svg">
             <div class="summary-menu">
-                <a href="summary.html"> <button class="menu-summary-btn"><img src="../img/icon/Summary.svg"><span
+                <a href="summary.html"> <button class="menu-summary-btn"><img src="../assets/icons/summary.svg"><span
                             class="navbar-size">Summary</span></button></a>
-                <a href="add_task.html"> <button class="menu-summary-btn"><img src="../img/icon/edit_square.svg"><span
+                <a href="add_task.html"> <button class="menu-summary-btn"><img src="../assets/icons/edit_square.svg"><span
                             class="navbar-size">Add Task</span></button></a>
                 <a href="board.html">
                     <button class="menu-summary-btn board-btn">
-                        <img src="../img/icon/Board.svg" alt="Board Icon">
+                        <img src="../assets/icons/board.svg" alt="Board Icon">
                         <span class="navbar-size">Board</span>
                     </button>
                 </a>
                 <a href="contacts.html"> <button class="menu-summary-btn"><img
-                            src="../img/icon/perm_contact_calendar.svg"><span
+                            src="../assets/icons/contact-icon.svg"><span
                             class="navbar-size">Contacts</span></button></a>
             </div>
             <div class="summary-btn">
@@ -65,7 +66,7 @@
     </aside>
     <main>
         <div class="layout">
-            <img src="../img/image/Frame 40.png">
+            <img src="../assets/img/join-title.png">
         </div>
         <div class="to-do-dashboard">
             <div class="dashboard">
@@ -73,7 +74,7 @@
                 <a href="board.html">
                     <div class="card-todo">
                         <div class="card card-todo">
-                            <img class="card-pencil" src="../img/icon/pencil.svg">
+                            <img class="card-pencil" src="../assets/icons/pencil-summary.svg">
                             <div>
                                 <h1 id="numberTasksToDo">1</h1>
                                 <p>To-do</p>
@@ -82,7 +83,7 @@
                 </a>
                 <a href="board.html">
                     <div class="card card-todo">
-                        <img class="card-ok" src="../img/icon/Frame 59.svg">
+                        <img class="card-ok" src="../assets/icons/check-summary.svg">
 
                         <div>
                             <h1 id="numberTasksDone">1</h1>
@@ -93,7 +94,7 @@
                 </a>
             </div>
             <a href="board.html" class="card large-card">
-                <img class="urgent-img" src="../img/icon/Group 7 (2).svg">
+                <img class="urgent-img" src="../assets/icons/deadline-summary.svg">
                 <div class="urgent-box">
                     <h1 id="numberTasksUrgent">1</h1>
                     <p>Urgent</p>

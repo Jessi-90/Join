@@ -36,11 +36,13 @@ function validateSignUpForm() {
  * Sets up input event listeners for form validation.
  */
 function signUpValidation() {
-    document.getElementById("signUpName").oninput = validateSignUpForm;
-    document.getElementById("signUpEmail").oninput = validateSignUpForm;
-    document.getElementById("signUpPassword").oninput = validateSignUpForm;
-    document.getElementById("signUpConfirmPassword").oninput = validateSignUpForm;
-    document.getElementById("signUpPpCheckbox").onchange = validateSignUpForm;
+    if (window.location.pathname.endsWith("sign_up.html")) {
+        document.getElementById("signUpName").oninput = validateSignUpForm;
+        document.getElementById("signUpEmail").oninput = validateSignUpForm;
+        document.getElementById("signUpPassword").oninput = validateSignUpForm;
+        document.getElementById("signUpConfirmPassword").oninput = validateSignUpForm;
+        document.getElementById("signUpPpCheckbox").onchange = validateSignUpForm;
+    }
 }
 
 /**

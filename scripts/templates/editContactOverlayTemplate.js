@@ -4,7 +4,7 @@ return `
         <div class="modal">
             <div class="sidebar">
                 <div class="logo-container">
-                    <img class="join-logo-edit-contact" src="../assets/img/Capa 2 (2).svg">
+                    <img class="join-logo-edit-contact" src="../assets/img/join-logo.svg">
                 </div>
                 <h1>Edit contact</h1>
                 <div class="horizontal-line"></div>

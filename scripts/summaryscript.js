@@ -99,12 +99,14 @@ function getLoggedInUser() {
 function renderNumberTasks() {
     let tasksArray = mapTasksData();
     let numberTasksData = getNumberTasks(tasksArray);
-    document.getElementById('numberTasksToDo').innerHTML = numberTasksData.numberTasksToDo;
-    document.getElementById('numberTasksDone').innerHTML = numberTasksData.numberTasksDone;
-    document.getElementById('numberTasksUrgent').innerHTML = numberTasksData.numberTasksUrgent;
-    document.getElementById('numberTasksTotal').innerHTML = numberTasksData.numberTotalTasks;
-    document.getElementById('numberTasksInProgress').innerHTML = numberTasksData.numberTasksInProgress;
-    document.getElementById('numberTasksAwaitingFeedback').innerHTML = numberTasksData.numberTasksAwaitingFeedback;
+    if (window.location.pathname.endsWith("summary.html")) {
+        document.getElementById('numberTasksToDo').innerHTML = numberTasksData.numberTasksToDo;
+        document.getElementById('numberTasksDone').innerHTML = numberTasksData.numberTasksDone;
+        document.getElementById('numberTasksUrgent').innerHTML = numberTasksData.numberTasksUrgent;
+        document.getElementById('numberTasksTotal').innerHTML = numberTasksData.numberTotalTasks;
+        document.getElementById('numberTasksInProgress').innerHTML = numberTasksData.numberTasksInProgress;
+        document.getElementById('numberTasksAwaitingFeedback').innerHTML = numberTasksData.numberTasksAwaitingFeedback;
+    }
 }
 
 
@@ -166,7 +168,9 @@ function renderUpcomingDate() {
         document.getElementById('dateDeadline').innerHTML = "No";
         return;
     }
-    document.getElementById('dateDeadline').innerHTML = upcomingDateTask.formattedDate;
+    if (window.location.pathname.endsWith("summary.html")) {
+        document.getElementById('dateDeadline').innerHTML = upcomingDateTask.formattedDate;
+    }
 }
 
 
