@@ -19,7 +19,7 @@ function cardDetailsEditOverlayHTMLTemplate() {
                 <input type="date" name="editCardDate" id="editCardDate">
                 <div>
                     <label>Prio</label>
-                    <div class="prio-buttons">
+                    <div class="prio-buttons edit-prio-buttons-width">
                         <button type="button" class="prio-btn urgent">Urgent <img class="urgent-image" src="../assets/icons/prio urgent.svg"></button>
                         <button type="button" class="prio-btn medium">Medium <img class="medium-image" src="../assets/icons/prio medium.svg"></button>
                         <button type="button" class="prio-btn low">Low <img src="../assets/icons/prio low.svg"></button>

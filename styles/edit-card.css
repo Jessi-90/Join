@@ -130,5 +130,9 @@
 .prio-buttons {
   display: flex;
   gap: 10px;
-  width: 129%;
+
+}
+
+.edit-prio-buttons-width {
+  width: 129% !important;
 }
