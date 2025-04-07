@@ -133,7 +133,6 @@ function updateSubtaskState(subtaskId, isChecked) {
     const subtask = task.subtasks[subtaskId];
     if (subtask) {
         subtask.completed = isChecked;
-        // saveTask(task); // Implement this function to save the updated task
-        console.log(`Subtask ${subtaskId} updated to ${isChecked ? 'completed' : 'not completed'}`);      
+        currentTasksData[taskId].subtasks[subtaskId].completed = isChecked;  
     }
 }
