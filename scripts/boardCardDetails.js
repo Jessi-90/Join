@@ -12,6 +12,7 @@ function showBoardCardDetails(taskId) {
     addTaskOverlayRef.innerHTML += cardDetailsOverlayHTMLTemplate(task, categoryClassName);
     renderCardDetailsAssignedUsers(currentTasksData[taskId], taskId);
     renderCardDetailsSubtasks(task);
+    setupSubtaskEventListeners(taskId);
     addTaskOverlayRef.classList.remove('d-none');
     setTimeout(() => {
         let overlayContainerRef = document.querySelector('.board-card-detail-container');
@@ -101,4 +102,24 @@ function generateSubtasksArray(task) {
 function transformTaskCategoryToClassName(taskCategory) {
     const categoryClassName = taskCategory.toLowerCase().replace(/\s+/g, '-');
     return categoryClassName;
+}
+
+function setupSubtaskEventListeners(taskId) {
+    const checkboxes = document.querySelectorAll('#cardDetailSubtasksContent input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', (e) => {
+            const subtaskId = e.target.id;
+            const isChecked = e.target.checked;
+            console.log(`Subtask ${subtaskId} is now ${isChecked ? 'completed' : 'not completed'}`);
+        });
+    });
+}
+
+function getSubtaskStates() {
+    const states = [];
+    const checkboxes = document.querySelectorAll('#cardDetailSubtasksContent input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+        states.push({ id: cb.id, completed: cb.checked });
+    });
+    return states;
 }
