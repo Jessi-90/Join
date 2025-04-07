@@ -12,7 +12,6 @@ function showBoardCardDetails(taskId) {
     addTaskOverlayRef.innerHTML += cardDetailsOverlayHTMLTemplate(task, categoryClassName);
     renderCardDetailsAssignedUsers(currentTasksData[taskId], taskId);
     renderCardDetailsSubtasks(task);
-    setupSubtaskEventListeners(taskId);
     addTaskOverlayRef.classList.remove('d-none');
     setTimeout(() => {
         let overlayContainerRef = document.querySelector('.board-card-detail-container');
@@ -75,6 +74,7 @@ function renderCardDetailsSubtasks(task) {
         const subtask = subtasksArray[subtaskIndex];
         subtasksContent.innerHTML += cardDetailSubtasksContentTemplate(subtask);
     }
+    setupSubtaskEventListeners(task.id);
 }
 
 /**
@@ -104,22 +104,46 @@ function transformTaskCategoryToClassName(taskCategory) {
     return categoryClassName;
 }
 
+/**
+ * Sets up event listeners for the subtask checkboxes.
+ *
+ * @param {number|string} taskId - The unique identifier of the task.
+ */
 function setupSubtaskEventListeners(taskId) {
     const checkboxes = document.querySelectorAll('#cardDetailSubtasksContent input[type="checkbox"]');
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', (e) => {
             const subtaskId = e.target.id;
             const isChecked = e.target.checked;
+            updateSubtaskState(subtaskId, isChecked);
             console.log(`Subtask ${subtaskId} is now ${isChecked ? 'completed' : 'not completed'}`);
         });
     });
 }
 
-function getSubtaskStates() {
-    const states = [];
-    const checkboxes = document.querySelectorAll('#cardDetailSubtasksContent input[type="checkbox"]');
-    checkboxes.forEach(cb => {
-        states.push({ id: cb.id, completed: cb.checked });
-    });
-    return states;
+/**
+ * Updates the state of a subtask.
+ *
+ * @param {number|string} taskId - The unique identifier of the task.
+ * @param {number|string} subtaskId - The unique identifier of the subtask.
+ * @param {boolean} isChecked - The new completed state of the subtask.
+ */
+function updateSubtaskState(subtaskId, isChecked) {
+    // Implement the logic to update the subtask state in your data model
+    // For example, you might update the task object and save it to local storage or a server
+    // const task = getTaskById(taskId); // Implement this function to get the task by its ID
+    const currentOpenTask = document.getElementById("boardCardDetails");
+    const taskId = currentOpenTask.dataset.taskId;
+    console.log(taskId); 
+    const task = currentTasksData[taskId];   
+    console.log(task); 
+    console.log(subtaskId);
+    console.log("subtasks Inhalt:", task.subtasks);
+    console.log("Typ:", typeof task.subtasks);
+    const subtask = task.subtasks[subtaskId];
+    if (subtask) {
+        subtask.completed = isChecked;
+        // saveTask(task); // Implement this function to save the updated task
+        console.log(`Subtask ${subtaskId} updated to ${isChecked ? 'completed' : 'not completed'}`);      
+    }
 }
