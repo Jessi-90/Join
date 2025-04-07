@@ -90,29 +90,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 /**
- * Logs out the current user and redirects to the login page.
- *
- * - If the user is a guest, it removes the "userType" from localStorage.
- * - If the user is a registered user, it removes their session data from
- *   localStorage and sessionStorage.
- * - If Firebase authentication is available, it signs the user out.
- * - Finally, it redirects the user to the index.html (login page).
+ * Logs out the current user and clears all local/session data.
+ * Signs out from Firebase if available, then redirects to login page.
  */
 function logoutUser() {
-  let userType = localStorage.getItem("userType");
+  localStorage.clear();
+  sessionStorage.clear();
 
-  if (userType === "guest") {
-      localStorage.removeItem("userType");
-  } else {
-      localStorage.removeItem("currentUser");
-      sessionStorage.removeItem("currentUser");
-
-      if (typeof firebase !== "undefined") {
-        firebase.auth().signOut()
-            .then(() => console.log("User ausgeloggt"))
-            .catch(error => console.error("Fehler beim Ausloggen:", error));
-    }
-}
+  if (typeof firebase !== "undefined") {
+    firebase.auth().signOut()
+      .then(() => console.log("User successfully logged out."))
+      .catch(error => console.error("Error while logging out:", error));
+  }
 
   window.location.href = "/index.html";
 }
