@@ -115,9 +115,7 @@ function setupSubtaskEventListeners(taskId) {
         checkbox.addEventListener('change', (e) => {
             const subtaskId = e.target.id;
             const isChecked = e.target.checked;
-            updateSubtaskState(subtaskId, isChecked);
-            console.log(`Subtask ${subtaskId} is now ${isChecked ? 'completed' : 'not completed'}`);
-        });
+            updateSubtaskState(subtaskId, isChecked);        });
     });
 }
 
@@ -129,17 +127,9 @@ function setupSubtaskEventListeners(taskId) {
  * @param {boolean} isChecked - The new completed state of the subtask.
  */
 function updateSubtaskState(subtaskId, isChecked) {
-    // Implement the logic to update the subtask state in your data model
-    // For example, you might update the task object and save it to local storage or a server
-    // const task = getTaskById(taskId); // Implement this function to get the task by its ID
     const currentOpenTask = document.getElementById("boardCardDetails");
     const taskId = currentOpenTask.dataset.taskId;
-    console.log(taskId); 
-    const task = currentTasksData[taskId];   
-    console.log(task); 
-    console.log(subtaskId);
-    console.log("subtasks Inhalt:", task.subtasks);
-    console.log("Typ:", typeof task.subtasks);
+    const task = currentTasksData[taskId];
     const subtask = task.subtasks[subtaskId];
     if (subtask) {
         subtask.completed = isChecked;
