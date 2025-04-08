@@ -1,22 +1,4 @@
 /**
- * Initializes the subtask input, allowing new subtasks to be added to the list.
- */
-function initSubtasks() {
-    const addSubtaskButton = document.getElementById("addSubtask");
-    const subtasksInput = document.getElementById("subtasks");
-    const subtaskList = document.getElementById("subtaskList");
-
-    if (addSubtaskButton && subtasksInput && subtaskList) {
-        addSubtaskButton.addEventListener("click", function () {
-            addSubtask(subtasksInput, subtaskList);
-        });
-    } else {
-        console.error("Elemente nicht gefunden! Bitte überprüfe die IDs.");
-    }
-}
-
-
-/**
  * Adds a new subtask to the subtask list.
  * Clears the input field after adding the subtask.
  * 
