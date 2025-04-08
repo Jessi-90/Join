@@ -31,16 +31,18 @@ function closeBoardCardDetails(event) {
     let overlay = document.getElementById('boardCardDetails');
     let overlayContainer = document.getElementById('boardCardDetailContainer');
 
-    if (event.target.closest('.board-card-detail-container') && !event.target.closest('.close-btn')) {
+    if (event.target.closest('.board-card-edit-container') || event.target.closest('.input-container')) {
         event.stopPropagation();
         return;
     }
 
-    overlayContainer.classList.remove('show');
+    if (event.target.closest('.close-btn')) {
+        overlayContainer.classList.remove('show');
 
-    setTimeout(() => {
-        overlay.classList.add('d-none');
-    }, 300);
+        setTimeout(() => {
+            overlay.classList.add('d-none');
+        }, 300);
+    }
 }
 
 /**

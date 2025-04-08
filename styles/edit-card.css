@@ -37,7 +37,6 @@
   justify-content: flex-start;
   align-items: flex-start;
   width: calc(100% - 24px);
-  height: 697px;
   overflow-y: scroll;
   overflow-x: hidden;
   padding-right: 24px;
@@ -127,12 +126,15 @@
   padding: 18px 16px;
 }
 
-.prio-buttons {
+.prio-edit {
   display: flex;
   gap: 10px;
-
+  width: 129%;
 }
 
-.edit-prio-buttons-width {
-  width: 129% !important;
+.due-date-edit {
+  width: 100%;
 }
+
+.form-group {
+  width: 100%;

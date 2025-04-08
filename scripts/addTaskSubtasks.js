@@ -1,18 +1,4 @@
 /**
- * Initializes the subtask input, allowing new subtasks to be added to the list.
- */
-function initSubtasks() {
-    const addSubtaskButton = document.getElementById("addSubtask");
-    const subtasksInput = document.getElementById("subtasks");
-    const subtaskList = document.getElementById("subtaskList");
-
-    addSubtaskButton.addEventListener("click", function () {
-        addSubtask(subtasksInput, subtaskList);
-    });
-}
-
-
-/**
  * Adds a new subtask to the subtask list.
  * Clears the input field after adding the subtask.
  * 
@@ -50,9 +36,9 @@ function getSubtaskElements() {
  * @param {Event} event - The event triggered by the button click.
  */
 function setFocusOnInput(event) {
-    event.preventDefault(); // Prevents the default action (e.g., form submission)
-    const inputField = document.getElementById("subtasks");
-    inputField.focus(); // Sets focus to the input field
+    if (event && event.preventDefault) {
+        event.preventDefault();
+    }
 }
 
 
