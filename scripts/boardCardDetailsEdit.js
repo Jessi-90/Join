@@ -1,6 +1,5 @@
 function initEditTaskSubtasks() {
-    initSubtasksInput();      
-    initSubtasks();          
+    initSubtasksInput();            
     setFocusOnInput();       
 }
 
@@ -50,9 +49,7 @@ function initEditTaskSubtasks() {
  */
 async function initContactSelection(assignedUsers = []) {
     selectedContacts = new Set(assignedUsers.map(user => user.name));
-    await populateContacts(); 
-    setupDropdownToggle(); 
-
+    await populateContacts();  
     requestAnimationFrame(() => {
         if (typeof initEditTaskSubtasks === 'function') {
             initEditTaskSubtasks(); 
@@ -144,7 +141,6 @@ function showBoardCardDetailsEdit() {
 
     boardCardOverlayRef.classList.remove('d-none');
     animateEditOverlay();
-    setupEditOverlayClickListenerForAssignedToDropdown();
 }
 
 
@@ -308,7 +304,11 @@ function editTask(taskId = getCurrentlyViewedTaskId()) {
     if (taskId) {
         showBoardCardDetailsEdit();   
         populateEditOverlay(taskId);    
-        animateEditOverlay(true);     
+        animateEditOverlay(true);
+        setTimeout(() => {
+            initializeDropdown();  
+        }, 10);
+           
     } else {
         console.error("No taskId provided in editTask");
     }
