@@ -56,7 +56,7 @@ function cardDetailsEditOverlayHTMLTemplate() {
                  </div>
             </div>
             <div class="card-edit-footer">
-                <button class="btn-dark ok-btn">OK <img src="../assets/icons/check.svg" alt="check"></button>
+                <button onclick="saveEditedTask()" class="btn-dark ok-btn">OK <img src="../assets/icons/check.svg" alt="check"></button>
             </div>
         </div>
     </div>

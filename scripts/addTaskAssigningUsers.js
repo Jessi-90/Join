@@ -212,3 +212,26 @@ function loadAssignedUsersFromSession() {
     let storedContacts = JSON.parse(sessionStorage.getItem('selectedContacts')) || [];
     selectedContacts = new Set(storedContacts);
 }
+
+
+/**
+ * Generates HTML content to display the assigned users of a task.
+ * 
+ * - If no users are assigned, a placeholder message is shown.
+ * - If users are assigned, it renders each user using a template function.
+ *
+ * @param {Object} task - The task object containing assignment data.
+ * @param {Object} [task.assignedUsers={}] - A key-value object where keys are user IDs and values are user names.
+ * @returns {string} - HTML string representing the assigned users or a placeholder message.
+ */
+function generateAssigneeHTML(task) {
+    const assignedUsers = task.assignedUsers || {};
+
+    if (Object.keys(assignedUsers).length === 0) {
+        return `<div class="card-detail-assignee-user"><p>No assigned user</p></div>`;
+    }
+
+    return Object.entries(assignedUsers).map(([id, name]) =>
+        cardDetailAssigneeContentTemplate(task, id, task.id)
+    ).join('');
+}

@@ -256,3 +256,43 @@ function convertArrayToFirebaseObject(arr) {
         return acc;
     }, {});
 }
+
+
+/**
+ * Fetches task data from the Firebase Realtime Database and updates the local state.
+ *
+ * - Sends a GET request to the `/tasks.json` endpoint.
+ * - Stores the retrieved tasks in the `currentTasksData` variable.
+ * - Logs the fetched data for debugging.
+ *
+ * @returns {Promise<void>} Resolves when the task data has been successfully fetched and stored.
+ */
+async function fetchTasksData() {
+    try {
+        const response = await fetch(`${BASE_URL}/tasks.json`);
+        currentTasksData = await response.json(); 
+        console.log("Fetched tasks:", currentTasksData);
+    } catch (error) {
+        console.error("Fehler beim Laden der Tasks:", error);
+    }
+}
+
+
+/**
+ * Updates a task in the database via PUT request.
+ * 
+ * @param {string} taskId - ID of the task to update.
+ * @param {Object} updatedTask - New task data.
+ * @returns {Promise<void>} Resolves on success, throws on error.
+ */
+async function updateTaskInDatabase(taskId, updatedTask) {
+    try {
+        await fetch(`${BASE_URL}/tasks/${taskId}.json`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedTask),
+        });
+    } catch (error) {
+        throw new Error("Fehler beim Update in der Datenbank: " + error);
+    }
+}
