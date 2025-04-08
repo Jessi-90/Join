@@ -8,30 +8,71 @@ const assignedUsersLimit = 5;
 
 
 /**
- * Toggles the visibility of the dropdown menu by adding or removing the 'd-none' class.
- * Adapts behavior based on whether we're in any overlay or on a standalone page.
+ * Toggles the visibility of the dropdown menu and sets up or removes event listeners accordingly.
  */
 function toggleDropdown() {
     const dropdownOptions = document.getElementById('dropdownOptions');
-    
-    dropdownOptions.classList.toggle('d-none');
-    
     const container = getParentContainer();
-    
-    if (!dropdownOptions.classList.contains('d-none')) {
-        setTimeout(() => {
-            if (container !== document) {
-                container.addEventListener('click', closeDropdownOnClickOutside);
 
-            } else {
-                document.addEventListener('click', closeDropdownOnClickOutside);
-            }
-        }, 0);
+    toggleDropdownVisibility(dropdownOptions);
+
+    if (!isDropdownHidden(dropdownOptions)) {
+        addCloseListener(container);
     } else {
         removeCloseListener(container);
     }
 }
 
+
+/**
+ * Toggles the 'd-none' class to show or hide the dropdown.
+ * 
+ * @param {HTMLElement} dropdownElement - The dropdown element to toggle.
+ */
+function toggleDropdownVisibility(dropdownElement) {
+    dropdownElement.classList.toggle('d-none');
+}
+
+
+/**
+ * Checks if the dropdown is currently hidden.
+ * 
+ * @param {HTMLElement} dropdownElement - The dropdown element to check.
+ * @returns {boolean} - True if dropdown is hidden, false otherwise.
+ */
+function isDropdownHidden(dropdownElement) {
+    return dropdownElement.classList.contains('d-none');
+}
+
+
+/**
+ * Adds a click event listener to close the dropdown when clicking outside of it.
+ * 
+ * @param {HTMLElement|Document} container - The parent container to attach the listener to.
+ */
+function addCloseListener(container) {
+    setTimeout(() => {
+        if (container !== document) {
+            container.addEventListener('click', closeDropdownOnClickOutside);
+        } else {
+            document.addEventListener('click', closeDropdownOnClickOutside);
+        }
+    }, 0);
+}
+
+
+/**
+ * Removes the click event listener that closes the dropdown.
+ * 
+ * @param {HTMLElement|Document} container - The container from which to remove the listener.
+ */
+function removeCloseListener(container) {
+    if (container !== document) {
+        container.removeEventListener('click', closeDropdownOnClickOutside);
+    } else {
+        document.removeEventListener('click', closeDropdownOnClickOutside);
+    }
+}
 
 /**
  * Determines the parent container for event listeners.
@@ -89,23 +130,41 @@ function closeDropdownOnClickOutside(event) {
 
 
 /**
- * Initialize dropdown functionality
- * This function can be called separately when needed
+ * Initialize dropdown functionality.
+ * This function can be called separately when needed.
  */
 function initializeDropdown() {
     const selectedOption = document.querySelector('.selected-option');
-    
-    if (selectedOption) {
-        selectedOption.removeEventListener('click', handleSelectedOptionClick);
-        selectedOption.addEventListener('click', handleSelectedOptionClick);
-    }
-    
     const dropdownOptions = document.getElementById('dropdownOptions');
 
-    if (dropdownOptions) {
-        dropdownOptions.removeEventListener('click', handleDropdownOptionsClick);
-        dropdownOptions.addEventListener('click', handleDropdownOptionsClick);
-    }
+    setupSelectedOptionListener(selectedOption);
+    setupDropdownOptionsListener(dropdownOptions);
+}
+
+
+/**
+ * Sets up the click event listener for the selected option.
+ * 
+ * @param {HTMLElement|null} selectedOption - The element that displays the selected option.
+ */
+function setupSelectedOptionListener(selectedOption) {
+    if (!selectedOption) return;
+
+    selectedOption.removeEventListener('click', handleSelectedOptionClick);
+    selectedOption.addEventListener('click', handleSelectedOptionClick);
+}
+
+
+/**
+ * Sets up the click event listener for the dropdown options container.
+ * 
+ * @param {HTMLElement|null} dropdownOptions - The container holding all dropdown options.
+ */
+function setupDropdownOptionsListener(dropdownOptions) {
+    if (!dropdownOptions) return;
+
+    dropdownOptions.removeEventListener('click', handleDropdownOptionsClick);
+    dropdownOptions.addEventListener('click', handleDropdownOptionsClick);
 }
 
 
