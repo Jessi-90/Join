@@ -51,7 +51,7 @@ function showAddTaskOverlayHTMLTemplate() {
                         <div class="form-group">
                             <label for="assigned">Assigned to</label>
                             <div class="custom-dropdown" id="assignedDropdown">
-                                <div class="selected-option" onclick="toggleDropdown()">
+                                <div class="selected-option">
                                     Select contacts to assign
                                     <img class="custom-arrow" src="../assets/icons/arrow_drop_down.svg"
                                         alt="Dropdown Arrow">

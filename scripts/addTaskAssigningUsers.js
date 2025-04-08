@@ -1,37 +1,135 @@
 const assignedUsersLimit = 5;
 
-
 /**
- * Toggles the visibility of the dropdown menu.
- * If the dropdown is currently hidden, it will remove the 'd-none' class to show it;
- * otherwise, it will add the 'd-none' class to hide it.
+ * Toggles the visibility of the dropdown menu by adding or removing the 'd-none' class.
+ * Adapts behavior based on whether we're in any overlay or on a standalone page.
  */
 function toggleDropdown() {
-    let dropdown = document.getElementById('dropdownOptions');
-    if (dropdown) {
-        dropdown.classList.toggle('d-none');
+    const dropdownOptions = document.getElementById('dropdownOptions');
+    
+    // Toggle the d-none class to show/hide the dropdown
+    dropdownOptions.classList.toggle('d-none');
+    
+    // Get the parent container (overlay or document)
+    const container = getParentContainer();
+    
+    // If dropdown is now visible, add event listener to close it when clicking outside
+    if (!dropdownOptions.classList.contains('d-none')) {
+        // Use setTimeout to avoid the current click event from immediately closing the dropdown
+        setTimeout(() => {
+            if (container !== document) {
+                // Add listener to the container (overlay)
+                container.addEventListener('click', closeDropdownOnClickOutside);
+            } else {
+                // Add listener to the document for standalone page
+                document.addEventListener('click', closeDropdownOnClickOutside);
+            }
+        }, 0);
+    } else {
+        // Remove the event listener
+        removeCloseListener(container);
     }
 }
 
+/**
+ * Determines the parent container for event listeners.
+ * Could be an overlay container or the document.
+ * 
+ * @returns {Element|Document} The parent container element or document
+ */
+function getParentContainer() {
+    // Check for Add Task overlay
+    const addTaskOverlay = document.querySelector('.add-task-overlay-container');
+    if (addTaskOverlay) {
+        return addTaskOverlay;
+    }
+    
+    // Check for Edit Task overlay
+    const editTaskOverlay = document.querySelector('.board-card-edit-container');
+    if (editTaskOverlay) {
+        return editTaskOverlay;
+    }
+    
+    // Default to document if no overlay is found
+    return document;
+}
 
-// /**
-//  * Closes the dropdown menu when a click occurs outside of the dropdown area,
-//  * but only if the user is on the 'add_task.html' page or the overlay is visible.
-//  */
-// document.addEventListener('click', (event) => {
-//     let isAddTaskPage = window.location.pathname.includes('add_task.html');
-//     let overlay = document.querySelector('.add-task-overlay-container');
-//     let isOverlayVisible = overlay && !overlay.classList.contains('d-none');
+/**
+ * Removes the click event listener from the appropriate container.
+ * 
+ * @param {Element|Document} container - The container element or document
+ */
+function removeCloseListener(container) {
+    if (container && container !== document) {
+        container.removeEventListener('click', closeDropdownOnClickOutside);
+    } else {
+        document.removeEventListener('click', closeDropdownOnClickOutside);
+    }
+}
 
-//     if (isAddTaskPage || isOverlayVisible) {
-//         let dropdown = document.getElementById('dropdownOptions');
-//         let assignedDropdown = document.getElementById('assignedDropdown');
+/**
+ * Closes the dropdown when clicking outside of it.
+ * Works on both overlays and standalone pages.
+ * @param {Event} event - The click event
+ */
+function closeDropdownOnClickOutside(event) {
+    const dropdownOptions = document.getElementById('dropdownOptions');
+    const assignedDropdown = document.getElementById('assignedDropdown');
+    
+    // Check if the click was outside the dropdown
+    if (!assignedDropdown.contains(event.target)) {
+        dropdownOptions.classList.add('d-none');
+        
+        // Get the parent container and remove the listener
+        const container = getParentContainer();
+        removeCloseListener(container);
+    }
+}
 
-//         if (dropdown && assignedDropdown && !assignedDropdown.contains(event.target)) {
-//             dropdown.classList.add('d-none');
-//         }
-//     }
-// });
+/**
+ * Initialize dropdown functionality
+ * This function can be called separately when needed
+ */
+function initializeDropdown() {
+    const selectedOption = document.querySelector('.selected-option');
+    
+    // Toggle dropdown when clicking on the selected option
+    if (selectedOption) {
+        // Remove any existing event listeners first to prevent duplicates
+        selectedOption.removeEventListener('click', handleSelectedOptionClick);
+        // Add the click handler
+        selectedOption.addEventListener('click', handleSelectedOptionClick);
+    }
+    
+    // Initialize any options in the dropdown
+    const dropdownOptions = document.getElementById('dropdownOptions');
+    if (dropdownOptions) {
+        // Remove any existing event listeners first
+        dropdownOptions.removeEventListener('click', handleDropdownOptionsClick);
+        // Add the click handler
+        dropdownOptions.addEventListener('click', handleDropdownOptionsClick);
+    }
+}
+
+/**
+ * Handler for the selected option click event
+ * @param {Event} event - The click event
+ */
+function handleSelectedOptionClick(event) {
+    event.stopPropagation();
+    toggleDropdown();
+}
+
+/**
+ * Handler for clicks within the dropdown options
+ * @param {Event} event - The click event
+ */
+function handleDropdownOptionsClick(event) {
+    // Stop propagation to prevent closing the dropdown when clicking on options
+    event.stopPropagation();
+    
+    // Handle option selection logic here if needed
+}
 
 
 /**

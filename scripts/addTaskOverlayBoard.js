@@ -18,38 +18,9 @@ function showAddTaskOverlay() {
     setTimeout(() => {
         let overlayContainerRef = document.querySelector('.add-task-overlay-container');
         overlayContainerRef.classList.add('show');
-        setupOverlayClickListenerForAssignedToDropdown();
+        initializeDropdown();
+ 
     }, 10);
-}
-
-
-/**
- * Sets up a click event listener for the overlay container to handle interactions with the dropdown menu.
- * 
- * Ensures that clicks outside specific elements, such as the dropdown options 
- * (`dropdownOptions`) and the toggle button (`selected-option`), close the dropdown menu if it is visible.
- */
-function setupOverlayClickListenerForAssignedToDropdown() {
-    const overlayContainer = document.querySelector('.add-task-overlay-container');
-    const dropdown = document.getElementById('dropdownOptions');
-    const toggleButton = document.querySelector('.selected-option');
-
-    // Toggle-Button: Umschalten der Dropdown-Sichtbarkeit
-    toggleButton.addEventListener('click', function(event) {
-        event.stopPropagation(); // Verhindert Konflikte mit dem Overlay-Listener
-        dropdown.classList.toggle('d-none'); // Dropdown ein-/ausschalten
-    });
-
-    // Listener für Klicks auf das Overlay
-    overlayContainer.addEventListener('click', function(event) {
-        // Ausnahme: Klick auf Dropdown oder Toggle-Button
-        if (dropdown.contains(event.target) || toggleButton.contains(event.target)) {
-            return; // Keine Aktion
-        }
-
-        // Dropdown schließen, falls sichtbar
-        dropdown.classList.add('d-none');
-    });
 }
 
 

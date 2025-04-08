@@ -4,38 +4,38 @@ function initEditTaskSubtasks() {
     setFocusOnInput();       
 }
 
-/**
- * Handles global click events for managing overlay visibility and dropdown behavior.
- * 
- * This listener:
- * - Closes the assigned contacts dropdown if the user clicks outside of it.
- * - Closes the board card edit overlay when the close button is clicked or a click occurs outside the overlay.
- * - Prevents propagation when clicking inside the edit container to avoid unintended closures.
- * 
- * Note: Requires `isClickOutsideOverlay` and `closeBoardCardDetails()` to be defined elsewhere.
- * 
- * @param {MouseEvent} event - The click event triggered by the user.
- */
-document.addEventListener('click', (event) => {
-    const dropdown = document.getElementById('dropdownOptions');
-    const dropdownToggle = document.getElementById('assignedDropdown');
-    const editContainer = document.querySelector('.board-card-edit-container');
-    const overlay = document.getElementById('boardCardDetails');
+// /**
+//  * Handles global click events for managing overlay visibility and dropdown behavior.
+//  * 
+//  * This listener:
+//  * - Closes the assigned contacts dropdown if the user clicks outside of it.
+//  * - Closes the board card edit overlay when the close button is clicked or a click occurs outside the overlay.
+//  * - Prevents propagation when clicking inside the edit container to avoid unintended closures.
+//  * 
+//  * Note: Requires `isClickOutsideOverlay` and `closeBoardCardDetails()` to be defined elsewhere.
+//  * 
+//  * @param {MouseEvent} event - The click event triggered by the user.
+//  */
+// document.addEventListener('click', (event) => {
+//     const dropdown = document.getElementById('dropdownOptions');
+//     const dropdownToggle = document.getElementById('assignedDropdown');
+//     const editContainer = document.querySelector('.board-card-edit-container');
+//     const overlay = document.getElementById('boardCardDetails');
 
-    if (
-        dropdown && dropdownToggle &&
-        !dropdown.contains(event.target) &&
-        !dropdownToggle.contains(event.target)
-    ) {
-        dropdown.style.display = 'none';
-    }
+//     if (
+//         dropdown && dropdownToggle &&
+//         !dropdown.contains(event.target) &&
+//         !dropdownToggle.contains(event.target)
+//     ) {
+//         dropdown.style.display = 'none';
+//     }
     
-    if (editContainer && editContainer.contains(event.target)) {
-        event.stopPropagation();
-        return;
-    }
-    closeBoardCardDetails(event);
-});
+//     if (editContainer && editContainer.contains(event.target)) {
+//         event.stopPropagation();
+//         return;
+//     }
+//     closeBoardCardDetails(event);
+// });
 
 
 /**
@@ -61,35 +61,35 @@ async function initContactSelection(assignedUsers = []) {
 }
 
 
-/**
- * Initializes the toggle functionality for the 'assignedDropdown' element.
- * Removes any previous click event listener to avoid duplicates, then adds a new one.
- * Stops event propagation and toggles the dropdown visibility on click.
- */
-function setupDropdownToggle() {
-    const dropdown = document.getElementById('assignedDropdown');
-    if (dropdown) {
+// /**
+//  * Initializes the toggle functionality for the 'assignedDropdown' element.
+//  * Removes any previous click event listener to avoid duplicates, then adds a new one.
+//  * Stops event propagation and toggles the dropdown visibility on click.
+//  */
+// function setupDropdownToggle() {
+//     const dropdown = document.getElementById('assignedDropdown');
+//     if (dropdown) {
   
-        dropdown.removeEventListener('click', toggleDropdown);
+//         dropdown.removeEventListener('click', toggleDropdown);
       
-        dropdown.addEventListener('click', function(event) {
-            event.stopPropagation(); 
-            toggleDropdown();
-        });
-    }
-}
+//         dropdown.addEventListener('click', function(event) {
+//             event.stopPropagation(); 
+//             toggleDropdown();
+//         });
+//     }
+// }
 
 
-/**
- * Toggles the visibility of the 'dropdownOptions' element.
- * Switches between 'block' and 'none' display styles on each call.
- */
-function toggleDropdown() {
-    const dropdown = document.getElementById('dropdownOptions');
-    if (dropdown) {
-        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-    }
-}
+// /**
+//  * Toggles the visibility of the 'dropdownOptions' element.
+//  * Switches between 'block' and 'none' display styles on each call.
+//  */
+// function toggleDropdown() {
+//     const dropdown = document.getElementById('dropdownOptions');
+//     if (dropdown) {
+//         dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+//     }
+// }
 
 
 /**
@@ -148,25 +148,25 @@ function showBoardCardDetailsEdit() {
 }
 
 
-/**
- * Sets up a click event listener for the edit overlay to handle dropdown interactions.
- * 
- * Ensures that clicks outside the dropdown menu and toggle button close the dropdown,
- * while clicks inside the dropdown or on the toggle button keep it open.
- */
-function setupEditOverlayClickListenerForAssignedToDropdown() {
-    const overlayContainer = document.querySelector('.board-card-edit-container');
-    const dropdown = document.getElementById('dropdownOptions');
-    const toggleButton = document.querySelector('.selected-option');
+// /**
+//  * Sets up a click event listener for the edit overlay to handle dropdown interactions.
+//  * 
+//  * Ensures that clicks outside the dropdown menu and toggle button close the dropdown,
+//  * while clicks inside the dropdown or on the toggle button keep it open.
+//  */
+// function setupEditOverlayClickListenerForAssignedToDropdown() {
+//     const overlayContainer = document.querySelector('.board-card-edit-container');
+//     const dropdown = document.getElementById('dropdownOptions');
+//     const toggleButton = document.querySelector('.selected-option');
 
-    overlayContainer.addEventListener('click', function(event) {
-        if (shouldKeepDropdownOpen(event, toggleButton, dropdown)) {
-            return; 
-        }
+//     overlayContainer.addEventListener('click', function(event) {
+//         if (shouldKeepDropdownOpen(event, toggleButton, dropdown)) {
+//             return; 
+//         }
 
-        closeDropdownIfVisible(dropdown);
-    });
-}
+//         closeDropdownIfVisible(dropdown);
+//     });
+// }
 
 
 /**
@@ -183,16 +183,16 @@ function shouldKeepDropdownOpen(event, toggleButton, dropdown) {
 }
 
 
-/**
- * Closes the dropdown menu if it is currently visible.
- * 
- * @param {Element} dropdown - The dropdown element to be closed.
- */
-function closeDropdownIfVisible(dropdown) {
-    if (dropdown && dropdown.style.display === 'block') {
-        dropdown.style.display = 'none';
-    }
-}
+// /**
+//  * Closes the dropdown menu if it is currently visible.
+//  * 
+//  * @param {Element} dropdown - The dropdown element to be closed.
+//  */
+// function closeDropdownIfVisible(dropdown) {
+//     if (dropdown && dropdown.style.display === 'block') {
+//         dropdown.style.display = 'none';
+//     }
+// }
 
 
 /**
@@ -350,24 +350,24 @@ function getCurrentlyViewedTaskId() {
 }
 
 
-/**
- * Initializes the toggle functionality for the assigned user dropdown.
- * 
- * - Removes any previously attached click event listener to prevent duplicates.
- * - Adds a new click event listener to the 'assignedDropdown' element.
- * - On click, it prevents the event from bubbling up (to avoid unwanted closing)
- *   and toggles the visibility of the dropdown menu.
- * 
- * Relies on the 'toggleDropdown()' function and the presence of an element with the ID 'assignedDropdown'.
- */
-function setupDropdownToggle() {
-    const dropdown = document.getElementById('assignedDropdown');
-    if (dropdown) {
-        dropdown.removeEventListener('click', toggleDropdown); 
-        dropdown.addEventListener('click', function(event) {
-            event.stopPropagation(); 
-            toggleDropdown();
-        });
-    }
-}
+// /**
+//  * Initializes the toggle functionality for the assigned user dropdown.
+//  * 
+//  * - Removes any previously attached click event listener to prevent duplicates.
+//  * - Adds a new click event listener to the 'assignedDropdown' element.
+//  * - On click, it prevents the event from bubbling up (to avoid unwanted closing)
+//  *   and toggles the visibility of the dropdown menu.
+//  * 
+//  * Relies on the 'toggleDropdown()' function and the presence of an element with the ID 'assignedDropdown'.
+//  */
+// function setupDropdownToggle() {
+//     const dropdown = document.getElementById('assignedDropdown');
+//     if (dropdown) {
+//         dropdown.removeEventListener('click', toggleDropdown); 
+//         dropdown.addEventListener('click', function(event) {
+//             event.stopPropagation(); 
+//             toggleDropdown();
+//         });
+//     }
+// }
 
