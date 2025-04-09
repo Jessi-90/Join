@@ -31,16 +31,19 @@ function closeBoardCardDetails(event) {
     let overlay = document.getElementById('boardCardDetails');
     let overlayContainer = document.getElementById('boardCardDetailContainer');
 
-    if (event.target.closest('.board-card-detail-container') && !event.target.closest('.close-btn')) {
+    updateTasksInDatabase(currentTasksData);
+    if (event.target.closest('.board-card-edit-container') || event.target.closest('.input-container')) {
         event.stopPropagation();
         return;
     }
 
-    overlayContainer.classList.remove('show');
+    if (event.target.closest('.close-btn')) {
+        overlayContainer.classList.remove('show');
 
-    setTimeout(() => {
-        overlay.classList.add('d-none');
-    }, 300);
+        setTimeout(() => {
+            overlay.classList.add('d-none');
+        }, 300);
+    }
 }
 
 /**
@@ -72,6 +75,7 @@ function renderCardDetailsSubtasks(task) {
         const subtask = subtasksArray[subtaskIndex];
         subtasksContent.innerHTML += cardDetailSubtasksContentTemplate(subtask);
     }
+    setupSubtaskEventListeners(task.id);
 }
 
 /**
@@ -99,4 +103,45 @@ function generateSubtasksArray(task) {
 function transformTaskCategoryToClassName(taskCategory) {
     const categoryClassName = taskCategory.toLowerCase().replace(/\s+/g, '-');
     return categoryClassName;
+}
+
+/**
+ * Attaches change event listeners to all subtask checkboxes in the task detail view.
+ * 
+ * When a checkbox is toggled, the corresponding subtask's completion state is updated
+ * using the `updateSubtaskState` function.
+ *
+ * @param {string} taskId - The unique identifier of the task whose subtasks are being tracked.
+ */
+function setupSubtaskEventListeners(taskId) {
+    const checkboxes = document.querySelectorAll('#cardDetailSubtasksContent input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', (e) => {
+            const subtaskId = e.target.id;
+            const isChecked = e.target.checked;
+            updateSubtaskState(subtaskId, isChecked);
+            });
+    });
+}
+
+
+/**
+ * Updates the completion state of a specific subtask for the currently open task.
+ * 
+ * Retrieves the current open task from the DOM, identifies the subtask by its ID,
+ * and sets its `completed` property to the provided checkbox state.
+ * The updated subtask state is stored back in the global `currentTasksData`.
+ *
+ * @param {string} subtaskId - The unique identifier of the subtask to update.
+ * @param {boolean} isChecked - Indicates whether the subtask is completed (`true`) or not (`false`).
+ */
+function updateSubtaskState(subtaskId, isChecked) {
+    const currentOpenTask = document.getElementById("boardCardDetails");
+    const taskId = currentOpenTask.dataset.taskId;
+    const task = currentTasksData[taskId];
+    const subtask = task.subtasks[subtaskId];
+    if (subtask) {
+        subtask.completed = isChecked;
+        currentTasksData[taskId].subtasks[subtaskId].completed = isChecked;  
+    }
 }
