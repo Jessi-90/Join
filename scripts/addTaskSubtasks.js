@@ -39,6 +39,10 @@ function setFocusOnInput(event) {
     if (event && event.preventDefault) {
         event.preventDefault();
     }
+    const inputField = document.getElementById("subtasks");
+    if (inputField) {
+        inputField.focus();
+    }
 }
 
 
