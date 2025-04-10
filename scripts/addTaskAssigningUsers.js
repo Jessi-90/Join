@@ -216,7 +216,6 @@ function loadAssignedUsersFromSession() {
 
 /**
  * Generates HTML content to display the assigned users of a task.
- * 
  * - If no users are assigned, a placeholder message is shown.
  * - If users are assigned, it renders each user using a template function.
  *
