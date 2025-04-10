@@ -31,9 +31,9 @@ main {
 }
 
 .horizontal-line {
-    width: 150px;
-    border: 3px solid rgba(41, 171, 226, 1);
-    border-radius: 3px;
+  width: 150px;
+  border: 3px solid rgba(41, 171, 226, 1);
+  border-radius: 3px;
 }
 
 .sign-up-header {
@@ -45,17 +45,17 @@ main {
 }
 
 .sign-up-header-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
 
 .sign-up-header h1 {
-    font-weight: 700;
-    font-size: 61px;
-    line-height: 73.2px;
+  font-weight: 700;
+  font-size: 61px;
+  line-height: 73.2px;
 }
 
 .sign-up-header img {
@@ -143,21 +143,21 @@ main {
 }
 
 .text-left-up {
-    width: -webkit-fill-available;
-    text-align: left;
-    margin-top: -20px;
+  width: -webkit-fill-available;
+  text-align: left;
+  margin-top: -20px;
 }
 
 .sign-up-overlay-box {
-    background-color: rgba(42, 54, 71, 1);
-    color: white;
-    border: 1px solid rgba(42, 54, 71, 1);
-    border-radius: 20px;
-    padding: 0 25px;
-    height: 71px;
-    width: 312px;
-    transform: translateY(100%);
-    transition: transform 0.3s ease-in-out;
+  background-color: rgba(42, 54, 71, 1);
+  color: white;
+  border: 1px solid rgba(42, 54, 71, 1);
+  border-radius: 20px;
+  padding: 0 25px;
+  height: 71px;
+  width: 312px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
 }
 
 .sign-up-overlay-box.show {
@@ -180,4 +180,64 @@ main {
   width: 24px;
   height: 24px;
   cursor: pointer;
+}
+
+@media (max-width: 1920px) {}
+
+@media (max-width: 1024px) {
+  .sign-up-wrapper {
+    gap: 16px;
+    border-radius: 30px;
+    padding: 24px 44px;
+  }
+
+  .sign-up-header {
+    gap: 0px;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .sign-up-wrapper {
+    gap: 16px;
+    border-radius: 30px;
+    padding: 24px 14px;
+  }
+
+  .sign-up-header {
+    gap: 0px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .sign-up-header-text {
+    gap: 0px;
+  }
+  
+  .sign-up-input-field {
+    width: 364px;
+  }
+
+  .input-password-wrapper img {
+    right: 16px;
+  }
+
+  h1 {
+    font-size: 47px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sign-up-wrapper {
+    gap: 16px;
+    border-radius: 30px;
+    padding: 24px 44px;
+  }
+
+  .sign-up-header {
+    gap: 0px;
+    width: 100%;
+    justify-content: center;
+  }
 }
