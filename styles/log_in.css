@@ -127,7 +127,7 @@
     background-image: url(../assets/icons/mail_icon.svg);
     background-repeat: no-repeat;
     background-size: 20px;
-    background-position: 375px;
+    background-position: right 26px center;
 }
 
 .input-password-wrapper {
@@ -164,7 +164,7 @@
 
 .input-mismatch {
     border: 1px solid rgba(255, 0, 31, 1);
-  }
+}
 
 .failed-login {
     position: absolute;
@@ -175,4 +175,360 @@
     font-weight: 400;
     line-height: 120%;
 }
-  
+
+/*---RESPONSIVE---*/
+
+@media (min-width: 1921px) {
+    .log-in-wrapper {
+        width: 30%;
+    }
+}
+
+@media (min-width: 1201px) and (max-width: 1920px) {
+    .log-in-wrapper {
+        width: 40%;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1200px) {
+    .log-in-wrapper {
+        width: 50%;
+    }
+
+    .log-in-header img {
+        width: 90px;
+        top: 32px;
+        left: 24px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .log-in-wrapper {
+        width: 60%;
+        padding: 48px 64px;
+    }
+
+    .log-in-title h1 {
+        font-size: 54px;
+    }
+
+    .log-in-input-field {
+        width: 90%;
+    }
+
+    .login-btn-wrapper {
+        flex-direction: row;
+        justify-content: center;
+        font-size: 16px;
+        white-space: nowrap;
+
+    }
+
+    .log-in-form {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+    }
+
+    .log-in-header img {
+        width: 80px;
+        top: 32px;
+        left: 24px;
+    }
+
+    .input-password-wrapper {
+        width: 100%;
+    }
+
+    .input-password-wrapper img {
+        position: absolute;
+        top: 25px;
+        right: 10px;
+        transform: translateY(-50%);
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .horizontal-line {
+        width: 110px;
+        border: 2px solid rgba(41, 171, 226, 1);
+        border-radius: 3px;
+    }
+
+    .log-in-wrapper {
+        width: 80%;
+        padding: 40px 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .log-in-title h1 {
+        font-size: 48px;
+    }
+
+    .log-in-input-field {
+        width: 100%;
+        max-width: 340px;
+        font-size: 18px;
+        height: 52px;
+        padding: 0 40px 0 16px;
+        border: 1px solid rgba(209, 209, 209, 1);
+        border-radius: 10px;
+        line-height: 52px;
+    }
+
+    .login-btn-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    .login-btn-wrapper button {
+        width: 100%;
+        max-width: 250px;
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .log-in-header {
+        position: relative;
+    }
+
+    .log-in-header img {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 70px;
+        margin-top: -28px;
+    }
+
+    .input-password-wrapper {
+        width: 100%;
+        max-width: 340px;
+        position: relative;
+    }
+
+    .input-password-wrapper img {
+        position: absolute;
+        top: 39%;
+        right: 27px;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        pointer-events: all;
+        cursor: pointer;
+    }
+
+    .link-to-sing-up-page {
+        display: flex;
+        position: absolute;
+        top: 782px;
+        bottom: 80px; 
+        right: 50%;
+        transform: translateX(50%);
+        gap: 20px;
+        align-items: center;
+        z-index: 10;
+    }
+
+    .link-to-sing-up-page p {
+        font-size: 18px;
+    }
+
+    .sign-up-btn {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+}
+
+@media (max-width: 500px) {
+    
+    .link-to-sing-up-page {
+        display: flex;
+        position: absolute;
+        top: 782px;
+        bottom: 80px; 
+        right: 50%;
+        transform: translateX(50%);
+        gap: 20px;
+        align-items: center;
+        z-index: 10;
+    }
+
+    .link-to-sing-up-page p {
+        font-size: 19px;
+        white-space: nowrap;
+    }
+
+    .sign-up-btn {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .log-in-header img {
+        width: 70px;
+        margin-top: -36px;
+        margin-left: -12px;
+    }
+
+    .horizontal-line {
+        width: 100px;
+        border: 1px solid rgba(41, 171, 226, 1);
+        border-radius: 3px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .log-in-wrapper {
+        padding: 32px 20px;
+        width: 100%;
+    }
+
+    .log-in-title h1 {
+        font-size: 38px;
+        line-height: 44px;
+    }
+
+    .log-in-input-field {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .login-btn-wrapper {
+        flex-direction: column;
+        gap: 16px;
+        width: 80%;
+    }
+
+    .log-in-header img {
+        top: 24px;
+        left: 24px;
+        width: 60px;
+    }
+
+    .link-to-sing-up-page {
+        top: 24px;
+        right: 24px;
+        gap: 10px;
+    }
+
+    .link-to-sing-up-page p {
+        font-size: 16px;
+    }
+
+    .sign-up-btn {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .log-in-footer {
+        gap: 10px;
+        bottom: 20px;
+    }
+
+    .link-to-sing-up-page {
+        display: none;
+    }
+
+    .input-password-wrapper {
+        width: 100%;
+        max-width: 340px;
+        position: relative;
+    }
+
+    .input-password-wrapper img {
+        position: absolute;
+        top: 39%;
+        right: 27px;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        pointer-events: all;
+        cursor: pointer;
+    }
+
+    .log-in-content {
+        width: 90%;
+    }
+
+    .login-btn-wrapper button {
+        width: 100%;
+        max-width: 280px;
+        padding: 12px;
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .log-in-header {
+        position: relative;
+        padding: 0 16px;
+    }
+
+    .log-in-header img {
+        width: 70px;
+        margin-top: -40px;
+        margin-left: -35px;
+    }
+
+    .log-in-input-field {
+        width: 100%;
+        max-width: 340px;
+        font-size: 18px;
+        height: 52px;
+        padding: 0 40px 0 16px;
+        border: 1px solid rgba(209, 209, 209, 1);
+        border-radius: 10px;
+        line-height: 52px;
+    }
+
+    .link-to-sing-up-page {
+        display: flex;
+        position: absolute;
+        top: 782px;
+        bottom: 80px; 
+        right: 50%;
+        transform: translateX(50%);
+        gap: 20px;
+        align-items: center;
+        z-index: 10;
+    }
+
+    .link-to-sing-up-page p {
+        font-size: 17px;
+        white-space: nowrap;
+    }
+
+    .sign-up-btn {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .horizontal-line {
+        width: 80px;
+        border: 1px solid rgba(41, 171, 226, 1);
+        border-radius: 3px;
+    }
+}
