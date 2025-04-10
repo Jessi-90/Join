@@ -392,6 +392,7 @@ function generateAssigneeHTML(task) {
     return Object.entries(assignedUsers).map(([id, name]) =>
         cardDetailAssigneeContentTemplate(task, id, task.id)
     ).join('');
+}
 
 /**
  * Moves the logged-in user to the top of the contacts list and adds "(You)" to the name.
@@ -414,5 +415,5 @@ function prioritizeLoggedInUser(contacts) {
 
     const filteredContacts = contacts.filter((_, i) => i !== index);
     return [loggedInContact, ...filteredContacts];
-  }
+ 
 }
