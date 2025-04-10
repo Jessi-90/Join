@@ -11,7 +11,7 @@ function addSubtask(inputField, listElement) {
         const li = document.createElement("li");
         li.textContent = subtask;
         listElement.appendChild(li);
-        inputField.value = ""; // Clear the input field
+        inputField.value = "";
     }
 }
 
@@ -38,6 +38,10 @@ function getSubtaskElements() {
 function setFocusOnInput(event) {
     if (event && event.preventDefault) {
         event.preventDefault();
+    }
+    const inputField = document.getElementById("subtasks");
+    if (inputField) {
+        inputField.focus();
     }
 }
 

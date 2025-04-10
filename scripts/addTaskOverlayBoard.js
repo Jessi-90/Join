@@ -8,8 +8,9 @@
  * 
  * The listener ensures that clicks outside certain elements, such as
  * the dropdown options or toggle button, close the dropdown menu.
+
  */
-function showAddTaskOverlay() {
+function showAddTaskOverlay(status) {
     let addTaskOverlayRef = document.getElementById('addTaskOverlay');
     addTaskOverlayRef.innerHTML = ""; 
     addTaskOverlayRef.innerHTML += showAddTaskOverlayHTMLTemplate();

@@ -261,8 +261,8 @@ function removeSelectedContactsFromStorage() {
  */
 function resetErrorMessages() {
     document.querySelectorAll(".error-message").forEach((errorMessage) => {
-        errorMessage.style.display = "none"; // Hide the error message
-        errorMessage.textContent = ""; // Clear the error message content
+        errorMessage.style.display = "none";
+        errorMessage.textContent = "";
     });
 }
 
