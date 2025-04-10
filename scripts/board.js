@@ -5,10 +5,26 @@
 let currentTasksData;
 
 /**
+ * @type {object}
+ * A global variable to store the original task data in its full structure.
+ * This variable serves as a reference to reset or restore `currentTasksData`
+ * to its initial state when needed (e.g., when the search input field is cleared).
+ */
+let originalTasksData;
+
+/**
  * The maximum length of the task description before truncating.
  * @type {number}
  */
 let maxLengthTaskDescription = 50;
+
+/**
+ * @type {number}
+ * Sets the minimum number of characters required in the search input
+ * before the search function is executed. Adjust this value to
+ * control when the search logic starts filtering tasks.
+ */
+let minSearchLength = 2;
 
 /**
  * Initializes the application by fetching task data.
@@ -16,6 +32,8 @@ let maxLengthTaskDescription = 50;
 async function init() {
     await fetchTasksData();
     renderTasks(currentTasksData);
+    initializeSearchListener();
+    initializeTaskBackup()
 }
 
 

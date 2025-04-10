@@ -34,6 +34,7 @@ document.addEventListener('click', (event) => {
 /**
  * Populates the dropdown menu with a list of contacts.
  * Fetches contact data, sorts it alphabetically by last name, and displays each contact with an avatar and a checkbox.
+ * Prioritizes the logged-in user by moving them to the top of the list and marking them as "(You)".
  * Additionally, renders avatars for selected contacts.
  * 
  * @async
@@ -43,6 +44,7 @@ async function populateContacts() {
     await mapContactsData();
 
     let contacts = prepareContacts(currentContactsData);
+    contacts = prioritizeLoggedInUser(contacts);
 
     loadAssignedUsersFromSession();
     renderDropdownOptions(contacts);
@@ -56,14 +58,15 @@ async function populateContacts() {
  * @param {Array<Object>} data - The array of contact objects from the fetched data.
  * @returns {Array<Object>} - The sorted array of contact objects with their formatted details.
  */
-function prepareContacts(data) { let contacts = data.map(contact => ({
-    name: contact.name,
-    userDetails: {
-        color: contact.color,
-        initials: contact.initials
-    }
-}));
-return sortContactsByName(contacts);
+function prepareContacts(data) {
+    let contacts = data.map(contact => ({
+        name: contact.name,
+        userDetails: {
+            color: contact.color,
+            initials: contact.initials
+        }
+    }));
+    return sortContactsByName(contacts);
 };
 
 
@@ -233,4 +236,27 @@ function generateAssigneeHTML(task) {
     return Object.entries(assignedUsers).map(([id, name]) =>
         cardDetailAssigneeContentTemplate(task, id, task.id)
     ).join('');
+
+  
+ * Moves the logged-in user to the top of the contacts list and adds "(You)" to the name.
+ * Ensures the logged-in user only appears once.
+ * 
+ * @param {Array<Object>} contacts - Array of contact objects.
+ * @returns {Array<Object>} - Updated contacts array with the logged-in user at the top.
+ */
+function prioritizeLoggedInUser(contacts) {
+    const loggedInUser = getLoggedInUser();
+    if (!loggedInUser) return contacts;
+
+    const index = contacts.findIndex(contact => contact.name === loggedInUser.name);
+    if (index === -1) return contacts;
+
+    const loggedInContact = { ...contacts[index] };
+    if (!loggedInContact.name.includes('(You)')) {
+        loggedInContact.name += ' (You)';
+    }
+
+    const filteredContacts = contacts.filter((_, i) => i !== index);
+    return [loggedInContact, ...filteredContacts];
+
 }

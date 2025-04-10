@@ -11,7 +11,7 @@ function addSubtask(inputField, listElement) {
         const li = document.createElement("li");
         li.textContent = subtask;
         listElement.appendChild(li);
-        inputField.value = ""; // Clear the input field
+        inputField.value = "";
     }
 }
 
