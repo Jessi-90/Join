@@ -237,7 +237,7 @@ function generateAssigneeHTML(task) {
         cardDetailAssigneeContentTemplate(task, id, task.id)
     ).join('');
 
-  
+/**
  * Moves the logged-in user to the top of the contacts list and adds "(You)" to the name.
  * Ensures the logged-in user only appears once.
  * 
@@ -258,5 +258,5 @@ function prioritizeLoggedInUser(contacts) {
 
     const filteredContacts = contacts.filter((_, i) => i !== index);
     return [loggedInContact, ...filteredContacts];
-
+  }
 }
