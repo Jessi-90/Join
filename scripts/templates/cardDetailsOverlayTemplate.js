@@ -82,13 +82,13 @@ function cardDetailAssigneeContentTemplate(task, assigneeId, taskId) {
  * @returns {string} The HTML string representing the subtask element.
  */
 function cardDetailSubtasksContentTemplate(subtask) {
-       return `
-        <div class="card-detail-subtasks-tasks">
-            <label class="custom-checkbox">
-                <input type="checkbox" id="${subtask.id}" name="${subtask.id}" ${subtask.completed ? 'checked' : ''}>
-                <span class="checkmark"></span>
-                <span class="subtask-title">${subtask.title}</span>
-            </label>
-        </div>
-    `;
+    return `
+     <div class="card-detail-subtasks-tasks">
+         <label class="custom-checkbox">
+             <input type="checkbox" id="${subtask.id}" name="${subtask.id}" ${subtask.completed ? 'checked' : ''}>
+             <span class="checkmark"></span>
+             <span class="subtask-title">${subtask.title}</span>
+         </label>
+     </div>
+ `;
 }

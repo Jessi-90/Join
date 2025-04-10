@@ -135,10 +135,10 @@ function renderContactDetailTemplate(contact) {
                 <div class="namefield">
                     <span>${contact.name}</span>
                     <div class="contact-actions">
-                        <button class="edit-button" onclick="showEditContactOverlay('${contact.firebaseId}')">
+                        <button class="contact-action-button edit-button" onclick="showEditContactOverlay('${contact.firebaseId}')">
                             <img src="../assets/icons/edit.svg" alt="Edit" class="button-icon">Edit
                         </button>
-                        <button class="delete-button" onclick="deleteContact('${contact.firebaseId}')">
+                        <button class="contact-action-button delete-button" onclick="deleteContact('${contact.firebaseId}')">
                             <img src="../assets/icons/delete.svg" alt="Delete" class="button-icon">Delete
                         </button>
                     </div>

@@ -160,32 +160,23 @@
 }
 
 .edit-button {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    text-decoration: none;
-    border: none;
     height: 24px;
     width: 62px;
     margin-right: 25px;
 }
 
 .delete-button {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    text-decoration: none;
-    border: none;
-    height: 24px;
     width: 81px;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+    color: rgba(41, 171, 226, 1);
+}
+
+.edit-button:hover img,
+.delete-button:hover img {
+    filter: brightness(0) saturate(100%) invert(48%) sepia(86%) saturate(492%) hue-rotate(162deg) brightness(92%) contrast(91%);
 }
 
 .edit-button img,
@@ -198,6 +189,18 @@
     display: flex;
     justify-content: flex-start;
     margin-block: auto;
+}
+
+.contact-action-button {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    height: 24px;
 }
 
 .contact-detail-wrapper h2 {
