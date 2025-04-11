@@ -1,40 +1,7 @@
 function initEditTaskSubtasks() {
-    initSubtasksInput();               
+    initSubtasksInput();            
     setFocusOnInput();       
 }
-
-/**
- * Handles global click events for managing overlay visibility and dropdown behavior.
- * 
- * This listener:
- * - Closes the assigned contacts dropdown if the user clicks outside of it.
- * - Closes the board card edit overlay when the close button is clicked or a click occurs outside the overlay.
- * - Prevents propagation when clicking inside the edit container to avoid unintended closures.
- * 
- * Note: Requires `isClickOutsideOverlay` and `closeBoardCardDetails()` to be defined elsewhere.
- * 
- * @param {MouseEvent} event - The click event triggered by the user.
- */
-document.addEventListener('click', (event) => {
-    const dropdown = document.getElementById('dropdownOptions');
-    const dropdownToggle = document.getElementById('assignedDropdown');
-    const editContainer = document.querySelector('.board-card-edit-container');
-    const overlay = document.getElementById('boardCardDetails');
-
-    if (
-        dropdown && dropdownToggle &&
-        !dropdown.contains(event.target) &&
-        !dropdownToggle.contains(event.target)
-    ) {
-        dropdown.style.display = 'none';
-    }
-    
-    if (editContainer && editContainer.contains(event.target)) {
-        event.stopPropagation();
-        return;
-    }
-    closeBoardCardDetails(event);
-});
 
 
 /**
@@ -49,45 +16,12 @@ document.addEventListener('click', (event) => {
  */
 async function initContactSelection(assignedUsers = []) {
     selectedContacts = new Set(assignedUsers.map(user => user.name));
-    await populateContacts(); 
-    setupDropdownToggle(); 
-
+    await populateContacts();  
     requestAnimationFrame(() => {
         if (typeof initEditTaskSubtasks === 'function') {
             initEditTaskSubtasks(); 
         }
     });
-}
-
-
-/**
- * Initializes the toggle functionality for the 'assignedDropdown' element.
- * Removes any previous click event listener to avoid duplicates, then adds a new one.
- * Stops event propagation and toggles the dropdown visibility on click.
- */
-function setupDropdownToggle() {
-    const dropdown = document.getElementById('assignedDropdown');
-    if (dropdown) {
-  
-        dropdown.removeEventListener('click', toggleDropdown);
-      
-        dropdown.addEventListener('click', function(event) {
-            event.stopPropagation(); 
-            toggleDropdown();
-        });
-    }
-}
-
-
-/**
- * Toggles the visibility of the 'dropdownOptions' element.
- * Switches between 'block' and 'none' display styles on each call.
- */
-function toggleDropdown() {
-    const dropdown = document.getElementById('dropdownOptions');
-    if (dropdown) {
-        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-    }
 }
 
 
@@ -111,6 +45,7 @@ function setupContactSelection(containerId = 'assignedDropdown') {
  * Injects the edit HTML template into the overlay if it hasn't been rendered yet.
  * Initializes contact selection, priority buttons, and subtask input functionality.
  * Also makes the overlay visible and triggers its appearance animation.
+ * Adds a click event listener to handle dropdown interactions.
  * 
  * This function safely checks if dependent functions exist before calling them.
  */
@@ -144,6 +79,19 @@ function showBoardCardDetailsEdit() {
     animateEditOverlay();
 }
 
+
+/**
+ * Helper function to determine if a click should keep the dropdown open.
+ * 
+ * @param {Event} event - The click event to evaluate.
+ * @param {Element} toggleButton - The element that toggles the dropdown.
+ * @param {Element} dropdown - The dropdown element itself.
+ * @returns {boolean} Returns true if the dropdown should remain open.
+ */
+function shouldKeepDropdownOpen(event, toggleButton, dropdown) {
+    return (toggleButton && toggleButton.contains(event.target)) ||
+           (dropdown && dropdown.contains(event.target));
+}
 
 
 /**
@@ -259,7 +207,11 @@ function editTask(taskId = getCurrentlyViewedTaskId()) {
     if (taskId) {
         showBoardCardDetailsEdit();   
         populateEditOverlay(taskId);    
-        animateEditOverlay(true);     
+        animateEditOverlay(true);
+        setTimeout(() => {
+            initializeDropdown();  
+        }, 10);
+           
     } else {
         console.error("No taskId provided in editTask");
     }
@@ -299,26 +251,3 @@ function getCurrentlyViewedTaskId() {
     const overlay = document.getElementById('boardCardDetails');
     return overlay ? overlay.getAttribute('data-task-id') : null;
 }
-
-
-/**
- * Initializes the toggle functionality for the assigned user dropdown.
- * 
- * - Removes any previously attached click event listener to prevent duplicates.
- * - Adds a new click event listener to the 'assignedDropdown' element.
- * - On click, it prevents the event from bubbling up (to avoid unwanted closing)
- *   and toggles the visibility of the dropdown menu.
- * 
- * Relies on the 'toggleDropdown()' function and the presence of an element with the ID 'assignedDropdown'.
- */
-function setupDropdownToggle() {
-    const dropdown = document.getElementById('assignedDropdown');
-    if (dropdown) {
-        dropdown.removeEventListener('click', toggleDropdown); 
-        dropdown.addEventListener('click', function(event) {
-            event.stopPropagation(); 
-            toggleDropdown();
-        });
-    }
-}
-
