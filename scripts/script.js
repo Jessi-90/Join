@@ -258,3 +258,45 @@ document.addEventListener('DOMContentLoaded', function() {
       loginBtn.addEventListener('click', login);
   }
 });
+
+
+/**
+ * Dynamically positions the `.link-to-sing-up-page` element vertically 
+ * between the `.log-in-wrapper` and `.log-in-footer` elements.
+ *
+ * This applies only to screen widths up to and including 768px.
+ * 
+ * For wider screens, the element reverts to its default CSS positioning.
+ *
+ * @function positionLink
+ * @returns {void}
+ */
+function positionLink() {
+  const wrapper = document.querySelector('.log-in-wrapper');
+  const footer = document.querySelector('.log-in-footer');
+  const link = document.querySelector('.link-to-sing-up-page');
+
+  if (!wrapper || !footer || !link) return;
+
+  if (window.innerWidth <= 768) {
+    const wrapperBottom = wrapper.getBoundingClientRect().bottom + window.scrollY;
+    const footerTop = footer.getBoundingClientRect().top + window.scrollY;
+    const middle = (wrapperBottom + footerTop) / 2;
+
+    link.style.top = `${middle}px`;
+    link.style.display = 'flex';
+  } else {
+    link.style.top = '';
+    link.style.display = '';
+  }
+}
+ 
+
+/**
+ * Adds event listeners to trigger the `positionLink` function:
+ * 
+ * - On `load`: Ensures the link is positioned correctly once the page content is fully loaded.
+ * - On `resize`: Recalculates the position dynamically if the window size changes.
+ */
+window.addEventListener("load", positionLink);
+window.addEventListener("resize", positionLink);
