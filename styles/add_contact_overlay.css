@@ -4,11 +4,10 @@
     margin-top: 46px;
 }
 
-.add-contact-cancel {
-    width: 126px;
-    height: 56px;
+.add-contact-btn {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 #cancel-contact:hover  .cancel-x{
@@ -26,10 +25,10 @@
     color: #29ABE2;
 } */
 
-.add-contact-create {
+/* .add-contact-create {
     width: 214px;
     height: 57px;
-}
+} */
 
 /* .add-contact-create:hover {
     background-color: #29ABE2 !important;
