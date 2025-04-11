@@ -5,50 +5,32 @@
 }
 
 .add-contact-cancel {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    width: 126px !important;
-    height: 56px !important;
-    background: none !important;
-    border: 1px solid black !important;
-    padding: 10px 15px !important;
-    cursor: pointer !important;
-    border-radius: 8px !important;
-    font-size: 21px !important;
-    box-sizing: border-box !important;
+    width: 126px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
 }
 
-.add-contact-cancel:hover {
+/* .add-contact-cancel:hover {
     border: 2px solid #29ABE2;
     color: #29ABE2;
     box-shadow: 2px 5px 2px rgb(209, 209, 209);
-}
+} */
 
-.add-contact-cancel:hover img {
+/* .add-contact-cancel:hover img {
     filter: brightness(0) saturate(100%) invert(30%) sepia(95%) saturate(600%) hue-rotate(170deg);
     color: #29ABE2;
-}
+} */
 
 .add-contact-create {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-around !important;
-    width: 214px !important;
-    height: 57px !important;
-    background: #2A3647 !important;
-    color: white !important;
-    border: none !important;
-    padding: 10px 15px !important;
-    cursor: pointer !important;
-    border-radius: 8px !important;
-    font-size: 21px !important;
+    width: 214px;
+    height: 57px;
 }
 
-.add-contact-create:hover {
+/* .add-contact-create:hover {
     background-color: #29ABE2 !important;
     box-shadow: 2px 5px 2px rgb(209, 209, 209)!important;    
-}
+} */
 
 .input-error {
     border: 2px solid red !important;
