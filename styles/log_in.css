@@ -51,7 +51,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -178,23 +178,8 @@
 
 /*---RESPONSIVE---*/
 
-@media (min-width: 1921px) {
-    .log-in-wrapper {
-        width: 30%;
-    }
-}
-
-@media (min-width: 1201px) and (max-width: 1920px) {
-    .log-in-wrapper {
-        width: 40%;
-    }
-}
-
 @media (min-width: 1025px) and (max-width: 1200px) {
-    .log-in-wrapper {
-        width: 50%;
-    }
-
+   
     .log-in-header img {
         width: 90px;
         top: 32px;
@@ -203,11 +188,7 @@
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-    .log-in-wrapper {
-        width: 60%;
-        padding: 48px 64px;
-    }
-
+   
     .log-in-title h1 {
         font-size: 54px;
     }
@@ -306,10 +287,12 @@
 
     .log-in-header img {
         position: absolute;
-        top: 10px;
-        left: 10px;
-        width: 70px;
-    }
+        top: 45px !important;
+        left: 45px !important;
+        width: 60px;
+        height: auto;
+        max-width: 15vw;
+      }
 
     .input-password-wrapper {
         width: 100%;
@@ -331,13 +314,13 @@
     .link-to-sing-up-page {
         display: flex;
         position: absolute;
-        top: 760px;
         bottom: 80px; 
         right: 50%;
         transform: translateX(50%);
         gap: 20px;
         align-items: center;
         z-index: 10;
+        margin-bottom: 40px;
     }
 
     .link-to-sing-up-page p {
@@ -355,13 +338,13 @@
     .link-to-sing-up-page {
         display: flex;
         position: absolute;
-        top: 770px;
         bottom: 80px; 
         right: 50%;
         transform: translateX(50%);
         gap: 20px;
         align-items: center;
         z-index: 10;
+        margin-bottom: 40px;
     }
 
     .link-to-sing-up-page p {
@@ -374,19 +357,21 @@
         padding: 10px 12px;
     }
 
-    .log-in-header img {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        width: 70px;
-        margin-top: -28px;
-    }
-
     .horizontal-line {
         width: 100px;
         border: 1px solid rgba(41, 171, 226, 1);
         border-radius: 3px;
     }
+
+  
+    .log-in-header img {
+        position: absolute;
+        top: 26px !important;
+        left: 26px !important;
+        width: 60px;
+        height: auto;
+        max-width: 15vw;
+      }
 }
 
 @media (max-width: 480px) {
@@ -418,11 +403,12 @@
 
     .log-in-header img {
         position: absolute;
-        top: 10px;
-        left: 10px;
-        width: 70px;
-        margin-top: -28px;
-    }
+        top: 26px !important;
+        left: 26px !important;
+        width: 60px;
+        height: auto;
+        max-width: 15vw;
+      }
 
     .link-to-sing-up-page {
         top: 24px;
@@ -495,13 +481,13 @@
     .link-to-sing-up-page {
         display: flex;
         position: absolute;
-        top: 782px;
-        bottom: 80px;
+        bottom: 80px; 
         right: 50%;
         transform: translateX(50%);
         gap: 20px;
         align-items: center;
         z-index: 10;
+        margin-bottom: 40px;
     }
 
     .link-to-sing-up-page p {

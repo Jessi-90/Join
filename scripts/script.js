@@ -261,34 +261,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /**
- * Initializes the logo animation behavior.
- * This function is designed to be called onload in the body.
- */
-function initAnimation() {
-  const logoElement = document.getElementById('start-logo');
-  const originalLogoSrc = logoElement.getAttribute('src');
-  const alternativeLogoSrc = './assets/img/join-logo.svg';
-
-  handleLogoSwap(logoElement, originalLogoSrc, alternativeLogoSrc);
-  setTimeout(function() {
-    logoElement.classList.add('animate');
-  }, 100);
-}
-
-/**
- * Handles the logo swap logic for smaller screens.
- * Temporarily swaps to the alternative logo source and restores the original logo.
+ * Dynamically positions the `.link-to-sing-up-page` element vertically 
+ * between the `.log-in-wrapper` and `.log-in-footer` elements.
  *
- * @param {HTMLElement} logoElement - The logo DOM element.
- * @param {string} originalLogoSrc - The original logo source path.
- * @param {string} alternativeLogoSrc - The alternative logo source path.
+ * This applies only to screen widths up to and including 768px.
+ * 
+ * For wider screens, the element reverts to its default CSS positioning.
+ *
+ * @function positionLink
+ * @returns {void}
  */
-function handleLogoSwap(logoElement, originalLogoSrc, alternativeLogoSrc) {
-  if (window.innerWidth <= 768) {
-    logoElement.src = alternativeLogoSrc;
+function positionLink() {
+  const wrapper = document.querySelector('.log-in-wrapper');
+  const footer = document.querySelector('.log-in-footer');
+  const link = document.querySelector('.link-to-sing-up-page');
 
-    setTimeout(function() {
-      logoElement.src = originalLogoSrc;
-    }, 1000);
+  if (!wrapper || !footer || !link) return;
+
+  if (window.innerWidth <= 768) {
+    const wrapperBottom = wrapper.getBoundingClientRect().bottom + window.scrollY;
+    const footerTop = footer.getBoundingClientRect().top + window.scrollY;
+    const middle = (wrapperBottom + footerTop) / 2;
+
+    link.style.top = `${middle}px`;
+    link.style.display = 'flex';
+  } else {
+    link.style.top = '';
+    link.style.display = '';
   }
 }
+ 
+
+/**
+ * Adds event listeners to trigger the `positionLink` function:
+ * 
+ * - On `load`: Ensures the link is positioned correctly once the page content is fully loaded.
+ * - On `resize`: Recalculates the position dynamically if the window size changes.
+ */
+window.addEventListener("load", positionLink);
+window.addEventListener("resize", positionLink);
