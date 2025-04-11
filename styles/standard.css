@@ -1,62 +1,72 @@
 body {
-  margin: 0;
-  background-color: #f6f7f8;
-  font-family: "Inter", sans-serif;
+	margin: 0;
+	background-color: #f6f7f8;
+	font-family: "Inter", sans-serif;
 }
 
 .d-none {
-  display: none !important;
+	display: none !important;
 }
 
 .margin-b20 {
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .warning-info {
-  color: red;
-  font-family: "Poppins", sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 14.4px;
+	color: red;
+	font-family: "Poppins", sans-serif;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 14.4px;
 }
 .overlay-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  height: 100vh;
-  z-index: 100;
-  position: absolute;
-  top: 0;
-  backdrop-filter: blur(4px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	height: 100vh;
+	z-index: 100;
+	position: absolute;
+	top: 0;
+	backdrop-filter: blur(4px);
 }
 .content-center {
-  display: block;
-  text-align: center;
-  align-content: center;
+	display: block;
+	text-align: center;
+	align-content: center;
 }
 aside {
-  width: 232px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  background-color: rgba(42, 54, 71, 1);
+	width: 232px;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	background-color: rgba(42, 54, 71, 1);
 }
 header {
-  height: 96px;
-  background-color: rgba(255, 255, 255, 1);
+	height: 96px;
+	background-color: rgba(255, 255, 255, 1);
 }
 main {
-  padding-left: 232px;
-  height: calc(100dvh - 96px);
-  width: calc(100dvw - 232px);
+	padding-left: 232px;
+	height: calc(100dvh - 96px);
+	width: calc(100dvw - 232px);
 }
 .ease-in-out-right {
-  transition: right 0.5s ease-in-out;
+	transition: right 0.5s ease-in-out;
 }
 .ease-in-out {
-  transform: translateX(100%);
-  transition: transform 0.25s ease;
+	transform: translateX(100%);
+	transition: transform 0.25s ease;
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+	aside {
+		display: none;
+	}
+
+  main {
+    padding-left: 0;
+  }
 }
