@@ -248,7 +248,9 @@ a.active .menu-summary-btn {
 .mobile-navbar {
     display: none;
     position: fixed;
-    width: 100%;
+    width: -webkit-fill-available;
+    height: 80px;
+    padding: 0 16px;
     bottom: 0;
     left: 0;
     background-color: #2a3647;
@@ -258,19 +260,34 @@ a.active .menu-summary-btn {
 @media (min-width: 481px) and (max-width:768px) {
     .mobile-navbar {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
-        padding: 10px 0;
     }
+
     .mobile-join-logo {
         display: flex;
         justify-content: flex-start;
         align-items: center;
     }
+
     .header p {
         display: none;
     }
+
     .header {
         padding: 0 16px;
+    }
+
+    .user-btn {
+        height: 40px;
+        width: 40px;
+    }
+
+    .help-btn{
+        display: none;
+    }
+
+    .menu-summary-btn {
+        flex-direction: column;
     }
 }
