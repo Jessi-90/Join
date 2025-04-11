@@ -11,6 +11,10 @@
     justify-content: center;
 }
 
+#cancel-contact:hover  .cancel-x{
+    content: url("../assets/icons/clear-btn-hover.svg");
+}
+
 /* .add-contact-cancel:hover {
     border: 2px solid #29ABE2;
     color: #29ABE2;
