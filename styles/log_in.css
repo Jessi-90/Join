@@ -287,8 +287,8 @@
 
     .log-in-header img {
         position: absolute;
-        top: 45px !important;
-        left: 45px !important;
+        top: 45px;
+        left: 45px;
         width: 60px;
         height: auto;
         max-width: 15vw;
