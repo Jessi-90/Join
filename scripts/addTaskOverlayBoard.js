@@ -1,27 +1,26 @@
 /**
  * Displays the Add Task Overlay and animates its appearance with a delay.
  * 
- * @param {number} status - The status of the task being added.
- * Possible values:
- * 1 - To do
- * 2 - In progress
- * 3 - Await feedback
- * 4 - Done
+ * The function dynamically generates the overlay content using the 
+ * provided HTML template, makes the overlay visible, and applies
+ * animation effects. Additionally, it sets up a click event listener
+ * to handle interactions within the overlay container.
  * 
- * The function updates the overlay HTML content, makes it visible, and 
- * adds an animation effect for smooth appearance. It uses the global 
- * variable `currentTaskStatus` to store the provided status value for 
- * further use during task creation.
+ * The listener ensures that clicks outside certain elements, such as
+ * the dropdown options or toggle button, close the dropdown menu.
+
  */
 function showAddTaskOverlay(status) {
     let addTaskOverlayRef = document.getElementById('addTaskOverlay');
-    currentTaskStatus = status;
-    addTaskOverlayRef.innerHTML = "";
+    addTaskOverlayRef.innerHTML = ""; 
     addTaskOverlayRef.innerHTML += showAddTaskOverlayHTMLTemplate();
     addTaskOverlayRef.classList.remove('d-none');
+    
     setTimeout(() => {
         let overlayContainerRef = document.querySelector('.add-task-overlay-container');
         overlayContainerRef.classList.add('show');
+        initializeDropdown();
+ 
     }, 10);
 }
 

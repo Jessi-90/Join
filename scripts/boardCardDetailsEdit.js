@@ -1,7 +1,8 @@
 function initEditTaskSubtasks() {
-    initSubtasksInput();               
+    initSubtasksInput();            
     setFocusOnInput();       
 }
+
 
 /**
  * Handles global click events for managing overlay visibility and dropdown behavior.
@@ -64,9 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 async function initContactSelection(assignedUsers = []) {
     selectedContacts = new Set(assignedUsers.map(user => user.name));
-    await populateContacts(); 
-    setupDropdownToggle(); 
-
+    await populateContacts();  
     requestAnimationFrame(() => {
         if (typeof initEditTaskSubtasks === 'function') {
             initEditTaskSubtasks(); 
@@ -180,6 +179,20 @@ function initEditOverlayContent() {
             closeBoardCardDetails();
         });
     }
+
+  
+ /**
+ * Helper function to determine if a click should keep the dropdown open.
+ * 
+ * @param {Event} event - The click event to evaluate.
+ * @param {Element} toggleButton - The element that toggles the dropdown.
+ * @param {Element} dropdown - The dropdown element itself.
+ * @returns {boolean} Returns true if the dropdown should remain open.
+ */
+function shouldKeepDropdownOpen(event, toggleButton, dropdown) {
+    return (toggleButton && toggleButton.contains(event.target)) ||
+           (dropdown && dropdown.contains(event.target));
+
 }
 
 
@@ -293,7 +306,11 @@ function editTask(taskId = getCurrentlyViewedTaskId()) {
     if (taskId) {
         showBoardCardDetailsEdit();   
         populateEditOverlay(taskId);    
-        animateEditOverlay(true);     
+        animateEditOverlay(true);
+        setTimeout(() => {
+            initializeDropdown();  
+        }, 10);
+           
     } else {
         console.error("No taskId provided in editTask");
     }
