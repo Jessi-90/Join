@@ -304,10 +304,6 @@
         text-align: center;
     }
 
-    .log-in-header {
-        position: relative;
-    }
-
     .log-in-header img {
         position: absolute;
         top: 10px;
@@ -335,8 +331,8 @@
     .link-to-sing-up-page {
         display: flex;
         position: absolute;
-        top: 782px;
-        bottom: 80px;
+        top: 760px;
+        bottom: 80px; 
         right: 50%;
         transform: translateX(50%);
         gap: 20px;
@@ -359,8 +355,8 @@
     .link-to-sing-up-page {
         display: flex;
         position: absolute;
-        top: 782px;
-        bottom: 80px;
+        top: 770px;
+        bottom: 80px; 
         right: 50%;
         transform: translateX(50%);
         gap: 20px;
@@ -379,7 +375,11 @@
     }
 
     .log-in-header img {
+        position: absolute;
+        top: 10px;
+        left: 10px;
         width: 70px;
+        margin-top: -28px;
     }
 
     .horizontal-line {
@@ -414,6 +414,14 @@
         flex-direction: column;
         gap: 16px;
         width: 80%;
+    }
+
+    .log-in-header img {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 70px;
+        margin-top: -28px;
     }
 
     .link-to-sing-up-page {
@@ -471,11 +479,6 @@
         align-items: center;
         white-space: nowrap;
         text-align: center;
-    }
-
-    .log-in-header {
-        position: relative;
-        padding: 0 16px;
     }
 
     .log-in-input-field {

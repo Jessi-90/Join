@@ -37,6 +37,7 @@
         left: 50%;
         transform: translate(-50%, -50%) scale(2);
     }
+
     100% {
         top: 80px;
         left: 77px;
@@ -63,8 +64,37 @@
     0% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
         visibility: hidden;
+    }
+}
+
+.animation-overlay {
+    animation: hideOverlay 250ms ease forwards 250ms;
+}
+
+/*---RESPONISIVE---*/
+
+@media (max-width: 500px) {
+    .animation-overlay {
+        background-color: rgba(42, 54, 71, 1);
+        background-image: url('../assets/img/join-logo.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 120px;
+
+        animation: hideOverlay 750ms ease forwards 1000ms; 
+    }
+
+}
+
+@keyframes fadeOutCover {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0;
     }
 }
