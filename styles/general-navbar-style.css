@@ -237,3 +237,23 @@ a.active .menu-summary-btn {
 	font-size: medium;
 	font-weight: bold;
 }
+
+.mobile-join-logo {
+    height: -webkit-fill-available;
+    padding: 8px 0;
+    display: none;
+}
+
+.mobile-navbar {
+    display: none;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: #2a3647;
+    z-index: 1000;
+}
+
+@media (min-width: 481px) and (max-width:768px) {
+
+}
