@@ -242,6 +242,7 @@ a.active .menu-summary-btn {
     height: -webkit-fill-available;
     padding: 8px 0;
     display: none;
+    height: 50%;
 }
 
 .mobile-navbar {
@@ -255,5 +256,21 @@ a.active .menu-summary-btn {
 }
 
 @media (min-width: 481px) and (max-width:768px) {
-
+    .mobile-navbar {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px 0;
+    }
+    .mobile-join-logo {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .header p {
+        display: none;
+    }
+    .header {
+        padding: 0 16px;
+    }
 }
