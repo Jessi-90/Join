@@ -40,9 +40,9 @@ function showAddContactOverlayHTMLTemplate() {
                 </span>
             </div>
             <div class="add-contact-buttons">
-                <button class="add-contact-cancel" id="cancel-contact" onclick="closeAddContactOverlay(event)">Cancel <img class="cancel-x"
+                <button class="add-contact-btn btn-light" id="cancel-contact" onclick="closeAddContactOverlay(event)">Cancel <img class="cancel-x"
                         src="../assets/icons/cancel.svg"></button>
-                <button class="add-contact-create" id="create-contact" onclick="createContact(event)">Create contact <img class="create-check"
+                <button class="add-contact-btn btn-dark" id="create-contact" onclick="createContact(event)">Create contact <img class="create-check"
                         src="../assets/icons/check.svg"></button>
             </div>
         </form>
