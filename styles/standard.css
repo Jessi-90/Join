@@ -61,7 +61,7 @@ main {
 	transition: transform 0.25s ease;
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
+@media (max-width: 768px) {
 	aside {
 		display: none;
 	}
