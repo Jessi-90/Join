@@ -304,10 +304,6 @@
         text-align: center;
     }
 
-    .log-in-header {
-        position: relative;
-    }
-
     .log-in-header img {
         position: absolute;
         top: 10px;
@@ -336,7 +332,7 @@
     .link-to-sing-up-page {
         display: flex;
         position: absolute;
-        top: 782px;
+        top: 760px;
         bottom: 80px; 
         right: 50%;
         transform: translateX(50%);
@@ -360,7 +356,7 @@
     .link-to-sing-up-page {
         display: flex;
         position: absolute;
-        top: 782px;
+        top: 770px;
         bottom: 80px; 
         right: 50%;
         transform: translateX(50%);
@@ -380,9 +376,11 @@
     }
 
     .log-in-header img {
+        position: absolute;
+        top: 10px;
+        left: 10px;
         width: 70px;
-        margin-top: -36px;
-        margin-left: -12px;
+        margin-top: -28px;
     }
 
     .horizontal-line {
@@ -420,9 +418,11 @@
     }
 
     .log-in-header img {
-        top: 24px;
-        left: 24px;
-        width: 60px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 70px;
+        margin-top: -28px;
     }
 
     .link-to-sing-up-page {
@@ -480,17 +480,6 @@
         align-items: center;
         white-space: nowrap;
         text-align: center;
-    }
-
-    .log-in-header {
-        position: relative;
-        padding: 0 16px;
-    }
-
-    .log-in-header img {
-        width: 70px;
-        margin-top: -40px;
-        margin-left: -35px;
     }
 
     .log-in-input-field {
