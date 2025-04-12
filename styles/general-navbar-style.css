@@ -243,3 +243,7 @@ a.active .menu-summary-btn {
     font-size: medium;
     font-weight: bold;
 }
+
+.login-navbar {
+    margin-bottom: 150px;
+}
