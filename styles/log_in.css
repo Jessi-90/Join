@@ -19,7 +19,7 @@
     left: 77px;
 }
 
-.link-to-sing-up-page {
+.link-to-sign-up-page {
     position: absolute;
     top: 67px;
     display: flex;
@@ -28,12 +28,12 @@
     right: 122px;
 }
 
-.link-to-sing-up-page p {
+.link-to-sign-up-page p {
     font-weight: 400;
     font-size: 20px;
 }
 
-.link-to-sing-up-page a {
+.link-to-sign-up-page a {
     text-decoration: none;
     color: white;
     display: inline-block;
@@ -311,7 +311,7 @@
         cursor: pointer;
     }
 
-    .link-to-sing-up-page {
+    .link-to-sign-up-page {
         display: flex;
         position: absolute;
         bottom: 80px; 
@@ -323,7 +323,7 @@
         margin-bottom: 40px;
     }
 
-    .link-to-sing-up-page p {
+    .link-to-sign-up-page p {
         font-size: 18px;
     }
 
@@ -335,7 +335,7 @@
 
 @media (max-width: 500px) {
     
-    .link-to-sing-up-page {
+    .link-to-sign-up-page {
         display: flex;
         position: absolute;
         bottom: 80px; 
@@ -347,7 +347,7 @@
         margin-bottom: 40px;
     }
 
-    .link-to-sing-up-page p {
+    .link-to-sign-up-page p {
         font-size: 19px;
         white-space: nowrap;
     }
@@ -371,6 +371,7 @@
         width: 60px;
         height: auto;
         max-width: 15vw;
+        opacity: 1;
       }
 }
 
@@ -403,20 +404,20 @@
 
     .log-in-header img {
         position: absolute;
-        top: 26px !important;
-        left: 26px !important;
+        top: 26px;
+        left: 26px;
         width: 60px;
         height: auto;
         max-width: 15vw;
       }
 
-    .link-to-sing-up-page {
+    .link-to-sign-up-page {
         top: 24px;
         right: 24px;
         gap: 10px;
     }
 
-    .link-to-sing-up-page p {
+    .link-to-sign-up-page p {
         font-size: 16px;
     }
 
@@ -428,10 +429,6 @@
     .log-in-footer {
         gap: 10px;
         bottom: 20px;
-    }
-
-    .link-to-sing-up-page {
-        display: none;
     }
 
     .input-password-wrapper {
@@ -478,7 +475,7 @@
         line-height: 52px;
     }
 
-    .link-to-sing-up-page {
+    .link-to-sign-up-page {
         display: flex;
         position: absolute;
         bottom: 80px; 
@@ -490,7 +487,7 @@
         margin-bottom: 40px;
     }
 
-    .link-to-sing-up-page p {
+    .link-to-sign-up-page p {
         font-size: 17px;
         white-space: nowrap;
     }

@@ -27,6 +27,7 @@
     transform: translate(-50%, -50%) scale(2);
     transition: all 250ms ease;
     z-index: 10;
+    object-fit: cover;
 }
 
 @keyframes moveToStatic {
@@ -81,8 +82,8 @@
 
     .link-to-sign-up-page {
         opacity: 0;
-        pointer-events: none; 
-        animation: reverseColorsAndHide 1000ms ease forwards 1000ms;
+        pointer-events: none;
+        animation: fadeInAfterAnimation 0s ease forwards 2000ms;
     }
 
     #start-logo-white {
@@ -94,11 +95,11 @@
         z-index: 10;
         width: 100px;
         height: 100px;
-        background-image: url('./assets/img/join-logo-white.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         animation: moveToStaticWhite 750ms ease forwards 250ms;
+        object-fit: cover;
     }
 
     @keyframes moveToStaticWhite {
@@ -124,6 +125,13 @@
         100% {
             background-color: #f6f7f8;
             opacity: 0;
+        }
+    }
+
+    @keyframes fadeInAfterAnimation {
+        to {
+            opacity: 1;
+            pointer-events: all;
         }
     }
 }
