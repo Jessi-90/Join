@@ -274,22 +274,25 @@ document.addEventListener('DOMContentLoaded', function() {
 function positionLink() {
   const wrapper = document.querySelector('.log-in-wrapper');
   const footer = document.querySelector('.log-in-footer');
-  const link = document.querySelector('.link-to-sing-up-page');
+  const link = document.querySelector('.link-to-sign-up-page');
 
   if (!wrapper || !footer || !link) return;
-
   if (window.innerWidth <= 768) {
-    const wrapperBottom = wrapper.getBoundingClientRect().bottom + window.scrollY;
-    const footerTop = footer.getBoundingClientRect().top + window.scrollY;
-    const middle = (wrapperBottom + footerTop) / 2;
+      const wrapperBottom = wrapper.getBoundingClientRect().bottom + window.scrollY;
+      const footerTop = footer.getBoundingClientRect().top + window.scrollY;
+      const middle = (wrapperBottom + footerTop) / 2;
 
-    link.style.top = `${middle}px`;
-    link.style.display = 'flex';
+      link.style.top = `${middle}px`;
+      link.style.display = 'flex';
   } else {
-    link.style.top = '';
-    link.style.display = '';
+      link.style.top = '';
+      link.style.display = '';
   }
 }
+setTimeout(() => {
+  positionLink();
+  window.addEventListener("resize", positionLink);
+}, 1200);
  
 
 /**
