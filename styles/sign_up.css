@@ -182,8 +182,6 @@ main {
   cursor: pointer;
 }
 
-@media (max-width: 1920px) {}
-
 @media (max-width: 1024px) {
   .sign-up-wrapper {
     gap: 16px;
@@ -192,9 +190,31 @@ main {
   }
 
   .sign-up-header {
+    position: relative;
     gap: 0px;
     width: 100%;
     justify-content: center;
+  }
+
+  .sign-up-header img {
+    position: absolute;
+    top: 20px;
+    left: 0px;
+  }
+
+  .sign-up-header h1 {
+    margin: 0 0 16px 0;
+    font-size: 47px;
+  }
+
+  .sign-up-sidebar {
+    padding: 37px 0 0 38px;
+  }
+
+  #signUpBtn {
+    display: flex;
+    justify-content: center;
+    width: 180px;
   }
 }
 
@@ -214,30 +234,40 @@ main {
   .sign-up-header-text {
     gap: 0px;
   }
-  
-  .sign-up-input-field {
-    width: 364px;
+
+  .input-bg-user {
+    background-position: 385px;
+  }
+
+  .input-bg-email {
+    background-position: 385px;
   }
 
   .input-password-wrapper img {
     right: 16px;
   }
 
-  h1 {
-    font-size: 47px;
+  .sign-up-footer {
+    padding: 60px 0 0 0;
   }
 }
 
 @media (max-width: 480px) {
-  .sign-up-wrapper {
-    gap: 16px;
-    border-radius: 30px;
-    padding: 24px 44px;
-  }
-
   .sign-up-header {
     gap: 0px;
     width: 100%;
     justify-content: center;
+  }
+
+  .sign-up-input-field {
+    width: 200px;
+  }
+
+  .input-bg-user {
+    background-position: 210px;
+  }
+
+  .input-bg-email {
+    background-position: 210px;
   }
 }
