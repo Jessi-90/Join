@@ -109,3 +109,32 @@ h4 {
     margin: 30px 0 0 0;
     padding: 0 0 24px 0;
 }
+
+@media (max-width: 768px) {
+    .main-help {
+        width: calc(100% - 12px);
+    }
+
+    .help-body-wrapper {
+        margin: 120px 16px 0 16px;
+    }
+
+    .help-body-wrapper h1 {
+        font-size: 47px;
+        line-height: 120%;
+    }
+
+    .top-bar {
+        width: calc(100% - 48px);
+        top: 128px;
+    }
+
+    .back-btn-container {
+        position: relative;
+        top: auto;
+    }
+
+    .end-message {
+        display: none;
+    }
+}
