@@ -280,4 +280,9 @@ main {
   .input-bg-email {
     background-position: 210px;
   }
+
+  .sign-up-overlay-box {
+    padding: 0px;
+    width: 250px;
+  }
 }
