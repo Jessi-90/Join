@@ -196,7 +196,7 @@ main {
     justify-content: center;
   }
 
-  .sign-up-header img {
+  .sign-up-header button {
     position: absolute;
     top: 20px;
     left: 0px;
