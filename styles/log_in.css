@@ -19,7 +19,7 @@
     left: 77px;
 }
 
-.link-to-sing-up-page {
+.link-to-sign-up-page {
     position: absolute;
     top: 67px;
     display: flex;
@@ -28,12 +28,12 @@
     right: 122px;
 }
 
-.link-to-sing-up-page p {
+.link-to-sign-up-page p {
     font-weight: 400;
     font-size: 20px;
 }
 
-.link-to-sing-up-page a {
+.link-to-sign-up-page a {
     text-decoration: none;
     color: white;
     display: inline-block;
@@ -51,7 +51,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -178,23 +178,8 @@
 
 /*---RESPONSIVE---*/
 
-@media (min-width: 1921px) {
-    .log-in-wrapper {
-        width: 30%;
-    }
-}
-
-@media (min-width: 1201px) and (max-width: 1920px) {
-    .log-in-wrapper {
-        width: 40%;
-    }
-}
-
 @media (min-width: 1025px) and (max-width: 1200px) {
-    .log-in-wrapper {
-        width: 50%;
-    }
-
+   
     .log-in-header img {
         width: 90px;
         top: 32px;
@@ -203,11 +188,7 @@
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-    .log-in-wrapper {
-        width: 60%;
-        padding: 48px 64px;
-    }
-
+   
     .log-in-title h1 {
         font-size: 54px;
     }
@@ -304,10 +285,6 @@
         text-align: center;
     }
 
-    .log-in-header {
-        position: relative;
-    }
-
     .log-in-header img {
         position: absolute;
         top: 10px;
@@ -332,19 +309,21 @@
         cursor: pointer;
     }
 
-    .link-to-sing-up-page {
+    .link-to-sign-up-page {
         display: flex;
         position: absolute;
         top: 782px;
         bottom: 80px;
+
         right: 50%;
         transform: translateX(50%);
         gap: 20px;
         align-items: center;
         z-index: 10;
+        margin-bottom: 40px;
     }
 
-    .link-to-sing-up-page p {
+    .link-to-sign-up-page p {
         font-size: 18px;
     }
 
@@ -361,14 +340,16 @@
         position: absolute;
         top: 782px;
         bottom: 80px;
+
         right: 50%;
         transform: translateX(50%);
         gap: 20px;
         align-items: center;
         z-index: 10;
+        margin-bottom: 40px;
     }
 
-    .link-to-sing-up-page p {
+    .link-to-sign-up-page p {
         font-size: 19px;
         white-space: nowrap;
     }
@@ -387,6 +368,16 @@
         border: 1px solid rgba(41, 171, 226, 1);
         border-radius: 3px;
     }
+
+    .log-in-header img {
+        position: absolute;
+        top: 26px;
+        left: 26px;
+        width: 60px;
+        height: auto;
+        max-width: 15vw;
+        opacity: 1;
+      }
 }
 
 @media (max-width: 480px) {
@@ -416,13 +407,22 @@
         width: 80%;
     }
 
-    .link-to-sing-up-page {
+    .log-in-header img {
+        position: absolute;
+        top: 26px;
+        left: 26px;
+        width: 60px;
+        height: auto;
+        max-width: 15vw;
+      }
+
+    .link-to-sign-up-page {
         top: 24px;
         right: 24px;
         gap: 10px;
     }
 
-    .link-to-sing-up-page p {
+    .link-to-sign-up-page p {
         font-size: 16px;
     }
 
@@ -434,10 +434,6 @@
     .log-in-footer {
         gap: 10px;
         bottom: 20px;
-    }
-
-    .link-to-sing-up-page {
-        display: none;
     }
 
     .input-password-wrapper {
@@ -489,7 +485,7 @@
         line-height: 52px;
     }
 
-    .link-to-sing-up-page {
+    .link-to-sign-up-page {
         display: flex;
         position: absolute;
         top: 782px;
@@ -499,9 +495,10 @@
         gap: 20px;
         align-items: center;
         z-index: 10;
+        margin-bottom: 40px;
     }
 
-    .link-to-sing-up-page p {
+    .link-to-sign-up-page p {
         font-size: 17px;
         white-space: nowrap;
     }

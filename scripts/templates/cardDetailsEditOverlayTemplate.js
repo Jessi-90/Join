@@ -32,11 +32,11 @@ function cardDetailsEditOverlayHTMLTemplate() {
                 </div>
                 <label for="assigned">Assigned to</label>
                 <div class="custom-dropdown" id="assignedDropdown">
-                    <div class="selected-option" onclick="toggleDropdown()">
+                    <div class="selected-option">
                         Select contacts to assign
                         <img class="custom-arrow" src="../assets/icons/arrow_drop_down.svg" alt="Dropdown Arrow">
                     </div>
-                    <ul class="dropdown-options" id="dropdownOptions"></ul>
+                    <ul class="dropdown-options d-none" id="dropdownOptions"></ul>
                 </div>
               <div id="selectedContactsContainer" class="selected-contacts-container"></div>
               <div class="form-group">
@@ -56,7 +56,7 @@ function cardDetailsEditOverlayHTMLTemplate() {
                  </div>
             </div>
             <div class="card-edit-footer">
-                <button class="btn-dark ok-btn">OK <img src="../assets/icons/check.svg" alt="check"></button>
+                <button onclick="saveEditedTask()" class="btn-dark ok-btn">OK <img src="../assets/icons/check.svg" alt="check"></button>
             </div>
         </div>
     </div>

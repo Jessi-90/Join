@@ -297,3 +297,15 @@ function getBoardContainers() {
         'done': 'No tasks Done'
     };
 }
+
+/**
+ * Initializes the application once the DOM is fully loaded and parsed.
+ * This ensures all DOM elements are available before executing the init logic.
+ *
+ * The 'DOMContentLoaded' event is fired when the initial HTML document has been
+ * completely loaded and parsed, without waiting for stylesheets, images, and subframes to finish loading.
+ * This is useful for safely accessing and manipulating DOM elements early in the page lifecycle.
+ */
+window.addEventListener('DOMContentLoaded', () => {
+    init();
+});

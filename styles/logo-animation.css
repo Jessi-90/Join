@@ -31,12 +31,24 @@
     animation-delay: 250ms;
 }
 
+#start-logo-white {
+    display: none; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2);
+    transition: all 250ms ease;
+    z-index: 10;
+    object-fit: cover;
+}
+
 @keyframes moveToStatic {
     0% {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) scale(2);
     }
+
     100% {
         top: 80px;
         left: 77px;
@@ -63,8 +75,15 @@
     0% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
         visibility: hidden;
     }
 }
+}
+
+.animation-overlay {
+    animation: hideOverlay 250ms ease forwards 250ms;
+}
+

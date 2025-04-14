@@ -1,34 +1,190 @@
+/**
+ * Defines the maximum number of users that can be assigned simultaneously.
+ * This constant is used to enforce the user limit in rendering and assignment functionalities.
+ *
+ * @constant {number}
+ */
 const assignedUsersLimit = 5;
 
 
 /**
- * Toggles the visibility of the dropdown menu.
- * If the dropdown is currently open, it will close, and vice versa.
+ * Toggles the visibility of the dropdown menu and sets up or removes event listeners accordingly.
  */
 function toggleDropdown() {
-    let dropdown = document.getElementById('dropdownOptions');
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    const dropdownOptions = document.getElementById('dropdownOptions');
+    const container = getParentContainer();
+
+    toggleDropdownVisibility(dropdownOptions);
+
+    if (!isDropdownHidden(dropdownOptions)) {
+        addCloseListener(container);
+    } else {
+        removeCloseListener(container);
+    }
 }
 
 
 /**
- * Closes the dropdown menu when a click occurs outside of the dropdown area,
- * but only if the user is on the 'add_task.html' page or the overlay is visible.
+ * Toggles the 'd-none' class to show or hide the dropdown.
+ * 
+ * @param {HTMLElement} dropdownElement - The dropdown element to toggle.
  */
-document.addEventListener('click', (event) => {
-    let isAddTaskPage = window.location.pathname.includes('add_task.html');
-    let overlay = document.querySelector('.add-task-overlay-container');
-    let isOverlayVisible = overlay && getComputedStyle(overlay).display !== 'none';
+function toggleDropdownVisibility(dropdownElement) {
+    dropdownElement.classList.toggle('d-none');
+}
 
-    if (isAddTaskPage || isOverlayVisible) {
-        let dropdown = document.getElementById('dropdownOptions');
-        let assignedDropdown = document.getElementById('assignedDropdown');
 
-        if (dropdown && assignedDropdown && !assignedDropdown.contains(event.target)) {
-            dropdown.style.display = 'none';
+/**
+ * Checks if the dropdown is currently hidden.
+ * 
+ * @param {HTMLElement} dropdownElement - The dropdown element to check.
+ * @returns {boolean} - True if dropdown is hidden, false otherwise.
+ */
+function isDropdownHidden(dropdownElement) {
+    return dropdownElement.classList.contains('d-none');
+}
+
+
+/**
+ * Adds a click event listener to close the dropdown when clicking outside of it.
+ * 
+ * @param {HTMLElement|Document} container - The parent container to attach the listener to.
+ */
+function addCloseListener(container) {
+    setTimeout(() => {
+        if (container !== document) {
+            container.addEventListener('click', closeDropdownOnClickOutside);
+        } else {
+            document.addEventListener('click', closeDropdownOnClickOutside);
         }
+    }, 0);
+}
+
+
+/**
+ * Removes the click event listener that closes the dropdown.
+ * 
+ * @param {HTMLElement|Document} container - The container from which to remove the listener.
+ */
+function removeCloseListener(container) {
+    if (container !== document) {
+        container.removeEventListener('click', closeDropdownOnClickOutside);
+    } else {
+        document.removeEventListener('click', closeDropdownOnClickOutside);
     }
-});
+}
+
+/**
+ * Determines the parent container for event listeners.
+ * Could be an overlay container or the document.
+ * 
+ * @returns {Element|Document} The parent container element or document
+ */
+function getParentContainer() {
+    const addTaskOverlay = document.querySelector('.add-task-overlay-container');
+
+    if (addTaskOverlay) {
+        return addTaskOverlay;
+    }
+    
+    const editTaskOverlay = document.querySelector('.board-card-edit-container');
+
+    if (editTaskOverlay) {
+        return editTaskOverlay;
+    }
+    return document;
+}
+
+
+/**
+ * Removes the click event listener from the appropriate container.
+ * 
+ * @param {Element|Document} container - The container element or document
+ */
+function removeCloseListener(container) {
+    if (container && container !== document) {
+        container.removeEventListener('click', closeDropdownOnClickOutside);
+    } else {
+        document.removeEventListener('click', closeDropdownOnClickOutside);
+    }
+}
+
+
+/**
+ * Closes the dropdown when clicking outside of it.
+ * Works on both overlays and standalone pages.
+ * @param {Event} event - The click event
+ */
+function closeDropdownOnClickOutside(event) {
+    const dropdownOptions = document.getElementById('dropdownOptions');
+    const assignedDropdown = document.getElementById('assignedDropdown');
+    
+    if (!assignedDropdown.contains(event.target)) {
+        dropdownOptions.classList.add('d-none');
+    
+        const container = getParentContainer();
+
+        removeCloseListener(container);
+    }
+}
+
+
+/**
+ * Initialize dropdown functionality.
+ * This function can be called separately when needed.
+ */
+function initializeDropdown() {
+    const selectedOption = document.querySelector('.selected-option');
+    const dropdownOptions = document.getElementById('dropdownOptions');
+
+    setupSelectedOptionListener(selectedOption);
+    setupDropdownOptionsListener(dropdownOptions);
+}
+
+
+/**
+ * Sets up the click event listener for the selected option.
+ * 
+ * @param {HTMLElement|null} selectedOption - The element that displays the selected option.
+ */
+function setupSelectedOptionListener(selectedOption) {
+    if (!selectedOption) return;
+
+    selectedOption.removeEventListener('click', handleSelectedOptionClick);
+    selectedOption.addEventListener('click', handleSelectedOptionClick);
+}
+
+
+/**
+ * Sets up the click event listener for the dropdown options container.
+ * 
+ * @param {HTMLElement|null} dropdownOptions - The container holding all dropdown options.
+ */
+function setupDropdownOptionsListener(dropdownOptions) {
+    if (!dropdownOptions) return;
+
+    dropdownOptions.removeEventListener('click', handleDropdownOptionsClick);
+    dropdownOptions.addEventListener('click', handleDropdownOptionsClick);
+}
+
+
+/**
+ * Handler for the selected option click event
+ * @param {Event} event - The click event
+ */
+function handleSelectedOptionClick(event) {
+    event.stopPropagation();
+    toggleDropdown();
+}
+
+
+/**
+ * Handler for clicks within the dropdown options
+ * @param {Event} event - The click event
+ */
+function handleDropdownOptionsClick(event) {
+    event.stopPropagation();
+}
 
 
 /**
@@ -218,6 +374,27 @@ function loadAssignedUsersFromSession() {
 
 
 /**
+ * Generates HTML content to display the assigned users of a task.
+ * - If no users are assigned, a placeholder message is shown.
+ * - If users are assigned, it renders each user using a template function.
+ *
+ * @param {Object} task - The task object containing assignment data.
+ * @param {Object} [task.assignedUsers={}] - A key-value object where keys are user IDs and values are user names.
+ * @returns {string} - HTML string representing the assigned users or a placeholder message.
+ */
+function generateAssigneeHTML(task) {
+    const assignedUsers = task.assignedUsers || {};
+
+    if (Object.keys(assignedUsers).length === 0) {
+        return `<div class="card-detail-assignee-user"><p>No assigned user</p></div>`;
+    }
+
+    return Object.entries(assignedUsers).map(([id, name]) =>
+        cardDetailAssigneeContentTemplate(task, id, task.id)
+    ).join('');
+}
+
+/**
  * Moves the logged-in user to the top of the contacts list and adds "(You)" to the name.
  * Ensures the logged-in user only appears once.
  * 
@@ -238,4 +415,5 @@ function prioritizeLoggedInUser(contacts) {
 
     const filteredContacts = contacts.filter((_, i) => i !== index);
     return [loggedInContact, ...filteredContacts];
+ 
 }
