@@ -410,3 +410,4 @@ async function saveEditedTask() {
     renderTasks(currentTasksData);
     showBoardCardDetails(taskId);
 }
+}
