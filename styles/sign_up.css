@@ -257,6 +257,16 @@ main {
     gap: 0px;
     width: 100%;
     justify-content: center;
+    margin: 0 0 15px 0;
+  }
+
+  .sign-up-header h1 {
+    margin: 0px;
+    font-size: 38px;
+  }
+
+  .horizontal-line {
+    border: 1px solid rgba(41, 171, 226, 1);
   }
 
   .sign-up-input-field {
