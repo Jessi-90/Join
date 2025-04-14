@@ -293,6 +293,7 @@ function handleLogoSwap(logoElement, originalLogoSrc, alternativeLogoSrc) {
   }
 }
 
+/**
  * Dynamically positions the `.link-to-sing-up-page` element vertically 
  * between the `.log-in-wrapper` and `.log-in-footer` elements.
  *
