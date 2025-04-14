@@ -15,55 +15,49 @@
   <body>
     <header>
       <div class="header">
-        <p class="headline-kanban">Kanban Project Management Tool</p>
-
-        <div class="dropdown" id="dropdown">
-          <a href="./help.html">
-            <img class="help-btn" src="../assets/img/help.png" />
-          </a>
-          <button class="user-btn" id="userButton">☰</button>
-          <div class="dropdown-content" id="dropdownContent">
-            <a href="./help.html">Help</a>
-            <a href="./legal_notice.html">Legal Notice</a>
-            <a href="./privacy_policy.html">Privacy Policy</a>
-            <a href="#" onclick="logoutUser()">Log out</a>
+          <img class="mobile-join-logo" src="../assets/img/join-logo-dark.svg" alt="join-logo">
+          <p class="headline-kanban">Kanban Project Management Tool</p>
+          <div class="dropdown" id="dropdown">
+              <a href="help.html">
+                  <img class="help-btn" src="../assets/img/help.png">
+              </a>
+              <button class="user-btn" id="userButton">☰</button>
+              <div class="dropdown-content" id="dropdownContent">
+                  <a href="help.html">Help</a>
+                  <a href="legal_notice.html">Legal Notice</a>
+                  <a href="privacy_policy.html">Privacy Policy</a>
+                  <a href="#" onclick="logoutUser()">Log out</a>
+              </div>
           </div>
-        </div>
       </div>
-    </header>
-    <aside>
+  </header>
+  <aside>
       <div class="navbar">
-        <img class="join-logo" src="../assets/img/join-logo.svg" />
-        <div class="summary-menu">
-          <a href="./summary.html">
-            <button class="menu-summary-btn">
-              <img src="../assets/icons/summary.svg" /><span class="navbar-size">Summary</span>
-            </button></a
-          >
-          <a href="./add_task.html">
-            <button class="menu-summary-btn">
-              <img src="../assets/icons/edit_square.svg" /><span class="navbar-size">Add Task</span>
-            </button></a
-          >
-          <a href="./board.html">
-            <button class="menu-summary-btn board-btn">
-              <img src="../assets/icons/board.svg" alt="Board Icon" />
-              <span class="navbar-size">Board</span>
-            </button>
-          </a>
-          <a href="./contacts.html">
-            <button class="menu-summary-btn">
-              <img src="../assets/icons/contact-icon.svg" /><span class="navbar-size">Contacts</span>
-            </button></a
-          >
-        </div>
-        <div class="summary-btn">
-          <a href="./privacy_policy.html">Privacy Police</a>
-          <a href="./legal_notice.html">Legal notice</a>
-        </div>
+          <div class="upper-navbar">
+              <img class="join-logo" src="../assets/img/join-logo.svg">
+              <div class="summary-menu">
+                  <a href="summary.html"> <button class="menu-summary-btn"><img src="../assets/icons/summary.svg"><span
+                              class="navbar-size">Summary</span></button></a>
+                  <a href="add_task.html"> <button class="menu-summary-btn"><img src="../assets/icons/edit_square.svg"><span
+                              class="navbar-size">Add Task</span></button></a>
+                  <a href="board.html">
+                      <button class="menu-summary-btn board-btn">
+                          <img src="../assets/icons/board.svg" alt="Board Icon">
+                          <span class="navbar-size">Board</span>
+                      </button>
+                  </a>
+                  <a href="contacts.html"> <button class="menu-summary-btn"><img
+                              src="../assets/icons/contact-icon.svg"><span
+                              class="navbar-size">Contacts</span></button></a>
+              </div>
+          </div>
+          <div class="summary-btn">
+              <a href="privacy_policy.html">Privacy Police</a>
+              <a href="legal_notice.html">Legal notice</a>
+          </div>
       </div>
-    </aside>
-    <main>
+  </aside>
+  <main>
       <h1>Privacy Policy</h1>
       <p>Last updated: February 23, 2025</p>
       <p>
@@ -455,5 +449,22 @@
         </li>
       </ul>
     </main>
+    <footer>
+      <div class="mobile-navbar">
+          <a href="summary.html"> <button class="menu-summary-btn"><img src="../assets/icons/summary.svg"><span
+              class="navbar-size">Summary</span></button></a>
+          <a href="board.html">
+              <button class="menu-summary-btn board-btn">
+                  <img src="../assets/icons/board.svg" alt="Board Icon">
+                  <span class="navbar-size">Board</span>
+              </button>
+          </a>
+          <a href="add_task.html"> <button class="menu-summary-btn"><img src="../assets/icons/edit_square.svg"><span
+                      class="navbar-size">Add Task</span></button></a>
+          <a href="contacts.html"> <button class="menu-summary-btn"><img
+                      src="../assets/icons/contact-icon.svg"><span
+                      class="navbar-size">Contacts</span></button></a>
+      </div>
+  </footer>
   </body>
 </html>
