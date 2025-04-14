@@ -313,7 +313,6 @@
         top: 10px;
         left: 10px;
         width: 70px;
-        margin-top: -28px;
     }
 
     .input-password-wrapper {
@@ -337,7 +336,7 @@
         display: flex;
         position: absolute;
         top: 782px;
-        bottom: 80px; 
+        bottom: 80px;
         right: 50%;
         transform: translateX(50%);
         gap: 20px;
@@ -356,12 +355,12 @@
 }
 
 @media (max-width: 500px) {
-    
+
     .link-to-sing-up-page {
         display: flex;
         position: absolute;
         top: 782px;
-        bottom: 80px; 
+        bottom: 80px;
         right: 50%;
         transform: translateX(50%);
         gap: 20px;
@@ -381,8 +380,6 @@
 
     .log-in-header img {
         width: 70px;
-        margin-top: -36px;
-        margin-left: -12px;
     }
 
     .horizontal-line {
@@ -417,12 +414,6 @@
         flex-direction: column;
         gap: 16px;
         width: 80%;
-    }
-
-    .log-in-header img {
-        top: 24px;
-        left: 24px;
-        width: 60px;
     }
 
     .link-to-sing-up-page {
@@ -487,12 +478,6 @@
         padding: 0 16px;
     }
 
-    .log-in-header img {
-        width: 70px;
-        margin-top: -40px;
-        margin-left: -35px;
-    }
-
     .log-in-input-field {
         width: 100%;
         max-width: 340px;
@@ -508,7 +493,7 @@
         display: flex;
         position: absolute;
         top: 782px;
-        bottom: 80px; 
+        bottom: 80px;
         right: 50%;
         transform: translateX(50%);
         gap: 20px;
