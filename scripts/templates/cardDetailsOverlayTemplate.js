@@ -38,37 +38,21 @@ function cardDetailsOverlayHTMLTemplate(task, categoryClassName) {
             <div class="card-detail-assignee">
                 <p class="card-detail-list-title">Assigned To:</p>
                 <div class="card-detail-assignee-content" id="cardDetailAssigneeContent">
-                    <div class="card-detail-assignee-user">
-                        <img src="#" alt="User" class="user-avatar" />
-                        <p>Anton Mayer</p>
-                    </div>
-                    <div class="card-detail-assignee-user">
-                        <img src="#" alt="User" class="user-avatar" />
-                        <p>No assigned user</p>
-                    </div>
+                    ${generateAssigneeHTML(task)}
                 </div>
             </div>
             <div class="card-detail-subtasks">
-                        <p class="card-detail-list-title">Subtasks:</p>
-              <div class="card-detail-subtasks-content" id="cardDetailSubtasksContent">
-                  <div class="subtasks">
-                      <label class="subtask">
-                          <input type="checkbox" checked>
-                          <span class="subtask-text">Implement Recipe Recommendation</span>
-                      </label>
-                      <label class="subtask">
-                          <input type="checkbox">
-                          <span class="subtask-text">Start Page Layout</span>
-                      </label>
-                  </div>
-              </div>
+                <p class="card-detail-list-title">Subtasks:</p>
+                <div class="card-detail-subtasks-content" id="cardDetailSubtasksContent">
+                    ${generateSubtasksHTML(task.subtasks)}
+                </div>
             </div>
             <div class="card-detail-footer">
                 <button class="card-detail-delete-btn btn-no-bg" onclick="deleteTask()"></button>
                 <button class="card-detail-edit-btn btn-no-bg" onclick="editTask(getCurrentlyViewedTaskId())"></button>
             </div>
         </div>
-          `;
+    `;
 }
 
 /**
