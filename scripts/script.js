@@ -258,3 +258,37 @@ document.addEventListener('DOMContentLoaded', function() {
       loginBtn.addEventListener('click', login);
   }
 });
+
+
+/**
+ * Initializes the logo animation behavior.
+ * This function is designed to be called onload in the body.
+ */
+function initAnimation() {
+  const logoElement = document.getElementById('start-logo');
+  const originalLogoSrc = logoElement.getAttribute('src');
+  const alternativeLogoSrc = './assets/img/join-logo.svg';
+
+  handleLogoSwap(logoElement, originalLogoSrc, alternativeLogoSrc);
+  setTimeout(function() {
+    logoElement.classList.add('animate');
+  }, 100);
+}
+
+/**
+ * Handles the logo swap logic for smaller screens.
+ * Temporarily swaps to the alternative logo source and restores the original logo.
+ *
+ * @param {HTMLElement} logoElement - The logo DOM element.
+ * @param {string} originalLogoSrc - The original logo source path.
+ * @param {string} alternativeLogoSrc - The alternative logo source path.
+ */
+function handleLogoSwap(logoElement, originalLogoSrc, alternativeLogoSrc) {
+  if (window.innerWidth <= 768) {
+    logoElement.src = alternativeLogoSrc;
+
+    setTimeout(function() {
+      logoElement.src = originalLogoSrc;
+    }, 1000);
+  }
+}
