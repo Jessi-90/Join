@@ -327,3 +327,53 @@ function updateSubtaskText(inputWrapper, subtaskItem) {
     const subtaskText = inputField.value.trim();
     subtaskItem.querySelector('.subtask-text').textContent = subtaskText;
 }
+
+
+/**
+ * Retrieves the currently edited subtasks from the DOM.
+ * 
+ * - Finds all subtask items within the subtask list.
+ * - Extracts the title and completion status of each subtask.
+ * - Ignores empty titles.
+ * 
+ * @returns {Array<Object>} An array of subtask objects, each containing:
+ *   @property {string} title - The subtask's text content.
+ *   @property {boolean} completed - Whether the subtask is marked as completed.
+ */
+function getEditedSubtasks() {
+    const subtaskList = document.getElementById('subtask-list');
+    const subtaskItems = subtaskList.querySelectorAll('.subtask-item');
+    const subtasks = [];
+
+    subtaskItems.forEach(item => {
+        const textEl = item.querySelector('.subtask-text');
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        const title = textEl?.textContent.trim() || '';
+        const completed = checkbox?.checked || false;
+
+        if (title) {
+            subtasks.push({ title, completed });
+        }
+    });
+
+    return subtasks;
+}
+
+
+/**
+ * Generates HTML markup for displaying a list of subtasks.
+ * - Checks if the given subtasks object is empty or contains a placeholder.
+ * - If valid, maps each subtask to an HTML element using a template.
+ * 
+ * @param {Object} subtasksObj - An object containing subtasks, 
+ * @returns {string} HTML string representing the list of subtasks, or a message if no subtasks are available.
+ */
+function generateSubtasksHTML(subtasksObj) {
+    if (!subtasksObj || Object.keys(subtasksObj).length === 0 || subtasksObj.placeholder) {
+        return '<p>No subtasks available</p>';
+    }
+
+    return Object.entries(subtasksObj).map(([id, subtask]) =>
+        cardDetailSubtasksContentTemplate({ id, ...subtask })
+    ).join('');
+}

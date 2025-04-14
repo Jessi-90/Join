@@ -86,6 +86,10 @@ function renderCardDetailsSubtasks(task) {
  * @returns {Array} An array of subtask objects, each containing an `id` and its corresponding subtask data.
  */
 function generateSubtasksArray(task) {
+    if (!task.subtasks || typeof task.subtasks !== 'object') {
+        return [];
+    }
+
     const subtasksArray = Object.entries(task.subtasks).map(([id, data]) => ({
         id,
         ...data
