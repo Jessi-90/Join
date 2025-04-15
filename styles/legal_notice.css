@@ -47,10 +47,6 @@ ul {
         margin-left: 348px;
         margin-right: auto;
     }
-
-    .header {
-        padding-left: 380px;
-    }
 }
 
 @media (min-width: 1201px) and (max-width: 1920px) {
@@ -59,10 +55,6 @@ ul {
         margin-left: 328px;
         margin-right: 20px;
         box-sizing: border-box;
-    }
-
-    .header {
-        padding-left: 348px;
     }
 }
 
@@ -74,29 +66,12 @@ ul {
         box-sizing: border-box;
     }
 
-    .header {
-        padding-left: 260px;
-    }
-
-    .navbar {
-        width: 200px;
-    }
-
     .join-logo {
         padding-left: 32px;
     }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
-    .navbar {
-        display: none;
-    }
-
-    .header {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
     .content-text {
         margin: 110px 20px 0 20px;
         width: auto;
@@ -115,15 +90,6 @@ ul {
 }
 
 @media (max-width: 480px) {
-
-    .navbar {
-        display: none;
-    }
-
-    .header {
-        display: none;
-    }
-
     .content-text {
         margin: 100px 15px 0 15px;
         width: auto;
