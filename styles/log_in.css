@@ -287,12 +287,10 @@
 
     .log-in-header img {
         position: absolute;
-        top: 45px;
-        left: 45px;
-        width: 60px;
-        height: auto;
-        max-width: 15vw;
-      }
+        top: 10px;
+        left: 10px;
+        width: 70px;
+    }
 
     .input-password-wrapper {
         width: 100%;
@@ -314,7 +312,8 @@
     .link-to-sign-up-page {
         display: flex;
         position: absolute;
-        bottom: 80px; 
+        top: 782px;
+        bottom: 80px;
         right: 50%;
         transform: translateX(50%);
         gap: 20px;
@@ -334,11 +333,11 @@
 }
 
 @media (max-width: 500px) {
-    
-    .link-to-sign-up-page {
+    .link-to-sing-up-page {
         display: flex;
         position: absolute;
-        bottom: 80px; 
+        top: 782px;
+        bottom: 80px;
         right: 50%;
         transform: translateX(50%);
         gap: 20px;
@@ -357,13 +356,16 @@
         padding: 10px 12px;
     }
 
+    .log-in-header img {
+        width: 70px;
+    }
+
     .horizontal-line {
         width: 100px;
         border: 1px solid rgba(41, 171, 226, 1);
         border-radius: 3px;
     }
 
-  
     .log-in-header img {
         position: absolute;
         top: 26px;
@@ -464,6 +466,11 @@
         text-align: center;
     }
 
+    .log-in-header {
+        position: relative;
+        padding: 0 16px;
+    }
+
     .log-in-input-field {
         width: 100%;
         max-width: 340px;
@@ -478,7 +485,8 @@
     .link-to-sign-up-page {
         display: flex;
         position: absolute;
-        bottom: 80px; 
+        top: 782px;
+        bottom: 80px;
         right: 50%;
         transform: translateX(50%);
         gap: 20px;

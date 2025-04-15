@@ -297,4 +297,9 @@ a.active .menu-summary-btn {
     .board-btn {
         padding-right: 0;
     }
+  
+    .login-navbar {
+      margin-bottom: 150px;
+    }
+
 }
