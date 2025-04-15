@@ -3,7 +3,8 @@ a {
 }
 
 main {
-    max-width: 1920px;
+    max-width: calc(1920px - 328px);
+    width: -webkit-fill-available;
     padding: 20px;
     padding-left: 328px;
 }
