@@ -1,223 +1,3 @@
-html,
-body {
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
-.start {
-    display: flex;
-    justify-content: center;
-}
-
-.start-logo {
-    display: flex;
-    justify-content: center;
-    padding-top: 345px;
-    width: 274px;
-    height: 334.07;
-}
-
-.navbar {
-    z-index: 1000;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    width: 232px;
-    height: 100%;
-    justify-content: space-between;
-    background-color: #2A3647;
-}
-
-.join-logo {
-    height: 121.97px;
-    width: 100.03px;
-    padding-top: 64px;
-    padding-bottom: 110px;
-    padding-left: 64px;
-}
-
-.summary-menu {
-    height: 229px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    padding: 0;
-    cursor: pointer;
-    gap: 15px;
-}
-
-.summary-btn {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    flex-direction: column;
-    height: 300px;
-    padding-top: 170px;
-    gap: 8px;
-    color: #989A9C;
-    background-color: #2A3647;
-    font-size: 16px;
-    font-weight: 400;
-    text-decoration: none;
-}
-
-.summary-btn a {
-    display: block;
-    width: 100%;
-    padding: 10px 0;
-    text-decoration: none;
-    color: inherit;
-}
-
-a {
-    text-decoration: none;
-    color: #989A9C;
-}
-
-.menu-summary-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    background: none;
-    border: none;
-    color: #CDCDCD;
-    height: 46px;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 0px 20px;
-    text-align: center;
-    gap: 8px;
-}
-
-.menu-summary-btn span {
-    padding: 0;
-    margin: 0;
-}
-
-.menu-summary-btn img {
-    width: 30px;
-    height: 30px;
-    flex-shrink: 0;
-    display: block;
-}
-
-.menu-summary-btn :hover {
-    background-color: #091931;
-}
-
-.summary-menu :hover {
-    background-color: #091931;
-}
-
-.summary-menu a {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    text-decoration: none;
-    color: #CDCDCD;
-}
-
-.board-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-right: 44px;
-}
-
-.board-btn span {
-    display: flex;
-    align-items: center;
-}
-
-.navbar-size {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.header {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    width: auto;
-    background-color: white;
-    padding-right: 40px;
-    padding-left: 348px;
-    box-shadow: 0px 4px 4px 0px #0000001A;
-    font-size: 20px;
-    height: 96px;
-    align-items: center;
-}
-
-.help-btn {
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-}
-
-.user-btn {
-    width: 56px;
-    height: 56px;
-    cursor: pointer;
-    border-radius: 50%;
-    background-color: rgb(255, 255, 255);
-    border-color: black;
-    border-style: solid;
-    clip-path: none;
-}
-
-.user-btn:hover {
-    background-color: rgb(230, 230, 230);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-}
-
-.dropdown {
-    display: flex;
-    align-items: center;
-    position: relative;
-    gap: 16px;
-}
-
-.dropdown-content {
-    color: rgb(164, 167, 172);
-    display: none;
-    position: absolute;
-    background-color: #2A3647;
-    min-width: 130px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    right: 0;
-    border-radius: 20px 0px 20px 20px;
-    border: 1px solid #e0e0e0;
-    margin-top: 260px;
-    overflow: hidden;
-}
-
-.dropdown-content a {
-    color: #989A9C;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-size: 14px;
-    transition: background-color 0.2s ease;
-}
-
-.dropdown-content a:hover {
-    background-color: #233b59;
-}
-
-.dropdown-content.show {
-    display: block;
-}
-
 .content-text {
     margin-left: 328px;
     margin-top: 110px;
@@ -267,10 +47,6 @@ ul {
         margin-left: 348px;
         margin-right: auto;
     }
-
-    .header {
-        padding-left: 380px;
-    }
 }
 
 @media (min-width: 1201px) and (max-width: 1920px) {
@@ -279,10 +55,6 @@ ul {
         margin-left: 328px;
         margin-right: 20px;
         box-sizing: border-box;
-    }
-
-    .header {
-        padding-left: 348px;
     }
 }
 
@@ -294,29 +66,12 @@ ul {
         box-sizing: border-box;
     }
 
-    .header {
-        padding-left: 260px;
-    }
-
-    .navbar {
-        width: 200px;
-    }
-
     .join-logo {
         padding-left: 32px;
     }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
-    .navbar {
-        display: none;
-    }
-
-    .header {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
     .content-text {
         margin: 110px 20px 0 20px;
         width: auto;
@@ -335,15 +90,6 @@ ul {
 }
 
 @media (max-width: 480px) {
-
-    .navbar {
-        display: none;
-    }
-
-    .header {
-        display: none;
-    }
-
     .content-text {
         margin: 100px 15px 0 15px;
         width: auto;
