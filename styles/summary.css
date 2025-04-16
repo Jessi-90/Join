@@ -33,6 +33,16 @@ a {
     width: 560px;
 }
 
+.dashboard.visible {
+    display: flex;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 .card-todo {
     gap: 20px;
     display: grid;
@@ -176,8 +186,84 @@ a {
 .card:hover img {
     mix-blend-mode: lighten;
 }
+
 .last-section {
     display: flex;
     flex-direction: row;
     gap: 20px;
+}
+
+.greeting-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+    flex-direction: column;
+    text-align: center;
+    transition: opacity 0.5s ease;
+    z-index: 999;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.greeting-wrapper.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/*---RESPONSIVE---*/
+
+@media screen and (min-width: 1201px) and (max-width: 1920px) {
+    .dashboard {
+        max-width: 1200px;
+    }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1200px) {
+    .dashboard {
+        max-width: 1000px;
+        padding-bottom: 80px;
+    }
+
+    .card {
+        height: 160px;
+        padding: 0 20px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+   .greet{
+    display: none;
+   }
+
+    .dashboard {
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+      .dashboard {
+        padding: 30px 20px;
+    }
+
+    .layout img{
+        width: 70%;
+    }
+
+    .layout {
+        padding-left: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+      .dashboard {
+        padding: 20px 10px;
+    }
+
+    .greet{
+        display: none;
+       }
 }
