@@ -51,19 +51,20 @@ ul {
 
 @media (min-width: 1201px) and (max-width: 1920px) {
     .content-text {
-        width: calc(100% - 348px - 40px);
-        margin-left: 328px;
+        width: calc(100% - 348px - 40px) !important;
         margin-right: 20px;
         box-sizing: border-box;
+        padding-bottom: 50px; 
     }
 }
 
 @media (min-width: 769px) and (max-width: 1200px) {
     .content-text {
-        width: calc(100% - 280px);
-        margin-left: 260px;
-        margin-right: 20px;
+        width: 95% !important;
+        margin: 60px auto 0;
+        padding: 0 10px;
         box-sizing: border-box;
+        padding-bottom: 50px; 
     }
 
     .join-logo {
@@ -72,9 +73,21 @@ ul {
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
+    main {
+        padding-left: 0;
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        padding-bottom: 80px; 
+    }
+
     .content-text {
-        margin: 110px 20px 0 20px;
-        width: auto;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 60px auto 60px !important;
+        padding: 0 16px;
+        box-sizing: border-box;
+        margin-bottom: 100px;
     }
 
     .join-logo {
@@ -90,9 +103,18 @@ ul {
 }
 
 @media (max-width: 480px) {
+    main {
+        padding-left: 0;
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+    }
+
     .content-text {
-        margin: 100px 15px 0 15px;
-        width: auto;
+        width: 95% !important;
+        margin: 60px auto 0 !important;
+        padding: 0 10px;
+        box-sizing: border-box;
     }
 
     .start-logo {
