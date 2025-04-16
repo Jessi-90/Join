@@ -39,8 +39,13 @@ a {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .card-todo {
@@ -216,13 +221,13 @@ a {
 
 /*---RESPONSIVE---*/
 
-@media screen and (min-width: 1201px) and (max-width: 1920px) {
+@media screen and (min-width: 1380px) and (max-width: 1920px) {
     .dashboard {
         max-width: 1200px;
     }
 }
 
-@media screen and (min-width: 1025px) and (max-width: 1200px) {
+@media screen and (min-width: 1025px) and (max-width: 1380px) {
     .dashboard {
         max-width: 1000px;
         padding-bottom: 80px;
@@ -232,38 +237,84 @@ a {
         height: 160px;
         padding: 0 20px;
     }
+
+     .greet {
+        display: none;
+    }
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
-   .greet{
-    display: none;
-   }
+    .greet {
+        display: none;
+    }
 
     .dashboard {
         padding: 30px 20px;
     }
-}
 
-@media (max-width: 768px) {
-      .dashboard {
-        padding: 30px 20px;
-    }
-
-    .layout img{
-        width: 70%;
+    .layout img {
+        width: 80%;
     }
 
     .layout {
-        padding-left: 12px;
+        padding-left: 76px;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        width: 100% !important;
+    }
+
+    .dashboard {
+        padding: 30px 20px;
+    }
+
+    .layout img {
+        width: 60%;
+    }
+
+    .layout {
+        justify-content: center !important;
+    }
+
+    .greet {
+        display: none;
+    }
+
+    .to-do-dashboard {
+        justify-content: center;
+        padding-bottom: 100px !important;
+    }
+
+    .greeting-wrapper.hidden {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .greeting-wrapper {
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
     }
 }
 
 @media (max-width: 480px) {
-      .dashboard {
+    main {
+        padding-left: 35px !important;
+        width: 100% !important;
+    }
+
+    .dashboard {
         padding: 20px 10px;
     }
 
-    .greet{
+    .greet {
         display: none;
-       }
+    }
+
+    .to-do-dashboard {
+        justify-content: center;
+    }
 }
