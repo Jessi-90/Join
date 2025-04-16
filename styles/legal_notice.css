@@ -108,6 +108,7 @@ ul {
         width: 100%;
         height: auto;
         box-sizing: border-box;
+        margin-bottom: 100px;
     }
 
     .content-text {
