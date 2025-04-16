@@ -1,6 +1,6 @@
 function initEditTaskSubtasks() {
-    initSubtasksInput();            
-    setFocusOnInput();       
+    initSubtasksInput();
+    setFocusOnInput();
 }
 
 
@@ -27,7 +27,7 @@ document.addEventListener('click', (event) => {
     ) {
         dropdown.style.display = 'none';
     }
-    
+
     if (editContainer && editContainer.contains(event.target)) {
         event.stopPropagation();
         return;
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (okButton) {
         okButton.addEventListener('click', () => {
             saveEditedTask();
-            closeBoardCardDetails(); 
+            closeBoardCardDetails();
         });
     }
 });
@@ -65,10 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 async function initContactSelection(assignedUsers = []) {
     selectedContacts = new Set(assignedUsers.map(user => user.name));
-    await populateContacts();  
+    await populateContacts();
     requestAnimationFrame(() => {
         if (typeof initEditTaskSubtasks === 'function') {
-            initEditTaskSubtasks(); 
+            initEditTaskSubtasks();
         }
     });
 }
@@ -82,10 +82,10 @@ async function initContactSelection(assignedUsers = []) {
 function setupDropdownToggle() {
     const dropdown = document.getElementById('assignedDropdown');
     if (dropdown) {
-  
+
         dropdown.removeEventListener('click', toggleDropdown);
-        dropdown.addEventListener('click', function(event) {
-            event.stopPropagation(); 
+        dropdown.addEventListener('click', function (event) {
+            event.stopPropagation();
             toggleDropdown();
         });
     }
@@ -161,7 +161,7 @@ function renderEditOverlayTemplate(container) {
  * - Binds the click event for the "OK" button to save the edited task and close the overlay.
  */
 function initEditOverlayContent() {
-    const taskId = getCurrentlyViewedTaskId(); 
+    const taskId = getCurrentlyViewedTaskId();
     const task = currentTasksData[taskId] || {};
     if (typeof initContactSelection === 'function') {
         initContactSelection(task.assignedUsers || []);
@@ -179,19 +179,20 @@ function initEditOverlayContent() {
             closeBoardCardDetails();
         });
     }
+}
 
-  
- /**
- * Helper function to determine if a click should keep the dropdown open.
- * 
- * @param {Event} event - The click event to evaluate.
- * @param {Element} toggleButton - The element that toggles the dropdown.
- * @param {Element} dropdown - The dropdown element itself.
- * @returns {boolean} Returns true if the dropdown should remain open.
- */
+
+/**
+* Helper function to determine if a click should keep the dropdown open.
+* 
+* @param {Event} event - The click event to evaluate.
+* @param {Element} toggleButton - The element that toggles the dropdown.
+* @param {Element} dropdown - The dropdown element itself.
+* @returns {boolean} Returns true if the dropdown should remain open.
+*/
 function shouldKeepDropdownOpen(event, toggleButton, dropdown) {
     return (toggleButton && toggleButton.contains(event.target)) ||
-           (dropdown && dropdown.contains(event.target));
+        (dropdown && dropdown.contains(event.target));
 
 }
 
@@ -205,7 +206,7 @@ function populateBasicTaskData(task) {
     const titleInput = document.getElementById('editCardTitle');
     const descriptionTextarea = document.getElementById('editCardDescription');
     const dateInput = document.getElementById('editCardDate');
-    
+
     titleInput.value = task.title || '';
     descriptionTextarea.value = task.description || '';
     dateInput.value = task.dueDate || '';
@@ -262,7 +263,7 @@ function populateSubtasks(subtasks) {
  */
 function populateEditOverlay(taskId) {
     const task = currentTasksData[taskId];
-    
+
     populateBasicTaskData(task);
     populateComplexTaskData(task);
 
@@ -304,13 +305,13 @@ function animateEditOverlay(animate = true) {
  */
 function editTask(taskId = getCurrentlyViewedTaskId()) {
     if (taskId) {
-        showBoardCardDetailsEdit();   
-        populateEditOverlay(taskId);    
+        showBoardCardDetailsEdit();
+        populateEditOverlay(taskId);
         animateEditOverlay(true);
         setTimeout(() => {
-            initializeDropdown();  
+            initializeDropdown();
         }, 10);
-           
+
     } else {
         console.error("No taskId provided in editTask");
     }
@@ -360,9 +361,9 @@ function getCurrentlyViewedTaskId() {
 function setupDropdownToggle() {
     const dropdown = document.getElementById('assignedDropdown');
     if (dropdown) {
-        dropdown.removeEventListener('click', toggleDropdown); 
-        dropdown.addEventListener('click', function(event) {
-            event.stopPropagation(); 
+        dropdown.removeEventListener('click', toggleDropdown);
+        dropdown.addEventListener('click', function (event) {
+            event.stopPropagation();
             toggleDropdown();
         });
     }
@@ -409,5 +410,4 @@ async function saveEditedTask() {
     await fetchTasksData();
     renderTasks(currentTasksData);
     showBoardCardDetails(taskId);
-}
 }
