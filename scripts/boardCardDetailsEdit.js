@@ -18,20 +18,20 @@ document.addEventListener('click', (event) => {
     const dropdown = document.getElementById('dropdownOptions');
     const dropdownToggle = document.getElementById('assignedDropdown');
     const editContainer = document.querySelector('.board-card-edit-container');
-    const overlay = document.getElementById('boardCardDetails');
 
     if (
         dropdown && dropdownToggle &&
         !dropdown.contains(event.target) &&
         !dropdownToggle.contains(event.target)
     ) {
-        dropdown.style.display = 'none';
+        dropdown.classList.add('d-none');
     }
 
     if (editContainer && editContainer.contains(event.target)) {
         event.stopPropagation();
         return;
     }
+
     closeBoardCardDetails(event);
 });
 
@@ -99,7 +99,7 @@ function setupDropdownToggle() {
 function toggleDropdown() {
     const dropdown = document.getElementById('dropdownOptions');
     if (dropdown) {
-        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        dropdown.classList.toggle('d-none');
     }
 }
 
