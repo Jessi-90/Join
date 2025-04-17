@@ -3,6 +3,55 @@ function initEditTaskSubtasks() {
     setFocusOnInput();
 }
 
+/**
+ * Handles global click events for managing overlay visibility and dropdown behavior.
+ * This listener:
+ * - Closes the assigned contacts dropdown if the user clicks outside of it.
+ * - Closes the board card edit overlay when the close button is clicked or a click occurs outside the overlay.
+ * - Prevents propagation when clicking inside the edit container to avoid unintended closures.
+ * Note: Requires `isClickOutsideOverlay` and `closeBoardCardDetails()` to be defined elsewhere.
+ * 
+ * @param {MouseEvent} event - The click event triggered by the user.
+ */
+document.addEventListener('click', (event) => {
+    const dropdown = document.getElementById('dropdownOptions');
+    const dropdownToggle = document.getElementById('assignedDropdown');
+    const editContainer = document.querySelector('.board-card-edit-container');
+    const overlay = document.getElementById('boardCardDetails');
+
+    if (
+        dropdown && dropdownToggle &&
+        !dropdown.contains(event.target) &&
+        !dropdownToggle.contains(event.target)
+    ) {
+        dropdown.style.display = 'none';
+    }
+    
+    if (editContainer && editContainer.contains(event.target)) {
+        event.stopPropagation();
+        return;
+    }
+    closeBoardCardDetails(event);
+});
+
+
+/**
+ * Waits for the DOM to be fully loaded before executing any code that interacts with the page elements.
+ * 
+ * - Looks for an element with the ID 'ok-button'.
+ * - If found, adds a click event listener to it.
+ * - When clicked, the button triggers saving the edited task and closing the task details overlay.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const okButton = document.getElementById('ok-button');
+    if (okButton) {
+        okButton.addEventListener('click', () => {
+            saveEditedTask();
+            closeBoardCardDetails(); 
+        });
+    }
+});
+
 
 /**
  * Handles global click events for managing overlay visibility and dropdown behavior.
@@ -160,6 +209,7 @@ function renderEditOverlayTemplate(container) {
  *   functions are available.
  * - Binds the click event for the "OK" button to save the edited task and close the overlay.
  */
+
 function initEditOverlayContent() {
     const taskId = getCurrentlyViewedTaskId();
     const task = currentTasksData[taskId] || {};
@@ -193,7 +243,6 @@ function initEditOverlayContent() {
 function shouldKeepDropdownOpen(event, toggleButton, dropdown) {
     return (toggleButton && toggleButton.contains(event.target)) ||
         (dropdown && dropdown.contains(event.target));
-
 }
 
 

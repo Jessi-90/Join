@@ -336,4 +336,3 @@ setTimeout(() => {
  */
 window.addEventListener("load", positionLink);
 window.addEventListener("resize", positionLink);
-
