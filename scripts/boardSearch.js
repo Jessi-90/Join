@@ -7,14 +7,15 @@
  */
 function initializeSearchListener() {
     const searchInput = document.getElementById("search");
-
-    searchInput.addEventListener("input", function () {
-        if (searchInput.value.length >= minSearchLength) {
-            searchTasks();
-        } else {
-            checkSearchInput();
-        }
-    });
+    if (window.location.pathname.endsWith("board.html")) {
+        searchInput.addEventListener("input", function () {
+            if (searchInput.value.length >= minSearchLength) {
+                searchTasks();
+            } else {
+                checkSearchInput();
+            }
+        });
+    }
 }
 
 
