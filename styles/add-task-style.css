@@ -678,3 +678,41 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         padding: 8px 10px;
     }
 }
+
+@media (max-width: 1024px) {
+    .container {
+        padding: 8px 96px 0 96px;
+    }
+
+    .container h1 {
+        text-align: center;
+    }
+
+    .form-container {
+        flex-direction: column;
+        gap: 0;
+        margin-bottom: 0;
+    }   
+
+    .divider {
+        display: none;
+    }
+
+    .form-column-left {
+        width: -webkit-fill-available;
+    }
+
+    .form-column-right {
+        padding-top: 0;
+        width: -webkit-fill-available;
+    }
+
+    .field-required {
+        margin-top: 0;
+    }
+
+    .buttons {
+        justify-content: center;
+        margin-top: 0;
+    }
+}
