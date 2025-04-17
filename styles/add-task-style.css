@@ -684,10 +684,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         padding: 8px 96px 0 96px;
     }
 
-    .container h1 {
-        text-align: center;
-    }
-
     .form-container {
         flex-direction: column;
         gap: 0;
@@ -714,5 +710,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     .buttons {
         justify-content: center;
         margin-top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 8px 16px 84px 16px;
+    }
+
+    .container h1 {
+        font-size: 47px;
+        font-weight: 700;
+        line-height: 120%;
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .form-column-left, .form-column-right {
+        padding: 0;
     }
 }
