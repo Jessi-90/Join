@@ -1,11 +1,11 @@
 .container {
     position: absolute;
-    height: 20px;
     align-items: center;
     background: #F6F7F8;
     border: none;
-    width: 976.25px;
-    padding-left: 96px;
+    max-width: calc(1920px - 328px);
+    width: -webkit-fill-available;
+    padding: 110px 96px 0 96px;
 }
 
 h1 {
