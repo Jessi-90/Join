@@ -9,7 +9,7 @@ function toggleInputIcon(event) {
   let inputPasswdIcon = document.getElementById('input-password-icon');
 
   if (event.type === 'focus') {
-    inputPasswdIcon.src = "../assets/icons/visibility_off_icon.svg";
+    inputPasswdIcon.src = "../Join/assets/icons/visibility_off_icon.svg";
     togglePointerToIcon();
   } else if (event.type === 'blur') {
     togglePointerToIcon();
@@ -75,7 +75,7 @@ function togglePasswordIcon(inputPasswd) {
 function resetInputIcon() {
   let inputPasswdIcon = document.getElementById('input-password-icon');
 
-  inputPasswdIcon.src = "../assets/icons/lock_icon.svg";
+  inputPasswdIcon.src = "../Join/assets/icons/lock_icon.svg";
 }
 
 /**
