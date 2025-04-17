@@ -192,3 +192,22 @@ function formatNextTaskDueDate(task) {
     });
     return formattedDate;
 }
+
+
+window.addEventListener('load', () => {
+    const greetingWrapper = document.querySelector('.greeting-wrapper');
+    const dashboard = document.querySelector('.dashboard');
+
+    if (window.innerWidth < 768) {
+        greetingWrapper.classList.remove('hidden');
+        dashboard.classList.remove('visible');
+
+        setTimeout(() => {
+            greetingWrapper.classList.add('hidden');
+            dashboard.classList.add('visible');
+        }, 3500);
+    } else {
+        greetingWrapper.classList.add('hidden');
+        dashboard.classList.add('visible');
+    }
+});
