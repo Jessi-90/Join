@@ -22,7 +22,7 @@ h1 {
     height: 424px;
 }
 
-.form-column-left {
+/* .form-column-left {
     height: 376px;
     width: 440px;
     flex: 1;
@@ -34,13 +34,20 @@ h1 {
     height: 416px;
     width: 440px;
     flex: 1;
+} */
+.form-column-left,
+.form-column-right {
+    height: auto; /* Allow height to adjust dynamically */
+    flex: 1; /* Ensure equal shrinking and growing */
+    min-width: 200px; /* Prevent columns from shrinking too much */
+    padding: 10px; /* Add padding for better spacing */
 }
 
 .divider {
     width: 1px;
     margin-left: 16px;
     background-color: #ccc;
-    height: 388px;
+    height: auto;
     align-self: stretch;
     margin-top: 25px;
 }
