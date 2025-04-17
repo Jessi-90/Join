@@ -1,11 +1,11 @@
 .container {
     position: absolute;
-    height: 20px;
     align-items: center;
     background: #F6F7F8;
     border: none;
-    width: 976.25px;
-    padding-left: 96px;
+    max-width: calc(1920px - 328px);
+    width: -webkit-fill-available;
+    padding: 110px 96px 0 96px;
 }
 
 h1 {
@@ -19,28 +19,22 @@ h1 {
     gap: 35px;
     padding-top: 10px;
     margin-bottom: 80px;
-    height: 424px;
+    height: auto;
 }
 
-.form-column-left {
-    height: 376px;
-    width: 440px;
-    flex: 1;
-}
-
+.form-column-left,
 .form-column-right {
-    padding-top: 38px;
-    padding-left: 10px;
-    height: 416px;
-    width: 440px;
+    height: auto;
     flex: 1;
+    min-width: 200px;
+    padding: 10px;
 }
 
 .divider {
     width: 1px;
     margin-left: 16px;
     background-color: #ccc;
-    height: 388px;
+    height: auto;
     align-self: stretch;
     margin-top: 25px;
 }
@@ -161,12 +155,11 @@ textarea {
     display: flex;
     justify-content: center;
     flex: 1;
-    padding: 12px 20px;
+    padding: 16px 10px;
     border: none;
     cursor: pointer;
     border-radius: 8px;
     font-size: 18px;
-    display: flex;
     align-items: center;
     gap: 8px;
     color: black;
@@ -669,4 +662,71 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .extra-users {
     display: flex;
     align-items: center;
+}
+
+@media (max-width: 1200px) {
+    .form-column-right {
+        padding-top: 20px;
+    }
+
+    .prio-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .prio-buttons button {
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .container {
+        padding: 8px 96px 0 96px;
+    }
+
+    .form-container {
+        flex-direction: column;
+        gap: 0;
+        margin-bottom: 0;
+    }   
+
+    .divider {
+        display: none;
+    }
+
+    .form-column-left {
+        width: -webkit-fill-available;
+    }
+
+    .form-column-right {
+        padding-top: 0;
+        width: -webkit-fill-available;
+    }
+
+    .field-required {
+        margin-top: 0;
+    }
+
+    .buttons {
+        justify-content: center;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 8px 16px 84px 16px;
+    }
+
+    .container h1 {
+        font-size: 47px;
+        font-weight: 700;
+        line-height: 120%;
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .form-column-left, .form-column-right {
+        padding: 0;
+    }
 }
