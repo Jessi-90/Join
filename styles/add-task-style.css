@@ -22,25 +22,12 @@ h1 {
     height: 424px;
 }
 
-/* .form-column-left {
-    height: 376px;
-    width: 440px;
-    flex: 1;
-}
-
-.form-column-right {
-    padding-top: 38px;
-    padding-left: 10px;
-    height: 416px;
-    width: 440px;
-    flex: 1;
-} */
 .form-column-left,
 .form-column-right {
-    height: auto; /* Allow height to adjust dynamically */
-    flex: 1; /* Ensure equal shrinking and growing */
-    min-width: 200px; /* Prevent columns from shrinking too much */
-    padding: 10px; /* Add padding for better spacing */
+    height: auto;
+    flex: 1;
+    min-width: 200px;
+    padding: 10px;
 }
 
 .divider {
