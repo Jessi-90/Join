@@ -155,5 +155,5 @@ function logoutUser() {
       .catch(error => console.error("Error while logging out:", error));
   }
 
-  window.location.href = "/index.html";
+  window.location.href = "../index.html";
 }
