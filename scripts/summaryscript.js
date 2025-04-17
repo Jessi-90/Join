@@ -205,7 +205,7 @@ window.addEventListener('load', () => {
         setTimeout(() => {
             greetingWrapper.classList.add('hidden');
             dashboard.classList.add('visible');
-        }, 3500);
+        }, 5500);
     } else {
         greetingWrapper.classList.add('hidden');
         dashboard.classList.add('visible');
