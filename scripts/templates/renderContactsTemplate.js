@@ -12,7 +12,8 @@ function renderContacts() {
             <section>
                 <div class="contact-list-wrapper">
                     <div class="contact-list-header">
-                        <button class="button-dark-large" onclick="showAddContactOverlay()">Add new contact 
+                        <button class="button-dark-large" onclick="showAddContactOverlay()">
+                            <span>Add new contact</span> 
                             <img src="../assets/icons/person_add.svg" alt="addContact_img">
                         </button>
                     </div>
@@ -27,6 +28,7 @@ function renderContacts() {
                         <h2>Contacts</h2>
                         <div class="vertical-line"></div>
                         <p>Better with a team</p>
+                        <div class="horizontal-line"></div>
                     </div>
                     <div id="contactDetail" class="contact-detail"></div>
                 </div>
