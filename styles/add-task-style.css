@@ -19,7 +19,7 @@ h1 {
     gap: 35px;
     padding-top: 10px;
     margin-bottom: 80px;
-    height: 424px;
+    height: auto;
 }
 
 .form-column-left,
@@ -662,4 +662,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .extra-users {
     display: flex;
     align-items: center;
+}
+
+@media (max-width: 1200px) {
+    .form-column-right {
+        padding-top: 20px;
+    }
+
+    .prio-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .prio-buttons button {
+        padding: 8px 10px;
+    }
 }
