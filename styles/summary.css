@@ -228,6 +228,13 @@ a {
     .dashboard {
         max-width: 1200px;
     }
+
+    .greeting-wrapper {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 @media screen and (min-width: 1025px) and (max-width: 1380px) {
@@ -282,19 +289,7 @@ a {
     }
 
     .greet {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 100%;
-        background: white;
-        z-index: 999;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        text-align: center;
-        opacity: 1;
-        transition: opacity 0.5s ease;
+        display: flex !important;
     }
 
     .greet.hidden {
@@ -304,17 +299,6 @@ a {
     }
 
     .greeting-wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 100%;
-        background-color: white;
-        z-index: 999;
         opacity: 1;
         visibility: visible;
         transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
@@ -329,6 +313,8 @@ a {
     .dashboard.visible {
         opacity: 1;
         padding-left: 52px;
+        padding-top: 0;
+        width: 80%;
     }
 
     .layout img {
@@ -337,7 +323,7 @@ a {
 
     .layout {
         justify-content: center !important;
-        padding-top: 80px;
+        padding-top: 75px;
     }
 
     .to-do-dashboard {
@@ -358,31 +344,135 @@ a {
     }
 }
 
-@media (max-width: 480px) {
-    main {
-        padding-left: 35px !important;
-    }
-
+@media (max-width: 570px) {
     .dashboard {
-        padding: 20px 10px;
+        padding: 10px;
         width: 100%;
+        flex: 1;
+        display: block;
     }
 
-    .greet {
-        display: none;
+    .dashboard.visible {
+        width: auto;
+        padding-left: 10px;
     }
 
-    .to-do-dashboard {
-        box-sizing: border-box;
-        width: min-content;
-        padding-left: 35px;
+    .layout {
+        padding-top: 60px;
+        padding-left: 82px;
+        justify-content: center;
+        gap: 15px;
     }
 
     .layout img {
         width: 50%;
     }
 
+    .card h1 {
+        font-size: 2.5rem;
+    }
+
+    .card p {
+        font-size: 1rem;
+    }
+
+    .greeting {
+        font-size: 36px;
+        text-align: center;
+    }
+
+    .greeting-name {
+        font-size: 48px;
+        line-height: 1.2;
+    }
+
+    .greet {
+        align-items: center;
+        padding-left: 0;
+    }
+
+    .greeting-wrapper {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard.visible {
+        padding-left: 10px;
+    }
+
     .layout {
-        justify-content: center !important;
+        padding-top: 60px;
+        padding-left: 62px;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .urgent-info {
+        padding-left: 40px;
+}
+}
+
+@media (max-width: 440px) {
+    .dashboard {
+        padding: 5px;
+        width: 100%;
+        flex: 1;
+        font-size: 0.9rem; 
+    }
+
+    .card {
+        padding: 5px;
+        height: 120px; 
+        gap: 10px; 
+    }
+
+    .card h1 {
+        font-size: 1.5rem; 
+    }
+
+    .card p {
+        font-size: 0.8rem; 
+    }
+
+    .layout {
+        padding-top: 40px;
+        padding-left: 20px; 
+        justify-content: center;
+        gap: 5px; 
+    }
+
+    .layout img {
+        width: 50%;
+    }
+
+    .greeting {
+        font-size: 22px; 
+        text-align: center;
+    }
+
+    .greeting-name {
+        font-size: 30px; 
+        line-height: 1.2;
+    }
+
+    .greet {
+        padding-left: 0;
+        font-size: 0.9rem;
+        align-items: center;
+    }
+
+    .card:hover {
+        transform: scale(1.02); 
+    }
+
+    .greeting-wrapper {
+        padding: 5px;
+        text-align: center;
+    }
+
+    .card-todo {
+        width: 98%;
+        gap: 18px;
     }
 }
