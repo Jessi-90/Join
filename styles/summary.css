@@ -22,6 +22,7 @@ a {
 
 .to-do-dashboard {
     display: flex;
+    flex: 1;
 }
 
 .dashboard {
@@ -31,11 +32,13 @@ a {
     padding: 60px 40px 40px 96px;
     max-width: 900px;
     width: 560px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 .dashboard.visible {
     display: flex;
-    animation: fadeIn 0.5s ease forwards;
+    opacity: 1;
 }
 
 @keyframes fadeIn {
@@ -238,18 +241,24 @@ a {
         padding: 0 20px;
     }
 
-     .greet {
-        display: none;
+    .layout img {
+        width: 80%;
+    }
+
+    .layout {
+        padding-left: 76px;
+    }
+
+    .dashboard.visible {
+        display: flex;
+        opacity: 1;
+        padding-left: 64px;
     }
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
-    .greet {
-        display: none;
-    }
-
     .dashboard {
-        padding: 30px 20px;
+        padding: 30px 60px;
     }
 
     .layout img {
@@ -268,6 +277,58 @@ a {
 
     .dashboard {
         padding: 30px 20px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .greet {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        background: white;
+        z-index: 999;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+    }
+
+    .greet.hidden {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+    }
+
+    .greeting-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        background-color: white;
+        z-index: 999;
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    }
+
+    .greeting-wrapper.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .dashboard.visible {
+        opacity: 1;
+        padding-left: 52px;
     }
 
     .layout img {
@@ -276,14 +337,11 @@ a {
 
     .layout {
         justify-content: center !important;
-    }
-
-    .greet {
-        display: none;
+        padding-top: 80px;
     }
 
     .to-do-dashboard {
-        justify-content: center;
+        display: block;
         padding-bottom: 100px !important;
     }
 
@@ -303,11 +361,11 @@ a {
 @media (max-width: 480px) {
     main {
         padding-left: 35px !important;
-        width: 100% !important;
     }
 
     .dashboard {
         padding: 20px 10px;
+        width: 100%;
     }
 
     .greet {
@@ -315,6 +373,16 @@ a {
     }
 
     .to-do-dashboard {
-        justify-content: center;
+        box-sizing: border-box;
+        width: min-content;
+        padding-left: 35px;
+    }
+
+    .layout img {
+        width: 50%;
+    }
+
+    .layout {
+        justify-content: center !important;
     }
 }
