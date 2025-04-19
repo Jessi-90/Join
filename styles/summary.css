@@ -222,6 +222,15 @@ a {
     pointer-events: none;
 }
 
+.title-default {
+    display: block;
+}
+
+.title-responsive,
+.title-line {
+    display: none;
+}
+
 /*---RESPONSIVE---*/
 
 @media screen and (min-width: 1380px) and (max-width: 1920px) {
@@ -269,7 +278,7 @@ a {
     }
 
     .layout img {
-        width: 80%;
+        width: 70%;
     }
 
     .layout {
@@ -280,6 +289,10 @@ a {
 @media (max-width: 768px) {
     main {
         width: 100% !important;
+    }
+
+    .layout img {
+        width: 90%;
     }
 
     .dashboard {
@@ -359,13 +372,19 @@ a {
 
     .layout {
         padding-top: 60px;
-        padding-left: 82px;
+        padding-left: 30px;
         justify-content: center;
         gap: 15px;
+        margin-bottom: 20px;
     }
 
     .layout img {
-        width: 50%;
+        width: 35%;
+        content: url('../assets/img/join-title-responsive.png');
+    }
+
+    .title-line {
+        width: 60% !important;
     }
 
     .card h1 {
@@ -403,14 +422,19 @@ a {
 
     .layout {
         padding-top: 60px;
-        padding-left: 62px;
+        padding-left: 14px;
         justify-content: center;
         gap: 15px;
     }
 
+    .layout img {
+        width: 35%;
+        content: url('../assets/img/join-title-responsive.png');
+    }
+
     .urgent-info {
         padding-left: 40px;
-}
+    }
 }
 
 @media (max-width: 440px) {
@@ -418,41 +442,42 @@ a {
         padding: 5px;
         width: 100%;
         flex: 1;
-        font-size: 0.9rem; 
+        font-size: 0.9rem;
     }
 
     .card {
         padding: 5px;
-        height: 120px; 
-        gap: 10px; 
+        height: 120px;
+        gap: 10px;
     }
 
     .card h1 {
-        font-size: 1.5rem; 
+        font-size: 1.5rem;
     }
 
     .card p {
-        font-size: 0.8rem; 
+        font-size: 0.8rem;
     }
 
     .layout {
         padding-top: 40px;
-        padding-left: 20px; 
+        padding-left: 20px;
         justify-content: center;
-        gap: 5px; 
+        gap: 5px;
     }
 
     .layout img {
-        width: 50%;
+        width: 35%;
+        content: url('../assets/img/join-title-responsive.png');
     }
 
     .greeting {
-        font-size: 22px; 
+        font-size: 22px;
         text-align: center;
     }
 
     .greeting-name {
-        font-size: 30px; 
+        font-size: 30px;
         line-height: 1.2;
     }
 
@@ -463,7 +488,7 @@ a {
     }
 
     .card:hover {
-        transform: scale(1.02); 
+        transform: scale(1.02);
     }
 
     .greeting-wrapper {
