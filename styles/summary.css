@@ -1,3 +1,8 @@
+body.animating .mobile-navbar,
+body.animating .header {
+    display: none !important;
+}
+
 a {
     text-decoration: none;
     color: #989A9C;
@@ -203,23 +208,9 @@ a {
 
 .greeting-wrapper {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: white;
-    flex-direction: column;
-    text-align: center;
-    transition: opacity 0.5s ease;
-    z-index: 999;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-}
-
-.greeting-wrapper.hidden {
-    opacity: 0;
-    pointer-events: none;
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
 }
 
 .title-default {
@@ -270,6 +261,42 @@ a {
         opacity: 1;
         padding-left: 64px;
     }
+
+    .greeting-wrapper {
+        animation: summaryAnimation 2s forwards;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: white; 
+    }
+
+    .greeting-wrapper.hidden {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        display: none !important;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    @keyframes summaryAnimation {
+        0% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        70% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        100% {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
@@ -283,6 +310,42 @@ a {
 
     .layout {
         padding-left: 76px;
+    }
+
+    .greeting-wrapper {
+        animation: summaryAnimation 2s forwards;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: white; 
+    }
+
+    .greeting-wrapper.hidden {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        display: none !important;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    @keyframes summaryAnimation {
+        0% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        70% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        100% {
+            opacity: 0;
+            pointer-events: none;
+        }
     }
 }
 
@@ -303,24 +366,6 @@ a {
 
     .greet {
         display: flex !important;
-    }
-
-    .greet.hidden {
-        opacity: 0;
-        pointer-events: none;
-        visibility: hidden;
-    }
-
-    .greeting-wrapper {
-        opacity: 1;
-        visibility: visible;
-        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-    }
-
-    .greeting-wrapper.hidden {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
     }
 
     .dashboard.visible {
@@ -371,6 +416,42 @@ a {
 
     .urgent-info {
         padding-left: 40px;
+    }
+
+    .greeting-wrapper {
+        animation: summaryAnimation 2s forwards;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: white; 
+    }
+
+    .greeting-wrapper.hidden {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        display: none !important;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    @keyframes summaryAnimation {
+        0% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        70% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        100% {
+            opacity: 0;
+            pointer-events: none;
+        }
     }
 }
 
@@ -423,12 +504,12 @@ a {
     }
 
     .greeting {
-        font-size: 36px;
+        font-size: 42px;
         text-align: center;
     }
 
     .greeting-name {
-        font-size: 48px;
+        font-size: 50px;
         line-height: 1.2;
     }
 
@@ -439,6 +520,46 @@ a {
 
     .greeting-wrapper {
         padding: 20px;
+    }
+
+    .greeting-animation {
+        display: flex;
+    }
+
+    .greeting-wrapper {
+        animation: summaryAnimation 2s forwards;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: white; 
+    }
+
+    .greeting-wrapper.hidden {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        display: none !important;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    @keyframes summaryAnimation {
+        0% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        70% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        100% {
+            opacity: 0;
+            pointer-events: none;
+        }
     }
 }
 
@@ -497,6 +618,42 @@ a {
     .urgent-info p:last-child {
         padding-right: 26px;
     }
+
+    .greeting-wrapper {
+        animation: summaryAnimation 2s forwards;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: white; 
+    }
+
+    .greeting-wrapper.hidden {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        display: none !important;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    @keyframes summaryAnimation {
+        0% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        70% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        100% {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
 }
 
 @media (max-width: 440px) {
@@ -535,12 +692,12 @@ a {
     }
 
     .greeting {
-        font-size: 22px;
+        font-size: 42px;
         text-align: center;
     }
 
     .greeting-name {
-        font-size: 30px;
+        font-size: 50px;
         line-height: 1.2;
     }
 
@@ -583,5 +740,41 @@ a {
 
     .urgent-info p:last-child {
         padding-right: 26px;
+    }
+
+    .greeting-wrapper {
+        animation: summaryAnimation 2s forwards;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: white; 
+    }
+
+    .greeting-wrapper.hidden {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        display: none !important;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    @keyframes summaryAnimation {
+        0% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        70% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        100% {
+            opacity: 0;
+            pointer-events: none;
+        }
     }
 }
