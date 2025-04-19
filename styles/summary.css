@@ -355,6 +355,23 @@ a {
         opacity: 1;
         transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
     }
+
+    .urgent-info p:first-child {
+        font-weight: bold;
+        padding-right: 20px;
+    }
+
+    .urgent-info p:last-child {
+        padding-right: 20px;
+    }
+
+    .urgent-box {
+        padding-right: 40px;
+    }
+
+    .urgent-info {
+        padding-left: 40px;
+    }
 }
 
 @media (max-width: 570px) {
@@ -363,6 +380,7 @@ a {
         width: 100%;
         flex: 1;
         display: block;
+        height: 120px;
     }
 
     .dashboard.visible {
@@ -371,20 +389,29 @@ a {
     }
 
     .layout {
-        padding-top: 60px;
+        padding-top: 46px;
         padding-left: 30px;
         justify-content: center;
         gap: 15px;
-        margin-bottom: 20px;
+        margin-bottom: 36px;
     }
 
-    .layout img {
+    .layout img:first-child {
         width: 35%;
         content: url('../assets/img/join-title-responsive.png');
     }
 
-    .title-line {
-        width: 60% !important;
+    .layout::after {
+        content: "";
+        display: block;
+        width: 20%;
+        height: auto;
+        background-image: url('../assets/img/join-title-line.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-top: 10px;
+        aspect-ratio: 6 / 1;
     }
 
     .card h1 {
@@ -416,15 +443,29 @@ a {
 }
 
 @media (max-width: 480px) {
+    .dashboard {
+        padding: 5px;
+        width: 100%;
+        flex: 1;
+        font-size: 0.9rem;
+    }
+
+    .card {
+        padding: 5px;
+        height: 120px;
+        gap: 10px;
+    }
+
     .dashboard.visible {
         padding-left: 10px;
     }
 
     .layout {
-        padding-top: 60px;
-        padding-left: 14px;
+        padding-top: 40px;
+        padding-left: 20px;
         justify-content: center;
-        gap: 15px;
+        gap: 5px;
+        margin-bottom: 20px !important;
     }
 
     .layout img {
@@ -434,6 +475,27 @@ a {
 
     .urgent-info {
         padding-left: 40px;
+    }
+
+    .urgent-box {
+        padding-right: 46px;
+    }
+
+    .urgent-img {
+        padding-left: 15px;
+    }
+
+    .dashboard.visible {
+        margin-top: 62px;
+    }
+
+    .urgent-info p:first-child {
+        font-weight: bold;
+        padding-right: 26px;
+    }
+
+    .urgent-info p:last-child {
+        padding-right: 26px;
     }
 }
 
@@ -452,11 +514,11 @@ a {
     }
 
     .card h1 {
-        font-size: 1.5rem;
+        font-size: 2.5rem;
     }
 
     .card p {
-        font-size: 0.8rem;
+        font-size: 1.0rem;
     }
 
     .layout {
@@ -464,6 +526,7 @@ a {
         padding-left: 20px;
         justify-content: center;
         gap: 5px;
+        margin-bottom: 20px !important;
     }
 
     .layout img {
@@ -499,5 +562,26 @@ a {
     .card-todo {
         width: 98%;
         gap: 18px;
+    }
+
+    .dashboard.visible {
+        margin-top: 62px;
+    }
+
+    .urgent-info {
+        padding-left: 40px;
+    }
+
+    .urgent-img {
+        padding-left: 15px;
+    }
+
+    .urgent-info p:first-child {
+        font-weight: bold;
+        padding-right: 26px;
+    }
+
+    .urgent-info p:last-child {
+        padding-right: 26px;
     }
 }
