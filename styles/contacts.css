@@ -166,6 +166,10 @@ html {
   .contact-list-wrapper {
     width: 325px;
   }
+
+  .contact-detail-name span {
+    font-size: 36px;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -193,10 +197,6 @@ html {
 
   .contact-letter-section {
     align-items: center;
-  }
-
-  .contact-detail-name span {
-    font-size: 36px;
   }
 
   .contact-detail-header p {
@@ -243,4 +243,15 @@ html {
 
 }
 
-@media (max-width: 768px) {}
+@media (max-width: 768px) {
+  .contacts-main {
+    width: 100%;
+    padding: 0 !important;
+  }
+
+  .contact-view {
+    justify-content: center;
+  }
+
+
+}
