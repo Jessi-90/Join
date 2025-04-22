@@ -171,7 +171,7 @@ html {
 @media (max-width: 1200px) {
 
   .contact-detail-header {
-    display: block; 
+    display: block;
   }
 
   .contact-detail-header p {
@@ -191,13 +191,8 @@ html {
     margin: 64px 0 0 0;
   }
 
-  .contact-icon-placeholder-large {
-    width: 80px !important;
-    height: 80px !important;
-  }
-
-  .contact-detail-name {
-    gap: 27px !important;
+  .contact-letter-section {
+    align-items: center;
   }
 
   .contact-detail-name span {
@@ -216,18 +211,6 @@ html {
     width: 200px;
   }
 
-  .button-dark-large {
-    width: 200px !important;
-  }
-
-  .button-dark-large span {
-    display: none;
-  }
-
-  .contact-letter {
-    width: 200px !important;
-  }
-
   .contact-placeholder-item {
     width: 200px;
   }
@@ -235,8 +218,29 @@ html {
   .contact-name-placeholder {
     font-size: 16px;
   }
-
-  .contact-email-placeholder {
-    font-size: 14px !important;
-  }
 }
+
+@media (max-width: 1024px) {
+  .contact-detail-header h2 {
+    font-size: 36px;
+  }
+
+  .contact-detail-header p {
+    font-size: 16px;
+  }
+
+  .contact-view {
+    gap: 0;
+  }
+
+  .contact-detail-name span {
+    font-size: 18px;
+  }
+
+  .contact-detail {
+    margin: 32px 0 0 0;
+  }
+
+}
+
+@media (max-width: 768px) {}

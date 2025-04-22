@@ -60,12 +60,12 @@
 }
 
 .contact-placeholder-item.active {
-    background-color: rgba(42, 54, 71, 1);  
+    background-color: rgba(42, 54, 71, 1);
     color: white;
 }
 
 .contact-placeholder-item.active {
-    color: #fff;  
+    color: #fff;
 }
 
 .contact-icon-placeholder {
@@ -111,7 +111,7 @@
     max-height: calc(100vh - 160px);
     overflow-y: auto;
     overflow-x: hidden;
-    scrollbar-width: thin; 
+    scrollbar-width: thin;
     scrollbar-color: #A8A8A8 transparent;
     position: relative;
 }
@@ -142,7 +142,7 @@
 
 .contact-view {
     display: flex;
-   
+
 }
 
 .contact-detail-name {
@@ -181,7 +181,7 @@
 
 .edit-button img,
 .delete-button img {
-    width: 24px;  
+    width: 24px;
     height: 24px;
 }
 
@@ -194,13 +194,18 @@
 .contact-action-button {
     display: flex;
     align-items: center;
-    gap: 13px;
+    gap: 8px;
     background: none;
     border: none;
     cursor: pointer;
     font-size: 16px;
     text-decoration: none;
     height: 24px;
+}
+
+.contact-action-button span {
+    font-size: 16px;
+    font-weight: 400;
 }
 
 .contact-detail-wrapper h2 {
@@ -247,7 +252,7 @@
 }
 
 .contact-info-section p strong {
-    display: block; 
+    display: block;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 15px;
@@ -262,4 +267,83 @@
 
 .contact-info-section a:hover {
     text-decoration: underline;
+}
+
+@media (max-width: 1200px) {
+
+    .contact-icon-placeholder-large {
+        width: 80px;
+        height: 80px;
+    }
+
+    .button-dark-large {
+        width: 200px;
+    }
+
+    .button-dark-large span {
+        display: none;
+    }
+
+    .contact-letter {
+        width: 200px;
+    }
+
+    .contact-placeholder-item {
+        align-items: center;
+        padding: 0;
+    }
+
+    .contact-icon-placeholder {
+        width: 20px;
+        height: 20px;
+        margin: 0 8px;
+        font-size: 8px;
+    }
+
+    .contact-email-placeholder {
+        font-size: 14px;
+    }
+
+    .contact-detail-name {
+        gap: 27px;
+    }
+}
+
+@media (max-width: 1024px) {
+
+    .headline-kanban {
+        font-size: 16px;
+    }
+
+    .contact-icon-placeholder-large {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .contact-detail-name {
+        gap: 12px;
+    }
+
+    .contact-info-section h4 {
+        font-size: 16px;
+        height: 32px;
+    }
+
+    .contact-action-button {
+        gap: 4px;
+    }
+
+    .contact-action-button img {
+        width: 18px;
+    }
+
+    .contact-action-button span {
+        font-size: 14px;
+    }
+
+    .edit-button {
+        margin: 0;
+        padding-left: 0;
+    }
 }
