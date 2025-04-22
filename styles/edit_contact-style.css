@@ -213,3 +213,67 @@ input:focus {
 .d-none {
     display: none;
 }
+
+/*---RESPONSIVE---*/
+
+@media (min-width: 1921px) {
+    .modal {
+      max-width: 1600px;
+    }
+  
+    .form-container {
+      width: 60%;
+    }
+  }
+
+  @media (min-width: 1025px) and (max-width: 1200px) {
+      .form-container {
+      width: 70%;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .sidebar {
+      width: 100%;
+      padding: 40px;
+    }
+  
+    .form-container {
+      width: 100%;
+      flex-direction: column;
+    }
+  }
+
+  @media (min-width: 481px) and (max-width: 768px) {
+    .sidebar {
+      width: 100%;
+      padding: 32px;
+      align-items: center;
+    }
+  
+    .form-container {
+      flex-direction: column;
+      padding: 32px;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+      .modal {
+      flex-direction: column;
+      height: auto;
+      width: 100%;
+    }
+  
+    .sidebar {
+      width: 100%;
+      align-items: center;
+      padding: 24px;
+    }
+  
+    .form-container {
+      padding: 24px;
+      width: 100%;
+      flex-direction: column;
+    }
+  }
