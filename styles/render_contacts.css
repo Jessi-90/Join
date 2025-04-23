@@ -366,6 +366,26 @@
 
 @media (max-width: 768px) {
 
+    .mobile-add-contact-btn {
+        position: absolute;
+        bottom: 100px;
+        right: 20px;
+    }
+
+    .mobile-add-contact-btn button {
+        height: 64px;
+        width: 64px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 5px 4px 1px rgba(0, 0, 0, 0.2)
+    }
+
+    .mobile-add-contact-btn button:hover {
+        background-color: rgba(42, 54, 71, 1);
+    }
+
     .contact-detail-wrapper {
         display: none;
     }
@@ -419,7 +439,7 @@
     }
 
     .contact-divider {
-        width: 100%;
+        width: 400px;
     }
 
     .contact-list-view {
@@ -436,8 +456,8 @@
 @media (max-width: 480px) {
 
     .contact-icon-placeholder {
-        margin-right: 40px;
-        margin-left: 40px;
+        margin-right: 20px;
+        margin-left: 0px;
     }
 
     .contact-name-placeholder {
@@ -449,14 +469,24 @@
     }
 
     .contact-letter {
-        padding-left: 104px;
+        padding-left: 24px;
     }
 
     .contact-divider {
-        width: 80%;
+        width: 260px;
     }
 
     #contactList .contact-letter-section:last-of-type .contact-placeholder-item:last-child {
         margin-bottom: 20px;
+    }
+
+    .mobile-add-contact-btn button {
+        height: 44px;
+        width: 44px;
+    }
+
+    .mobile-add-contact-btn img {
+        height: 24px;
+        width: 24px;
     }
 }
