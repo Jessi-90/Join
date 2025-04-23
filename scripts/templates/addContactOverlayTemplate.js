@@ -13,6 +13,7 @@ function showAddContactOverlayHTMLTemplate() {
         </div>
         <h1>Add contact</h1>
         <p>Tasks are better with a team!</p>
+        <div class="horizontal-line"></div>
         <div class="divider"></div>
     </div>
     <div class="form-container">
