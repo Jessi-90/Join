@@ -273,6 +273,7 @@
     .contact-icon-placeholder-large {
         width: 80px;
         height: 80px;
+        font-size: 32px;
     }
 
     .contact-detail-name {
@@ -290,8 +291,13 @@
         display: none;
     }
 
+    .contact-letter-section {
+        width: 100%;
+    }
+
     .contact-letter {
-        width: 200px;
+        width: 100%;
+        padding-left: 66px;
     }
 
     .contact-placeholder-item {
@@ -300,10 +306,14 @@
     }
 
     .contact-icon-placeholder {
-        width: 20px;
-        height: 20px;
+        width: 30px;
+        height: 30px;
         margin: 0 8px;
-        font-size: 8px;
+        font-size: 12px;
+    }
+
+    .contact-name-placeholder {
+        font-size: 14px;
     }
 
     .contact-email-placeholder {
@@ -324,7 +334,7 @@
     .contact-icon-placeholder-large {
         width: 40px;
         height: 40px;
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .contact-detail-name {
@@ -372,14 +382,21 @@
         width: 100%;
     }
 
+    .contact-letter-section:first-of-type .contact-letter {
+        margin-top: 40px;
+    }
+
     .contact-letter {
-        width: 100%;
+        height: 44px;
+        padding-top: 24px;
+        padding-left: 76px;
+        padding-right: 0;
     }
 
     .contact-placeholder-item {
         font-size: 20px;
-        padding-top: 25px;
-        margin-top: 4px;
+        padding-top: 0px;
+        margin-top: 0;
         width: 100%;
     }
 
@@ -405,4 +422,41 @@
         width: 100%;
     }
 
+    .contact-list-view {
+        width: 100%;
+    }
+
+    .contact-list-wrapper {
+        width: 100%;
+        padding: 0;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .contact-icon-placeholder {
+        margin-right: 40px;
+        margin-left: 40px;
+    }
+
+    .contact-name-placeholder {
+        font-size: 14px;
+    }
+
+    .contact-email-placeholder {
+        font-size: 14px;
+    }
+
+    .contact-letter {
+        padding-left: 104px;
+    }
+
+    .contact-divider {
+        width: 80%;
+    }
+
+    #contactList .contact-letter-section:last-of-type .contact-placeholder-item:last-child {
+        margin-bottom: 20px;
+    }
 }

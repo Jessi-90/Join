@@ -109,10 +109,12 @@ function addContactClickEvents() {
  * @param {HTMLElement} clickedElement - The contact element that was clicked.
  */
 function setActiveContact(clickedElement) {
-    const allContacts = document.querySelectorAll('.contact-placeholder-item');
-    allContacts.forEach(contact => contact.classList.remove('active'));
+    if (window.innerWidth > 769) {
+        const allContacts = document.querySelectorAll('.contact-placeholder-item');
+        allContacts.forEach(contact => contact.classList.remove('active'));
 
-    clickedElement.classList.add('active');
+        clickedElement.classList.add('active');
+    }
 }
 
 

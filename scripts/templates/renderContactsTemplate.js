@@ -9,7 +9,7 @@
 function renderContacts() {
     return `
         <section class="contact-view">
-            <section>
+            <section class="contact-list-view">
                 <div class="contact-list-wrapper">
                     <div class="contact-list-header">
                         <button class="button-dark-large" onclick="showAddContactOverlay()">

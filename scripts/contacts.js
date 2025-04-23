@@ -13,6 +13,7 @@ async function init() {
     renderContactList(currentContactsData);
     addContactClickEvents();
     summaryGreetingUser();
+    setupResponsiveListener();
 }
 
 /**
@@ -208,3 +209,37 @@ async function removeContactFromTasks(firebaseId) {
         return {};
     }
 }
+
+function handleScreenResize() {
+    const activeItems = document.querySelectorAll('.contact-placeholder-item');
+
+    if (window.innerWidth <= 768) {
+        activeItems.forEach(item => {
+            item.removeAttribute('onclick');
+            item.classList.remove('active');
+        });
+        
+    } else {
+        activeItems.forEach(item => {
+            item.setAttribute('onclick', `onContactClick(${JSON.stringify(contact)})`);
+        });
+    }
+}
+  
+  function observeDynamicElements() {
+    const container = document.querySelector('#contactList');
+  
+    if (container) {
+      const observer = new MutationObserver(() => {
+        handleScreenResize();
+      });
+  
+      observer.observe(container, { childList: true, subtree: true });
+    }
+  }
+  
+  function setupResponsiveListener() {
+    window.addEventListener('resize', handleScreenResize);
+    handleScreenResize();
+    observeDynamicElements();
+  }
