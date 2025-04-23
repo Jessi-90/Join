@@ -1,5 +1,6 @@
 body {
   max-width: 1920px;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -114,12 +115,457 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .board-card-detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 30px;
+  padding: 48px 40px;
+  gap: 24px;
+}
+
+/*---RESPONSIVE---*/
+
+@media screen and (min-width: 1921px) {
+  body {
+    max-width: 1920px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 64px;
+  }
+
+  .top-bar {
+    margin: 96px 96px 0 96px;
+  }
+}
+
+@media screen and (min-width: 1201px) and (max-width: 1920px) {
+  h1 {
+    font-size: 61px;
+  }
+
+  .search-input input {
+    width: 312px;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1200px) {
+  h1 {
+    font-size: 54px !important;
+    margin: 0 0 0 25px !important;
+  }
+
+  h2 {
+    font-size: 15px !important;
+  }
+
+  .board {
+    margin: 0 24px !important;
+  }
+
+  .column-header {
+    font-size: 15px !important;
+  }
+
+  .search-input input {
+    width: 220px !important;
+    font-size: 20px;
+  }
+
+  .card-category {
+    font-size: 14px !important;
+    display: flex;
+  }
+
+  .card-title {
+    font-size: 14px !important;
+  }
+
+  .card-description {
+    font-size: 14px !important;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  h1 {
+    font-size: 44px !important;
+    margin-left: 0px !important;
+    margin-right: 10px !important;
+  }
+
+  h2 {
+    font-size: 20px !important
+  }
+
+  .search-and-add {
+    gap: 10px;
+  }
+
+  .card {
+    flex: 0 0 auto !important;
+    width: 252px;
+    height: 263px;
+  }
+
+  .column {
+    min-height: 40vh !important;
+  }
+
+  .column-header {
+    font-size: 14px !important;
+    width: 282px;
+  }
+
+  .top-bar {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, 1);
-    border-radius: 30px;
-    padding: 48px 40px;
-    gap: 24px;
+    padding: 0 16px;
+    gap: 12px;
+    margin-left: 25px;
+  }
+
+  .add-task-btn {
+    position: absolute;
+    right: 16px;
+    top: 4px;
+    padding: 0;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    padding: 4px 8px 4px 8px !important;
+  }
+
+  .add-task-btn span {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .add-task-btn img {
+    width: 22px;
+    height: 32px;
+    font-weight: 100;
+  }
+
+  .search-and-add {
+    width: 100%;
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .search-input input {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 48px 12px 12px;
+  }
+
+  .search-input-icons {
+    right: 12px;
+  }
+
+  .board-card-detail-container {
+    padding: 40px;
+  }
+
+  .card-category {
+    font-size: 14px !important;
+    display: flex;
+  }
+
+  .board {
+    margin: 0 44px !important;
+    flex-direction: column;
+    width: 100vw;
+    padding-bottom: 80px !important;
+  }
+
+  .card-container {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 16px;
+    scroll-behavior: smooth;
+    padding-bottom: 12px;
+  }
+
+  .add-card {
+    width: 30px !important;
+    height: 30px !important;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  h1 {
+    font-size: 44px !important;
+    margin-left: 0px !important;
+    margin-right: 10px !important;
+  }
+
+  h2 {
+    font-weight: 700 !important;
+    font-size: 27px !important;
+    margin: 4px;
+}
+
+  .search-and-add {
+    gap: 10px;
+  }
+
+  .card {
+    flex: 0 0 auto !important;
+    width: 252px;
+    height: 263px;
+  }
+
+  .main {
+    width: 100% !important;
+  }
+
+  .column {
+    min-height: 40vh !important;
+  }
+
+  .column-header {
+    width: 85vw;
+    margin-top: 8px;
+    margin-bottom: 0px;
+  }
+
+  .top-bar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 90vw;
+    margin-top: 44px;
+  }
+
+  .add-task-btn {
+    position: absolute;
+    right: 16px;
+    top: 4px;
+    padding: 0;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    padding: 4px 8px 4px 8px !important;
+  }
+
+  .add-task-btn span {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .add-task-btn img {
+    width: 22px;
+    height: 32px;
+    font-weight: 100;
+  }
+
+  .search-and-add {
+    width: 100%;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .search-input input {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 48px 12px 12px;
+  }
+
+  .search-input-icons {
+    right: 12px;
+  }
+
+  .board-card-detail-container {
+    padding: 40px;
+  }
+
+  .card-category {
+    font-size: 14px !important;
+    display: flex;
+  }
+
+  .board {
+    flex-direction: column;
+    width: 100vw;
+    padding-bottom: 100px !important;
+    margin-left: 5px !important;
+  }
+
+  .card-container {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 16px;
+    scroll-behavior: smooth;
+    padding-bottom: 12px;
+  }
+
+  .add-card {
+    width: 30px !important;
+    height: 30px !important;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  h1 {
+    font-size: 44px !important;
+    margin-left: 4px !important;
+  }
+
+  h2 {
+    font-weight: 700 !important;
+    font-size: 27px !important;
+    margin: 4px;
+}
+
+  .main {
+    display: contents !important;
+    width: 82% !important;
+    padding-left: 14px !important;
+    width: 100%;
+  }
+
+  .column {
+    min-height: 40vh !important;
+  }
+
+  .card {
+    flex: 0 0 auto !important;
+    width: 252px;
+    height: 263px;
+  }
+
+  .column-header {
+    width: 282px;
+    margin: 8px 0 8px 0;
+    width: 85vw;
+    margin-bottom: 0px !important;
+  }
+
+  .board-card-detail-container {
+    padding: 40px;
+  }
+
+  .board {
+    flex-direction: column;
+  }
+
+  .top-bar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 90vw;
+    margin-top: 44px;
+  }
+
+  .add-task-btn {
+    position: absolute;
+    right: 16px;
+    top: 4px;
+    padding: 0;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    padding: 4px 8px 4px 8px !important;
+  }
+
+  .add-task-btn span {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .add-task-btn img {
+    width: 22px;
+    height: 32px;
+    font-weight: 100;
+  }
+
+  .search-and-add {
+    width: 100%;
+    margin-top: 24px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .search-input input {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 48px 12px 12px;
+  }
+
+  .search-input-icons {
+    right: 12px;
+  }
+
+  .board-card-detail-container {
+    padding: 40px;
+  }
+
+  .card-category {
+    font-size: 14px !important;
+    display: flex;
+  }
+
+  .board {
+    margin-left: 5px !important;
+    flex-direction: column;
+    width: 100vw;
+    padding-bottom: 100px !important;
+  }
+
+  .card-container {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 16px;
+    scroll-behavior: smooth;
+    padding-bottom: 12px;
+  }
+
+  .add-card {
+    width: 30px !important;
+    height: 30px !important;
+  }
 }
