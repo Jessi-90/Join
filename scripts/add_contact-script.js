@@ -39,13 +39,13 @@ function closeAddContactOverlay() {
     let overlayContainer = document.querySelector('.overlay');
 
     overlayContainer.classList.remove('show');
+    overlayContainer.classList.add('slideOutToBottom');
 
     setTimeout(() => {
         addContactOverlay.classList.add('d-none');
-
-
+        overlayContainer.classList.remove('slideOutToBottom');
         document.removeEventListener("click", handleOutsideClick);
-    }, 300);
+    }, 500);
 }
 
 
