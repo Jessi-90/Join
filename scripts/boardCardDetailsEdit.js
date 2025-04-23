@@ -24,7 +24,7 @@ document.addEventListener('click', (event) => {
         !dropdown.contains(event.target) &&
         !dropdownToggle.contains(event.target)
     ) {
-        dropdown.style.display = 'none';
+        dropdown.classList.add('d-none');
     }
     
     if (editContainer && editContainer.contains(event.target)) {
@@ -358,7 +358,7 @@ function editTask(taskId = getCurrentlyViewedTaskId()) {
         populateEditOverlay(taskId);
         animateEditOverlay(true);
         setTimeout(() => {
-            initializeDropdown();
+            setupDropdownToggle();
         }, 10);
 
     } else {
