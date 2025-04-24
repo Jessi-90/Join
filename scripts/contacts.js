@@ -4,8 +4,10 @@
  */
 let currentContactsData = [];
 
+
 /**
- * Initializes the app by fetching data and rendering the contacts.
+ * Initializes the app by fetching data, rendering the contacts, and setting up interactive features.
+ * Ensures the app remains responsive by adapting UI behavior based on screen size.
  */
 async function init() {
     await mapContactsData();
@@ -15,6 +17,7 @@ async function init() {
     summaryGreetingUser();
     setupResponsiveListener();
 }
+
 
 /**
  * Fetches contact data from the Firebase database and stores it in `currentContactsData`.
@@ -129,6 +132,7 @@ function setNewContactActive(contact) {
     }, 100); 
 }
 
+
 /**
  * Deletes a contact from the Firebase database and updates the UI.
  * 
@@ -210,36 +214,27 @@ async function removeContactFromTasks(firebaseId) {
     }
 }
 
-function handleScreenResize() {
-    const activeItems = document.querySelectorAll('.contact-placeholder-item');
 
+/**
+ * Removes the "active" class from elements with the class "contact-placeholder-item"
+ * if the viewport width is less than or equal to 768px.
+ */
+function removeActiveClassOnResize() {
     if (window.innerWidth <= 768) {
+        const activeItems = document.querySelectorAll('.contact-placeholder-item');
         activeItems.forEach(item => {
-            item.removeAttribute('onclick');
             item.classList.remove('active');
-        });
-        
-    } else {
-        activeItems.forEach(item => {
-            item.setAttribute('onclick', `onContactClick(${JSON.stringify(contact)})`);
         });
     }
 }
-  
-  function observeDynamicElements() {
-    const container = document.querySelector('#contactList');
-  
-    if (container) {
-      const observer = new MutationObserver(() => {
-        handleScreenResize();
-      });
-  
-      observer.observe(container, { childList: true, subtree: true });
-    }
-  }
-  
-  function setupResponsiveListener() {
-    window.addEventListener('resize', handleScreenResize);
-    handleScreenResize();
-    observeDynamicElements();
-  }
+
+
+/**
+ * Sets up a responsive listener that removes the "active" class from elements
+ * based on the viewport width whenever the browser window is resized.
+ * Also calls the removal function once during initialization.
+ */
+function setupResponsiveListener() {
+    window.addEventListener('resize', removeActiveClassOnResize);
+    removeActiveClassOnResize();
+}
