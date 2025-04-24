@@ -221,6 +221,7 @@ html {
 }
 
 @media (max-width: 1024px) {
+
   .contact-detail-header h2 {
     font-size: 36px;
   }
@@ -244,7 +245,9 @@ html {
 }
 
 @media (max-width: 768px) {
+
   .contacts-main {
+    position: relative;
     width: 100%;
     padding: 0 !important;
   }

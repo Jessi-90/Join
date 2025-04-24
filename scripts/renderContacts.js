@@ -68,10 +68,140 @@ function groupContactsAlphabetically(contacts) {
 
 /**
  * Handles the event when a contact is clicked to view detailed information.
+ * Delegates tasks such as toggling details and applying mobile view adjustments.
+ * 
  * @param {Object} contact - The clicked contact.
  */
 function onContactClick(contact) {
     toggleContactDetail(contact);
+
+    if (isMobileView()) {
+        showContactDetailViewForMobile();
+        hideContactListViewForMobile();
+        hideMobileAddContactButton();
+        addBackButtonToMobileDetail();
+    }
+}
+
+
+/**
+ * Checks if the current viewport width is 768px or smaller.
+ * 
+ * @returns {boolean} True if the viewport width is 768px or smaller, otherwise false.
+ */
+function isMobileView() {
+    return window.innerWidth <= 768;
+}
+
+
+/**
+ * Displays the contact detail view for mobile screens.
+ * Ensures the detail wrapper is visible.
+ */
+function showContactDetailViewForMobile() {
+    const detailWrapper = document.querySelector('.contact-details-view');
+    if (detailWrapper) {
+        detailWrapper.style.display = 'block';
+    }
+}
+
+
+/**
+ * Hides the contact list view for mobile screens.
+ * Ensures the contact list wrapper is not visible.
+ */
+function hideContactListViewForMobile() {
+    const contactListWrapper = document.querySelector('.contact-list-view');
+    if (contactListWrapper) {
+        contactListWrapper.style.display = 'none';
+    }
+}
+
+
+/**
+ * Hides the mobile add contact button by adding the d-none class.
+ */
+function hideMobileAddContactButton() {
+    const mobileAddContactBtn = document.getElementById('mobile-add-contact-btn');
+    if (mobileAddContactBtn) {
+        mobileAddContactBtn.classList.add('d-none');
+    }
+}
+
+
+/**
+ * Adds a back button to the contact detail view in mobile mode
+ */
+function addBackButtonToMobileDetail() {
+    const detailHeader = document.querySelector('.contact-detail-header');
+    
+    if (!document.getElementById('mobile-back-button') && detailHeader) {
+        const backButton = document.createElement('button');
+
+        backButton.id = 'mobile-back-button';
+        backButton.classList.add('mobile-back-button');
+        backButton.innerHTML = '&larr; Back to contacts';
+        backButton.addEventListener('click', closeMobileContactDetail);
+        detailHeader.insertBefore(backButton, detailHeader.firstChild);
+    }
+}
+
+
+/**
+ * Closes the detail view and returns to the contact list in mobile view.
+ * Delegates tasks to helper functions for better readability and maintainability.
+ */
+function closeMobileContactDetail() {
+    hideContactDetailViewForMobile();
+    showContactListViewForMobile();
+    showMobileAddContactButton();
+    removeMobileBackButton();
+}
+
+
+/**
+ * Hides the contact detail view for mobile screens.
+ * Ensures the detail wrapper is not visible.
+ */
+function hideContactDetailViewForMobile() {
+    const detailWrapper = document.querySelector('.contact-details-view');
+    if (detailWrapper) {
+        detailWrapper.style.display = 'none';
+    }
+}
+
+
+/**
+ * Shows the contact list view for mobile screens.
+ * Ensures the contact list wrapper is visible.
+ */
+function showContactListViewForMobile() {
+    const contactListWrapper = document.querySelector('.contact-list-view');
+    if (contactListWrapper) {
+        contactListWrapper.style.display = 'flex';
+    }
+}
+
+
+/**
+ * Shows the mobile add contact button by removing the d-none class.
+ */
+function showMobileAddContactButton() {
+    const mobileAddContactBtn = document.getElementById('mobile-add-contact-btn');
+    if (mobileAddContactBtn) {
+        mobileAddContactBtn.classList.remove('d-none');
+    }
+}
+
+
+/**
+ * Removes the back button from the mobile detail view if it exists.
+ */
+function removeMobileBackButton() {
+    const backButton = document.getElementById('mobile-back-button');
+    if (backButton) {
+        backButton.remove();
+    }
 }
 
 
@@ -204,10 +334,12 @@ function renderNoContactsMessage(container) {
  */
 function toggleContactDetail(contact) {
     const container = document.getElementById('contact-detail');
+
     if (!container) {
         openNewContact(contact);
         return;
     }
+    
     const currentOpenContact = container.getAttribute('data-firebase-id') || null;
 
     if (currentOpenContact === String(contact.firebaseId)) {
@@ -219,7 +351,7 @@ function toggleContactDetail(contact) {
         }, 125);
     }
 }
- 
+
 
 /**
  * Opens the contact detail view and displays the selected contact's information.
