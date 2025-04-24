@@ -207,7 +207,7 @@ a {
 }
 
 .greeting-wrapper {
-    display: flex;
+    display: grid;
     opacity: 1;
     pointer-events: all;
     visibility: visible;
@@ -230,7 +230,7 @@ a {
     }
 
     .greeting-wrapper {
-        display: flex !important;
+        display: grid;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -469,6 +469,9 @@ a {
         flex: 1;
         display: block;
         height: 120px;
+        padding: 30px 20px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
     }
 
     .dashboard.visible {
@@ -583,6 +586,7 @@ a {
         padding: 5px;
         height: 120px;
         gap: 10px;
+        border-radius: 20px;
     }
 
     .dashboard.visible {
@@ -677,6 +681,10 @@ a {
         font-size: 0.9rem;
     }
 
+    .last-section{
+        gap: 11px;
+    }
+    
     .card-pencil {
         width: 50px;
     }
