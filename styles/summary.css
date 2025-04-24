@@ -260,48 +260,35 @@ a {
         display: flex;
         opacity: 1;
         padding-left: 64px;
+        width: 435px;
     }
 
-    .greeting-wrapper {
-        animation: summaryAnimation 2s forwards;
-        position: fixed;
-        inset: 0;
-        z-index: 100;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        background-color: white; 
+    .greet {
+        padding-left: 0px;
     }
 
-    .greeting-wrapper.hidden {
-        opacity: 0;
-        pointer-events: none;
-        visibility: hidden;
-        display: none !important;
-        transition: opacity 0.5s ease, visibility 0.5s ease;
+    .greeting {
+        font-size: 28px;
     }
 
-    @keyframes summaryAnimation {
-        0% {
-            opacity: 1;
-            pointer-events: all;
-        }
+    .greeting-name {
+        font-size: 36px;
+    }
 
-        70% {
-            opacity: 1;
-            pointer-events: all;
-        }
+    .urgent-box {
+        padding-right: 40px;
+    }
 
-        100% {
-            opacity: 0;
-            pointer-events: none;
-        }
+    .urgent-info {
+        padding-left: 40px;
+        margin-bottom: 10px;
     }
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
     .dashboard {
         padding: 30px 60px;
+        width: 435px;
     }
 
     .layout img {
@@ -312,6 +299,12 @@ a {
         padding-left: 76px;
     }
 
+    .dashboard.visible {
+        display: flex;
+        opacity: 1;
+        padding-left: 64px;
+    }
+
     .greeting-wrapper {
         animation: summaryAnimation 2s forwards;
         position: fixed;
@@ -320,7 +313,7 @@ a {
         justify-content: center;
         align-items: center;
         text-align: center;
-        background-color: white; 
+        background-color: white;
     }
 
     .greeting-wrapper.hidden {
@@ -346,6 +339,15 @@ a {
             opacity: 0;
             pointer-events: none;
         }
+    }
+
+    .urgent-box {
+        padding-right: 40px;
+    }
+
+    .urgent-info {
+        padding-left: 40px;
+        margin-bottom: 10px;
     }
 }
 
@@ -381,7 +383,7 @@ a {
 
     .layout {
         justify-content: center !important;
-        padding-top: 75px;
+        padding-top: 48px;
     }
 
     .to-do-dashboard {
@@ -411,11 +413,16 @@ a {
     }
 
     .urgent-box {
-        padding-right: 40px;
+        padding-right: 30px;
     }
 
     .urgent-info {
-        padding-left: 40px;
+        display: flex;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-left: 50px;
     }
 
     .greeting-wrapper {
@@ -426,7 +433,7 @@ a {
         justify-content: center;
         align-items: center;
         text-align: center;
-        background-color: white; 
+        background-color: white;
     }
 
     .greeting-wrapper.hidden {
@@ -458,7 +465,7 @@ a {
 @media (max-width: 570px) {
     .dashboard {
         padding: 10px;
-        width: 100%;
+        width: 80%;
         flex: 1;
         display: block;
         height: 120px;
@@ -467,10 +474,11 @@ a {
     .dashboard.visible {
         width: auto;
         padding-left: 10px;
+        padding-bottom: 100px !important;
     }
 
     .layout {
-        padding-top: 46px;
+        padding-top: 26px;
         padding-left: 30px;
         justify-content: center;
         gap: 15px;
@@ -534,7 +542,7 @@ a {
         justify-content: center;
         align-items: center;
         text-align: center;
-        background-color: white; 
+        background-color: white;
     }
 
     .greeting-wrapper.hidden {
@@ -590,20 +598,25 @@ a {
     }
 
     .layout img {
-        width: 35%;
+        width: 25%;
         content: url('../assets/img/join-title-responsive.png');
     }
 
     .urgent-info {
-        padding-left: 40px;
+        display: flex;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-left: 50px;
     }
 
     .urgent-box {
-        padding-right: 46px;
+        padding-right: 35px;
     }
 
     .urgent-img {
-        padding-left: 15px;
+        margin-left: 15px;
     }
 
     .dashboard.visible {
@@ -627,7 +640,7 @@ a {
         justify-content: center;
         align-items: center;
         text-align: center;
-        background-color: white; 
+        background-color: white;
     }
 
     .greeting-wrapper.hidden {
@@ -662,6 +675,14 @@ a {
         width: 100%;
         flex: 1;
         font-size: 0.9rem;
+    }
+
+    .card-pencil {
+        width: 50px;
+    }
+
+    .card-ok {
+        width: 48px;
     }
 
     .card {
@@ -725,21 +746,31 @@ a {
         margin-top: 62px;
     }
 
+    .urgent-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: nowrap;
+        padding-right: 0px;
+    }
+
     .urgent-info {
-        padding-left: 40px;
+        padding-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-size: 0.85rem;
+    }
+
+    .urgent-info p {
+        margin: 0;
+        padding: 2px 0;
     }
 
     .urgent-img {
-        padding-left: 15px;
-    }
-
-    .urgent-info p:first-child {
-        font-weight: bold;
-        padding-right: 26px;
-    }
-
-    .urgent-info p:last-child {
-        padding-right: 26px;
+        width: 48px;
+        margin-left: 5px;
     }
 
     .greeting-wrapper {
@@ -750,7 +781,7 @@ a {
         justify-content: center;
         align-items: center;
         text-align: center;
-        background-color: white; 
+        background-color: white;
     }
 
     .greeting-wrapper.hidden {
