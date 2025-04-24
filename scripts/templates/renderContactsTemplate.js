@@ -22,7 +22,7 @@ function renderContacts() {
                     </div>
                 </div>
             </section>
-            <section>
+            <section class="contact-details-view">
                 <div class="contact-detail-wrapper">
                     <div class="contact-detail-header">
                         <h2>Contacts</h2>
