@@ -38,12 +38,36 @@ function closeAddContactOverlay() {
     let addContactOverlay = document.getElementById('addContactOverlay');
     let overlayContainer = document.querySelector('.overlay');
 
-    overlayContainer.classList.remove('show');
-    overlayContainer.classList.add('slideOutToBottom');
+    handleCloseAnimation(overlayContainer);
+    hideOverlayWithDelay(addContactOverlay, overlayContainer);
+}
 
+
+/**
+ * Handles the animation class for closing the overlay based on viewport width.
+ * @param {HTMLElement} overlayContainer - The overlay container element.
+ */
+function handleCloseAnimation(overlayContainer) {
+    const isDesktopView = window.innerWidth > 768;
+
+    overlayContainer.classList.remove('show');
+    if (isDesktopView) {
+        overlayContainer.classList.add('slideOutToRight');
+    } else {
+        overlayContainer.classList.add('slideOutToBottom');
+    }
+}
+
+
+/**
+ * Hides the overlay with a delay for smooth transition and removes event listener.
+ * @param {HTMLElement} addContactOverlay - The main overlay element.
+ * @param {HTMLElement} overlayContainer - The overlay container element.
+ */
+function hideOverlayWithDelay(addContactOverlay, overlayContainer) {
     setTimeout(() => {
         addContactOverlay.classList.add('d-none');
-        overlayContainer.classList.remove('slideOutToBottom');
+        overlayContainer.classList.remove('slideOutToRight', 'slideOutToBottom');
         document.removeEventListener("click", handleOutsideClick);
     }, 500);
 }
