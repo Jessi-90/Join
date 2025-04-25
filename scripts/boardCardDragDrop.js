@@ -113,3 +113,182 @@ function moveCardTo(category, columnCategory) {
     updateTasksInDatabase(currentTasksData);
     renderTasks(currentTasksData);
 }
+
+
+/**
+ * Interval for automatic scrolling when dragging the card near the edge of the screen.
+ * @type {NodeJS.Timeout | null} 
+ */
+let autoScrollInterval = null;
+
+
+/**
+ * The threshold (in pixels) from the top or bottom of the screen at which auto-scrolling starts.
+ * @type {number} 
+ */
+const scrollThreshold = 80; 
+
+
+/**
+ * The speed (in pixels) at which the screen scrolls when auto-scrolling is triggered.
+ * @type {number} 
+ */
+const scrollSpeed = 10; 
+
+
+/**
+ * The initial vertical position of the touch event when the user starts interacting with the card.
+ * @type {number} 
+ */
+let initialTouchY = 0;
+
+
+/**
+ * A flag that indicates whether the user is in a "long tap" state, meaning the card is being dragged.
+ * @type {boolean} 
+ */
+let longTapActive = false;
+
+
+/**
+ * A timer that tracks the duration of the touch event to detect long taps.
+ * @type {NodeJS.Timeout | null} 
+ */
+let longPressTimer = null;
+
+
+/**
+ * Enables mobile card dragging functionality by attaching touch event listeners to the card element.
+ * When the user interacts with the card on a mobile device, the function handles touch events
+ * such as starting the drag, moving the card, and ending the drag action.
+ *
+ * @param {HTMLElement} cardElement - The HTML element representing the card that will be dragged.
+ * @param {string|number} cardId - The unique identifier of the card being dragged.
+ */
+function enableMobileCardDragging(cardElement, cardId) {
+    cardElement.addEventListener('touchstart', (e) =>
+        handleTouchStart(e, cardElement, cardId)
+    );
+    cardElement.addEventListener('touchmove', (e) =>
+        handleTouchMove(e, cardElement)
+    );
+    cardElement.addEventListener('touchend', () =>
+        handleTouchEnd(cardElement)
+    );
+}
+
+
+/**
+ * Handles the touchstart event when a user begins interacting with a card on a mobile device.
+ * It captures the initial touch position and sets a timer to detect if the user is performing
+ * a long press (which will activate the drag functionality).
+ *
+ * @param {TouchEvent} e - The touchstart event object containing information about the touch event.
+ * @param {HTMLElement} cardElement - The HTML element representing the card that is being interacted with.
+ * @param {string|number} cardId - The unique identifier for the card being interacted with.
+ */
+function handleTouchStart(e, cardElement, cardId) {
+    initialTouchY = e.touches[0].clientY;
+
+    longPressTimer = setTimeout(() => {
+        longTapActive = true;
+        currentDraggedCardId = cardId;
+        cardElement.classList.add('tilt-animation');
+    }, 500);
+}
+
+
+/**
+ * Handles the touchmove event when the user moves their finger while interacting with the card.
+ * It updates the card's position, determines if a new column is being hovered over, and handles
+ * automatic scrolling if the user moves their finger near the edges of the screen.
+ *
+ * @param {TouchEvent} e - The touchmove event object containing information about the touch movement.
+ * @param {HTMLElement} cardElement - The HTML element representing the card being dragged.
+ */
+function handleTouchMove(e, cardElement) {
+    if (!longTapActive) {
+        clearTimeout(longPressTimer);
+        return;
+    }
+
+    const touchY = e.touches[0].clientY;
+    updateCardPosition(cardElement, touchY);
+    updateHoveredColumn(e);
+    handleAutoScroll(touchY);
+}
+
+
+/**
+ * Updates the position of the card while it is being dragged by the user.
+ * The card's position is adjusted based on the difference between the initial touch position
+ * and the current touch position along the vertical axis (Y-axis).
+ *
+ * @param {HTMLElement} cardElement - The HTML element representing the card being dragged.
+ * @param {number} touchY - The current vertical position of the touch in the viewport (Y-coordinate).
+ */
+function updateCardPosition(cardElement, touchY) {
+    const deltaY = touchY - initialTouchY;
+    cardElement.style.transform = `translateY(${deltaY}px)`;
+}
+
+
+/**
+ * Checks if the user is hovering over a different column while dragging the card.
+ * If a new column is hovered over, it highlights that column to indicate where the card can be dropped.
+ *
+ * @param {TouchEvent} e - The touchmove event object containing information about the touch position.
+ */
+function updateHoveredColumn(e) {
+    const elementAtTouch = document.elementFromPoint(
+        e.touches[0].clientX,
+        e.touches[0].clientY
+    );
+    const column = elementAtTouch?.closest('.column');
+
+    if (column && column.id !== currentHoveredColumn) {
+        highlightCardContainer(column.id);
+        currentHoveredColumn = column.id;
+    }
+}
+
+
+/**
+ * Handles the automatic scrolling of the container while dragging a card.
+ * If the user drags the card close to the top or bottom of the screen, the container will automatically scroll.
+ *
+ * @param {number} touchY - The current vertical touch position (Y-coordinate) from the touch event.
+ */
+function handleAutoScroll(touchY) {
+    clearInterval(autoScrollInterval);
+    const scrollContainer = document.querySelector('.main');
+
+    if (touchY > window.innerHeight - scrollThreshold) {
+        autoScrollInterval = setInterval(() =>
+            scrollContainer.scrollBy(0, scrollSpeed), 16);
+    } else if (touchY < scrollThreshold) {
+        autoScrollInterval = setInterval(() =>
+            scrollContainer.scrollBy(0, -scrollSpeed), 16);
+    }
+}
+
+
+/**
+ * Handles the end of a touch event (when the user releases their touch).
+ * It clears the long press timer and auto-scroll interval, performs the card move if a valid column is hovered,
+ * and resets the card position and related state.
+ *
+ * @param {HTMLElement} cardElement - The card element being dragged.
+ */
+function handleTouchEnd(cardElement) {
+    clearTimeout(longPressTimer);
+    clearInterval(autoScrollInterval);
+
+    if (longTapActive && currentHoveredColumn) {
+        moveCardTo(currentHoveredColumn, currentHoveredColumn);
+    }
+
+    cardElement.style.transform = '';
+    longTapActive = false;
+    currentHoveredColumn = null;
+}
