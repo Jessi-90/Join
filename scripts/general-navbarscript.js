@@ -157,3 +157,20 @@ function logoutUser() {
 
   window.location.href = "../index.html";
 }
+
+
+/**
+ * Hides the help button in the header when the current page is `help.html`.
+ * This function listens for the `DOMContentLoaded` event, checks if the current page's path contains 
+ * `help.html`, and if so, hides the element with the class `help-btn` by setting its `display` style to `none`.
+ * 
+ * @listens DOMContentLoaded - Ensures the function is executed after the DOM is fully loaded.
+ */
+window.addEventListener("DOMContentLoaded", () => {
+  const helpBtn = document.querySelector(".help-btn");
+  const currentPage = window.location.pathname;
+
+  if (currentPage.includes("help.html") && helpBtn) {
+      helpBtn.style.display = "none";
+  }
+});
