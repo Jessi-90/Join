@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="./styles/assets.css" />
 	<link rel="stylesheet" href="./styles/log_in.css" />
 	<link rel="stylesheet" href="./styles/logo-animation.css">
+	<link rel="stylesheet" href="../styles/landscape.css">
 	<link rel="icon" media="(prefers-color-scheme: light)" href="./assets/icons/favicon.svg" type="image/svg+xml" />
 	<link rel="icon" media="(prefers-color-scheme: dark)" href="./assets/icons/favicon-logo.svg" type="image/svg+xml" />
 	<script src="./scripts/script.js"></script>
@@ -20,6 +21,7 @@
 	<script src="./scripts/templates/failedLoginTemplate.js"></script>
 	<script src="./scripts/db.js"></script>
 	<script src="./scripts/sortContactData.js"></script>
+	<script src="../scripts/checkLandscape.js" defer></script>
 </head>
 
 <body onclick="resetInputIcon()" onload="initAnimation()">
@@ -63,6 +65,9 @@
 			<a href="./html/legal_notice.html"> Legal Notice </a>
 		</div>
 	</div>
+	<section>
+		<div class="landscape-warning" id="landscapeWarning">Please rotate your device in portrait mode.</div>
+	</section>
 </body>
 
 </html>

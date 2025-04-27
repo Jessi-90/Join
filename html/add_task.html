@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../styles/add-task-style.css">
     <link rel="stylesheet" href="../styles/standard.css">
     <link rel="stylesheet" href="../styles/assets.css">
+    <link rel="stylesheet" href="../styles/landscape.css">
     <link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg" type="image/svg+xml" />
     <script src="../scripts/add_task-script.js"></script>
@@ -28,6 +29,7 @@
     <script src="../scripts/pushTaskToDb.js"></script>
     <script src="../scripts/addTaskDueDate.js"></script>
     <script src="../scripts/authGuard.js"></script>
+    <script src="../scripts/checkLandscape.js" defer></script>
 </head>
 
 <body onload="initAddTaskPage(); populateContacts()">
@@ -171,6 +173,9 @@
             </div>
         </div>
     </main>
+    <section>
+        <div class="landscape-warning" id="landscapeWarning">Please rotate your device in portrait mode.</div>
+    </section>
         <footer>
             <div class="mobile-navbar">
                 <a href="summary.html"> <button class="menu-summary-btn"><img src="../assets/icons/summary.svg"><span
