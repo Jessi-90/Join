@@ -159,6 +159,7 @@ function handleSuccessfulUpdate(firebaseId, updatedData) {
     if (contactDetailContainer && contactDetailContainer.getAttribute("data-firebase-id") === firebaseId) {
         let updatedContact = currentContactsData.find(c => c.firebaseId === firebaseId);
         contactDetailContainer.innerHTML = renderContactDetailTemplate(updatedContact);
+        updateMobileEditButtonContainer(updatedContact);
     }
 
     closeEditContactOverlay();

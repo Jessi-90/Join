@@ -18,6 +18,7 @@
     <script src="../scripts/contacts.js" defer></script>
     <script src="../scripts/db.js" defer></script>
     <script src="../scripts/general-navbarscript.js" defer></script>
+    <script src="../scripts/templates/editContactMobileButton.js"></script>
     <script src="../scripts/templates/renderContactsTemplate.js"></script>
     <script src="../scripts/renderContacts.js"></script>
     <script src="../scripts/templates/editContactOverlayTemplate.js"></script>
@@ -125,10 +126,7 @@
         <img src="../assets/icons/person_add.svg" alt="addContact_img" />
       </button>
     </div>
-    <div class="mobile-edit-contact-btn">
-      <button id="mobile-edit-contact-btn" class="mobile-btn btn-dark d-none" onclick="showEditContactOverlay(firebaseId)">
-        <img src="../assets/icons/edit-contact-mobiel-btn.svg" alt="editContact_img" />
-      </button>
+    <div id="mobile-edit-contact-btn-container" class="mobile-edit-contact-btn">
     </div>
   </body>
 </html>
