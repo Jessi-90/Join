@@ -118,6 +118,17 @@ function showMobileEditContactButton() {
 
 
 /**
+ * Hides the mobile edit contact button by adding the d-none class.
+ */
+function hideMobileEditContactButton() {
+    const mobileEditContactBtn = document.getElementById('mobile-edit-contact-btn');
+    if (mobileEditContactBtn) {
+        mobileEditContactBtn.classList.add('d-none');
+    }
+}
+
+
+/**
  * Hides the contact list view for mobile screens.
  * Ensures the contact list wrapper is not visible.
  */
@@ -170,6 +181,7 @@ function closeMobileContactDetail() {
     showContactListViewForMobile();
     showMobileAddContactButton();
     removeMobileBackButton();
+    hideMobileEditContactButton();
 }
 
 
@@ -431,7 +443,7 @@ function updateMobileEditButtonContainer(contact) {
     }
 
     const contactDetailsView = document.querySelector('.contact-details-view');
-    
+
     if (contactDetailsView && isDisplayBlock(contactDetailsView)) {
         showMobileEditContactButton();
     }
