@@ -405,17 +405,47 @@ function toggleContactDetail(contact) {
  */
 function openNewContact(contact) {
     const container = document.getElementById('contactDetail');
-
     const clickedItem = document.querySelector(`[data-contact-id="${contact.id}"]`);
+
     if (clickedItem) {
         clickedItem.classList.add('active');
     }
 
     container.innerHTML = renderContactDetailTemplate(contact);
-
+    updateMobileEditButtonContainer(contact);
     setTimeout(() => {
         container.classList.add('show');
     }, 10);
+}
+
+
+/**
+ * Updates the mobile edit button container with the generated template.
+ * 
+ * @param {Object} contact - The contact object to be displayed.
+ */
+function updateMobileEditButtonContainer(contact) {
+    const mobileEditButtonContainer = document.getElementById('mobile-edit-contact-btn-container');
+    if (mobileEditButtonContainer) {
+        mobileEditButtonContainer.innerHTML = editContactMobileButton(contact);
+    }
+
+    const contactDetailsView = document.querySelector('.contact-details-view');
+    
+    if (contactDetailsView && isDisplayBlock(contactDetailsView)) {
+        showMobileEditContactButton();
+    }
+}
+
+
+/**
+ * Helper function to check if an element has the inline style 'display: block'.
+ * 
+ * @param {HTMLElement} element - The DOM element to check.
+ * @returns {boolean} True if the element's display style is 'block', otherwise false.
+ */
+function isDisplayBlock(element) {
+    return window.getComputedStyle(element).display === 'block';
 }
 
 
