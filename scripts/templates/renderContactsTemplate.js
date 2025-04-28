@@ -25,7 +25,9 @@ function renderContacts() {
             <section class="contact-details-view">
                 <div class="contact-detail-wrapper">
                     <div class="contact-detail-header">
-                        <h2>Contacts</h2>
+                        <div id="header-container">
+                            <h2>Contacts</h2>
+                        </div>
                         <div class="vertical-line"></div>
                         <p>Better with a team</p>
                         <div class="horizontal-line"></div>

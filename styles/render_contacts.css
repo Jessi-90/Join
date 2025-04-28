@@ -366,13 +366,14 @@
 
 @media (max-width: 768px) {
 
-    .mobile-add-contact-btn {
+    .mobile-btn {
         position: absolute;
         bottom: 100px;
         right: 20px;
+        justify-content: center !important;
     }
 
-    .mobile-add-contact-btn button {
+    .mobile-btn {
         height: 64px;
         width: 64px;
         border-radius: 50%;
@@ -382,7 +383,7 @@
         box-shadow: 0px 5px 4px 1px rgba(0, 0, 0, 0.2)
     }
 
-    .mobile-add-contact-btn button:hover {
+    .mobile-btn button:hover {
         background-color: rgba(42, 54, 71, 1);
     }
 
@@ -412,7 +413,7 @@
     }
 
     .contact-detail.show {
-        transform:none;
+        transform: none;
     }
 
     .contact-list-wrapper {
@@ -454,6 +455,12 @@
         margin-left: 25px;
     }
 
+    .contact-icon-placeholder-large {
+        width: 80px;
+        height: 80px;
+        font-size: 32px;
+    }
+
     .contact-placeholder-item:hover {
         cursor: default;
         background-color: white;
@@ -476,6 +483,14 @@
         padding: 0;
     }
 
+    .contact-actions {
+        display: none;
+    }
+
+    .namefield span {
+        font-size: 28px;
+        font-weight: bold;
+    }
 }
 
 @media (max-width: 480px) {
@@ -505,12 +520,12 @@
         margin-bottom: 20px;
     }
 
-    .mobile-add-contact-btn button {
+    .mobile-btn button {
         height: 44px;
         width: 44px;
     }
 
-    .mobile-add-contact-btn img {
+    .mobile-btn img {
         height: 24px;
         width: 24px;
     }

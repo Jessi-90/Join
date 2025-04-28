@@ -102,6 +102,17 @@ function showContactDetailViewForMobile() {
     const detailWrapper = document.querySelector('.contact-details-view');
     if (detailWrapper) {
         detailWrapper.style.display = 'block';
+        showMobileEditContactButton();
+    }
+}
+
+/**
+ * Shows the mobile edit contact button by removing the d-none class.
+ */
+function showMobileEditContactButton() {
+    const mobileEditContactBtn = document.getElementById('mobile-edit-contact-btn');
+    if (mobileEditContactBtn) {
+        mobileEditContactBtn.classList.remove('d-none');
     }
 }
 
@@ -130,19 +141,22 @@ function hideMobileAddContactButton() {
 
 
 /**
- * Adds a back button to the contact detail view in mobile mode
+ * Adds an SVG icon directly as a button to the contact detail view in mobile mode
  */
 function addBackButtonToMobileDetail() {
-    const detailHeader = document.querySelector('.contact-detail-header');
+    const detailHeader = document.querySelector('#header-container');
+    const headerTitle = detailHeader.querySelector('h2');
     
-    if (!document.getElementById('mobile-back-button') && detailHeader) {
-        const backButton = document.createElement('button');
+    if (!document.getElementById('mobile-back-button') && detailHeader && headerTitle) {
+        const backButton = document.createElement('img');
 
         backButton.id = 'mobile-back-button';
+        backButton.src = '../assets/icons/go-back.svg';
+        backButton.alt = 'Back to contacts';
         backButton.classList.add('mobile-back-button');
-        backButton.innerHTML = '&larr; Back to contacts';
         backButton.addEventListener('click', closeMobileContactDetail);
-        detailHeader.insertBefore(backButton, detailHeader.firstChild);
+        
+        detailHeader.insertBefore(backButton, headerTitle.nextSibling);
     }
 }
 
@@ -324,9 +338,43 @@ function renderNoContactsMessage(container) {
     container.innerHTML = `<p class="no-contacts">No contacts available.</p>`;
 }
 
+
 /**
- * Toggles the contact detail view. 
- * If the selected contact is already open, it closes the detail view. 
+ * Handles contact detail toggling for screens larger than 768px
+ *
+ * @param {Object} contact - The contact object to be displayed.
+ * @param {string|null} currentOpenContact - The Firebase ID of the currently opened contact.
+ */
+function handleLargeScreenToggle(contact, currentOpenContact) {
+    if (currentOpenContact === String(contact.firebaseId)) {
+        closeContactDetail();
+    } else {
+        easeContactDetailTransitionOut();
+        setTimeout(() => {
+            openNewContact(contact);
+        }, 125);
+    }
+}
+
+
+/**
+ * Handles contact detail toggling for screens 768px or smaller
+ *
+ * @param {Object} contact - The contact object to be displayed.
+ */
+function handleSmallScreenToggle(contact) {
+    const container = document.getElementById('contact-detail');
+    const currentOpenContact = container?.getAttribute('data-firebase-id') || null;
+
+    if (currentOpenContact !== String(contact.firebaseId)) {
+        openNewContact(contact);
+    }
+}
+
+
+/**
+ * Toggles the contact detail view.
+ * If the selected contact is already open, it closes the detail view.
  * Otherwise, it applies a transition effect and opens the new contact details.
  *
  * @param {Object} contact - The contact object to be displayed.
@@ -334,21 +382,16 @@ function renderNoContactsMessage(container) {
  */
 function toggleContactDetail(contact) {
     const container = document.getElementById('contact-detail');
-
+    const screenWidth = window.innerWidth;
     if (!container) {
         openNewContact(contact);
         return;
     }
-    
     const currentOpenContact = container.getAttribute('data-firebase-id') || null;
-
-    if (currentOpenContact === String(contact.firebaseId)) {
-        closeContactDetail();
+    if (screenWidth <= 768) {
+        handleSmallScreenToggle(contact);
     } else {
-        easeContactDetailTransitionOut();
-        setTimeout(() => {
-            openNewContact(contact); 
-        }, 125);
+        handleLargeScreenToggle(contact, currentOpenContact);
     }
 }
 

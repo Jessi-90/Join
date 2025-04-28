@@ -187,7 +187,7 @@ html {
   }
 
   .horizontal-line {
-    display: block;
+    display: block !important;
     margin: 16px 0 0 0;
   }
 
@@ -255,4 +255,23 @@ html {
   .contact-view {
     justify-content: center;
   }
+
+  .contact-detail-header {
+    width: 480px;
+  }
+
+  .contact-detail-header h2 {
+    font-size: 61px;
+  }
+
+  .contact-detail-header p {
+    font-size: 27px;
+  }
+
+  #header-container {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+  }
+
 }
