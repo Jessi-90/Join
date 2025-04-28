@@ -121,8 +121,13 @@
     <div id="editContactOverlay" class="d-none"></div>
     <div id="addContactOverlay" class="d-none"></div>
     <div class="mobile-add-contact-btn">
-      <button id="mobile-add-contact-btn" class="btn-dark" onclick="showAddContactOverlay()">
+      <button id="mobile-add-contact-btn" class="mobile-btn btn-dark" onclick="showAddContactOverlay()">
         <img src="../assets/icons/person_add.svg" alt="addContact_img" />
+      </button>
+    </div>
+    <div class="mobile-edit-contact-btn">
+      <button id="mobile-edit-contact-btn" class="mobile-btn btn-dark d-none" onclick="showEditContactOverlay(firebaseId)">
+        <img src="../assets/icons/edit-contact-mobiel-btn.svg" alt="editContact_img" />
       </button>
     </div>
   </body>
