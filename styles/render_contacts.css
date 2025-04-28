@@ -495,6 +495,11 @@
 
 @media (max-width: 480px) {
 
+    .contact-detail-wrapper {
+        width: 300px;
+        padding: 0;
+    }
+
     .contact-icon-placeholder {
         margin-right: 20px;
         margin-left: 0px;
@@ -520,7 +525,7 @@
         margin-bottom: 20px;
     }
 
-    .mobile-btn button {
+    .mobile-btn {
         height: 44px;
         width: 44px;
     }
@@ -529,4 +534,39 @@
         height: 24px;
         width: 24px;
     }
+
+    .contact-icon-placeholder-large {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .namefield span {
+        font-size: 18px;
+    }
+
+    .contact-detail-header {
+        top: 32px;
+    }
+
+    .contact-detail {
+        top: 200px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .contact-info-section h4 {
+        margin-top: 0;
+        height: auto;
+    }
+
+    .contact-info-section p {
+        margin-top: 0;
+    }
+
+    .contact-detail-name {
+        margin-bottom: 8px;
+
+    }
+
 }

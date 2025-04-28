@@ -266,6 +266,7 @@
 	.sidebar {
 		box-sizing: border-box;
 		width: 300px !important;
+		height: 215px;
 		padding: 40px 12px;
 	}
 

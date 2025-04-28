@@ -275,3 +275,20 @@ html {
   }
 
 }
+
+@media (max-width: 480px) {
+
+  .contact-detail-header h2 {
+    font-size: 47px;
+  }
+
+  .contact-detail-header p {
+    font-size: 20px;
+  }
+
+  #header-container {
+    width: 62%;
+  }
+ 
+  
+}

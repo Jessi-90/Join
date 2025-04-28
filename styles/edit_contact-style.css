@@ -104,12 +104,12 @@
     color: #2A3647;
     height: 32px;
     width: 32px;
-    
+
 }
 
 .close-btn:hover {
     border-radius: 50%;
-    background: #efeeee;    
+    background: #efeeee;
 }
 
 .profile-section {
@@ -154,8 +154,8 @@ input::placeholder {
 }
 
 input:focus {
-    border-color: #29ABE2; 
-    outline: none; 
+    border-color: #29ABE2;
+    outline: none;
 }
 
 .buttons {
@@ -207,9 +207,113 @@ input:focus {
 
 .save:hover {
     background-color: #29ABE2;
-    box-shadow: 2px 5px 2px rgb(209, 209, 209);    
+    box-shadow: 2px 5px 2px rgb(209, 209, 209);
 }
 
 .d-none {
     display: none;
+}
+
+@media (min-width: 769px) {
+    @keyframes slideInFromRight {
+        from {
+            left: 100%;
+        }
+
+        to {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
+    @keyframes slideOutToRight {
+        from {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        to {
+            left: 100%;
+        }
+    }
+
+    .overlay {
+        animation: slideInFromRight 0.5s ease-out forwards;
+    }
+
+    .overlay.slideOutToRight {
+        animation: slideOutToRight 0.5s ease-out forwards;
+    }
+}
+
+@media (max-width: 768px) {
+    @keyframes slideInFromBottom {
+        from {
+            transform: translateY(100%);
+        }
+
+        to {
+            transform: translateY(0);
+        }
+    }
+
+    .overlay {
+        animation: slideInFromBottom 0.5s ease-out forwards;
+    }
+}
+
+@keyframes slideOutToBottom {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(100%);
+    }
+}
+
+.overlay.slideOutToBottom {
+    animation: slideOutToBottom 0.5s ease-out forwards;
+}
+
+@media (max-width: 768px) {
+
+    .join-logo-edit-contact {
+        display: none;
+    }
+
+    .form-container .contact-icon-placeholder-large {
+        display: flex;
+        font-size: 47px;
+        position: absolute;
+        top: 204px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 120px;
+    }
+
+    .buttons {
+        justify-content: center;
+    }
+
+    .save {
+        justify-content: center !important;
+    }
+
+    .btn-light {
+        padding: 18px 10px !important;
+        gap: 4px;
+        font-size: 21px !important;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .form-container .contact-icon-placeholder-large {
+        width: 80px;
+        height: 80px;
+        top: 174px;
+        font-size: 38px;
+    }
 }
