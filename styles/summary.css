@@ -13,12 +13,15 @@ a {
 }
 
 .layout {
-    width: 625px;
-    height: 73px;
+    width: 100%;
+    max-width: 1920px; 
+    margin: 0 auto; 
+    padding: 0 20px; 
+    box-sizing: border-box;
     padding-top: 100px;
     padding-left: 96px;
     gap: 30px;
-}
+  }
 
 * {
     margin: 0;
@@ -222,6 +225,12 @@ a {
     display: none;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
 /*---RESPONSIVE---*/
 
 @media screen and (min-width: 1380px) and (max-width: 1920px) {
@@ -297,6 +306,7 @@ a {
 
     .layout {
         padding-left: 76px;
+        padding-top: 75px;
     }
 
     .dashboard.visible {
@@ -356,8 +366,8 @@ a {
         width: 100% !important;
     }
 
-    .layout img {
-        width: 90%;
+    .card {
+        height: 120px;
     }
 
     .dashboard {
@@ -378,12 +388,14 @@ a {
     }
 
     .layout img {
-        width: 60%;
+        width: 90%;
     }
 
     .layout {
         justify-content: center !important;
-        padding-top: 48px;
+        padding-top: 38px;
+        padding-left: 35px;
+        padding-bottom: 20px;
     }
 
     .to-do-dashboard {
@@ -468,10 +480,10 @@ a {
         width: 80%;
         flex: 1;
         display: block;
-        height: 120px;
-        padding: 30px 20px;
+        height: 100px;
         opacity: 0;
         transition: opacity 0.5s ease;
+        font-size: 0.9rem;
     }
 
     .dashboard.visible {
@@ -483,13 +495,16 @@ a {
     .layout {
         padding-top: 26px;
         padding-left: 30px;
+        padding-bottom: 0px;
         justify-content: center;
         gap: 15px;
-        margin-bottom: 36px;
+    }
+
+    .layout img {
+        width: 50%;
     }
 
     .layout img:first-child {
-        width: 35%;
         content: url('../assets/img/join-title-responsive.png');
     }
 
@@ -504,6 +519,10 @@ a {
         background-position: center;
         margin-top: 10px;
         aspect-ratio: 6 / 1;
+    }
+
+    .card {
+        height: 120px;
     }
 
     .card h1 {
@@ -589,6 +608,14 @@ a {
         border-radius: 20px;
     }
 
+    .card-pencil {
+        width: 50px;
+    }
+
+    .card-ok {
+        width: 48px;
+    }
+
     .dashboard.visible {
         padding-left: 10px;
     }
@@ -596,13 +623,13 @@ a {
     .layout {
         padding-top: 40px;
         padding-left: 20px;
+        padding-bottom: 0px;
         justify-content: center;
         gap: 5px;
         margin-bottom: 20px !important;
     }
 
     .layout img {
-        width: 25%;
         content: url('../assets/img/join-title-responsive.png');
     }
 
@@ -620,11 +647,8 @@ a {
     }
 
     .urgent-img {
-        margin-left: 15px;
-    }
-
-    .dashboard.visible {
-        margin-top: 62px;
+        width: 48px;
+        margin-left: 24px;
     }
 
     .urgent-info p:first-child {
@@ -710,14 +734,19 @@ a {
     .layout {
         padding-top: 40px;
         padding-left: 20px;
+        margin-bottom: 0px;
         justify-content: center;
         gap: 5px;
-        margin-bottom: 20px !important;
     }
 
     .layout img {
         width: 35%;
         content: url('../assets/img/join-title-responsive.png');
+    }
+
+    
+    .layout img {
+        width: 60%;
     }
 
     .greeting {
@@ -750,10 +779,6 @@ a {
         gap: 18px;
     }
 
-    .dashboard.visible {
-        margin-top: 62px;
-    }
-
     .urgent-box {
         display: flex;
         align-items: center;
@@ -778,7 +803,7 @@ a {
 
     .urgent-img {
         width: 48px;
-        margin-left: 5px;
+        margin-left: 8px;
     }
 
     .greeting-wrapper {
