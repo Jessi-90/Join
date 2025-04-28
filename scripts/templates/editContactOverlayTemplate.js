@@ -34,8 +34,8 @@ return `
                         </span>
                     </div>
                     <div class="buttons">
-                        <button type="button" class="delete" onclick="deleteContactFromEditOverlay()">Delete</button>
-                        <button id="saveContactButton" type="submit" class="save" onclick="saveContactFromEditOverlay()">Save<img class="create-check"
+                        <button type="button" class="delete btn-light" onclick="deleteContactFromEditOverlay()">Delete</button>
+                        <button id="saveContactButton" type="submit" class="save btn-dark" onclick="saveContactFromEditOverlay()">Save<img class="create-check"
                                 src="../assets/icons/check.svg"></button>
                     </div>
                 </form>
