@@ -715,7 +715,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 @media (max-width: 768px) {
     .container {
-        padding: 8px 16px 84px 16px;
+        padding: 8px 16px 84px 0;
     }
 
     .container h1 {
