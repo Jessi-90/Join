@@ -20,7 +20,7 @@ function cardDetailsOverlayHTMLTemplate(task, categoryClassName) {
         <div class="board-card-detail-container" id="boardCardDetailContainer">
             <div class="board-card-detail-header">
                 <span class="card-category card-category-detail ${categoryClassName}">${task.category}</span>
-                <button class="close-btn"><img src="../assets/icons/close_btn.svg" alt="close" /></button>
+                <button class="close-btn" onclick="closeBoardCardDetails(event)"><img src="../assets/icons/close_btn.svg" alt="close" /></button>
             </div>
             <h4 class="card-detail-title">${task.title}</h4>
             <p class="card-detail-description">${task.description}</p>
