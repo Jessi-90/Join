@@ -98,6 +98,7 @@ function setupDropdownToggle() {
 function toggleDropdown() {
     const dropdown = document.getElementById('dropdownOptions');
     if (dropdown) {
+        addCloseListener(getParentContainer())
         dropdown.classList.toggle('d-none');
     }
 }
