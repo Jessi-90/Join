@@ -174,6 +174,7 @@ function setupDropdownOptionsListener(dropdownOptions) {
  */
 function handleSelectedOptionClick(event) {
     event.stopPropagation();
+    addCloseListener(getParentContainer());
     toggleDropdown();
 }
 
