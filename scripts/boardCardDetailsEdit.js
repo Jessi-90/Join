@@ -1,8 +1,7 @@
 function initEditTaskSubtasks() {
-    initSubtasksInput();            
-    setFocusOnInput();       
+    initSubtasksInput();
+    setFocusOnInput();
 }
-
 
 /**
  * Handles global click events for managing overlay visibility and dropdown behavior.
@@ -25,7 +24,7 @@ document.addEventListener('click', (event) => {
         !dropdown.contains(event.target) &&
         !dropdownToggle.contains(event.target)
     ) {
-        dropdown.style.display = 'none';
+        dropdown.classList.add('d-none');
     }
     
     if (editContainer && editContainer.contains(event.target)) {
@@ -55,6 +54,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /**
+ * Handles global click events for managing overlay visibility and dropdown behavior.
+ * This listener:
+ * - Closes the assigned contacts dropdown if the user clicks outside of it.
+ * - Closes the board card edit overlay when the close button is clicked or a click occurs outside the overlay.
+ * - Prevents propagation when clicking inside the edit container to avoid unintended closures.
+ * Note: Requires `isClickOutsideOverlay` and `closeBoardCardDetails()` to be defined elsewhere.
+ * 
+ * @param {MouseEvent} event - The click event triggered by the user.
+ */
+document.addEventListener('click', (event) => {
+    const dropdown = document.getElementById('dropdownOptions');
+    const dropdownToggle = document.getElementById('assignedDropdown');
+    const editContainer = document.querySelector('.board-card-edit-container');
+
+    if (
+        dropdown && dropdownToggle &&
+        !dropdown.contains(event.target) &&
+        !dropdownToggle.contains(event.target)
+    ) {
+        dropdown.classList.add('d-none');
+    }
+
+    if (editContainer && editContainer.contains(event.target)) {
+        event.stopPropagation();
+        return;
+    }
+
+    closeBoardCardDetails(event);
+});
+
+
+/**
+ * Waits for the DOM to be fully loaded before executing any code that interacts with the page elements.
+ * 
+ * - Looks for an element with the ID 'ok-button'.
+ * - If found, adds a click event listener to it.
+ * - When clicked, the button triggers saving the edited task and closing the task details overlay.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const okButton = document.getElementById('ok-button');
+    if (okButton) {
+        okButton.addEventListener('click', () => {
+            saveEditedTask();
+            closeBoardCardDetails();
+        });
+    }
+});
+
+
+/**
  * Initializes the contact selection dropdown and pre-selects assigned users.
  * 
  * Converts the provided list of assigned users into a Set of selected contact names,
@@ -65,10 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 async function initContactSelection(assignedUsers = []) {
     selectedContacts = new Set(assignedUsers.map(user => user.name));
-    await populateContacts();  
+    await populateContacts();
     requestAnimationFrame(() => {
         if (typeof initEditTaskSubtasks === 'function') {
-            initEditTaskSubtasks(); 
+            initEditTaskSubtasks();
         }
     });
 }
@@ -82,10 +131,10 @@ async function initContactSelection(assignedUsers = []) {
 function setupDropdownToggle() {
     const dropdown = document.getElementById('assignedDropdown');
     if (dropdown) {
-  
+
         dropdown.removeEventListener('click', toggleDropdown);
-        dropdown.addEventListener('click', function(event) {
-            event.stopPropagation(); 
+        dropdown.addEventListener('click', function (event) {
+            event.stopPropagation();
             toggleDropdown();
         });
     }
@@ -99,7 +148,7 @@ function setupDropdownToggle() {
 function toggleDropdown() {
     const dropdown = document.getElementById('dropdownOptions');
     if (dropdown) {
-        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        dropdown.classList.toggle('d-none');
     }
 }
 
@@ -160,8 +209,9 @@ function renderEditOverlayTemplate(container) {
  *   functions are available.
  * - Binds the click event for the "OK" button to save the edited task and close the overlay.
  */
+
 function initEditOverlayContent() {
-    const taskId = getCurrentlyViewedTaskId(); 
+    const taskId = getCurrentlyViewedTaskId();
     const task = currentTasksData[taskId] || {};
     if (typeof initContactSelection === 'function') {
         initContactSelection(task.assignedUsers || []);
@@ -179,20 +229,20 @@ function initEditOverlayContent() {
             closeBoardCardDetails();
         });
     }
+}
 
-  
- /**
- * Helper function to determine if a click should keep the dropdown open.
- * 
- * @param {Event} event - The click event to evaluate.
- * @param {Element} toggleButton - The element that toggles the dropdown.
- * @param {Element} dropdown - The dropdown element itself.
- * @returns {boolean} Returns true if the dropdown should remain open.
- */
+
+/**
+* Helper function to determine if a click should keep the dropdown open.
+* 
+* @param {Event} event - The click event to evaluate.
+* @param {Element} toggleButton - The element that toggles the dropdown.
+* @param {Element} dropdown - The dropdown element itself.
+* @returns {boolean} Returns true if the dropdown should remain open.
+*/
 function shouldKeepDropdownOpen(event, toggleButton, dropdown) {
     return (toggleButton && toggleButton.contains(event.target)) ||
-           (dropdown && dropdown.contains(event.target));
-
+        (dropdown && dropdown.contains(event.target));
 }
 
 
@@ -205,7 +255,7 @@ function populateBasicTaskData(task) {
     const titleInput = document.getElementById('editCardTitle');
     const descriptionTextarea = document.getElementById('editCardDescription');
     const dateInput = document.getElementById('editCardDate');
-    
+
     titleInput.value = task.title || '';
     descriptionTextarea.value = task.description || '';
     dateInput.value = task.dueDate || '';
@@ -262,7 +312,7 @@ function populateSubtasks(subtasks) {
  */
 function populateEditOverlay(taskId) {
     const task = currentTasksData[taskId];
-    
+
     populateBasicTaskData(task);
     populateComplexTaskData(task);
 
@@ -304,13 +354,13 @@ function animateEditOverlay(animate = true) {
  */
 function editTask(taskId = getCurrentlyViewedTaskId()) {
     if (taskId) {
-        showBoardCardDetailsEdit();   
-        populateEditOverlay(taskId);    
+        showBoardCardDetailsEdit();
+        populateEditOverlay(taskId);
         animateEditOverlay(true);
         setTimeout(() => {
-            initializeDropdown();  
+            setupDropdownToggle();
         }, 10);
-           
+
     } else {
         console.error("No taskId provided in editTask");
     }
@@ -360,9 +410,9 @@ function getCurrentlyViewedTaskId() {
 function setupDropdownToggle() {
     const dropdown = document.getElementById('assignedDropdown');
     if (dropdown) {
-        dropdown.removeEventListener('click', toggleDropdown); 
-        dropdown.addEventListener('click', function(event) {
-            event.stopPropagation(); 
+        dropdown.removeEventListener('click', toggleDropdown);
+        dropdown.addEventListener('click', function (event) {
+            event.stopPropagation();
             toggleDropdown();
         });
     }
@@ -409,5 +459,4 @@ async function saveEditedTask() {
     await fetchTasksData();
     renderTasks(currentTasksData);
     showBoardCardDetails(taskId);
-}
 }

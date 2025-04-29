@@ -294,6 +294,18 @@ a.active .menu-summary-btn {
         padding: 0;
     }
 
+	.menu-summary-btn:hover {
+		transition: none;
+		transform: none;
+		background-color: #2a3647;
+	}
+
+	.menu-summary-btn.active {
+		height: 76px;
+		width: 80px;
+		border-radius: 16px;
+	  }
+
     .board-btn {
         padding-right: 0;
     }
@@ -303,4 +315,3 @@ a.active .menu-summary-btn {
     }
 
 }
-

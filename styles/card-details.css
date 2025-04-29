@@ -42,16 +42,20 @@
   font-size: 61px;
   line-height: 73.2px;
   max-width: 445px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .card-detail-description {
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
+  margin: 0px;
 }
 
 .card-detail-list-title {
   color: rgba(42, 54, 71, 1);
+  margin: 0px;
 }
 
 .card-detail-due-date {
@@ -65,6 +69,7 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
+  margin: 0px;
 }
 
 .card-detail-priority {
@@ -78,6 +83,7 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
+  margin: 0px;
 }
 
 .card-detail-priority-content {

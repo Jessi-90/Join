@@ -54,15 +54,17 @@ async function init() {
  * @param {number} tasks[].status - The status of the task (1 = to-do, 2 = in-progress, 3 = await-feedback, 4 = done).
  */
 async function renderTasks(tasks) {
-    clearAllContainers();
-    await mapContactsData();
-    
-    for (let taskId in tasks) {
-        if (taskId !== 'counter') {
-            renderTask(taskId, tasks[taskId]);
+    if (window.location.pathname.endsWith("board.html")) {
+        clearAllContainers();
+        await mapContactsData();
+        
+        for (let taskId in tasks) {
+            if (taskId !== 'counter') {
+                renderTask(taskId, tasks[taskId]);
+            }
         }
+        createUserFeedbackForEmptyBoardContainers();
     }
-    createUserFeedbackForEmptyBoardContainers();
 }
 
 /**

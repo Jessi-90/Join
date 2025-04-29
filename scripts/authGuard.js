@@ -7,7 +7,7 @@ function checkIfUserIsLoggedIn() {
     const isOnLoginPage = window.location.pathname === "/index.html" || window.location.pathname === "/";
   
     if (userType !== "loggedIn" && userType !== "guest" && !isOnLoginPage) {
-      window.location.href = "/index.html";
+      window.location.href = "../index.html";
     }
   }
   
