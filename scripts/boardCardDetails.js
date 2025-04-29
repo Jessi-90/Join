@@ -40,7 +40,9 @@ function closeBoardCardDetails(event) {
     setTimeout(() => {
         overlay.classList.add('d-none');
     }, 300);
-
+    
+    renderTasks(currentTasksData);
+    updateTasksInDatabase(currentTasksData);
 }
 
 /**
