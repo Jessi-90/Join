@@ -192,3 +192,37 @@ function formatNextTaskDueDate(task) {
     });
     return formattedDate;
 }
+
+
+/**
+ * Handles the initial greeting animation and dashboard visibility on page load.
+ *
+ * - If the viewport width is below 1380px, a greeting animation plays:
+ *    - The greeting is shown briefly.
+ *    - After 2 seconds, the greeting is hidden and the dashboard is revealed.
+ *    - During the animation, the body has the class `animating`, which can be used
+ *      in CSS to temporarily hide other elements (e.g., mobile navbar or header).
+ * 
+ * - If the viewport is 1380px or wider, the dashboard is shown immediately with no animation.
+ * This creates a smoother experience for smaller screens by introducing a welcome transition.
+ */
+window.addEventListener('load', () => {
+    const width = window.innerWidth;
+    const greeting = document.querySelector('.greeting-wrapper');
+    const dashboard = document.querySelector('.dashboard');
+
+    const shouldAnimate = width < 1380;
+
+    if (shouldAnimate) {
+        document.body.classList.add('animating'); 
+
+        setTimeout(() => {
+            if (greeting) greeting.classList.add('hidden');
+            if (dashboard) dashboard.classList.add('visible');
+
+            document.body.classList.remove('animating'); 
+        }, 2000);
+    } else {
+        if (dashboard) dashboard.classList.add('visible');
+    }
+});

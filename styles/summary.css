@@ -1,3 +1,8 @@
+body.animating .mobile-navbar,
+body.animating .header {
+    display: none !important;
+}
+
 a {
     text-decoration: none;
     color: #989A9C;
@@ -8,8 +13,11 @@ a {
 }
 
 .layout {
-    width: 625px;
-    height: 73px;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
     padding-top: 100px;
     padding-left: 96px;
     gap: 30px;
@@ -22,6 +30,7 @@ a {
 
 .to-do-dashboard {
     display: flex;
+    flex: 1;
 }
 
 .dashboard {
@@ -31,6 +40,23 @@ a {
     padding: 60px 40px 40px 96px;
     max-width: 900px;
     width: 560px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.dashboard.visible {
+    display: flex;
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .card-todo {
@@ -176,8 +202,643 @@ a {
 .card:hover img {
     mix-blend-mode: lighten;
 }
+
 .last-section {
     display: flex;
     flex-direction: row;
     gap: 20px;
+}
+
+.greeting-wrapper {
+    display: grid;
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+}
+
+.title-default {
+    display: block;
+}
+
+.title-responsive,
+.title-line {
+    display: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/*---RESPONSIVE---*/
+
+@media screen and (min-width: 1380px) and (max-width: 1920px) {
+    .dashboard {
+        max-width: 1200px;
+    }
+
+    .greeting-wrapper {
+        display: grid;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1380px) {
+    .dashboard {
+        max-width: 1000px;
+        padding-bottom: 80px;
+    }
+
+    .card {
+        height: 160px;
+        padding: 0 20px;
+    }
+
+    .layout img {
+        width: 80%;
+    }
+
+    .layout {
+        padding-left: 76px;
+    }
+
+    .dashboard.visible {
+        display: flex;
+        opacity: 1;
+        padding-left: 64px;
+        width: 435px;
+    }
+
+    .greet {
+        padding-left: 0px;
+    }
+
+    .greeting {
+        font-size: 28px;
+    }
+
+    .greeting-name {
+        font-size: 36px;
+    }
+
+    .urgent-box {
+        padding-right: 40px;
+    }
+
+    .urgent-info {
+        padding-left: 40px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .dashboard {
+        padding: 30px 30px 60px 30px;
+        width: 435px;
+    }
+
+    .layout img {
+        width: 70%;
+    }
+
+    .layout {
+        padding-left: 76px;
+        padding-top: 50px;
+    }
+
+    .dashboard.visible {
+        display: flex;
+        opacity: 1;
+        padding-left: 64px;
+    }
+
+    .greeting-wrapper {
+        animation: summaryAnimation 2s forwards;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: white;
+    }
+
+    .greeting-wrapper.hidden {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        display: none !important;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    @keyframes summaryAnimation {
+        0% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        70% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        100% {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+
+    .urgent-box {
+        padding-right: 40px;
+    }
+
+    .urgent-info {
+        padding-left: 40px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        width: calc(100% - 20px) !important;
+        margin-left: -10px;
+    }
+
+    .card {
+        height: 120px;
+    }
+
+    .dashboard {
+        padding: 30px 20px 30px 20px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .greet {
+        display: flex !important;
+    }
+
+    .dashboard.visible {
+        opacity: 1;
+        padding-left: 52px;
+        padding-top: 0;
+        width: 80%;
+    }
+
+    .layout img {
+        width: 90%;
+    }
+
+    .layout {
+        justify-content: center !important;
+        padding-top: 38px;
+        padding-left: 35px;
+        padding-bottom: 20px;
+    }
+
+    .to-do-dashboard {
+        display: block;
+        padding-bottom: 100px !important;
+    }
+
+    .greeting-wrapper.hidden {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .greeting-wrapper {
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    }
+
+    .urgent-info p:first-child {
+        font-weight: bold;
+        padding-right: 20px;
+    }
+
+    .urgent-info p:last-child {
+        padding-right: 20px;
+    }
+
+    .urgent-box {
+        padding-right: 30px;
+    }
+
+    .urgent-info {
+        display: flex;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-left: 50px;
+    }
+
+    .greeting-wrapper {
+        animation: summaryAnimation 2s forwards;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: white;
+    }
+
+    .greeting-wrapper.hidden {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        display: none !important;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    @keyframes summaryAnimation {
+        0% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        70% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        100% {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+}
+
+@media (max-width: 570px) {
+    .dashboard {
+        padding: 10px;
+        width: 80%;
+        flex: 1;
+        display: block;
+        height: 100px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        font-size: 0.9rem;
+    }
+
+    .dashboard.visible {
+        width: auto;
+        padding-left: 10px;
+        padding-bottom: 100px !important;
+    }
+
+    .layout {
+        padding-top: 26px;
+        padding-left: 30px;
+        padding-bottom: 0px;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .layout img {
+        width: 50%;
+    }
+
+    .layout img:first-child {
+        content: url('../assets/img/join-title-responsive.png');
+    }
+
+    .layout::after {
+        content: "";
+        display: block;
+        width: 20%;
+        height: auto;
+        background-image: url('../assets/img/join-title-line.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-top: 10px;
+        aspect-ratio: 6 / 1;
+    }
+
+    .card {
+        height: 120px;
+    }
+
+    .card h1 {
+        font-size: 2.5rem;
+    }
+
+    .card p {
+        font-size: 1rem;
+    }
+
+    .greeting {
+        font-size: 42px;
+        text-align: center;
+    }
+
+    .greeting-name {
+        font-size: 50px;
+        line-height: 1.2;
+    }
+
+    .greet {
+        align-items: center;
+        padding-left: 0;
+    }
+
+    .greeting-wrapper {
+        padding: 20px;
+    }
+
+    .greeting-animation {
+        display: flex;
+    }
+
+    .greeting-wrapper {
+        animation: summaryAnimation 2s forwards;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: white;
+    }
+
+    .greeting-wrapper.hidden {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        display: none !important;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    @keyframes summaryAnimation {
+        0% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        70% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        100% {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard {
+        padding: 5px;
+        width: 100%;
+        flex: 1;
+        font-size: 0.9rem;
+    }
+
+    .card {
+        padding: 5px;
+        height: 120px;
+        gap: 10px;
+        border-radius: 20px;
+    }
+
+    .card-pencil {
+        width: 50px;
+    }
+
+    .card-ok {
+        width: 48px;
+    }
+
+    .dashboard.visible {
+        padding-left: 10px;
+    }
+
+    .layout {
+        padding-top: 40px;
+        padding-left: 20px;
+        padding-bottom: 0px;
+        justify-content: center;
+        gap: 5px;
+        margin-bottom: 20px !important;
+    }
+
+    .layout img {
+        content: url('../assets/img/join-title-responsive.png');
+    }
+
+    .urgent-info {
+        display: flex;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-left: 50px;
+    }
+
+    .urgent-box {
+        padding-right: 35px;
+    }
+
+    .urgent-img {
+        width: 48px;
+        margin-left: 24px;
+    }
+
+    .urgent-info p:first-child {
+        font-weight: bold;
+        padding-right: 26px;
+    }
+
+    .urgent-info p:last-child {
+        padding-right: 26px;
+    }
+
+    .greeting-wrapper {
+        animation: summaryAnimation 2s forwards;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: white;
+    }
+
+    .greeting-wrapper.hidden {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        display: none !important;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    @keyframes summaryAnimation {
+        0% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        70% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        100% {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+}
+
+@media (max-width: 440px) {
+    .dashboard {
+        padding: 5px;
+        width: 100%;
+        flex: 1;
+        font-size: 0.9rem;
+    }
+
+    .last-section {
+        gap: 11px;
+    }
+
+    .card-pencil {
+        width: 50px;
+    }
+
+    .card-ok {
+        width: 48px;
+    }
+
+    .card {
+        padding: 5px;
+        height: 120px;
+        gap: 10px;
+    }
+
+    .card h1 {
+        font-size: 2.5rem;
+    }
+
+    .card p {
+        font-size: 1.0rem;
+    }
+
+    .layout {
+        padding-top: 40px;
+        padding-left: 20px;
+        margin-bottom: 0px;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .layout img {
+        width: 35%;
+        content: url('../assets/img/join-title-responsive.png');
+    }
+
+    .layout img {
+        width: 60%;
+    }
+
+    .greeting {
+        font-size: 42px;
+        text-align: center;
+    }
+
+    .greeting-name {
+        font-size: 50px;
+        line-height: 1.2;
+    }
+
+    .greet {
+        padding-left: 0;
+        font-size: 0.9rem;
+        align-items: center;
+    }
+
+    .card:hover {
+        transform: scale(1.02);
+    }
+
+    .greeting-wrapper {
+        padding: 5px;
+        text-align: center;
+    }
+
+    .card-todo {
+        width: 98%;
+        gap: 18px;
+    }
+
+    .urgent-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: nowrap;
+        padding-right: 0px;
+    }
+
+    .urgent-info {
+        padding-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-size: 0.85rem;
+    }
+
+    .urgent-info p {
+        margin: 0;
+        padding: 2px 0;
+    }
+
+    .urgent-img {
+        width: 48px;
+        margin-left: 8px;
+    }
+
+    .greeting-wrapper {
+        animation: summaryAnimation 2s forwards;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: white;
+    }
+
+    .greeting-wrapper.hidden {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        display: none !important;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    @keyframes summaryAnimation {
+        0% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        70% {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        100% {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
 }
