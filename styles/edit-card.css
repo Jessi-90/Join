@@ -145,8 +145,31 @@
 /*---RESPONSIVE---*/
 
 @media (min-width: 1921px) {
+  .board-card-edit-container {
+    margin: 0 auto;
+    max-width: 700px; 
+    padding: 64px 56px;
+  }
+
   .board-card-detail-container {
-    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 32px;
+  }
+
+  .board-card-edit-content {
+    padding-right: 32px;
+    margin-right: -32px;
+  }
+
+  .card-detail-title {
+    font-size: 52px;
+    line-height: 64px;
+  }
+
+  .edit-card-subtasks-list {
+    gap: 20px;
+    padding: 12px 24px;
   }
 }
 
