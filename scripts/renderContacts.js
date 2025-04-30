@@ -76,10 +76,11 @@ function onContactClick(contact) {
     toggleContactDetail(contact);
 
     if (isMobileView()) {
-        showContactDetailViewForMobile();
         hideContactListViewForMobile();
         hideMobileAddContactButton();
+        showContactDetailViewForMobile();
         addBackButtonToMobileDetail();
+        
     }
 }
 

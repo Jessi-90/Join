@@ -16,6 +16,8 @@ async function init() {
     addContactClickEvents();
     summaryGreetingUser();
     setupResponsiveListener();
+    handleViewportChange();
+    initViewportResizeListener();
 }
 
 
@@ -176,7 +178,7 @@ async function deleteContact(firebaseId) {
             closeMobileContactDetail();
             hideMobileOverlay();
         }
-        
+
     } catch (error) {
         console.error("Error deleting contact:", error);
     }

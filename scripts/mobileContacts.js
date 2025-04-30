@@ -239,3 +239,42 @@ function hideMobileOverlay() {
     const mobileOverlay = document.getElementById('mobile-edit-contact-action-btn-overlay');
     mobileOverlay.classList.remove('show');
 }
+
+
+/**
+ * Handles viewport changes and applies UI adjustments based on screen width.
+ * 
+ * If the viewport width is greater than 768px:
+ * - Removes the mobile back button.
+ * - Hides the mobile overlay.
+ * - Hides the mobile edit contact button.
+ * - Shows the mobile contact list view.
+ * - Shows the mobile contact detail view.
+ * 
+ * If the viewport width is 768px or smaller:
+ * - Closes the mobile contact detail view.
+ */
+function handleViewportChange() {
+    if (!isMobileView()) {
+        removeMobileBackButton();
+        hideMobileOverlay();
+        hideMobileEditContactButton();
+        showContactListViewForMobile();
+        showContactDetailViewForMobile();
+    }
+
+    if (isMobileView()) {
+        closeMobileContactDetail();
+    }
+}
+
+
+/**
+ * Initializes the event listener to monitor viewport resizing.
+ * 
+ * This function adds an event listener that triggers `handleViewportChange`
+ * whenever the window is resized, ensuring the UI adapts dynamically.
+ */
+function initViewportResizeListener() {
+    window.addEventListener('resize', handleViewportChange);
+}
