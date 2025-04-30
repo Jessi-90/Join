@@ -16,7 +16,7 @@ function closeOverlayEditContact() {
     
     if (window.innerWidth <= 768) {
         const mobileOverlay = document.getElementById('mobile-edit-contact-action-btn-overlay');
-        
+
         mobileOverlay.classList.add('d-none');
         document.removeEventListener("click", closeOverlayOnClickOutside);
     }
