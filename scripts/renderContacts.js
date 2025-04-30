@@ -106,13 +106,17 @@ function showContactDetailViewForMobile() {
     }
 }
 
+
 /**
- * Shows the mobile edit contact button by removing the d-none class.
+ * Shows the mobile edit contact button by removing the d-none class 
+ * only if the screen width is 768px or smaller.
  */
 function showMobileEditContactButton() {
-    const mobileEditContactBtn = document.getElementById('mobile-edit-contact-btn');
-    if (mobileEditContactBtn) {
-        mobileEditContactBtn.classList.remove('d-none');
+    if (window.innerWidth <= 768) {
+        const mobileEditContactBtn = document.getElementById('mobile-edit-contact-btn');
+        if (mobileEditContactBtn) {
+            mobileEditContactBtn.classList.remove('d-none');
+        }
     }
 }
 
