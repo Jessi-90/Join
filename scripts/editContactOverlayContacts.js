@@ -50,17 +50,24 @@ function closeEditContactOverlay(event) {
 
 
 /**
- * Hides the given overlay by removing the 'show' class and adding 'd-none' after a delay.
- * This ensures a smooth transition effect.
+ * Hides the given overlay element with a smooth transition.
+ * 
+ * This function removes the 'show' class to trigger the CSS transition.
+ * Once the transition ends, it adds the 'd-none' class to fully hide the element.
+ * A fallback timeout ensures the class is added even if the 'transitionend' event doesn't fire.
  *
- * @param {HTMLElement} overlay - The overlay element to be hidden.
+ * @param {HTMLElement} overlay - The overlay DOM element to hide.
  */
 function hideOverlay(overlay) {
     overlay.classList.remove('show');
-
-    setTimeout(() => {
+    
+    const onTransitionEnd = () => {
         overlay.classList.add('d-none');
-    }, 300);
+        overlay.removeEventListener('transitionend', onTransitionEnd);
+    };
+    
+    overlay.addEventListener('transitionend', onTransitionEnd);
+    setTimeout(onTransitionEnd, 300); 
 }
 
 
