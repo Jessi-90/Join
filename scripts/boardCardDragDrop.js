@@ -13,6 +13,60 @@ let currentHoveredColumn = null;
 
 
 /**
+ * Interval for automatic scrolling when dragging the card near the edge of the screen.
+ * @type {NodeJS.Timeout | null} 
+ */
+let autoScrollInterval = null;
+
+
+/**
+ * The threshold (in pixels) from the top or bottom of the screen at which auto-scrolling starts.
+ * @type {number} 
+ */
+const scrollThreshold = 80;
+
+
+/**
+ * The speed (in pixels) at which the screen scrolls when auto-scrolling is triggered.
+ * @type {number} 
+ */
+const scrollSpeed = 10;
+
+
+/**
+ * The initial vertical position of the touch event when the user starts interacting with the card.
+ * @type {number} 
+ */
+let initialTouchY = 0;
+
+
+/**
+ * A flag that indicates whether the user is in a "long tap" state, meaning the card is being dragged.
+ * @type {boolean} 
+ */
+let longTapActive = false;
+
+
+/**
+ * A timer that tracks the duration of the touch event to detect long taps.
+ * @type {NodeJS.Timeout | null} 
+ */
+let longPressTimer = null;
+
+
+/**
+ * Adds global event listeners to manage automatic scrolling while dragging cards:
+ *
+ * - `dragover`: Triggers `handleMouseDragScroll` to start scrolling the board when a dragged card is near the top or bottom edge.
+ * - `dragleave`: Triggers `clearAutoScrollOnMouseLeave` to stop auto-scrolling when the dragged item leaves the scrollable area.
+ * - `drop`: Triggers `clearAutoScrollOnDrop` to stop auto-scrolling once the card is dropped.
+ */
+document.addEventListener('dragover', handleMouseDragScroll);
+document.addEventListener('dragleave', clearAutoScrollOnMouseLeave);
+document.addEventListener('drop', clearAutoScrollOnDrop);
+
+
+/**
  * Handles the dragover event by preventing the default behavior.
  * Also maintains the currentHoveredColumn state for tracking.
  *
@@ -20,7 +74,7 @@ let currentHoveredColumn = null;
  */
 function dragoverHandler(ev) {
     ev.preventDefault();
-    
+
     const columnCategory = ev.currentTarget.id;
 
     if (currentHoveredColumn !== columnCategory) {
@@ -35,20 +89,20 @@ function dragoverHandler(ev) {
  *
  * @param {string} columnId - The ID of the column being left.
  */
-function removeHighlightCardContainer(columnId) {
+function removeHighlightCardContainer(event, columnId) {
     const relatedTarget = event.relatedTarget;
     const currentTarget = document.getElementById(columnId);
-    
-    if (currentTarget && relatedTarget && 
+
+    if (currentTarget && relatedTarget &&
         (currentTarget.contains(relatedTarget) || currentTarget === relatedTarget)) {
         return;
     }
-    
+
     const placeholder = document.getElementById('placeholder');
     if (placeholder && placeholder.parentElement.id === columnId) {
         placeholder.remove();
     }
-    
+
     if (currentHoveredColumn === columnId) {
         currentHoveredColumn = null;
     }
@@ -64,7 +118,7 @@ function removeHighlightCardContainer(columnId) {
 function highlightCardContainer(columnCategory) {
     const column = document.getElementById(columnCategory);
     const existingPlaceholder = document.getElementById('placeholder');
-    
+
     if (existingPlaceholder && existingPlaceholder.parentElement === column) {
         return;
     }
@@ -103,58 +157,16 @@ function moveCardTo(category, columnCategory) {
     const card = document.getElementById(currentDraggedCardId);
     card.classList.remove('tilt-animation');
     currentTasksData[currentDraggedCardId]['status'] = category;
-    
+
     const placeholder = document.getElementById('placeholder');
     if (placeholder) {
         placeholder.remove();
     }
-    
+
     currentHoveredColumn = null;
     updateTasksInDatabase(currentTasksData);
     renderTasks(currentTasksData);
 }
-
-
-/**
- * Interval for automatic scrolling when dragging the card near the edge of the screen.
- * @type {NodeJS.Timeout | null} 
- */
-let autoScrollInterval = null;
-
-
-/**
- * The threshold (in pixels) from the top or bottom of the screen at which auto-scrolling starts.
- * @type {number} 
- */
-const scrollThreshold = 80; 
-
-
-/**
- * The speed (in pixels) at which the screen scrolls when auto-scrolling is triggered.
- * @type {number} 
- */
-const scrollSpeed = 10; 
-
-
-/**
- * The initial vertical position of the touch event when the user starts interacting with the card.
- * @type {number} 
- */
-let initialTouchY = 0;
-
-
-/**
- * A flag that indicates whether the user is in a "long tap" state, meaning the card is being dragged.
- * @type {boolean} 
- */
-let longTapActive = false;
-
-
-/**
- * A timer that tracks the duration of the touch event to detect long taps.
- * @type {NodeJS.Timeout | null} 
- */
-let longPressTimer = null;
 
 
 /**
@@ -208,6 +220,7 @@ function handleTouchStart(e, cardElement, cardId) {
  */
 function handleTouchMove(e, cardElement) {
     if (!longTapActive) {
+         e.preventDefault();
         clearTimeout(longPressTimer);
         return;
     }
@@ -229,7 +242,9 @@ function handleTouchMove(e, cardElement) {
  */
 function updateCardPosition(cardElement, touchY) {
     const deltaY = touchY - initialTouchY;
-    cardElement.style.transform = `translateY(${deltaY}px)`;
+    cardElement.style.position = 'absolute';
+    cardElement.style.top = `${cardElement.offsetTop + deltaY}px`;
+    initialTouchY = touchY;
 }
 
 
@@ -261,7 +276,9 @@ function updateHoveredColumn(e) {
  */
 function handleAutoScroll(touchY) {
     clearInterval(autoScrollInterval);
-    const scrollContainer = document.querySelector('.main');
+    const scrollContainer = document.querySelector('.board');
+
+    if (!scrollContainer) return;
 
     if (touchY > window.innerHeight - scrollThreshold) {
         autoScrollInterval = setInterval(() =>
@@ -289,6 +306,42 @@ function handleTouchEnd(cardElement) {
     }
 
     cardElement.style.transform = '';
+    cardElement.style.position = '';
+    cardElement.style.zIndex = '';
     longTapActive = false;
     currentHoveredColumn = null;
+}
+
+
+/**
+ * Handles automatic scrolling while dragging a card with the mouse on smaller screens.
+ * If the mouse cursor moves near the top or bottom edge of the viewport during a drag,
+ * the board scrolls in that direction.
+ *
+ * This function only runs on devices with a screen width less than 1024px.
+ *
+ * @param {MouseEvent} e - The dragover event containing the mouse position.
+ */
+function handleMouseDragScroll(e) {
+    if (window.innerWidth >= 1024) return;
+    const mouseY = e.clientY;
+    handleAutoScroll(mouseY);
+}
+
+
+/**
+ * Stops automatic scrolling when the mouse leaves the drag area.
+ * This prevents unintended scrolling when the user is no longer interacting with the board.
+ */
+function clearAutoScrollOnMouseLeave() {
+    clearInterval(autoScrollInterval);
+}
+
+
+/**
+ * Stops automatic scrolling when a drag-and-drop operation ends with a drop.
+ * Ensures the board does not continue scrolling after the card is released.
+ */
+function clearAutoScrollOnDrop() {
+    clearInterval(autoScrollInterval);
 }
