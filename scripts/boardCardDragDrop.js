@@ -276,7 +276,7 @@ function updateHoveredColumn(e) {
  */
 function handleAutoScroll(touchY) {
     clearInterval(autoScrollInterval);
-    const scrollContainer = document.querySelector('.board');
+    const scrollContainer = document.scrollingElement || document.documentElement;
 
     if (!scrollContainer) return;
 
