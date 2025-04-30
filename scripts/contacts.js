@@ -318,7 +318,8 @@ function closeOverlayOnClickOutside(event) {
     if (editContactOverlay && editContactOverlay.style.display !== "none" && editContactOverlay.contains(event.target)) {
         return;
     }
-    mobileOverlay.classList.add('d-none');
+    
+    mobileOverlay.classList.remove('show');
     document.removeEventListener("click", closeOverlayOnClickOutside);
 }
 
@@ -331,7 +332,7 @@ function closeOverlayOnClickOutside(event) {
 function showMobileActionButtonsOverlay() {
     const overlay = document.getElementById('mobile-edit-contact-action-btn-overlay');
 
-    overlay.classList.remove('d-none');
+    overlay.classList.add('show');
     document.removeEventListener("click", closeOverlayOnClickOutside);
 
     setTimeout(() => {
