@@ -238,3 +238,103 @@ function setupResponsiveListener() {
     window.addEventListener('resize', removeActiveClassOnResize);
     removeActiveClassOnResize();
 }
+
+
+/**
+ * Updates the mobile edit button container with the generated template.
+ * 
+ * @param {Object} contact - The contact object to be displayed.
+ */
+function updateMobileEditButtonContainer(contact) {
+    const mobileEditButtonContainer = document.getElementById('mobile-edit-contact-btn-container');
+    if (mobileEditButtonContainer) {
+        mobileEditButtonContainer.innerHTML = editContactMobileButton(contact);
+    }
+
+    const contactDetailsView = document.querySelector('.contact-details-view');
+
+    if (contactDetailsView && isDisplayBlock(contactDetailsView)) {
+        showMobileEditContactButton();
+    }
+}
+
+
+/**
+ * Helper function to check if an element has the inline style 'display: block'.
+ * 
+ * @param {HTMLElement} element - The DOM element to check.
+ * @returns {boolean} True if the element's display style is 'block', otherwise false.
+ */
+function isDisplayBlock(element) {
+    return window.getComputedStyle(element).display === 'block';
+}
+
+
+/**
+ * Closes the contact detail view by removing the 'show' class and clearing the content.
+ * Also removes the 'active' class from all contact list items and resets the container attributes.
+ */
+function closeContactDetail() {
+    const container = document.getElementById('contactDetail');
+    container.classList.remove('show');
+
+    setTimeout(() => {
+        document.querySelectorAll('.contact-placeholder-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        container.innerHTML = ''; 
+        container.removeAttribute('data-contact-id');
+    }, 75); 
+}
+
+
+/**
+ * Applies a transition effect to hide the contact detail view.
+ * Removes the 'show' class from the contact detail container.
+ */
+function easeContactDetailTransitionOut() {
+    let contactDetailContainer = document.getElementById('contactDetail');
+    contactDetailContainer.classList.remove('show');
+}
+
+
+/**
+ * Closes the mobile action button overlay when clicking outside of it.
+ * 
+ * This function checks if the user clicked outside the overlay and the 
+ * edit contact overlay. If the click occurred outside both elements, 
+ * it hides the mobile overlay and removes the event listener.
+ * 
+ * @param {Event} event - The click event
+ */
+function closeOverlayOnClickOutside(event) {
+    const mobileOverlay = document.getElementById('mobile-edit-contact-action-btn-overlay');
+    const editContactOverlay = document.querySelector(".overlay");
+
+    if (mobileOverlay.contains(event.target)) {
+        return;
+    }
+
+    if (editContactOverlay && editContactOverlay.style.display !== "none" && editContactOverlay.contains(event.target)) {
+        return;
+    }
+    mobileOverlay.classList.add('d-none');
+    document.removeEventListener("click", closeOverlayOnClickOutside);
+}
+
+/**
+ * Displays the overlay for mobile action buttons.
+ * 
+ * Removes the `d-none` class to make the overlay visible and ensures that 
+ * an event listener is added to detect clicks outside of the overlay for closing it.
+ */
+function showMobileActionButtonsOverlay() {
+    const overlay = document.getElementById('mobile-edit-contact-action-btn-overlay');
+
+    overlay.classList.remove('d-none');
+    document.removeEventListener("click", closeOverlayOnClickOutside);
+
+    setTimeout(() => {
+        document.addEventListener("click", closeOverlayOnClickOutside);
+    }, 10);
+}

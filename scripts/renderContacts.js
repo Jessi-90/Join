@@ -152,21 +152,23 @@ function hideMobileAddContactButton() {
 
 
 /**
- * Adds an SVG icon directly as a button to the contact detail view in mobile mode
+ * Adds a mobile-friendly back button to the contact detail view.
+ * The button is generated using an HTML template and inserted into the page dynamically.
+ * 
+ * The function ensures that the button is only added if it does not already exist.
  */
 function addBackButtonToMobileDetail() {
     const detailHeader = document.querySelector('#header-container');
     const headerTitle = detailHeader.querySelector('h2');
-    
-    if (!document.getElementById('mobile-back-button') && detailHeader && headerTitle) {
-        const backButton = document.createElement('img');
 
-        backButton.id = 'mobile-back-button';
-        backButton.src = '../assets/icons/go-back.svg';
-        backButton.alt = 'Back to contacts';
-        backButton.classList.add('mobile-back-button');
+    if (!document.getElementById('mobile-back-button') && detailHeader && headerTitle) {
+        const wrapper = document.createElement('div');
+
+        wrapper.innerHTML = contactsDetailViewMobileBackButtonTemplate();
+
+        const backButton = wrapper.firstElementChild;
+
         backButton.addEventListener('click', closeMobileContactDetail);
-        
         detailHeader.insertBefore(backButton, headerTitle.nextSibling);
     }
 }
@@ -428,61 +430,4 @@ function openNewContact(contact) {
     setTimeout(() => {
         container.classList.add('show');
     }, 10);
-}
-
-
-/**
- * Updates the mobile edit button container with the generated template.
- * 
- * @param {Object} contact - The contact object to be displayed.
- */
-function updateMobileEditButtonContainer(contact) {
-    const mobileEditButtonContainer = document.getElementById('mobile-edit-contact-btn-container');
-    if (mobileEditButtonContainer) {
-        mobileEditButtonContainer.innerHTML = editContactMobileButton(contact);
-    }
-
-    const contactDetailsView = document.querySelector('.contact-details-view');
-
-    if (contactDetailsView && isDisplayBlock(contactDetailsView)) {
-        showMobileEditContactButton();
-    }
-}
-
-
-/**
- * Helper function to check if an element has the inline style 'display: block'.
- * 
- * @param {HTMLElement} element - The DOM element to check.
- * @returns {boolean} True if the element's display style is 'block', otherwise false.
- */
-function isDisplayBlock(element) {
-    return window.getComputedStyle(element).display === 'block';
-}
-
-
-/**
- * Closes the contact detail view by removing the 'show' class and clearing the content.
- * Also removes the 'active' class from all contact list items and resets the container attributes.
- */
-function closeContactDetail() {
-    const container = document.getElementById('contactDetail');
-    container.classList.remove('show');
-
-    setTimeout(() => {
-        document.querySelectorAll('.contact-placeholder-item').forEach(item => {
-            item.classList.remove('active');
-        });
-        container.innerHTML = ''; 
-        container.removeAttribute('data-contact-id');
-    }, 75); 
-}
-
-/**
- * Applies a transition effect to hide the contact detail view.
- * Removes the 'show' class from the contact detail container.
- */
-function easeContactDetailTransitionOut() {
-    let contactDetailContainer = document.getElementById('contactDetail');
-    contactDetailContainer.classList.remove('show');
 }

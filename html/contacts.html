@@ -1,137 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contacts</title>
 
-    <link rel="stylesheet" href="../styles/contacts.css">
-    <link rel="stylesheet" href="../styles/assets.css">
-    <link rel="stylesheet" href="../styles/standard.css">
-    <link rel="stylesheet" href="../styles/general-navbar-style.css">
-    <link rel="stylesheet" href="../styles/render_contacts.css">
-    <link rel="stylesheet" href="../styles/edit_contact-style.css">
-    <link rel="stylesheet" href="../styles/add_contact_overlay.css">
-    <link rel="stylesheet" href="../styles/landscape.css">
-    <link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg" type="image/svg+xml" />
-    <script src="../scripts/summaryscript.js" defer></script>
-    <script src="../scripts/contacts.js" defer></script>
-    <script src="../scripts/db.js" defer></script>
-    <script src="../scripts/general-navbarscript.js" defer></script>
-    <script src="../scripts/templates/editContactMobileButton.js"></script>
-    <script src="../scripts/templates/renderContactsTemplate.js"></script>
-    <script src="../scripts/renderContacts.js"></script>
-    <script src="../scripts/templates/editContactOverlayTemplate.js"></script>
-    <script src="../scripts/editContactOverlayContacts.js"></script>
-    <script src="../scripts/templates/addContactOverlayTemplate.js"></script>
-    <script src="../scripts/add_contact-script.js" defer></script>
-    <script src="../scripts/userCredentials.js"></script>
-    <script src="../scripts/pushContactToDb.js" defer></script>
-    <script src="../scripts/generateContactData.js"></script>
-    <script src="../scripts/sortContactData.js"></script>
-    <script src="../scripts/handleTaskInDatabase.js" defer></script>
-    <script src="../scripts/authGuard.js"></script>
-    <script src="../scripts/checkLandscape.js" defer></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacts</title>
+  <link rel="stylesheet" href="../styles/contacts.css">
+  <link rel="stylesheet" href="../styles/assets.css">
+  <link rel="stylesheet" href="../styles/standard.css">
+  <link rel="stylesheet" href="../styles/general-navbar-style.css">
+  <link rel="stylesheet" href="../styles/render_contacts.css">
+  <link rel="stylesheet" href="../styles/edit_contact-style.css">
+  <link rel="stylesheet" href="../styles/add_contact_overlay.css">
+  <link rel="stylesheet" href="../styles/landscape.css">
+  <link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg" type="image/svg+xml" />
+  <script src="../scripts/summaryscript.js" defer></script>
+  <script src="../scripts/contacts.js" defer></script>
+  <script src="../scripts/db.js" defer></script>
+  <script src="../scripts/general-navbarscript.js" defer></script>
+  <script src="../scripts/templates/editContactMobileButton.js"></script>
+  <script src="../scripts/templates/contactsDetailViewMobileBackButtonTemplate.js"></script>
+  <script src="../scripts/templates/renderContactsTemplate.js"></script>
+  <script src="../scripts/renderContacts.js"></script>
+  <script src="../scripts/templates/editContactOverlayTemplate.js"></script>
+  <script src="../scripts/editContactOverlayContacts.js"></script>
+  <script src="../scripts/templates/addContactOverlayTemplate.js"></script>
+  <script src="../scripts/add_contact-script.js" defer></script>
+  <script src="../scripts/userCredentials.js"></script>
+  <script src="../scripts/pushContactToDb.js" defer></script>
+  <script src="../scripts/generateContactData.js"></script>
+  <script src="../scripts/sortContactData.js"></script>
+  <script src="../scripts/handleTaskInDatabase.js" defer></script>
+  <script src="../scripts/authGuard.js"></script>
+  <script src="../scripts/checkLandscape.js" defer></script>
 </head>
 
-  <body onload="init()">
-    <header>
-      <div class="header">
-          <img class="mobile-join-logo" src="../assets/img/join-logo-dark.svg" alt="join-logo">
-          <p class="headline-kanban">Kanban Project Management Tool</p>
-          <div class="dropdown" id="dropdown">
-              <a href="help.html">
-                  <img class="help-btn" src="../assets/img/help.png">
-              </a>
-              <button class="user-btn" id="userButton">☰</button>
-              <div class="dropdown-content" id="dropdownContent">
-                  <a href="help.html">Help</a>
-                  <a href="legal_notice.html">Legal Notice</a>
-                  <a href="privacy_policy.html">Privacy Policy</a>
-                  <a href="#" onclick="logoutUser()">Log out</a>
-              </div>
-          </div>
+<body onload="init()">
+  <header>
+    <div class="header">
+      <img class="mobile-join-logo" src="../assets/img/join-logo-dark.svg" alt="join-logo">
+      <p class="headline-kanban">Kanban Project Management Tool</p>
+      <div class="dropdown" id="dropdown">
+        <a href="help.html">
+          <img class="help-btn" src="../assets/img/help.png">
+        </a>
+        <button class="user-btn" id="userButton">☰</button>
+        <div class="dropdown-content" id="dropdownContent">
+          <a href="help.html">Help</a>
+          <a href="legal_notice.html">Legal Notice</a>
+          <a href="privacy_policy.html">Privacy Policy</a>
+          <a href="#" onclick="logoutUser()">Log out</a>
+        </div>
       </div>
+    </div>
   </header>
   <aside>
-      <div class="navbar">
-          <div class="upper-navbar">
-              <img class="join-logo" src="../assets/img/join-logo.svg">
-              <div class="summary-menu">
-                  <a href="summary.html"> <button class="menu-summary-btn"><img src="../assets/icons/summary.svg"><span
-                              class="navbar-size">Summary</span></button></a>
-                  <a href="add_task.html"> <button class="menu-summary-btn"><img src="../assets/icons/edit_square.svg"><span
-                              class="navbar-size">Add Task</span></button></a>
-                  <a href="board.html">
-                      <button class="menu-summary-btn board-btn">
-                          <img src="../assets/icons/board.svg" alt="Board Icon">
-                          <span class="navbar-size">Board</span>
-                      </button>
-                  </a>
-                  <a href="contacts.html"> <button class="menu-summary-btn"><img
-                              src="../assets/icons/contact-icon.svg"><span
-                              class="navbar-size">Contacts</span></button></a>
-              </div>
-          </div>
-          <div class="summary-btn">
-              <a href="privacy_policy.html">Privacy Police</a>
-              <a href="legal_notice.html">Legal notice</a>
-          </div>
+    <div class="navbar">
+      <div class="upper-navbar">
+        <img class="join-logo" src="../assets/img/join-logo.svg">
+        <div class="summary-menu">
+          <a href="summary.html"> <button class="menu-summary-btn"><img src="../assets/icons/summary.svg"><span
+                class="navbar-size">Summary</span></button></a>
+          <a href="add_task.html"> <button class="menu-summary-btn"><img src="../assets/icons/edit_square.svg"><span
+                class="navbar-size">Add Task</span></button></a>
+          <a href="board.html">
+            <button class="menu-summary-btn board-btn">
+              <img src="../assets/icons/board.svg" alt="Board Icon">
+              <span class="navbar-size">Board</span>
+            </button>
+          </a>
+          <a href="contacts.html"> <button class="menu-summary-btn"><img src="../assets/icons/contact-icon.svg"><span
+                class="navbar-size">Contacts</span></button></a>
+        </div>
       </div>
+      <div class="summary-btn">
+        <a href="privacy_policy.html">Privacy Police</a>
+        <a href="legal_notice.html">Legal notice</a>
+      </div>
+    </div>
   </aside>
   <main class="contacts-main">
-      <section class="contact-view">
-        <section>
-          <div class="contact-list-wrapper">
-            <div class="contact-list-header">
-              <button class="btn-dark" onclick="showAddContactOverlay()">
-                Add new contact <img src="../assets/icons/person_add.svg" alt="addContact_img" />
-              </button>
-            </div>
-            <div id="contactList"></div>
+    <section class="contact-view">
+      <section>
+        <div class="contact-list-wrapper">
+          <div class="contact-list-header">
+            <button class="btn-dark" onclick="showAddContactOverlay()">
+              Add new contact <img src="../assets/icons/person_add.svg" alt="addContact_img" />
+            </button>
           </div>
-        </section>
-        <section>
-          <div class="contact-detail-wrapper">
-            <div class="contact-detail-header">
-              <h2>Contacts</h2>
-              <div class="vertical-line"></div>
-              <p>Better with a team</p>
-            </div>
-            <div id="contactDetail" class="contact-detail"></div>
-          </div>
-        </section>
+          <div id="contactList"></div>
+        </div>
       </section>
-    </main>
-    <footer>
-      <div class="mobile-navbar">
-          <a href="summary.html"> <button class="menu-summary-btn"><img src="../assets/icons/summary.svg"><span
-              class="navbar-size">Summary</span></button></a>
-          <a href="board.html">
-              <button class="menu-summary-btn board-btn">
-                  <img src="../assets/icons/board.svg" alt="Board Icon">
-                  <span class="navbar-size">Board</span>
-              </button>
-          </a>
-          <a href="add_task.html"> <button class="menu-summary-btn"><img src="../assets/icons/edit_square.svg"><span
-                      class="navbar-size">Add Task</span></button></a>
-          <a href="contacts.html"> <button class="menu-summary-btn"><img
-                      src="../assets/icons/contact-icon.svg"><span
-                      class="navbar-size">Contacts</span></button></a>
-      </div>
+      <section>
+        <div class="contact-detail-wrapper">
+          <div class="contact-detail-header">
+            <h2>Contacts</h2>
+            <div class="vertical-line"></div>
+            <p>Better with a team</p>
+          </div>
+          <div id="contactDetail" class="contact-detail"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+  <footer>
+    <div class="mobile-navbar">
+      <a href="summary.html"> <button class="menu-summary-btn"><img src="../assets/icons/summary.svg"><span
+            class="navbar-size">Summary</span></button></a>
+      <a href="board.html">
+        <button class="menu-summary-btn board-btn">
+          <img src="../assets/icons/board.svg" alt="Board Icon">
+          <span class="navbar-size">Board</span>
+        </button>
+      </a>
+      <a href="add_task.html"> <button class="menu-summary-btn"><img src="../assets/icons/edit_square.svg"><span
+            class="navbar-size">Add Task</span></button></a>
+      <a href="contacts.html"> <button class="menu-summary-btn"><img src="../assets/icons/contact-icon.svg"><span
+            class="navbar-size">Contacts</span></button></a>
+    </div>
   </footer>
-  <section>
-    <div class="landscape-warning" id="landscapeWarning">Please rotate your device in portrait mode.</div>
+  <div class="landscape-warning" id="landscapeWarning">Please rotate your device in portrait mode.</div>
   </section>
-    <div id="editContactOverlay" class="d-none"></div>
-    <div id="addContactOverlay" class="d-none"></div>
-    <div class="mobile-add-contact-btn">
-      <button id="mobile-add-contact-btn" class="mobile-btn btn-dark" onclick="showAddContactOverlay()">
-        <img src="../assets/icons/person_add.svg" alt="addContact_img" />
-      </button>
-    </div>
-    <div id="mobile-edit-contact-btn-container" class="mobile-edit-contact-btn">
-    </div>
-  </body>
+  <div id="editContactOverlay" class="d-none"></div>
+  <div id="addContactOverlay" class="d-none"></div>
+  <div class="mobile-add-contact-btn">
+    <button id="mobile-add-contact-btn" class="mobile-btn btn-dark" onclick="showAddContactOverlay()">
+      <img src="../assets/icons/person_add.svg" alt="addContact_img" />
+    </button>
+  </div>
+  <div id="mobile-edit-contact-btn-container" class="mobile-edit-contact-btn">
+  </div>
+</body>
+
 </html>
