@@ -241,7 +241,6 @@ html {
   .contact-detail {
     margin: 32px 0 0 0;
   }
-
 }
 
 @media (max-width: 768px) {
@@ -276,7 +275,7 @@ html {
 
   #mobile-edit-contact-action-btn-overlay {
     position: absolute;
-    right: 10px;
+    right: -200px;
     bottom: 90px;
     background-color: white;
     box-shadow: 0px 5px 4px 1px rgba(0, 0, 0, 0.2);
@@ -289,6 +288,11 @@ html {
     justify-content: center;
     gap: 8px;
     padding: 20px;
+    transition: right 0.4s ease-in-out;
+  }
+
+  #mobile-edit-contact-action-btn-overlay.show {
+    right: 10px;
   }
 
   .mobile-contact-action-btn {
@@ -299,13 +303,13 @@ html {
   }
 
   .mobile-contact-action-btn:hover {
-   cursor: pointer;
+    cursor: pointer;
 
   }
 
   .mobile-contact-action-btn:hover span {
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
- }
+  }
 
   .mobile-back-button {
     background-color: #f6f7f8;
@@ -330,6 +334,4 @@ html {
   #header-container {
     width: 62%;
   }
-
-
 }

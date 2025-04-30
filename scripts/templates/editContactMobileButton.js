@@ -9,7 +9,7 @@ function editContactMobileButton(contact) {
     <button id="mobile-edit-contact-btn" class="mobile-btn btn-dark d-none" onclick="showMobileActionButtonsOverlay()">
         <img src="../assets/icons/edit-contact-mobiel-btn.svg" alt="editContact_img" />
     </button>
-    <div id="mobile-edit-contact-action-btn-overlay" class="d-none">
+    <div id="mobile-edit-contact-action-btn-overlay">
         <div id="mobile-edit-contact-btn" class="edit-button mobile-contact-action-btn" onclick="showEditContactOverlay('${contact.firebaseId}')">
             <img src="../assets/icons/edit.svg" alt="mobile-edit-contact">
             <span>Edit</span>
