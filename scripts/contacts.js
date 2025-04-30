@@ -139,18 +139,21 @@ function setNewContactActive(contact) {
  * This function sends a DELETE request to remove the contact from the database.
  * After deletion, it fetches the updated contact list and re-renders it.
  * If the deleted contact's details are currently displayed, they will be removed from the UI.
+ * If the viewport width is 768px or smaller, it also closes the mobile contact details and hides the mobile overlay.
  * 
  * @async
  * @function deleteContact
  * @param {string} firebaseId - The unique Firebase ID of the contact to be deleted.
- * @returns {Promise<void>} - A promise that resolves once the contact is deleted and the UI is updated.
+ * @returns {Promise<void>} - A promise that resolves once the contact is deleted, 
+ * the UI is updated, and (if applicable) the mobile contact details and overlay are hidden.
  * @throws {Error} - Logs an error if the deletion request fails.
  */
 async function deleteContact(firebaseId) {
     try {
         const updatedTasks = await removeContactFromTasks(firebaseId);
         if (Object.keys(updatedTasks).length > 0) {
-            await updateTasksInDatabase(updatedTasks);}
+            await updateTasksInDatabase(updatedTasks);
+        }
 
         const response = await fetch(`${BASE_URL}contacts/${firebaseId}.json`, {
             method: "DELETE",
@@ -158,7 +161,7 @@ async function deleteContact(firebaseId) {
         });
 
         if (!response.ok) {
-            throw new Error(`Fehler beim Löschen des Kontakts: ${response.status}`);
+            throw new Error(`Error deleting contact: ${response.status}`);
         }
         
         await mapContactsData();
@@ -168,8 +171,14 @@ async function deleteContact(firebaseId) {
         if (contactDetailContainer && contactDetailContainer.dataset.firebaseId === firebaseId) {
             contactDetailContainer.innerHTML = "";
         }
+
+        if (isMobileView()) {
+            closeMobileContactDetail();
+            hideMobileOverlay();
+        }
+        
     } catch (error) {
-        console.error("Fehler beim Löschen des Kontakts:", error);
+        console.error("Error deleting contact:", error);
     }
 }
 
@@ -241,25 +250,6 @@ function setupResponsiveListener() {
 
 
 /**
- * Updates the mobile edit button container with the generated template.
- * 
- * @param {Object} contact - The contact object to be displayed.
- */
-function updateMobileEditButtonContainer(contact) {
-    const mobileEditButtonContainer = document.getElementById('mobile-edit-contact-btn-container');
-    if (mobileEditButtonContainer) {
-        mobileEditButtonContainer.innerHTML = editContactMobileButton(contact);
-    }
-
-    const contactDetailsView = document.querySelector('.contact-details-view');
-
-    if (contactDetailsView && isDisplayBlock(contactDetailsView)) {
-        showMobileEditContactButton();
-    }
-}
-
-
-/**
  * Helper function to check if an element has the inline style 'display: block'.
  * 
  * @param {HTMLElement} element - The DOM element to check.
@@ -295,47 +285,4 @@ function closeContactDetail() {
 function easeContactDetailTransitionOut() {
     let contactDetailContainer = document.getElementById('contactDetail');
     contactDetailContainer.classList.remove('show');
-}
-
-
-/**
- * Closes the mobile action button overlay when clicking outside of it.
- * 
- * This function checks if the user clicked outside the overlay and the 
- * edit contact overlay. If the click occurred outside both elements, 
- * it hides the mobile overlay and removes the event listener.
- * 
- * @param {Event} event - The click event
- */
-function closeOverlayOnClickOutside(event) {
-    const mobileOverlay = document.getElementById('mobile-edit-contact-action-btn-overlay');
-    const editContactOverlay = document.querySelector(".overlay");
-
-    if (mobileOverlay.contains(event.target)) {
-        return;
-    }
-
-    if (editContactOverlay && editContactOverlay.style.display !== "none" && editContactOverlay.contains(event.target)) {
-        return;
-    }
-    
-    mobileOverlay.classList.remove('show');
-    document.removeEventListener("click", closeOverlayOnClickOutside);
-}
-
-/**
- * Displays the overlay for mobile action buttons.
- * 
- * Removes the `d-none` class to make the overlay visible and ensures that 
- * an event listener is added to detect clicks outside of the overlay for closing it.
- */
-function showMobileActionButtonsOverlay() {
-    const overlay = document.getElementById('mobile-edit-contact-action-btn-overlay');
-
-    overlay.classList.add('show');
-    document.removeEventListener("click", closeOverlayOnClickOutside);
-
-    setTimeout(() => {
-        document.addEventListener("click", closeOverlayOnClickOutside);
-    }, 10);
 }
