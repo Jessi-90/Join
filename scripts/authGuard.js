@@ -18,9 +18,16 @@ function checkIfUserIsLoggedIn() {
 function redirectToLoginPage() {
   const loginCheck = checkIfUserIsLoggedIn();
 
-  if (loginCheck.isNotLoggedIn && loginCheck.isNotOnLoginPage ) {
+  if (loginCheck.isNotLoggedIn && loginCheck.isNotOnLoginPage &&
+      !isPolicyOrLegalNoticePage()) {
     window.location.href = "../index.html";
   }
+}
+
+
+function isPolicyOrLegalNoticePage() {
+  const path = window.location.pathname;
+  return path.includes("privacy_policy.html") || path.includes("legal_notice.html");
 }
 
 
