@@ -17,7 +17,7 @@ function beforeSigningUpNavbar () {
 <div class="navbar">
 <img class="join-logo" src="../assets/img/join-logo.svg">
 <div class="summary-menu">
-    <a href="index.html"> <button class="menu-summary-btn login-navbar"><img src="../assets/icons/login.svg"><span
+    <a href="../index.html"> <button class="menu-summary-btn login-navbar"><img src="../assets/icons/login.svg"><span
                 class="navbar-size">Login</span></button></a>
  
 </div>
