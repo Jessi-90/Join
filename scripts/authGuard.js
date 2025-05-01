@@ -31,6 +31,21 @@ function isPolicyOrLegalNoticePage() {
 }
 
 
+function replaceNavbarForGuests() {
+  const loginCheck = checkIfUserIsLoggedIn();
+  if (!loginCheck.isLoggedIn && isPolicyOrLegalNoticePage()) {
+    const header = document.querySelector("header");
+    const aside = document.querySelector("aside");
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = beforeSigningUpNavbar();
+
+    if (header) header.replaceWith(tempDiv.querySelector(".header"));
+    if (aside) aside.replaceWith(tempDiv.querySelector(".navbar").parentElement);
+  }
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
   redirectToLoginPage();
+  replaceNavbarForGuests();
 });
