@@ -213,3 +213,19 @@ input:focus {
 .d-none {
     display: none;
 }
+
+#editContactOverlay .modal {
+    background: white;
+    transform: translateX(100%); 
+    transition: all 0.3s ease-in-out;
+    overflow-y: auto;
+}
+
+#editContactOverlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+#editContactOverlay.show .modal {
+    transform: translateX(0); 
+}
