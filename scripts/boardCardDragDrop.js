@@ -182,7 +182,7 @@ function enableMobileCardDragging(cardElement, cardId) {
         handleTouchStart(e, cardElement, cardId)
     );
     cardElement.addEventListener('touchmove', (e) =>
-        handleTouchMove(e, cardElement)
+        handleTouchMove(e, cardElement), { passive: false } 
     );
     cardElement.addEventListener('touchend', () =>
         handleTouchEnd(cardElement)
@@ -200,15 +200,16 @@ function enableMobileCardDragging(cardElement, cardId) {
  * @param {string|number} cardId - The unique identifier for the card being interacted with.
  */
 function handleTouchStart(e, cardElement, cardId) {
+    e.preventDefault();
     initialTouchY = e.touches[0].clientY;
 
     longPressTimer = setTimeout(() => {
         longTapActive = true;
         currentDraggedCardId = cardId;
         cardElement.classList.add('tilt-animation');
+        cardElement.style.pointerEvents = 'none'; 
     }, 500);
 }
-
 
 /**
  * Handles the touchmove event when the user moves their finger while interacting with the card.
@@ -218,17 +219,20 @@ function handleTouchStart(e, cardElement, cardId) {
  * @param {TouchEvent} e - The touchmove event object containing information about the touch movement.
  * @param {HTMLElement} cardElement - The HTML element representing the card being dragged.
  */
-function handleTouchMove(e, cardElement) {
-    if (!longTapActive) {
-         e.preventDefault();
-        clearTimeout(longPressTimer);
-        return;
+function handleTouchEnd(cardElement) {
+    clearTimeout(longPressTimer);
+    clearInterval(autoScrollInterval);
+
+    if (longTapActive && currentHoveredColumn) {
+        moveCardTo(currentHoveredColumn, currentHoveredColumn);
     }
 
-    const touchY = e.touches[0].clientY;
-    updateCardPosition(cardElement, touchY);
-    updateHoveredColumn(e);
-    handleAutoScroll(touchY);
+    cardElement.style.transform = '';
+    cardElement.style.position = '';
+    cardElement.style.zIndex = '';
+    cardElement.style.pointerEvents = ''; 
+    longTapActive = false;
+    currentHoveredColumn = null;
 }
 
 
