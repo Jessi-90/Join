@@ -1,6 +1,8 @@
 /**
- * Checks if a user or guest is logged in.
- * If not, redirects the user to the login page.
+ * Checks if the user is logged in or accessing as a guest.
+ * Also checks whether the current page is the login page.
+ *
+ * @returns {{ isLoggedIn: boolean, isNotLoggedIn: boolean, isNotOnLoginPage: boolean }}
  */
 function checkIfUserIsLoggedIn() {
   const userType = localStorage.getItem("userType");
@@ -15,6 +17,10 @@ function checkIfUserIsLoggedIn() {
 }
 
 
+/**
+ * Redirects the user to the login page if they are not logged in
+ * and not currently on a public page like privacy policy or legal notice.
+ */
 function redirectToLoginPage() {
   const loginCheck = checkIfUserIsLoggedIn();
 
@@ -25,12 +31,21 @@ function redirectToLoginPage() {
 }
 
 
+/**
+ * Checks if the current page is either the privacy policy or legal notice page.
+ *
+ * @returns {boolean} True if on privacy policy or legal notice page.
+ */
 function isPolicyOrLegalNoticePage() {
   const path = window.location.pathname;
   return path.includes("privacy_policy.html") || path.includes("legal_notice.html");
 }
 
 
+/**
+ * Replaces the full navigation layout (header, aside, footer) with a simplified guest layout,
+ * if the user is not logged in and currently on a guest-accessible page.
+ */
 function replaceNavbarForGuests() {
   const loginCheck = checkIfUserIsLoggedIn();
   const onGuestPage = isPolicyOrLegalNoticePage();
@@ -47,6 +62,10 @@ function replaceNavbarForGuests() {
   }
 }
 
+
+/**
+ * Removes existing navigation layout elements: header, aside, and footer.
+ */
 function removeExistingLayout() {
   const selectors = ["header", "aside", "footer"];
   selectors.forEach(selector => {
@@ -55,11 +74,19 @@ function removeExistingLayout() {
   });
 }
 
+
+/**
+ * Inserts the mobile-specific guest layout into the DOM.
+ */
 function insertMobileLayoutForGuest() {
   insertHTML(beforeSigningUpMobileHeader(), "prepend");
   insertHTML(beforeSigningUpMobileFooter(), "append");
 }
 
+
+/**
+ * Inserts the desktop-specific guest layout into the DOM.
+ */
 function insertDesktopLayoutForGuest() {
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = beforeSigningUpNavbar();
@@ -71,6 +98,13 @@ function insertDesktopLayoutForGuest() {
   if (newHeader) document.body.prepend(newHeader);
 }
 
+
+/**
+ * Inserts a given HTML string into the DOM at the specified position.
+ *
+ * @param {string} htmlString - The HTML content to insert.
+ * @param {"prepend"|"append"} [position="append"] - Whether to prepend or append the content.
+ */
 function insertHTML(htmlString, position = "append") {
   const temp = document.createElement("div");
   temp.innerHTML = htmlString;
@@ -84,6 +118,12 @@ function insertHTML(htmlString, position = "append") {
 }
 
 
+/**
+ * Initializes functionality when the DOM content is fully loaded.
+ * - Redirects the user to the login page if necessary.
+ * - Replaces the navigation bar with a guest version for public pages.
+ * - Sets the active button in the mobile navigation.
+ */
 document.addEventListener("DOMContentLoaded", () => {
   redirectToLoginPage();
   replaceNavbarForGuests();
@@ -91,6 +131,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+/**
+ * Reapplies the guest navigation layout and sets the active mobile button
+ * when the window is resized, but only on public pages like privacy policy or legal notice.
+ */
 window.addEventListener("resize", () => {
   if (isPolicyOrLegalNoticePage()) {
     replaceNavbarForGuests();

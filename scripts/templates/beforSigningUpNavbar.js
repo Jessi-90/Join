@@ -1,3 +1,10 @@
+/**
+ * Generates the desktop version of the header and sidebar (navbar) 
+ * for users who are not logged in.
+ * Includes links to login, help, privacy policy, and legal notice pages.
+ *
+ * @returns {string} HTML string representing the guest desktop layout.
+ */
 function beforeSigningUpNavbar() {
     return `
       <header>
@@ -36,7 +43,13 @@ function beforeSigningUpNavbar() {
   }
 
 
-  function beforeSigningUpMobileFooter() {
+/**
+ * Generates the footer layout for mobile view when the user is not logged in.
+ * Contains buttons for login, privacy policy, and legal notice.
+ *
+ * @returns {string} HTML string representing the guest mobile footer.
+ */
+function beforeSigningUpMobileFooter() {
     return `
       <footer>
         <div class="mobile-navbar">
@@ -63,6 +76,12 @@ function beforeSigningUpNavbar() {
 }
 
 
+/**
+ * Generates the header layout for mobile view when the user is not logged in.
+ * Includes the Join logo, title, and a help button.
+ *
+ * @returns {string} HTML string representing the guest mobile header.
+ */
 function beforeSigningUpMobileHeader() {
     return `
       <header>
