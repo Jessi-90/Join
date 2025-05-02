@@ -60,4 +60,21 @@ function beforeSigningUpNavbar() {
         </div>
       </footer>
     `;
-  }
+}
+
+
+function beforeSigningUpMobileHeader() {
+    return `
+      <header>
+        <div class="header">
+          <img class="mobile-join-logo" src="../assets/img/join-logo-dark.svg" alt="join-logo">
+          <p class="headline-kanban">Kanban Project Management Tool</p>
+          <div class="dropdown" id="dropdown">
+            <a href="help.html">
+              <img class="help-btn" src="../assets/img/help.png">
+            </a>
+          </div>
+        </div>
+      </header>
+    `;
+}
