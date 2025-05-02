@@ -34,20 +34,33 @@ function isPolicyOrLegalNoticePage() {
 function replaceNavbarForGuests() {
   const loginCheck = checkIfUserIsLoggedIn();
   if (!loginCheck.isLoggedIn && isPolicyOrLegalNoticePage()) {
+    const isMobile = window.innerWidth <= 768;
+
     const header = document.querySelector("header");
     const aside = document.querySelector("aside");
     const footer = document.querySelector("footer");
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = beforeSigningUpNavbar();
-    const newHeader = tempDiv.querySelector("header");
-    const newAside = tempDiv.querySelector("aside");
+    if (header) header.remove();
+    if (aside) aside.remove();
+    if (footer) footer.remove();
 
-    if (header && newHeader) header.replaceWith(newHeader);
-    if (aside && newAside) aside.replaceWith(newAside);
+    if (isMobile) {
+      const tempHeader = document.createElement("div");
+      tempHeader.innerHTML = beforeSigningUpMobileHeader();
+      document.body.prepend(tempHeader.firstElementChild);
 
-    const mobileFooter = document.createElement("div");
-    mobileFooter.innerHTML = beforeSigningUpMobileFooter();
-    document.body.appendChild(mobileFooter.firstElementChild);
+      const tempFooter = document.createElement("div");
+      tempFooter.innerHTML = beforeSigningUpMobileFooter();
+      document.body.appendChild(tempFooter.firstElementChild);
+
+    } else {
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = beforeSigningUpNavbar();
+      const newHeader = tempDiv.querySelector("header");
+      const newAside = tempDiv.querySelector("aside");
+
+      if (newAside) document.body.prepend(newAside);
+      if (newHeader) document.body.prepend(newHeader);
+    }
   }
 }
 
@@ -55,4 +68,11 @@ function replaceNavbarForGuests() {
 document.addEventListener("DOMContentLoaded", () => {
   redirectToLoginPage();
   replaceNavbarForGuests();
+});
+
+
+window.addEventListener("resize", () => {
+  if (isPolicyOrLegalNoticePage()) {
+    replaceNavbarForGuests();
+  }
 });
