@@ -434,6 +434,10 @@ input[type="search"]::-webkit-search-cancel-button {
     gap: 10px;
   }
 
+  body {
+    overflow-y: auto !important;
+  }
+
   .card {
     flex: 0 0 auto !important;
     width: 252px;
@@ -556,6 +560,10 @@ input[type="search"]::-webkit-search-cancel-button {
     margin: 4px;
   }
 
+  body {
+    overflow-y: auto !important;
+  }
+  
   .main {
     display: contents !important;
     width: 82% !important;
