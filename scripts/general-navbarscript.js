@@ -71,7 +71,7 @@ function toggleDropdown(event) {
  * All other buttons will have the "active" class removed.
  */
 function setActiveButtonForMobile() {
-  if (window.innerWidth < 768) {
+  if (window.innerWidth < 769) {
     const currentPage = window.location.pathname.split("/").pop() || "index.html";
     document.querySelectorAll(".menu-summary-btn").forEach((btn) => {
       const parentLink = btn.closest("a");
@@ -123,7 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
   updateActiveLink(footerLinks, "active");
   setActiveButtonForMobile();
 
-  userButton.addEventListener("click", toggleDropdown);
+  if (userButton) {
+    userButton.addEventListener("click", toggleDropdown);
+  }
 });
 
 
