@@ -39,8 +39,11 @@ function replaceNavbarForGuests() {
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = beforeSigningUpNavbar();
 
-    if (header) header.replaceWith(tempDiv.querySelector(".header"));
-    if (aside) aside.replaceWith(tempDiv.querySelector(".navbar").parentElement);
+    const newHeader = tempDiv.querySelector("header");
+    const newAside = tempDiv.querySelector("aside");
+
+    if (header && newHeader) header.replaceWith(newHeader);
+    if (aside && newAside) aside.replaceWith(newAside);
   }
 }
 
