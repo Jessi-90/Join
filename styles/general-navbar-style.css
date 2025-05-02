@@ -322,8 +322,8 @@ a.active .menu-summary-btn {
 
 	.menu-summary-btn.active {
 		height: 76px;
-		width: 80px;
 		border-radius: 16px;
+		padding: 8px 12px;
 	  }
 
     .board-btn {
