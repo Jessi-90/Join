@@ -41,7 +41,6 @@ function closeBoardCardDetails(event) {
         overlay.classList.add('d-none');
     }, 300);
     
-    renderTasks(currentTasksData);
     updateTasksInDatabase(currentTasksData);
 }
 
