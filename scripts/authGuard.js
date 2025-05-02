@@ -87,11 +87,13 @@ function insertHTML(htmlString, position = "append") {
 document.addEventListener("DOMContentLoaded", () => {
   redirectToLoginPage();
   replaceNavbarForGuests();
+  setActiveButtonForMobile();
 });
 
 
 window.addEventListener("resize", () => {
   if (isPolicyOrLegalNoticePage()) {
     replaceNavbarForGuests();
+    setActiveButtonForMobile();
   }
 });
