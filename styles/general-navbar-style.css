@@ -263,6 +263,19 @@ a.active .menu-summary-btn {
     z-index: 1000;
 }
 
+.mobile-login-img {
+	width: 24px;
+	height: 24px;
+}
+
+.mobile-login-link {
+	height: 46px;
+}
+
+.empty-container {
+	width: 24px;
+}
+
 @media (max-width:768px) {
     .mobile-navbar {
         display: flex;

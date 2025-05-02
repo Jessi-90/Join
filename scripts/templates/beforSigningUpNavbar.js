@@ -34,3 +34,30 @@ function beforeSigningUpNavbar() {
       </aside>
     `;
   }
+
+
+  function beforeSigningUpMobileFooter() {
+    return `
+      <footer>
+        <div class="mobile-navbar">
+          <a class="mobile-login-link" href="../index.html"> 
+            <button class="menu-summary-btn login-navbar">
+              <img class="mobile-login-img" src="../assets/icons/login.svg">
+              <span class="navbar-size">Login</span>
+            </button>
+          </a>
+          <span class="empty-container"></span>
+          <a href="privacy_policy.html"> 
+            <button class="menu-summary-btn">
+              <span class="navbar-size">Privacy Policy</span>
+            </button>
+          </a>
+          <a href="legal_notice.html">
+            <button class="menu-summary-btn">
+              <span class="navbar-size">Legal Notice</span>
+            </button>
+          </a>
+        </div>
+      </footer>
+    `;
+  }

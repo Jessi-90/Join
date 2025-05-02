@@ -36,14 +36,18 @@ function replaceNavbarForGuests() {
   if (!loginCheck.isLoggedIn && isPolicyOrLegalNoticePage()) {
     const header = document.querySelector("header");
     const aside = document.querySelector("aside");
+    const footer = document.querySelector("footer");
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = beforeSigningUpNavbar();
-
     const newHeader = tempDiv.querySelector("header");
     const newAside = tempDiv.querySelector("aside");
 
     if (header && newHeader) header.replaceWith(newHeader);
     if (aside && newAside) aside.replaceWith(newAside);
+
+    const mobileFooter = document.createElement("div");
+    mobileFooter.innerHTML = beforeSigningUpMobileFooter();
+    document.body.appendChild(mobileFooter.firstElementChild);
   }
 }
 
