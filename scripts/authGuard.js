@@ -33,34 +33,53 @@ function isPolicyOrLegalNoticePage() {
 
 function replaceNavbarForGuests() {
   const loginCheck = checkIfUserIsLoggedIn();
-  if (!loginCheck.isLoggedIn && isPolicyOrLegalNoticePage()) {
-    const isMobile = window.innerWidth <= 768;
+  const onGuestPage = isPolicyOrLegalNoticePage();
+  const isMobile = window.innerWidth <= 768;
 
-    const header = document.querySelector("header");
-    const aside = document.querySelector("aside");
-    const footer = document.querySelector("footer");
-    if (header) header.remove();
-    if (aside) aside.remove();
-    if (footer) footer.remove();
+  if (!loginCheck.isLoggedIn && onGuestPage) {
+    removeExistingLayout();
 
     if (isMobile) {
-      const tempHeader = document.createElement("div");
-      tempHeader.innerHTML = beforeSigningUpMobileHeader();
-      document.body.prepend(tempHeader.firstElementChild);
-
-      const tempFooter = document.createElement("div");
-      tempFooter.innerHTML = beforeSigningUpMobileFooter();
-      document.body.appendChild(tempFooter.firstElementChild);
-
+      insertMobileLayoutForGuest();
     } else {
-      const tempDiv = document.createElement("div");
-      tempDiv.innerHTML = beforeSigningUpNavbar();
-      const newHeader = tempDiv.querySelector("header");
-      const newAside = tempDiv.querySelector("aside");
-
-      if (newAside) document.body.prepend(newAside);
-      if (newHeader) document.body.prepend(newHeader);
+      insertDesktopLayoutForGuest();
     }
+  }
+}
+
+function removeExistingLayout() {
+  const selectors = ["header", "aside", "footer"];
+  selectors.forEach(selector => {
+    const element = document.querySelector(selector);
+    if (element) element.remove();
+  });
+}
+
+function insertMobileLayoutForGuest() {
+  insertHTML(beforeSigningUpMobileHeader(), "prepend");
+  insertHTML(beforeSigningUpMobileFooter(), "append");
+}
+
+function insertDesktopLayoutForGuest() {
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = beforeSigningUpNavbar();
+
+  const newHeader = tempDiv.querySelector("header");
+  const newAside = tempDiv.querySelector("aside");
+
+  if (newAside) document.body.prepend(newAside);
+  if (newHeader) document.body.prepend(newHeader);
+}
+
+function insertHTML(htmlString, position = "append") {
+  const temp = document.createElement("div");
+  temp.innerHTML = htmlString;
+  const element = temp.firstElementChild;
+
+  if (position === "prepend") {
+    document.body.prepend(element);
+  } else {
+    document.body.appendChild(element);
   }
 }
 
