@@ -43,7 +43,7 @@ async function deleteTask(event) {
         if (!response.ok) {
             throw new Error(`Fehler beim Löschen der Aufgabe: ${response.status}`);
         }
-
+        
         closeBoardCardDetails(event);
         await fetchTasksData(); 
         // renderBoard(); 
