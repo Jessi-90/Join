@@ -1,4 +1,20 @@
 /**
+ * Tracks if task details were modified.
+ * Used to trigger updates on close.
+ * @type {boolean}
+ */
+let taskDetailsModified = false;
+
+
+/**
+ * Sets the modification flag to true.
+ */
+function markTaskAsModified() {
+    taskDetailsModified = true;
+}
+
+
+/**
  * Displays the details of a specific task in the board's card detail overlay.
  * It retrieves task data, generates the overlay content, and renders assigned users and subtasks.
  *
@@ -25,24 +41,32 @@ function showBoardCardDetails(taskId) {
  * or on the close button. If the click is inside the container (excluding the close button),
  * the event is ignored.
  *
+ * If task details were modified while the overlay was open, the task list will be re-rendered
+ * and changes will be saved to the database before closing.
+ *
  * @param {Event} event - The click event that triggered the function.
  */
 function closeBoardCardDetails(event) {
     let overlay = document.getElementById('boardCardDetails');
     let overlayContainer = document.getElementById('boardCardDetailContainer');
 
-    if (event.target.closest('.board-card-detail-container') && !event.target.closest('.close-btn') || event.target.closest('.board-card-edit-container') && !event.target.closest('.close-btn')) {
+    if (event.target.closest('.board-card-detail-container') && !event.target.closest('.close-btn') ||
+        event.target.closest('.board-card-edit-container') && !event.target.closest('.close-btn')) {
         event.stopPropagation();
         return;
     }
-
     overlayContainer.classList.remove("show");
     setTimeout(() => {
         overlay.classList.add('d-none');
     }, 300);
-    
-    updateTasksInDatabase(currentTasksData);
+
+    if (taskDetailsModified) {
+        renderTasks(currentTasksData);
+        updateTasksInDatabase(currentTasksData);
+        taskDetailsModified = false;
+    }
 }
+
 
 /**
  * Renders the assigned users for a task in the task detail view.
@@ -60,6 +84,7 @@ function renderCardDetailsAssignedUsers(task, taskId) {
     }
 }
 
+
 /**
  * Renders the subtasks for a given task in the task detail view.
  *
@@ -75,6 +100,7 @@ function renderCardDetailsSubtasks(task) {
     }
     setupSubtaskEventListeners(task.id);
 }
+
 
 /**
  * Converts the subtasks object of a task into an array of subtask objects.
@@ -95,6 +121,7 @@ function generateSubtasksArray(task) {
     return subtasksArray;
 }
 
+
 /**
  * Transforms a task category string into a valid CSS class name format.
  * Converts the string to lowercase and replaces spaces with hyphens.
@@ -106,6 +133,7 @@ function transformTaskCategoryToClassName(taskCategory) {
     const categoryClassName = taskCategory.toLowerCase().replace(/\s+/g, '-');
     return categoryClassName;
 }
+
 
 /**
  * Attaches change event listeners to all subtask checkboxes in the task detail view.
