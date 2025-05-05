@@ -175,6 +175,6 @@ function updateSubtaskState(subtaskId, isChecked) {
         currentTasksData[taskId].subtasks[subtaskId].completed = isChecked;
 
         markTaskAsModified();        
-        updateTaskCounters(taskId);  
+        // updateTaskCounters(taskId);  
     }
 }
