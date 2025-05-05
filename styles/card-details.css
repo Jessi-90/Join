@@ -147,7 +147,6 @@
   padding-right: 30px;
   gap: 16px;
   height: 32px;
-  text-align: center;
   align-items: center;
 }
 
@@ -190,7 +189,7 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px; 
+  gap: 8px;
 }
 
 .custom-checkbox input[type="checkbox"] {
@@ -212,18 +211,18 @@
 .custom-checkbox input[type="checkbox"]:checked {
   background-color: transparent;
   border: none !important;
-  background-image: url(../assets/icons/check-btn.svg); 
-  background-size: 100%; 
+  background-image: url(../assets/icons/check-btn.svg);
+  background-size: 100%;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .custom-checkbox input[type="checkbox"]:hover {
-  filter: brightness(0.9); 
-  background-color: transparent; 
+  filter: brightness(0.9);
+  background-color: transparent;
 }
 
-.custom-checkbox:hover{
+.custom-checkbox:hover {
   width: auto;
 }
 
@@ -242,4 +241,46 @@
 .card-detail-subtasks-tasks:hover input[type="checkbox"] {
   border-color: #68696a !important;
   background-color: #eaf4fc;
+}
+
+/*---RESPONSIVE---*/
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .card-detail-subtask-content {
+    gap: 14px !important;
+  }
+
+  .card-detail-subtasks-tasks:hover {
+    width: auto !important;
+    border-radius: 8px !important;
+  }
+
+  .card-detail-subtasks-tasks:hover input[type="checkbox"] {
+    border-color: #2A3647 !important;
+    background-color: white !important;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .card-detail-subtask-content {
+    gap: 14px !important;
+  }
+
+  .card-detail-subtasks-tasks:hover {
+    width: auto !important;
+    border-radius: 8px !important;
+  }
+
+  .card-detail-subtasks-tasks:hover input[type="checkbox"] {
+    border-color: #2A3647 !important;
+    background-color: white !important;
+  }
+
+  .card-detail-subtasks-tasks {
+    margin-bottom: 5px;
+  }
+
+  .subtask-title {
+    font-size: 14px;
+  }
 }

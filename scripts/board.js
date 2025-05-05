@@ -26,14 +26,33 @@ let maxLengthTaskDescription = 50;
  */
 let minSearchLength = 2;
 
+
 /**
- * Initializes the application by fetching task data.
+ * Tracks whether the `init` function has been called.
+ * Prevents re-initialization if set to `true`.
+ * 
+ * @type {boolean}
+ */
+let initCalled = false;
+
+
+/**
+ * Initializes the board by fetching tasks, rendering them, 
+ * setting up the search listener, and initializing task backup.
+ * Ensures that initialization happens only once using `initCalled` flag.
+ * 
+ * @async
+ * @function init
+ * @returns {Promise<void>} Resolves once the initialization tasks are completed.
  */
 async function init() {
+    if (initCalled) return; 
+    initCalled = true;  
+
     await fetchTasksData();
     renderTasks(currentTasksData);
     initializeSearchListener();
-    initializeTaskBackup()
+    initializeTaskBackup();
 }
 
 
