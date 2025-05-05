@@ -191,7 +191,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
   .board {
     position: relative;
-    width: 100%;
+    width: 95%;
     height: 100vh;
     overflow-x: hidden;
     display: flex;
@@ -235,6 +235,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
   .board {
     margin: 0 24px !important;
+    width: 95% !important;
   }
 
   .column-header {
