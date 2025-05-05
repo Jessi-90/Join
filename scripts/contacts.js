@@ -16,7 +16,6 @@ async function init() {
     addContactClickEvents();
     summaryGreetingUser();
     setupResponsiveListener();
-    handleViewportChange();
     initViewportResizeListener();
 }
 
