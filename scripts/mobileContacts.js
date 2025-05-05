@@ -1,4 +1,13 @@
 /**
+ * Stores the previous state of the viewport, indicating whether it was in mobile view.
+ * Used to detect transitions between mobile and desktop views.
+ *
+ * @type {boolean}
+ */
+let previousIsMobileView = isMobileView();
+
+
+/**
  * Checks if the current viewport width is 768px or smaller.
  * 
  * @returns {boolean} True if the viewport width is 768px or smaller, otherwise false.
@@ -205,7 +214,7 @@ function closeOverlayOnClickOutside(event) {
     if (editContactOverlay && editContactOverlay.style.display !== "none" && editContactOverlay.contains(event.target)) {
         return;
     }
-    
+
     hideMobileOverlay();
     document.removeEventListener("click", closeOverlayOnClickOutside);
 }
@@ -237,35 +246,57 @@ function showMobileActionButtonsOverlay() {
  */
 function hideMobileOverlay() {
     const mobileOverlay = document.getElementById('mobile-edit-contact-action-btn-overlay');
-    mobileOverlay.classList.remove('show');
+    if (mobileOverlay) {
+        mobileOverlay.classList.remove('show');
+    }
 }
 
 
 /**
- * Handles viewport changes and applies UI adjustments based on screen width.
- * 
- * If the viewport width is greater than 768px:
- * - Removes the mobile back button.
- * - Hides the mobile overlay.
- * - Hides the mobile edit contact button.
- * - Shows the mobile contact list view.
- * - Shows the mobile contact detail view.
- * 
- * If the viewport width is 768px or smaller:
- * - Closes the mobile contact detail view.
+ * Handles viewport changes and updates the UI accordingly.
  */
 function handleViewportChange() {
-    if (!isMobileView()) {
-        removeMobileBackButton();
-        hideMobileOverlay();
-        hideMobileEditContactButton();
-        showContactListViewForMobile();
-        showContactDetailViewForMobile();
-    }
+    const currentIsMobileView = isMobileView();
 
-    if (isMobileView()) {
+    if (!currentIsMobileView) {
+        handleDesktopView();
+    } else {
         closeMobileContactDetail();
     }
+
+    previousIsMobileView = currentIsMobileView;
+}
+
+
+/**
+ * Handles UI adjustments when switching to desktop view.
+ */
+function handleDesktopView() {
+    removeMobileUIElements();
+    showDesktopViews();
+    
+    if (previousIsMobileView) {
+        closeContactDetail();
+    }
+}
+
+
+/**
+ * Removes UI elements that are specific to the mobile view.
+ */
+function removeMobileUIElements() {
+    removeMobileBackButton();
+    hideMobileOverlay();
+    hideMobileEditContactButton();
+}
+
+
+/**
+ * Displays the appropriate views for the desktop layout.
+ */
+function showDesktopViews() {
+    showContactListViewForMobile();
+    showContactDetailViewForMobile();
 }
 
 
