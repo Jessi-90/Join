@@ -42,10 +42,9 @@ function closeBoardCardDetails(event) {
     overlayContainer.classList.remove("show");
     setTimeout(() => {
         overlay.classList.add('d-none');
+        updateTasksInDatabase(currentTasksData);
+        renderTasks(currentTasksData);
     }, 300);
-    
-    renderTasks(currentTasksData);
-    updateTasksInDatabase(currentTasksData);
 }
 
 /**
