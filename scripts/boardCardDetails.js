@@ -1,4 +1,20 @@
 /**
+ * Tracks if task details were modified.
+ * Used to trigger updates on close.
+ * @type {boolean}
+ */
+let taskDetailsModified = false;
+
+
+/**
+ * Sets the modification flag to true.
+ */
+function markTaskAsModified() {
+    taskDetailsModified = true;
+}
+
+
+/**
  * Displays the details of a specific task in the board's card detail overlay.
  * It retrieves task data, generates the overlay content, and renders assigned users and subtasks.
  *
@@ -25,12 +41,14 @@ function showBoardCardDetails(taskId) {
  * or on the close button. If the click is inside the container (excluding the close button),
  * the event is ignored.
  *
+ * If task details were modified while the overlay was open, the task list will be re-rendered
+ * and changes will be saved to the database before closing.
+ *
  * @param {Event} event - The click event that triggered the function.
  */
 function closeBoardCardDetails(event) {
     let overlay = document.getElementById('boardCardDetails');
     let overlayContainer = document.getElementById('boardCardDetailContainer');
-
     
     if (event.target.closest('.board-card-detail-container') && 
      (!event.target.closest('.close-btn') && !event.target.closest('.card-detail-delete-btn')) || 
@@ -38,14 +56,20 @@ function closeBoardCardDetails(event) {
         event.stopPropagation();
         return;
     }
-
     overlayContainer.classList.remove("show");
     setTimeout(() => {
         overlay.classList.add('d-none');
         updateTasksInDatabase(currentTasksData);
         renderTasks(currentTasksData);
     }, 300);
+
+    if (taskDetailsModified) {
+        renderTasks(currentTasksData);
+        updateTasksInDatabase(currentTasksData);
+        taskDetailsModified = false;
+    }
 }
+
 
 /**
  * Renders the assigned users for a task in the task detail view.
@@ -63,6 +87,7 @@ function renderCardDetailsAssignedUsers(task, taskId) {
     }
 }
 
+
 /**
  * Renders the subtasks for a given task in the task detail view.
  *
@@ -78,6 +103,7 @@ function renderCardDetailsSubtasks(task) {
     }
     setupSubtaskEventListeners(task.id);
 }
+
 
 /**
  * Converts the subtasks object of a task into an array of subtask objects.
@@ -98,6 +124,7 @@ function generateSubtasksArray(task) {
     return subtasksArray;
 }
 
+
 /**
  * Transforms a task category string into a valid CSS class name format.
  * Converts the string to lowercase and replaces spaces with hyphens.
@@ -109,6 +136,7 @@ function transformTaskCategoryToClassName(taskCategory) {
     const categoryClassName = taskCategory.toLowerCase().replace(/\s+/g, '-');
     return categoryClassName;
 }
+
 
 /**
  * Attaches change event listeners to all subtask checkboxes in the task detail view.
@@ -133,12 +161,12 @@ function setupSubtaskEventListeners(taskId) {
 /**
  * Updates the completion state of a specific subtask for the currently open task.
  * 
- * Retrieves the current open task from the DOM, identifies the subtask by its ID,
- * and sets its `completed` property to the provided checkbox state.
- * The updated subtask state is stored back in the global `currentTasksData`.
+ * This function modifies the `completed` property of the specified subtask and stores the updated state
+ * in the global `currentTasksData` object. It then marks the task as modified, signaling that changes were made, 
+ * and ensures that the task state is ready for any further updates or rendering.
  *
- * @param {string} subtaskId - The unique identifier of the subtask to update.
- * @param {boolean} isChecked - Indicates whether the subtask is completed (`true`) or not (`false`).
+ * @param {string} subtaskId - The unique identifier of the subtask whose completion state is being updated.
+ * @param {boolean} isChecked - Indicates the completion status of the subtask: `true` if completed, `false` if not.
  */
 function updateSubtaskState(subtaskId, isChecked) {
     const currentOpenTask = document.getElementById("boardCardDetails");
@@ -147,6 +175,8 @@ function updateSubtaskState(subtaskId, isChecked) {
     const subtask = task.subtasks[subtaskId];
     if (subtask) {
         subtask.completed = isChecked;
-        currentTasksData[taskId].subtasks[subtaskId].completed = isChecked;  
+        currentTasksData[taskId].subtasks[subtaskId].completed = isChecked;
+
+        markTaskAsModified();        
     }
 }
