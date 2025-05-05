@@ -10,7 +10,7 @@ return `
                 <div class="horizontal-line"></div>
             </div>
             <div class="form-container" data-firebase-id="${contact.firebaseId}">
-                <button class="close-btn" onclick="closeOverlayEditContact()">✖</button>
+                <button class="close-btn">✖</button>
                       <div class="contact-icon-placeholder-large" style="background-color: ${contact.color}">
                     ${contact.initials}
                 </div>
