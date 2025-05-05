@@ -159,8 +159,8 @@ function setupSubtaskEventListeners(taskId) {
  * Updates the completion state of a specific subtask for the currently open task.
  * 
  * This function modifies the `completed` property of the specified subtask and stores the updated state
- * in the global `currentTasksData`. It then marks the task as modified, signaling that changes were made, 
- * and triggers the task counter update.
+ * in the global `currentTasksData` object. It then marks the task as modified, signaling that changes were made, 
+ * and ensures that the task state is ready for any further updates or rendering.
  *
  * @param {string} subtaskId - The unique identifier of the subtask whose completion state is being updated.
  * @param {boolean} isChecked - Indicates the completion status of the subtask: `true` if completed, `false` if not.
@@ -175,6 +175,5 @@ function updateSubtaskState(subtaskId, isChecked) {
         currentTasksData[taskId].subtasks[subtaskId].completed = isChecked;
 
         markTaskAsModified();        
-        // updateTaskCounters(taskId);  
     }
 }
