@@ -32,6 +32,7 @@ async function updateTasksInDatabase(updatedTasks) {
  * @returns {Promise<void>} A promise that resolves when the task is deleted and the board is updated.
  */
 async function deleteTask(taskId) {
+    console.log("Zu löschende Task-ID:", taskId);
     try {
         const response = await fetch(`${BASE_URL}tasks/${taskId}.json`, {
             method: "DELETE",
@@ -44,8 +45,8 @@ async function deleteTask(taskId) {
 
         closeBoardCardDetails({ target: document.getElementById('boardCardDetailContainer') });
         await fetchTasksData(); 
-        renderBoard(); 
-
+        renderTasks(currentTasksData);
+        updateTasksInDatabase(currentTasksData);
     } catch (error) {
         console.error("Fehler beim Löschen des Tasks:", error);
     }

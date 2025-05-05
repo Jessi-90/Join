@@ -43,7 +43,7 @@ function closeBoardCardDetails(event) {
     
     renderTasks(currentTasksData);
     updateTasksInDatabase(currentTasksData);
-}
+} 
 
 /**
  * Renders the assigned users for a task in the task detail view.
