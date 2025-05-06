@@ -10,7 +10,7 @@ return `
                 <div class="horizontal-line"></div>
             </div>
             <div class="form-container" data-firebase-id="${contact.firebaseId}">
-                <button class="close-btn" onclick="closeEditContactOverlay(event)">✖</button>
+                <button class="close-btn">✖</button>
                       <div class="contact-icon-placeholder-large" style="background-color: ${contact.color}">
                     ${contact.initials}
                 </div>
@@ -34,8 +34,8 @@ return `
                         </span>
                     </div>
                     <div class="buttons">
-                        <button type="button" class="delete" onclick="deleteContactFromEditOverlay()">Delete</button>
-                        <button id="saveContactButton" type="submit" class="save" onclick="saveContactFromEditOverlay()">Save<img class="create-check"
+                        <button type="button" class="delete btn-light" onclick="deleteContactFromEditOverlay()">Delete</button>
+                        <button id="saveContactButton" type="submit" class="save btn-dark" onclick="saveContactFromEditOverlay()">Save<img class="create-check"
                                 src="../assets/icons/check.svg"></button>
                     </div>
                 </form>

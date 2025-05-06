@@ -26,7 +26,6 @@ function showEditContactOverlay(firebaseId) {
 }
 
 
-
 /**
  * Closes the Edit Contact Overlay if clicking outside the modal or on the close button.
  * Prevents closing when clicking inside the modal.
@@ -166,6 +165,7 @@ function handleSuccessfulUpdate(firebaseId, updatedData) {
     if (contactDetailContainer && contactDetailContainer.getAttribute("data-firebase-id") === firebaseId) {
         let updatedContact = currentContactsData.find(c => c.firebaseId === firebaseId);
         contactDetailContainer.innerHTML = renderContactDetailTemplate(updatedContact);
+        updateMobileEditButtonContainer(updatedContact);
     }
 
     closeEditContactOverlay();
@@ -203,16 +203,19 @@ function saveContactFromEditOverlay(event) {
     saveContactChanges(firebaseId);
 }
 
+
 /**
  * Deletes the currently edited contact from the database and removes it from all assigned tasks.
+ * If the viewport width is 768px or smaller, it also closes the mobile contact details view.
  * 
  * This function retrieves the contact ID from the edit overlay, removes the contact 
  * from all tasks where it was assigned, updates the tasks in the database, 
  * and then deletes the contact itself. Finally, it hides the edit contact overlay.
- * 
+ *
  * @async
  * @function deleteContactFromEditOverlay
- * @returns {Promise<void>} - A promise that resolves once the contact is deleted and the overlay is closed.
+ * @returns {Promise<void>} - A promise that resolves once the contact is deleted, 
+ * the overlay is closed, and (if applicable) the mobile contact details are hidden.
  */
 async function deleteContactFromEditOverlay() {
     const firebaseId = document.querySelector('.form-container')?.dataset.firebaseId; 
@@ -230,6 +233,10 @@ async function deleteContactFromEditOverlay() {
         if (overlay) {
             hideOverlay(overlay);
         }
+
+        if (isMobileView()) {
+            closeMobileContactDetail();
+            hideMobileOverlay();
+        }
     }, 100);
 }
-

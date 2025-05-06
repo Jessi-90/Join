@@ -9,10 +9,11 @@
 function renderContacts() {
     return `
         <section class="contact-view">
-            <section>
+            <section class="contact-list-view">
                 <div class="contact-list-wrapper">
                     <div class="contact-list-header">
-                        <button class="button-dark-large" onclick="showAddContactOverlay()">Add new contact 
+                        <button class="button-dark-large" onclick="showAddContactOverlay()">
+                            <span>Add new contact</span> 
                             <img src="../assets/icons/person_add.svg" alt="addContact_img">
                         </button>
                     </div>
@@ -21,12 +22,15 @@ function renderContacts() {
                     </div>
                 </div>
             </section>
-            <section>
+            <section class="contact-details-view">
                 <div class="contact-detail-wrapper">
                     <div class="contact-detail-header">
-                        <h2>Contacts</h2>
+                        <div id="header-container">
+                            <h2>Contacts</h2>
+                        </div>
                         <div class="vertical-line"></div>
                         <p>Better with a team</p>
+                        <div class="horizontal-line"></div>
                     </div>
                     <div id="contactDetail" class="contact-detail"></div>
                 </div>
@@ -136,10 +140,10 @@ function renderContactDetailTemplate(contact) {
                     <span>${contact.name}</span>
                     <div class="contact-actions">
                         <button class="contact-action-button edit-button" onclick="showEditContactOverlay('${contact.firebaseId}')">
-                            <img src="../assets/icons/edit.svg" alt="Edit" class="button-icon">Edit
+                            <img src="../assets/icons/edit.svg" alt="Edit" class="button-icon"><span>Edit</span>
                         </button>
                         <button class="contact-action-button delete-button" onclick="deleteContact('${contact.firebaseId}')">
-                            <img src="../assets/icons/delete.svg" alt="Delete" class="button-icon">Delete
+                            <img src="../assets/icons/delete.svg" alt="Delete" class="button-icon"><span>Delete</span>
                         </button>
                     </div>
                 </div>

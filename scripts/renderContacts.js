@@ -68,10 +68,20 @@ function groupContactsAlphabetically(contacts) {
 
 /**
  * Handles the event when a contact is clicked to view detailed information.
+ * Delegates tasks such as toggling details and applying mobile view adjustments.
+ * 
  * @param {Object} contact - The clicked contact.
  */
 function onContactClick(contact) {
     toggleContactDetail(contact);
+
+    if (isMobileView()) {
+        hideContactListViewForMobile();
+        hideMobileAddContactButton();
+        showContactDetailViewForMobile();
+        addBackButtonToMobileDetail();
+        
+    }
 }
 
 
@@ -109,10 +119,12 @@ function addContactClickEvents() {
  * @param {HTMLElement} clickedElement - The contact element that was clicked.
  */
 function setActiveContact(clickedElement) {
-    const allContacts = document.querySelectorAll('.contact-placeholder-item');
-    allContacts.forEach(contact => contact.classList.remove('active'));
+    if (window.innerWidth > 769) {
+        const allContacts = document.querySelectorAll('.contact-placeholder-item');
+        allContacts.forEach(contact => contact.classList.remove('active'));
 
-    clickedElement.classList.add('active');
+        clickedElement.classList.add('active');
+    }
 }
 
 
@@ -192,9 +204,28 @@ function renderNoContactsMessage(container) {
     container.innerHTML = `<p class="no-contacts">No contacts available.</p>`;
 }
 
+
 /**
- * Toggles the contact detail view. 
- * If the selected contact is already open, it closes the detail view. 
+ * Handles contact detail toggling for screens larger than 768px
+ *
+ * @param {Object} contact - The contact object to be displayed.
+ * @param {string|null} currentOpenContact - The Firebase ID of the currently opened contact.
+ */
+function handleLargeScreenToggle(contact, currentOpenContact) {
+    if (currentOpenContact === String(contact.firebaseId)) {
+        closeContactDetail();
+    } else {
+        easeContactDetailTransitionOut();
+        setTimeout(() => {
+            openNewContact(contact);
+        }, 125);
+    }
+}
+
+
+/**
+ * Toggles the contact detail view.
+ * If the selected contact is already open, it closes the detail view.
  * Otherwise, it applies a transition effect and opens the new contact details.
  *
  * @param {Object} contact - The contact object to be displayed.
@@ -202,22 +233,19 @@ function renderNoContactsMessage(container) {
  */
 function toggleContactDetail(contact) {
     const container = document.getElementById('contact-detail');
+    const screenWidth = window.innerWidth;
     if (!container) {
         openNewContact(contact);
         return;
     }
     const currentOpenContact = container.getAttribute('data-firebase-id') || null;
-
-    if (currentOpenContact === String(contact.firebaseId)) {
-        closeContactDetail();
+    if (screenWidth <= 768) {
+        handleSmallScreenToggle(contact);
     } else {
-        easeContactDetailTransitionOut();
-        setTimeout(() => {
-            openNewContact(contact); 
-        }, 125);
+        handleLargeScreenToggle(contact, currentOpenContact);
     }
 }
- 
+
 
 /**
  * Opens the contact detail view and displays the selected contact's information.
@@ -228,42 +256,15 @@ function toggleContactDetail(contact) {
  */
 function openNewContact(contact) {
     const container = document.getElementById('contactDetail');
-
     const clickedItem = document.querySelector(`[data-contact-id="${contact.id}"]`);
+
     if (clickedItem) {
         clickedItem.classList.add('active');
     }
 
     container.innerHTML = renderContactDetailTemplate(contact);
-
+    updateMobileEditButtonContainer(contact);
     setTimeout(() => {
         container.classList.add('show');
     }, 10);
-}
-
-
-/**
- * Closes the contact detail view by removing the 'show' class and clearing the content.
- * Also removes the 'active' class from all contact list items and resets the container attributes.
- */
-function closeContactDetail() {
-    const container = document.getElementById('contactDetail');
-    container.classList.remove('show');
-
-    setTimeout(() => {
-        document.querySelectorAll('.contact-placeholder-item').forEach(item => {
-            item.classList.remove('active');
-        });
-        container.innerHTML = ''; 
-        container.removeAttribute('data-contact-id');
-    }, 75); 
-}
-
-/**
- * Applies a transition effect to hide the contact detail view.
- * Removes the 'show' class from the contact detail container.
- */
-function easeContactDetailTransitionOut() {
-    let contactDetailContainer = document.getElementById('contactDetail');
-    contactDetailContainer.classList.remove('show');
 }

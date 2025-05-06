@@ -60,12 +60,12 @@
 }
 
 .contact-placeholder-item.active {
-    background-color: rgba(42, 54, 71, 1);  
+    background-color: rgba(42, 54, 71, 1);
     color: white;
 }
 
 .contact-placeholder-item.active {
-    color: #fff;  
+    color: #fff;
 }
 
 .contact-icon-placeholder {
@@ -111,7 +111,7 @@
     max-height: calc(100vh - 160px);
     overflow-y: auto;
     overflow-x: hidden;
-    scrollbar-width: thin; 
+    scrollbar-width: thin;
     scrollbar-color: #A8A8A8 transparent;
     position: relative;
 }
@@ -142,7 +142,7 @@
 
 .contact-view {
     display: flex;
-   
+
 }
 
 .contact-detail-name {
@@ -181,7 +181,7 @@
 
 .edit-button img,
 .delete-button img {
-    width: 24px;  
+    width: 24px;
     height: 24px;
 }
 
@@ -194,13 +194,18 @@
 .contact-action-button {
     display: flex;
     align-items: center;
-    gap: 13px;
+    gap: 8px;
     background: none;
     border: none;
     cursor: pointer;
     font-size: 16px;
     text-decoration: none;
     height: 24px;
+}
+
+.contact-action-button span {
+    font-size: 16px;
+    font-weight: 400;
 }
 
 .contact-detail-wrapper h2 {
@@ -247,7 +252,7 @@
 }
 
 .contact-info-section p strong {
-    display: block; 
+    display: block;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 15px;
@@ -262,4 +267,306 @@
 
 .contact-info-section a:hover {
     text-decoration: underline;
+}
+
+@media (max-width: 1440px) {
+    .contact-icon-placeholder-large {
+        width: 80px;
+        height: 80px;
+        font-size: 32px;
+    }
+
+    .contact-detail-name {
+        gap: 27px;
+    }
+}
+
+@media (max-width: 1200px) {
+
+    .button-dark-large {
+        width: 200px;
+    }
+
+    .button-dark-large span {
+        display: none;
+    }
+
+    .contact-letter-section {
+        width: 100%;
+    }
+
+    .contact-letter {
+        width: 100%;
+        padding-left: 66px;
+    }
+
+    .contact-placeholder-item {
+        align-items: center;
+        padding: 0;
+    }
+
+    .contact-icon-placeholder {
+        width: 30px;
+        height: 30px;
+        margin: 0 8px;
+        font-size: 12px;
+    }
+
+    .contact-name-placeholder {
+        font-size: 14px;
+    }
+
+    .contact-email-placeholder {
+        font-size: 14px;
+    }
+
+    .contact-divider {
+        width: 200px;
+    }
+}
+
+@media (max-width: 1024px) {
+
+    .headline-kanban {
+        font-size: 16px;
+    }
+
+    .contact-icon-placeholder-large {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .contact-detail-name {
+        gap: 12px;
+    }
+
+    .contact-info-section h4 {
+        font-size: 16px;
+        height: 32px;
+    }
+
+    .contact-action-button {
+        gap: 4px;
+    }
+
+    .contact-action-button img {
+        width: 18px;
+    }
+
+    .contact-action-button span {
+        font-size: 14px;
+    }
+
+    .edit-button {
+        margin: 0;
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .mobile-btn {
+        position: absolute;
+        bottom: 100px;
+        right: 20px;
+        justify-content: center !important;
+    }
+
+    .mobile-btn {
+        height: 64px;
+        width: 64px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 5px 4px 1px rgba(0, 0, 0, 0.2)
+    }
+
+    .mobile-btn button:hover {
+        background-color: rgba(42, 54, 71, 1);
+    }
+
+    .contact-details-view {
+        display: none;
+    }
+
+    .contact-detail-wrapper {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 480px;
+        padding: 24px;
+        display: flex;
+        align-items: start;
+    }
+
+    .contact-detail {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: end;
+        width: 480px;
+        transform: none;
+        transition: none
+    }
+
+    .contact-detail.show {
+        transform: none;
+    }
+
+    .contact-list-wrapper {
+        position: static;
+    }
+
+    .contact-list-header {
+        display: none;
+    }
+
+    .contact-list-wrapper {
+        width: 100%;
+    }
+
+    .contact-letter-section:first-of-type .contact-letter {
+        margin-top: 40px;
+    }
+
+    .contact-letter {
+        height: 44px;
+        padding-top: 24px;
+        padding-left: 76px;
+        padding-right: 0;
+    }
+
+    .contact-placeholder-item {
+        font-size: 20px;
+        padding-top: 0px;
+        margin-top: 0;
+        width: 100%;
+    }
+
+    .contact-icon-placeholder {
+        width: 42px;
+        height: 42px;
+        gap: 10px;
+        font-size: 20px;
+        margin-right: 35px;
+        margin-left: 25px;
+    }
+
+    .contact-icon-placeholder-large {
+        width: 80px;
+        height: 80px;
+        font-size: 32px;
+    }
+
+    .contact-placeholder-item:hover {
+        cursor: default;
+        background-color: white;
+    }
+
+    .contact-email-placeholder {
+        font-size: 16px;
+    }
+
+    .contact-divider {
+        width: 400px;
+    }
+
+    .contact-list-view {
+        width: 100%;
+    }
+
+    .contact-list-wrapper {
+        width: 100%;
+        padding: 0;
+    }
+
+    .contact-actions {
+        display: none;
+    }
+
+    .namefield span {
+        font-size: 28px;
+        font-weight: bold;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .contact-detail-wrapper {
+        width: 300px;
+        padding: 0;
+    }
+
+    .contact-icon-placeholder {
+        margin-right: 20px;
+        margin-left: 0px;
+    }
+
+    .contact-name-placeholder {
+        font-size: 14px;
+    }
+
+    .contact-email-placeholder {
+        font-size: 14px;
+    }
+
+    .contact-letter {
+        padding-left: 24px;
+    }
+
+    .contact-divider {
+        width: 260px;
+    }
+
+    #contactList .contact-letter-section:last-of-type .contact-placeholder-item:last-child {
+        margin-bottom: 20px;
+    }
+
+    .mobile-btn {
+        height: 44px;
+        width: 44px;
+    }
+
+    .mobile-btn img {
+        height: 24px;
+        width: 24px;
+    }
+
+    .contact-icon-placeholder-large {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .namefield span {
+        font-size: 18px;
+    }
+
+    .contact-detail-header {
+        top: 32px;
+    }
+
+    .contact-detail {
+        top: 200px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .contact-info-section h4 {
+        margin-top: 0;
+        height: auto;
+    }
+
+    .contact-info-section p {
+        margin-top: 0;
+    }
+
+    .contact-detail-name {
+        margin-bottom: 8px;
+
+    }
+
 }

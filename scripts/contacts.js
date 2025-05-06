@@ -4,8 +4,10 @@
  */
 let currentContactsData = [];
 
+
 /**
- * Initializes the app by fetching data and rendering the contacts.
+ * Initializes the app by fetching data, rendering the contacts, and setting up interactive features.
+ * Ensures the app remains responsive by adapting UI behavior based on screen size.
  */
 async function init() {
     await mapContactsData();
@@ -13,7 +15,10 @@ async function init() {
     renderContactList(currentContactsData);
     addContactClickEvents();
     summaryGreetingUser();
+    setupResponsiveListener();
+    initViewportResizeListener();
 }
+
 
 /**
  * Fetches contact data from the Firebase database and stores it in `currentContactsData`.
@@ -128,24 +133,28 @@ function setNewContactActive(contact) {
     }, 100); 
 }
 
+
 /**
  * Deletes a contact from the Firebase database and updates the UI.
  * 
  * This function sends a DELETE request to remove the contact from the database.
  * After deletion, it fetches the updated contact list and re-renders it.
  * If the deleted contact's details are currently displayed, they will be removed from the UI.
+ * If the viewport width is 768px or smaller, it also closes the mobile contact details and hides the mobile overlay.
  * 
  * @async
  * @function deleteContact
  * @param {string} firebaseId - The unique Firebase ID of the contact to be deleted.
- * @returns {Promise<void>} - A promise that resolves once the contact is deleted and the UI is updated.
+ * @returns {Promise<void>} - A promise that resolves once the contact is deleted, 
+ * the UI is updated, and (if applicable) the mobile contact details and overlay are hidden.
  * @throws {Error} - Logs an error if the deletion request fails.
  */
 async function deleteContact(firebaseId) {
     try {
         const updatedTasks = await removeContactFromTasks(firebaseId);
         if (Object.keys(updatedTasks).length > 0) {
-            await updateTasksInDatabase(updatedTasks);}
+            await updateTasksInDatabase(updatedTasks);
+        }
 
         const response = await fetch(`${BASE_URL}contacts/${firebaseId}.json`, {
             method: "DELETE",
@@ -153,7 +162,7 @@ async function deleteContact(firebaseId) {
         });
 
         if (!response.ok) {
-            throw new Error(`Fehler beim Löschen des Kontakts: ${response.status}`);
+            throw new Error(`Error deleting contact: ${response.status}`);
         }
         
         await mapContactsData();
@@ -163,8 +172,14 @@ async function deleteContact(firebaseId) {
         if (contactDetailContainer && contactDetailContainer.dataset.firebaseId === firebaseId) {
             contactDetailContainer.innerHTML = "";
         }
+
+        if (isMobileView()) {
+            closeMobileContactDetail();
+            hideMobileOverlay();
+        }
+
     } catch (error) {
-        console.error("Fehler beim Löschen des Kontakts:", error);
+        console.error("Error deleting contact:", error);
     }
 }
 
@@ -207,4 +222,68 @@ async function removeContactFromTasks(firebaseId) {
         console.error("Fehler beim Entfernen des Kontakts aus Aufgaben:", error);
         return {};
     }
+}
+
+
+/**
+ * Removes the "active" class from elements with the class "contact-placeholder-item"
+ * if the viewport width is less than or equal to 768px.
+ */
+function removeActiveClassOnResize() {
+    if (window.innerWidth <= 768) {
+        const activeItems = document.querySelectorAll('.contact-placeholder-item');
+        activeItems.forEach(item => {
+            item.classList.remove('active');
+        });
+    }
+}
+
+
+/**
+ * Sets up a responsive listener that removes the "active" class from elements
+ * based on the viewport width whenever the browser window is resized.
+ * Also calls the removal function once during initialization.
+ */
+function setupResponsiveListener() {
+    window.addEventListener('resize', removeActiveClassOnResize);
+    removeActiveClassOnResize();
+}
+
+
+/**
+ * Helper function to check if an element has the inline style 'display: block'.
+ * 
+ * @param {HTMLElement} element - The DOM element to check.
+ * @returns {boolean} True if the element's display style is 'block', otherwise false.
+ */
+function isDisplayBlock(element) {
+    return window.getComputedStyle(element).display === 'block';
+}
+
+
+/**
+ * Closes the contact detail view by removing the 'show' class and clearing the content.
+ * Also removes the 'active' class from all contact list items and resets the container attributes.
+ */
+function closeContactDetail() {
+    const container = document.getElementById('contactDetail');
+    container.classList.remove('show');
+
+    setTimeout(() => {
+        document.querySelectorAll('.contact-placeholder-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        container.innerHTML = ''; 
+        container.removeAttribute('data-contact-id');
+    }, 75); 
+}
+
+
+/**
+ * Applies a transition effect to hide the contact detail view.
+ * Removes the 'show' class from the contact detail container.
+ */
+function easeContactDetailTransitionOut() {
+    let contactDetailContainer = document.getElementById('contactDetail');
+    contactDetailContainer.classList.remove('show');
 }
