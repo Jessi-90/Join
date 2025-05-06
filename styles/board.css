@@ -130,6 +130,13 @@ input[type="search"]::-webkit-search-cancel-button {
   gap: 24px;
 }
 
+.tilt-animation {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 1000;
+}
+
 /*---RESPONSIVE---*/
 
 @media screen and (min-width: 1921px) {
@@ -406,7 +413,6 @@ input[type="search"]::-webkit-search-cancel-button {
     display: flex !important;
     flex-direction: row !important;
     overflow-x: auto !important;
-    overflow-y: hidden !important;
     gap: 16px;
     scroll-behavior: smooth;
     padding-bottom: 12px;
@@ -679,7 +685,12 @@ input[type="search"]::-webkit-search-cancel-button {
     gap: 16px;
     scroll-behavior: smooth;
     padding-bottom: 12px;
+    -webkit-overflow-scrolling: touch;
   }
+
+.card-container::-webkit-scrollbar {
+        display: none;
+    }
 
   .add-card {
     width: 30px !important;
