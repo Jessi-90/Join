@@ -44,6 +44,7 @@ async function deleteTask(event) {
             throw new Error(`Fehler beim Löschen der Aufgabe: ${response.status}`);
         }
 
+        markTaskAsModified();
         closeBoardCardDetails(event);
         await fetchTasksData(); 
 

@@ -59,15 +59,15 @@ function closeBoardCardDetails(event) {
     overlayContainer.classList.remove("show");
     setTimeout(() => {
         overlay.classList.add('d-none');
-        updateTasksInDatabase(currentTasksData);
-        renderTasks(currentTasksData);
+    
+        setTimeout(() => {
+            if (taskDetailsModified) {
+                renderTasks(currentTasksData);
+                updateTasksInDatabase(currentTasksData);
+                taskDetailsModified = false;
+            }
+        }, 50);
     }, 300);
-
-    if (taskDetailsModified) {
-        renderTasks(currentTasksData);
-        updateTasksInDatabase(currentTasksData);
-        taskDetailsModified = false;
-    }
 }
 
 
