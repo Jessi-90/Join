@@ -89,6 +89,8 @@
   border-radius: 24px;
   padding: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .card:hover {
