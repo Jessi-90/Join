@@ -67,9 +67,6 @@ ul {
         padding-bottom: 50px; 
     }
 
-    .join-logo {
-        padding-left: 32px;
-    }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
@@ -88,12 +85,6 @@ ul {
         padding: 0 16px;
         box-sizing: border-box;
         margin-bottom: 100px;
-    }
-
-    .join-logo {
-        padding-left: 0;
-        padding-top: 20px;
-        padding-bottom: 20px;
     }
 
     .summary-menu {
@@ -122,14 +113,6 @@ ul {
         padding-top: 100px;
         width: 180px;
         height: auto;
-    }
-
-    .join-logo {
-        padding-left: 0;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        height: 80px;
-        width: 80px;
     }
 
     .summary-menu {

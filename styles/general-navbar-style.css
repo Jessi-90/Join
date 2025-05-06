@@ -22,7 +22,15 @@
 	background-color: #2a3647;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	justify-content: space-between;
+}
+
+.upper-navbar {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
 }
 
 .join-logo {
@@ -30,7 +38,6 @@
 	width: 100.03px;
 	padding-top: 64px;
 	padding-bottom: 110px;
-	padding-left: 64px;
 }
 
 .summary-menu {
@@ -257,6 +264,19 @@ a.active .menu-summary-btn {
     z-index: 1000;
 }
 
+.mobile-login-img {
+	width: 24px;
+	height: 24px;
+}
+
+.mobile-login-link {
+	height: 46px;
+}
+
+.empty-container {
+	width: 24px;
+}
+
 @media (max-width:768px) {
     .mobile-navbar {
         display: flex;
@@ -302,8 +322,8 @@ a.active .menu-summary-btn {
 
 	.menu-summary-btn.active {
 		height: 76px;
-		width: 80px;
 		border-radius: 16px;
+		padding: 8px 12px;
 	  }
 
     .board-btn {
