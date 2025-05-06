@@ -21,12 +21,12 @@ function initializeSearchListener() {
 
 /**
  * Creates a deep copy of the current task data (`currentTasksData`) and 
- * stores it in the global variable `originalTasksData`.
+ * stores it in the global variable `filteredTasksData`.
  * This ensures that the original task data remains unchanged and can 
  * be restored when needed, such as resetting tasks after a search.
  */
 function initializeTaskBackup() {
-    originalTasksData = JSON.parse(JSON.stringify(currentTasksData));
+    filteredTasksData = JSON.parse(JSON.stringify(currentTasksData));
 }
 
 
@@ -48,8 +48,8 @@ function searchTasks() {
     const noResultsMessage = document.getElementById("no-results-message");
 
     if (!isSearchInputValid(searchInput)) {
-        updateTasksAndRender(Object.values(originalTasksData));
-        toggleNoResultsMessage(noResultsMessage, Object.values(originalTasksData).length);
+        updateTasksAndRender(Object.values(currentTasksData));
+        toggleNoResultsMessage(noResultsMessage, Object.values(currentTasksData).length);
         return;
     }
 
@@ -84,7 +84,7 @@ function isSearchInputValid(searchInput) {
  * @returns {array} An array of tasks that match the search criteria.
  */
 function filterTasksBySearchInput(searchInput) {
-    return Object.values(originalTasksData).filter(task => {
+    return Object.values(currentTasksData).filter(task => {
         if (typeof task !== "object" || !task.title) {
             return false;
         }
@@ -104,14 +104,14 @@ function filterTasksBySearchInput(searchInput) {
  * @param {array} matchingTasks - The filtered array of tasks matching the search input.
  */
 function updateTasksAndRender(matchingTasks) {
-    currentTasksData = matchingTasks;
-    renderTasks(currentTasksData);
+    filteredTasksData = matchingTasks;
+    renderTasks(filteredTasksData);
 }
 
 
 /**
  * Checks whether the search input field is empty. If it is empty,
- * restores the original task data (`originalTasksData`) to `currentTasksData`,
+ * restores the original task data (`currentTasksData`) to `currentTasksData`,
  * triggers the rendering of tasks, and ensures the visibility of the
  * "No results found" message is updated appropriately.
  */
@@ -120,9 +120,9 @@ function checkSearchInput() {
     const noResultsMessage = document.getElementById("no-results-message");
 
     if (searchInput.trim() === "") {
-        currentTasksData = JSON.parse(JSON.stringify(originalTasksData));
-        renderTasks(currentTasksData);
-        toggleNoResultsMessage(noResultsMessage, currentTasksData.length); // Sichtbarkeit aktualisieren
+        filteredTasksData = JSON.parse(JSON.stringify(currentTasksData));
+        renderTasks(filteredTasksData);
+        toggleNoResultsMessage(noResultsMessage, currentTasksData.length); 
     }
 }
 

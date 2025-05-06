@@ -163,7 +163,7 @@ function renderEditOverlayTemplate(container) {
 
 function initEditOverlayContent() {
     const taskId = getCurrentlyViewedTaskId();
-    const task = currentTasksData[taskId] || {};
+    const task = filteredTasksData[taskId] || {};
     if (typeof initContactSelection === 'function') {
         initContactSelection(task.assignedUsers || []);
     }
@@ -262,7 +262,7 @@ function populateSubtasks(subtasks) {
  * Attempts to initialize contact selection with assigned users, logging an error if it fails.
  */
 function populateEditOverlay(taskId) {
-    const task = currentTasksData[taskId];
+    const task = filteredTasksData[taskId];
 
     populateBasicTaskData(task);
     populateComplexTaskData(task);
@@ -324,14 +324,14 @@ function editTask(taskId = getCurrentlyViewedTaskId()) {
  * @param {string|number} taskId - The unique identifier of the task.
  */
 function showBoardCardDetails(taskId) {
-    const task = currentTasksData[taskId];
+    const task = filteredTasksData[taskId];
     let addTaskOverlayRef = document.getElementById('boardCardDetails');
     addTaskOverlayRef.setAttribute('data-task-id', taskId);
     addTaskOverlayRef.innerHTML = '';
     const categoryClassName = transformTaskCategoryToClassName(task.category);
     addTaskOverlayRef.innerHTML += cardDetailsOverlayHTMLTemplate(task, categoryClassName);
 
-    renderCardDetailsAssignedUsers(currentTasksData[taskId], taskId);
+    renderCardDetailsAssignedUsers(filteredTasksData[taskId], taskId);
     renderCardDetailsSubtasks(task);
 
     addTaskOverlayRef.classList.remove('d-none');
@@ -408,6 +408,6 @@ async function saveEditedTask() {
 
     await updateTaskInDatabase(taskId, updatedTask);
     await fetchTasksData();
-    renderTasks(currentTasksData);
+    renderTasks(filteredTasksData);
     showBoardCardDetails(taskId);
 }

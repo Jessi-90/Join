@@ -10,7 +10,7 @@ let currentTasksData;
  * This variable serves as a reference to reset or restore `currentTasksData`
  * to its initial state when needed (e.g., when the search input field is cleared).
  */
-let originalTasksData;
+let filteredTasksData;
 
 /**
  * The maximum length of the task description before truncating.

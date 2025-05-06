@@ -111,5 +111,5 @@ function moveCardTo(category, columnCategory) {
     
     currentHoveredColumn = null;
     updateTasksInDatabase(currentTasksData);
-    renderTasks(currentTasksData);
+    renderTasks(filteredTasksData);
 }

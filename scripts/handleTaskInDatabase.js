@@ -46,6 +46,7 @@ async function deleteTask(event) {
 
         closeBoardCardDetails(event);
         await fetchTasksData(); 
+        filteredTasksData = currentTasksData
 
     } catch (error) {
         console.error("Fehler beim Löschen des Tasks:", error);

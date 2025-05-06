@@ -21,7 +21,7 @@ function markTaskAsModified() {
  * @param {string|number} taskId - The unique identifier of the task.
  */
 function showBoardCardDetails(taskId) {
-    const task = currentTasksData[taskId];
+    const task = filteredTasksData[taskId];
     let addTaskOverlayRef = document.getElementById('boardCardDetails');
     addTaskOverlayRef.innerHTML = "";
     const categoryClassName = transformTaskCategoryToClassName(task.category);
@@ -60,12 +60,12 @@ function closeBoardCardDetails(event) {
     setTimeout(() => {
         overlay.classList.add('d-none');
         updateTasksInDatabase(currentTasksData);
-        renderTasks(currentTasksData);
+        renderTasks(filteredTasksData);
     }, 300);
 
     if (taskDetailsModified) {
-        renderTasks(currentTasksData);
         updateTasksInDatabase(currentTasksData);
+        renderTasks(currentTasksData);
         taskDetailsModified = false;
     }
 }
