@@ -26,6 +26,7 @@ function initializeSearchListener() {
  * be restored when needed, such as resetting tasks after a search.
  */
 function initializeTaskBackup() {
+    currentTasksData = mapCurrentTasksDataToArray();
     filteredTasksData = JSON.parse(JSON.stringify(currentTasksData));
 }
 
@@ -84,7 +85,7 @@ function isSearchInputValid(searchInput) {
  * @returns {array} An array of tasks that match the search criteria.
  */
 function filterTasksBySearchInput(searchInput) {
-    return Object.values(currentTasksData).filter(task => {
+    return currentTasksData.filter(task => {
         if (typeof task !== "object" || !task.title) {
             return false;
         }
@@ -98,6 +99,15 @@ function filterTasksBySearchInput(searchInput) {
     });
 }
 
+
+function mapCurrentTasksDataToArray() {
+    return Object.entries(currentTasksData)
+      .filter(([key, _]) => key.startsWith("taskid_"))
+      .map(([key, value]) => ({
+        id: key,
+        ...value
+      }));
+  }
 
 /**
  * Updates `currentTasksData` with the filtered tasks and triggers the rendering.

@@ -50,9 +50,9 @@ async function init() {
     initCalled = true;  
 
     await fetchTasksData();
+    initializeTaskBackup();
     renderTasks(currentTasksData);
     initializeSearchListener();
-    initializeTaskBackup();
 }
 
 
