@@ -163,3 +163,71 @@ function showFeedbackImage() {
         feedbackContainer.remove();
     }, 2000); 
 }
+
+
+/**
+ * Validates the contact form fields (name, email, phone).
+ * 
+ * Checks that the name is not empty, the email has a valid format,
+ * and the phone number contains only valid characters and is of reasonable length.
+ * 
+ * @returns {boolean} - Returns true if all fields are valid, otherwise false.
+ */
+function isContactFormValid() {
+    const name = document.querySelector("input[placeholder='Name']").value.trim();
+    const email = document.querySelector("input[placeholder='Email']").value.trim();
+    const phone = document.querySelector("input[placeholder='Phone']").value.trim();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[+]?[\d\s\-()]{6,}$/;
+
+    return (
+        name.length > 0 &&
+        emailRegex.test(email) &&
+        phoneRegex.test(phone)
+    );
+}
+
+
+/**
+ * Highlights invalid input fields in the contact form.
+ * 
+ * Removes the "input-mismatch" class from all fields first,
+ * then checks each field for validity:
+ * - Name must not be empty
+ * - Email must match a valid email pattern
+ * - Phone must match a basic phone number pattern
+ * 
+ * If a field is invalid, the "input-mismatch" class is added to visually indicate the error.
+ */
+function highlightInvalidInputs() {
+    const nameInput = document.querySelector("input[placeholder='Name']");
+    const emailInput = document.querySelector("input[placeholder='Email']");
+    const phoneInput = document.querySelector("input[placeholder='Phone']");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[+]?[\d\s\-()]{6,}$/;
+
+  
+    [nameInput, emailInput, phoneInput].forEach(input => {
+        input.classList.remove("input-mismatch");
+    });
+
+    if (!nameInput.value.trim()) nameInput.classList.add("input-mismatch");
+    if (!emailRegex.test(emailInput.value.trim())) emailInput.classList.add("input-mismatch");
+    if (!phoneRegex.test(phoneInput.value.trim())) phoneInput.classList.add("input-mismatch");
+}
+
+
+/**
+ * Validates the contact form by checking the input fields for validity.
+ * 
+ * This function first highlights any invalid fields by calling `highlightInvalidInputs()`,
+ * then checks whether all fields (name, email, phone) are valid using the `isContactFormValid()` function.
+ * 
+ * @returns {boolean} `true` if the form is valid (all fields are properly filled out), 
+ *                   `false` if any of the fields are invalid (name, email, or phone).
+ */
+function validateContactForm() {
+    highlightInvalidInputs();
+    return isContactFormValid();
+}
