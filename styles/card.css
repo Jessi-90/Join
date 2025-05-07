@@ -49,7 +49,7 @@
   scrollbar-width: none; 
   scroll-behavior: smooth;
   overflow-x: auto !important;
-  overflow-y: auto !important;
+  overflow-y: hidden !important;
 
 }
 
