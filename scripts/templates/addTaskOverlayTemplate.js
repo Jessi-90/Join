@@ -26,12 +26,7 @@ function showAddTaskOverlayHTMLTemplate() {
                         </div>
                         <div class="form-group">
                             <label for="due-date">Due date<span class="star">*</span></label>
-                            <div class="date-input">
-                                <input id="due-date" type="text" required placeholder="dd/mm/yyyy" maxlength="10">
-                                <button onclick="setTodayDate()" type="button" class="calendar-button">
-                                    <img src="../assets/icons/calender.svg" alt="Kalender öffnen">
-                                </button>
-                            </div>
+                            <input type="text" name="due-date" id="datepicker" readonly>
                             <span class="error-message">This field is required</span>
                         </div>
                     </div>
