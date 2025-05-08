@@ -244,7 +244,7 @@ function validateName(input) {
     if (!input.value.trim()) {
         input.classList.add("input-mismatch");
         const errorEl = input.nextElementSibling;
-        if (errorEl) errorEl.textContent = "Name darf nicht leer sein.";
+        if (errorEl) errorEl.textContent = "Name cannot be empty.";
     }
 }
 
@@ -264,7 +264,7 @@ function validateEmail(input) {
     if (!emailRegex.test(input.value.trim())) {
         input.classList.add("input-mismatch");
         const errorEl = input.nextElementSibling;
-        if (errorEl) errorEl.textContent = "Gültige E-Mail eingeben.";
+        if (errorEl) errorEl.textContent = "Enter a valid email.";
     }
 }
 
@@ -284,7 +284,7 @@ function validatePhone(input) {
     if (!phoneRegex.test(input.value.trim())) {
         input.classList.add("input-mismatch");
         const errorEl = input.nextElementSibling;
-        if (errorEl) errorEl.textContent = "Gültige Nummer eingeben.";
+        if (errorEl) errorEl.textContent = "Enter a valid number.";
     }
 }
 
