@@ -27,9 +27,15 @@
     <script src="../scripts/templates/addTaskSubtasksListTemplate.js"></script>
     <script src="../scripts/templates/addTaskEditSubtaskControlsTemplate.js"></script>
     <script src="../scripts/pushTaskToDb.js"></script>
-    <script src="../scripts/addTaskDueDate.js"></script>
     <script src="../scripts/authGuard.js"></script>
     <script src="../scripts/checkLandscape.js" defer></script>
+    
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="../scripts/addTaskDueDate.js"></script>
+
+
 </head>
 
 <body onload="initAddTaskPage(); populateContacts()">
@@ -94,12 +100,7 @@
                         </div>
                         <div class="form-group">
                             <label for="due-date">Due date<span class="star">*</span></label>
-                            <div class="date-input">
-                                <input id="due-date" type="text" required placeholder="dd/mm/yyyy" maxlength="10">
-                                <button onclick="setTodayDate()" type="button" class="calendar-button">
-                                    <img src="../assets/icons/calender.svg" alt="Kalender öffnen">
-                                </button>
-                            </div>
+                            <input type="text" name="due-date" id="datepicker" readonly>
                             <span class="error-message">This field is required</span>
                         </div>
                     </div>
@@ -195,4 +196,23 @@
         </footer>    
 </body>
 
+<script>
+    
+
+  $(function() {
+    $("#datepicker").datepicker({
+      dateFormat: "dd/mm/yy",
+          changeMonth: true,
+          changeYear: true,
+              showButtonPanel: false,
+                              showAnim: "slideDown",
+                                  onClose: function(dateText, inst) {
+                                        $(this).blur();
+                                        }
+                                         });
+
+    });
+
+</script>
+    
 </html>
