@@ -245,7 +245,7 @@ function generateUserAvatars(users, id) {
     userIcons.innerHTML = "";
     if (!users || users.length === 0) return;
 
-    const maxVisibleUsers = 4;
+    const maxVisibleUsers = 3;
     const visibleUsers = users.slice(0, maxVisibleUsers);
     const hiddenUserCount = users.length - maxVisibleUsers;
 
