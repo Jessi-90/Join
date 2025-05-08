@@ -20,7 +20,7 @@ function showAddTaskOverlay(status) {
         let overlayContainerRef = document.querySelector('.add-task-overlay-container');
         overlayContainerRef.classList.add('show');
         initializeDropdown();
- 
+        initializeDatepicker("#datepicker");
     }, 10);
 }
 
