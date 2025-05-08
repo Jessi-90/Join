@@ -56,7 +56,7 @@ function updateActiveLink(links, className) {
  *
  * @param {Event} event - The click event.
  */
-function toggleDropdown(event) {
+function toggleDropdownUserButton(event) {
   event.stopPropagation();
   dropdownContent.classList.toggle("show");
 }
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
   setActiveButtonForMobile();
 
   if (userButton) {
-    userButton.addEventListener("click", toggleDropdown);
+    userButton.addEventListener("click", toggleDropdownUserButton);
   }
 });
 
