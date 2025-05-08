@@ -21,6 +21,7 @@ function showAddTaskOverlay(status) {
         overlayContainerRef.classList.add('show');
         initializeDropdown();
         initializeDatepicker("#datepicker");
+        setDefaultDate("#datepicker");
     }, 10);
 }
 
