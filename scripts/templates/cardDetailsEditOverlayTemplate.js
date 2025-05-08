@@ -15,14 +15,9 @@ function cardDetailsEditOverlayHTMLTemplate() {
                 <input type="text" name="editCardTitle" id="editCardTitle">
                 <label for="editCardDescription">Description</label>
                 <textarea name="editCardDescription" id="editCardDescription"></textarea>
-                <label for="editCardDate">Due Date</label>
-                <div class="date-input due-date-edit">
-                <input type="date" name="editCardDate" id="editCardDate">
-                <button onclick="setTodayDate()" type="button" class="calendar-button">
-                                    <img src="../assets/icons/calender.svg" alt="Kalender öffnen">
-                                </button>
-                            </div>
-                         <div>
+                <label for="due-date">Due date<span class="star">*</span></label>
+                <input type="text" name="due-date" id="datepicker" readonly>
+            <div>
                     <label>Prio</label>
                     <div class="prio-buttons prio-edit">
                         <button type="button" class="prio-btn urgent">Urgent <img class="urgent-image" src="../assets/icons/prio urgent.svg"></button>
