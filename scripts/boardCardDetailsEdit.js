@@ -127,6 +127,7 @@ function showBoardCardDetailsEdit() {
 
     if (!boardCardOverlayRef.querySelector('.board-card-edit-container')) {
         renderEditOverlayTemplate(boardCardOverlayRef);
+        initializeDatepicker("#datepicker");
     }
 
     boardCardOverlayRef.classList.remove('d-none');
@@ -205,7 +206,7 @@ function shouldKeepDropdownOpen(event, toggleButton, dropdown) {
 function populateBasicTaskData(task) {
     const titleInput = document.getElementById('editCardTitle');
     const descriptionTextarea = document.getElementById('editCardDescription');
-    const dateInput = document.getElementById('editCardDate');
+    const dateInput = document.getElementById('datepicker');
 
     titleInput.value = task.title || '';
     descriptionTextarea.value = task.description || '';
