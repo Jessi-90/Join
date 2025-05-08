@@ -72,20 +72,22 @@
 //     return `${day}/${month}/${year}`;
 // }
 
-$(function() {
-    
-    $("#datepicker").datepicker({
+  function initializeDatepicker(selector) {
+    $(selector).datepicker({
       dateFormat: "dd/mm/yy",
-      minDate: new Date(),
-
+      minDate: new Date()
     });
   
-   
     var today = new Date();
     var day = String(today.getDate()).padStart(2, '0');
-    var month = String(today.getMonth() + 1).padStart(2, '0');
+    var month = String(today.getMonth() + 1).padStart(2, '0'); // Monate sind nullbasiert
     var year = today.getFullYear();
     var formattedDate = day + '/' + month + '/' + year;
   
-    $("#datepicker").val(formattedDate);
+    $(selector).val(formattedDate);
+  }
+  
+  $(function() {
+    initializeDatepicker("#datepicker");
   });
+  
