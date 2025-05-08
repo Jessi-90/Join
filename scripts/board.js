@@ -254,6 +254,37 @@ function generateUserAvatars(users, id, currentContactsData) {
     }
 }
 
+
+/**
+ * Returns the HTML string for user avatars and a "+X" overflow indicator if needed.
+ * 
+ * @param {string[]} users - An array of user names.
+ * @returns {string} - The HTML string for avatar icons.
+ */
+function getUserAvatarElements(users) {
+    const maxVisibleUsers = 4;
+    const visibleUsers = users.slice(0, maxVisibleUsers);
+    const remainingCount = users.length - maxVisibleUsers;
+    let html = '';
+
+    visibleUsers.forEach(userName => {
+        const userDetails = getContactDetails(userName);
+        if (userDetails) {
+            html += UserAvatarTemplate(userDetails);
+        }
+    });
+
+    if (remainingCount > 0) {
+        html += `
+            <div class="user-avatar overflow-indicator">
+                +${remainingCount}
+            </div>
+        `;
+    }
+    return html;
+}
+
+
 /**
  * Retrieves the color and initials of a specific user from the local contacts data.
  * 
