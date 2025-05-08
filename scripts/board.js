@@ -234,56 +234,46 @@ function truncateTaskDescription(text) {
 
 /**
  * Generates user avatar HTML based on assigned users.
+ * If more than 4 users are assigned, shows the first 4 and a "+N" indicator.
+ *
  * @param {string[]} users - An array of user names.
  * @param {string} id - The ID for the container element.
- * @param {Array} currentContactsData - Local array with contact data.
- * @returns {void}
  */
-function generateUserAvatars(users, id, currentContactsData) {
+function generateUserAvatars(users, id) {
     let userIcons = document.getElementById(`user-icons-${id}`);
-    if (!users || users.length === 0) {
-        userIcons.innerHTML = "";
-    } else {
-        userIcons.innerHTML = "";
-        users.forEach(assignedUser => {
-            let userDetails = getContactDetails(assignedUser);
-            if (userDetails) {
-                userIcons.innerHTML += UserAvatarTemplate(userDetails);
-            }
-        });
-    }
-}
+    if (!userIcons) return;
+    userIcons.innerHTML = "";
+    if (!users || users.length === 0) return;
 
-
-/**
- * Returns the HTML string for user avatars and a "+X" overflow indicator if needed.
- * 
- * @param {string[]} users - An array of user names.
- * @returns {string} - The HTML string for avatar icons.
- */
-function getUserAvatarElements(users) {
     const maxVisibleUsers = 4;
     const visibleUsers = users.slice(0, maxVisibleUsers);
-    const remainingCount = users.length - maxVisibleUsers;
-    let html = '';
+    const hiddenUserCount = users.length - maxVisibleUsers;
 
-    visibleUsers.forEach(userName => {
-        const userDetails = getContactDetails(userName);
+    visibleUsers.forEach(assignedUser => {
+        let userDetails = getContactDetails(assignedUser);
         if (userDetails) {
-            html += UserAvatarTemplate(userDetails);
+            userIcons.innerHTML += UserAvatarTemplate(userDetails);
         }
     });
 
-    if (remainingCount > 0) {
-        html += `
-            <div class="user-avatar overflow-indicator">
-                +${remainingCount}
-            </div>
-        `;
+    if (hiddenUserCount > 0) {
+        userIcons.innerHTML += generateAdditionalUserCountBubble(hiddenUserCount);
     }
-    return html;
 }
 
+/**
+ * Generates a bubble element showing how many additional users are assigned.
+ *
+ * @param {number} count - The number of hidden users.
+ * @returns {string} - HTML string representing the "+N" avatar bubble.
+ */
+function generateAdditionalUserCountBubble(count) {
+    return `
+        <div class="user-bubble additional-users">
+            +${count}
+        </div>
+    `;
+}
 
 /**
  * Retrieves the color and initials of a specific user from the local contacts data.

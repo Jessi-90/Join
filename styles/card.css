@@ -198,9 +198,9 @@
     background-color: #ccc;
 }
 
-.user-avatar.overflow-indicator {
+.user-bubble.additional-users {
   background-color: #ccc;
-  color: white;
+  color: #000;
   font-weight: bold;
   display: flex;
   align-items: center;
