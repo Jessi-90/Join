@@ -29,13 +29,3 @@ function setDefaultDate(selector) {
   
     $(selector).val(formattedDate);
 }
-  
-
-/**
- * Initializes the datepicker and sets today's date as the default when the DOM is ready.
- */
-$(function() {
-    initializeDatepicker("#datepicker");
-    setDefaultDate("#datepicker");
-});
-  
