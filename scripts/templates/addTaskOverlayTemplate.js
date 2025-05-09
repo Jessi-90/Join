@@ -48,7 +48,7 @@ function showAddTaskOverlayHTMLTemplate() {
                                         src="../assets/icons/prio low.svg"></button>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group assigend-to-group">
                             <label for="assigned">Assigned to</label>
                             <div class="custom-dropdown" id="assignedDropdown">
                                 <div class="selected-option">
