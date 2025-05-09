@@ -332,6 +332,12 @@
     line-height: 45px;
   }
 
+  .card-detail-subtasks-content,
+  .card-detail-assignee-content {
+    max-height: 100px;
+    padding-top: 4px;
+  }
+
   .card-detail-assignee,
   .card-detail-subtasks {
     width: 100%;
@@ -359,10 +365,17 @@
   .card-detail-subtasks-content,
   .card-detail-assignee-content {
     max-height: 100px;
+    padding-top: 2px;
+  }
+
+  .card-detail-assignee,
+  .card-detail-subtasks {
+    width: 100%;
   }
 
   .card-detail-subtasks-tasks {
     gap: 6px;
+    height: 40px;
   }
 
   .card-detail-footer {
@@ -380,5 +393,9 @@
   .card-detail-assignee p,
   .card-detail-subtasks p {
     font-size: 16px;
+  }
+
+  .subtask-title {
+    font-size: 14px;
   }
 }
