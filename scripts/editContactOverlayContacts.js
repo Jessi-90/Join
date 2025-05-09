@@ -115,32 +115,45 @@ function getUpdatedContactData(form, existingContact) {
 
 
 /**
- * Saves the updated contact data to Firebase using PATCH.
- * If no changes are detected, no update is performed.
+ * Saves the updated contact data to Firebase.
  *
  * @async
- * @param {string} firebaseId - The unique ID of the contact in Firebase.
- * @param {HTMLFormElement} form - The form element that contains the updated contact data.
- * @returns {Promise<void>} A promise that resolves when the update operation is complete.
+ * @param {string} firebaseId - The unique Firebase ID of the contact.
+ * @param {HTMLFormElement} form - The form containing the updated contact data.
+ * @returns {Promise<void>}
  */
 async function saveContactChanges(firebaseId, form) {
-    let contact = currentContactsData.find(c => c.firebaseId === firebaseId);
+    let contact = findContactById(firebaseId);
     if (!contact) return;
 
     let updatedData = getUpdatedContactData(form, contact);
-    if (!updatedData) {
-        console.log("Keine Änderungen vorhanden.");
-        return;
-    }
+    if (!updatedData) return logNoChanges();
 
+    await updateContact(firebaseId, updatedData);
+}
+
+
+/** Finds the contact by its Firebase ID. */
+function findContactById(firebaseId) {
+    return currentContactsData.find(c => c.firebaseId === firebaseId);
+}
+
+
+/** Logs a message when no changes are detected. */
+function logNoChanges() {
+    console.log("No changes detected.");
+}
+
+
+/** Updates the contact on the server and handles the response. */
+async function updateContact(firebaseId, updatedData) {
     try {
         let response = await updateContactOnServer(firebaseId, updatedData);
-        if (!response.ok) throw new Error("Fehler beim Aktualisieren des Kontakts");
+        if (!response.ok) throw new Error("Error updating the contact");
 
         handleSuccessfulUpdate(firebaseId, updatedData);
-
     } catch (error) {
-        console.error("Fehler beim Speichern der Kontaktänderungen:", error);
+        console.error("Error saving contact changes:", error);
     }
 }
 
@@ -198,26 +211,46 @@ function updateContactList(firebaseId, updatedData) {
 
 /**
  * Handles the click event for the "Save" button in the edit overlay.
- * Prevents the default action, validates the form data, and then extracts the Firebase ID 
- * from the overlay before calling the function to save the updated contact data.
  *
  * @param {Event} event - The click event triggered by the save button.
  */
 function saveContactFromEditOverlay(event) {
     if (event) event.preventDefault();
 
-    let overlay = document.getElementById('editContactOverlay');
+    let overlay = getEditOverlay();
     if (!overlay) return;
 
-    let form = overlay.querySelector("form");
-    if (!validateContactForm(form)) {
-        return;
-    }
+    let form = getOverlayForm(overlay);
+    if (!isValidForm(form)) return;
 
-    let firebaseId = overlay.getAttribute("data-firebase-id");
+    let firebaseId = getFirebaseId(overlay);
     if (!firebaseId) return;
 
     saveContactChanges(firebaseId, form);
+}
+
+
+/** Retrieves the edit overlay element. */
+function getEditOverlay() {
+    return document.getElementById('editContactOverlay');
+}
+
+
+/** Retrieves the form from the overlay. */
+function getOverlayForm(overlay) {
+    return overlay?.querySelector("form");
+}
+
+
+/** Validates the contact form. */
+function isValidForm(form) {
+    return validateContactForm(form);
+}
+
+
+/** Extracts the Firebase ID from the overlay. */
+function getFirebaseId(overlay) {
+    return overlay?.getAttribute("data-firebase-id");
 }
 
 
