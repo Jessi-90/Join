@@ -198,10 +198,7 @@ async function deleteContact(firebaseId) {
  */
 async function removeContactFromTasks(firebaseId) {
     try {
-        let tasksResponse = await fetchTasksData();
-        if (!tasksResponse.ok) throw new Error("Fehler beim Abrufen der Aufgaben");
-
-        let tasks = await tasksResponse.json();
+        let tasks = await fetchTasksData(); 
         if (!tasks) return {};
 
         let updatedTasks = {};
