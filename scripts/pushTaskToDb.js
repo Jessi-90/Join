@@ -125,7 +125,11 @@ function sendTaskFormToDb() {
     form.addEventListener("submit", async function (event) {
         await handleFormSubmission(event);
         clearFormAndData();
-        redirectToBoardPage();
+        showUserFeedback();
+        setTimeout(() => {
+            redirectToBoardPage();
+        }, 3000);
+        
     });
 }
 
@@ -148,6 +152,12 @@ async function handleFormSubmission(event) {
     await saveTasksToDatabase(tasks);
 }
 
+
+async function showUserFeedback() {
+    const feedbackContainer = document.getElementById("feedbackContainer");
+
+    feedbackContainer.classList.remove("d-none");
+}
 
 /**
  * Redirects the user to the board page after task submission.
