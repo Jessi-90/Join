@@ -43,7 +43,7 @@ function closeEditContactOverlay(event) {
             hideOverlay(overlay);
         }
     } else {
-        hideOverlay(overlay); 
+        hideOverlay(overlay);
     }
 }
 
@@ -59,14 +59,14 @@ function closeEditContactOverlay(event) {
  */
 function hideOverlay(overlay) {
     overlay.classList.remove('show');
-    
+
     const onTransitionEnd = () => {
         overlay.classList.add('d-none');
         overlay.removeEventListener('transitionend', onTransitionEnd);
     };
-    
+
     overlay.addEventListener('transitionend', onTransitionEnd);
-    setTimeout(onTransitionEnd, 300); 
+    setTimeout(onTransitionEnd, 300);
 }
 
 
@@ -83,8 +83,8 @@ function hideOverlay(overlay) {
 function initializeContactData(contact) {
     return {
         ...contact,
-        initials: contact.initials || getContactInitials(contact.name), 
-        color: contact.color || getRandomColor() 
+        initials: contact.initials || getContactInitials(contact.name),
+        color: contact.color || getRandomColor()
     };
 }
 
@@ -92,46 +92,68 @@ function initializeContactData(contact) {
 /**
  * Retrieves updated contact data from the form inputs.
  *
- * @param {Object} contact - The original contact object.
- * @returns {Object|null} - The updated data object or null if no changes exist.
+ * Compares the current input values with those of the existing contact object and 
+ * returns an object with only the modified fields.
+ *
+ * @param {HTMLFormElement} form - The form element that contains the new input values.
+ * @param {Object} existingContact - The original contact object used for comparison.
+ * @returns {Object|null} An object with the updated data, or null if there are no changes.
  */
-function getUpdatedContactData(contact) {
-    let updatedName = document.getElementById('editContactName').value.trim();
-    let updatedEmail = document.getElementById('editContactEmail').value.trim();
-    let updatedPhone = document.getElementById('editContactPhone').value.trim();
-
+function getUpdatedContactData(form, existingContact) {
+    const { name, email, phone } = getContactInputs(form);
     let updatedData = {};
-    if (updatedName && updatedName !== contact.name) updatedData.name = updatedName;
-    if (updatedEmail && updatedEmail !== contact.email) updatedData.email = updatedEmail;
-    if (updatedPhone && updatedPhone !== contact.phone) updatedData.phone = updatedPhone;
 
-    return Object.keys(updatedData).length > 0 ? updatedData : null;
+    if (name.value.trim() !== existingContact.name)
+        updatedData.name = name.value.trim();
+    if (email.value.trim() !== existingContact.email)
+        updatedData.email = email.value.trim();
+    if (phone.value.trim() !== existingContact.phone)
+        updatedData.phone = phone.value.trim();
+
+    return Object.keys(updatedData).length ? updatedData : null;
 }
 
 
 /**
- * Saves the updated contact data to Firebase using PATCH.
+ * Saves the updated contact data to Firebase.
  *
- * @param {string} firebaseId - The unique ID of the contact in Firebase.
+ * @async
+ * @param {string} firebaseId - The unique Firebase ID of the contact.
+ * @param {HTMLFormElement} form - The form containing the updated contact data.
+ * @returns {Promise<void>}
  */
-async function saveContactChanges(firebaseId) {
-    let contact = currentContactsData.find(c => c.firebaseId === firebaseId);
+async function saveContactChanges(firebaseId, form) {
+    let contact = findContactById(firebaseId);
     if (!contact) return;
 
-    let updatedData = getUpdatedContactData(contact);
-    if (!updatedData) {
-        console.log("Keine Änderungen vorhanden.");
-        return;
-    }
+    let updatedData = getUpdatedContactData(form, contact);
+    if (!updatedData) return logNoChanges();
 
+    await updateContact(firebaseId, updatedData);
+}
+
+
+/** Finds the contact by its Firebase ID. */
+function findContactById(firebaseId) {
+    return currentContactsData.find(c => c.firebaseId === firebaseId);
+}
+
+
+/** Logs a message when no changes are detected. */
+function logNoChanges() {
+    console.log("No changes detected.");
+}
+
+
+/** Updates the contact on the server and handles the response. */
+async function updateContact(firebaseId, updatedData) {
     try {
         let response = await updateContactOnServer(firebaseId, updatedData);
-        if (!response.ok) throw new Error("Fehler beim Aktualisieren des Kontakts");
+        if (!response.ok) throw new Error("Error updating the contact");
 
         handleSuccessfulUpdate(firebaseId, updatedData);
-
     } catch (error) {
-        console.error("Fehler beim Speichern der Kontaktänderungen:", error);
+        console.error("Error saving contact changes:", error);
     }
 }
 
@@ -169,7 +191,7 @@ function handleSuccessfulUpdate(firebaseId, updatedData) {
     }
 
     closeEditContactOverlay();
-    mapContactsData(); 
+    mapContactsData();
 }
 
 
@@ -180,7 +202,7 @@ function handleSuccessfulUpdate(firebaseId, updatedData) {
  * @param {Object} updatedData - The updated contact data.
  */
 function updateContactList(firebaseId, updatedData) {
-    currentContactsData = currentContactsData.map(c => 
+    currentContactsData = currentContactsData.map(c =>
         c.firebaseId === firebaseId ? { ...c, ...updatedData } : c
     );
     renderContactList(currentContactsData);
@@ -188,19 +210,47 @@ function updateContactList(firebaseId, updatedData) {
 
 
 /**
- * Handles the save button click from the edit overlay.
- * Extracts the firebaseId and calls saveContactChanges.
+ * Handles the click event for the "Save" button in the edit overlay.
+ *
+ * @param {Event} event - The click event triggered by the save button.
  */
 function saveContactFromEditOverlay(event) {
-    if (event) event.preventDefault(); 
+    if (event) event.preventDefault();
 
-    let overlay = document.getElementById('editContactOverlay');
+    let overlay = getEditOverlay();
     if (!overlay) return;
 
-    let firebaseId = overlay.getAttribute("data-firebase-id"); 
+    let form = getOverlayForm(overlay);
+    if (!isValidForm(form)) return;
+
+    let firebaseId = getFirebaseId(overlay);
     if (!firebaseId) return;
 
-    saveContactChanges(firebaseId);
+    saveContactChanges(firebaseId, form);
+}
+
+
+/** Retrieves the edit overlay element. */
+function getEditOverlay() {
+    return document.getElementById('editContactOverlay');
+}
+
+
+/** Retrieves the form from the overlay. */
+function getOverlayForm(overlay) {
+    return overlay?.querySelector("form");
+}
+
+
+/** Validates the contact form. */
+function isValidForm(form) {
+    return validateContactForm(form);
+}
+
+
+/** Extracts the Firebase ID from the overlay. */
+function getFirebaseId(overlay) {
+    return overlay?.getAttribute("data-firebase-id");
 }
 
 
@@ -218,14 +268,14 @@ function saveContactFromEditOverlay(event) {
  * the overlay is closed, and (if applicable) the mobile contact details are hidden.
  */
 async function deleteContactFromEditOverlay() {
-    const firebaseId = document.querySelector('.form-container')?.dataset.firebaseId; 
+    const firebaseId = document.querySelector('.form-container')?.dataset.firebaseId;
     if (!firebaseId) {
         console.error("No contact ID found.");
         return;
     }
 
     let updatedTasks = await removeContactFromTasks(firebaseId);
-    await updateTasksInDatabase(updatedTasks); 
+    await updateTasksInDatabase(updatedTasks);
     await deleteContact(firebaseId);
 
     setTimeout(() => {

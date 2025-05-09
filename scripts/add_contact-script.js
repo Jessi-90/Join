@@ -120,7 +120,7 @@ function validateContactForm() {
  * @param {Event} event - The input event.
  */
 function resetInputBorder(event) {
-    event.target.style.border = ""; 
+    event.target.style.border = "";
 }
 
 
@@ -161,65 +161,70 @@ function showFeedbackImage() {
 
     setTimeout(() => {
         feedbackContainer.remove();
-    }, 2000); 
+    }, 2000);
 }
 
 
 /**
- * Validates the contact form fields (name, email, phone).
- * 
- * Checks that the name is not empty, the email has a valid format,
- * and the phone number contains only valid characters and is of reasonable length.
- * 
- * @returns {boolean} - Returns true if all fields are valid, otherwise false.
+ * Retrieves the contact input elements from the provided form.
+ *
+ * This function searches for the input fields for name, email, and phone within the given form,
+ * using selectors for both the add and edit overlays.
+ *
+ * @param {HTMLFormElement} form - The form element to query for input fields.
+ * @returns {{name: HTMLInputElement, email: HTMLInputElement, phone: HTMLInputElement}} An object containing the name, email, and phone input elements.
  */
-function isContactFormValid() {
-    const name = document.querySelector("input[placeholder='Name']").value.trim();
-    const email = document.querySelector("input[placeholder='Email']").value.trim();
-    const phone = document.querySelector("input[placeholder='Phone']").value.trim();
+function getContactInputs(form) {
+    return {
+        name: form.querySelector("input[placeholder='Name'], input#editContactName"),
+        email: form.querySelector("input[placeholder='Email'], input#editContactEmail"),
+        phone: form.querySelector("input[placeholder='Phone'], input#editContactPhone")
+    };
+}
 
+
+/**
+ * Checks if the contact form inputs are valid.
+ *
+ * Validates that the name is not empty, the email input matches a valid email format,
+ * and the phone input contains valid characters and meets a minimum length requirement.
+ *
+ * @param {HTMLFormElement} form - The form element containing the contact inputs.
+ * @returns {boolean} True if all input fields are valid; otherwise, false.
+ */
+function isContactFormValid(form) {
+    const { name, email, phone } = getContactInputs(form);
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[+]?[\d\s\-()]{6,}$/;
 
     return (
-        name.length > 0 &&
-        emailRegex.test(email) &&
-        phoneRegex.test(phone)
+        name.value.trim().length > 0 &&
+        emailRegex.test(email.value.trim()) &&
+        phoneRegex.test(phone.value.trim())
     );
 }
 
 
 /**
- * Validates the Name, Email, and Phone input fields and highlights any errors.
- * 
- * This function performs the following steps:
- * 1. Resets any previous error styles on the input fields.
- * 2. Validates the Name, Email, and Phone input fields by calling respective validation functions.
- * 3. Applies error highlighting to any invalid fields based on the validation results.
+ * Highlights invalid inputs within the provided form by applying error styles and messages.
  *
- * @function highlightInvalidInputs
+ * Resets any previous error states on the input fields, then validates each field individually.
+ *
+ * @param {HTMLFormElement} form - The form element containing the contact inputs.
  */
-function highlightInvalidInputs() {
-    const nameInput = document.querySelector("input[placeholder='Name']");
-    const emailInput = document.querySelector("input[placeholder='Email']");
-    const phoneInput = document.querySelector("input[placeholder='Phone']");
-
-    resetInputErrors([nameInput, emailInput, phoneInput]);
-    validateName(nameInput);
-    validateEmail(emailInput);
-    validatePhone(phoneInput);
+function highlightInvalidInputs(form) {
+    const { name, email, phone } = getContactInputs(form);
+    resetInputErrors([name, email, phone]);
+    validateName(name);
+    validateEmail(email);
+    validatePhone(phone);
 }
 
 
 /**
- * Resets error styles and error messages for the provided input fields.
- * 
- * This function performs the following steps:
- * 1. Removes the "input-mismatch" class from each input field to reset any error styling.
- * 2. Clears the error message displayed next to each input field, if present.
+ * Removes error styles and clears error messages for the given list of input elements.
  *
- * @function resetInputErrors
- * @param {HTMLElement[]} inputs - An array of input elements to reset the error state for.
+ * @param {HTMLInputElement[]} inputs - An array of input elements to reset.
  */
 function resetInputErrors(inputs) {
     inputs.forEach(input => {
@@ -231,14 +236,11 @@ function resetInputErrors(inputs) {
 
 
 /**
- * Validates the Name input field to ensure it is not empty.
- * 
- * This function performs the following:
- * 1. Checks if the input field's value is empty or only contains whitespace.
- * 2. If the value is invalid, adds an error class to the input and sets an error message next to the field.
+ * Validates the name input field to ensure it is not empty.
  *
- * @function validateName
- * @param {HTMLElement} input - The input element representing the Name field to validate.
+ * If the name field is empty, it adds an error class and sets an error message.
+ *
+ * @param {HTMLInputElement} input - The input element for the name field.
  */
 function validateName(input) {
     if (!input.value.trim()) {
@@ -250,14 +252,11 @@ function validateName(input) {
 
 
 /**
- * Validates the Email input field to ensure it contains a valid email address.
- * 
- * This function performs the following:
- * 1. Checks if the input field's value matches a regular expression for a valid email format.
- * 2. If the value is invalid, adds an error class to the input and sets an error message next to the field.
+ * Validates the email input field for a proper email format.
  *
- * @function validateEmail
- * @param {HTMLElement} input - The input element representing the Email field to validate.
+ * If the email doesn't match a valid format, an error class is added and an error message is displayed.
+ *
+ * @param {HTMLInputElement} input - The input element for the email field.
  */
 function validateEmail(input) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -270,14 +269,11 @@ function validateEmail(input) {
 
 
 /**
- * Validates the Phone input field to ensure it contains a valid phone number.
- * 
- * This function performs the following:
- * 1. Checks if the input field's value matches a regular expression for a valid phone number format.
- * 2. If the value is invalid, adds an error class to the input and sets an error message next to the field.
+ * Validates the phone input field to ensure it contains a valid phone number.
  *
- * @function validatePhone
- * @param {HTMLElement} input - The input element representing the Phone field to validate.
+ * If the phone number does not meet the regex criteria, an error class is applied and an error message is set.
+ *
+ * @param {HTMLInputElement} input - The input element for the phone field.
  */
 function validatePhone(input) {
     const phoneRegex = /^[+]?[\d\s\-()]{6,}$/;
@@ -290,15 +286,15 @@ function validatePhone(input) {
 
 
 /**
- * Validates the contact form by checking the input fields for validity.
- * 
- * This function first highlights any invalid fields by calling `highlightInvalidInputs()`,
- * then checks whether all fields (name, email, phone) are valid using the `isContactFormValid()` function.
- * 
- * @returns {boolean} `true` if the form is valid (all fields are properly filled out), 
- *                   `false` if any of the fields are invalid (name, email, or phone).
+ * Validates the contact form by highlighting invalid inputs and checking overall validity.
+ *
+ * Uses the helper functions to show error messages for invalid fields and then returns
+ * whether all form fields pass the validation.
+ *
+ * @param {HTMLFormElement} form - The form element containing the contact inputs.
+ * @returns {boolean} True if the form is valid; otherwise, false.
  */
-function validateContactForm() {
-    highlightInvalidInputs();
-    return isContactFormValid();
+function validateContactForm(form) {
+    highlightInvalidInputs(form);
+    return isContactFormValid(form);
 }
