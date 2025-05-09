@@ -148,7 +148,6 @@
     padding: 60px 50px;
     gap: 32px;
     max-width: 600px;
-    height: 68vw;
   }
 
   .board-card-edit-content label {
@@ -158,7 +157,6 @@
 
   .prio-edit {
     gap: 16px;
-    width: 120%;
   }
 }
 
@@ -226,6 +224,11 @@
 
   .board-card-edit-content label {
     font-size: 16px;
+    padding-top: 4px;
+  }
+
+.board-card-edit-content {
+    width: auto;
   }
 
   #editCardDescription {
@@ -238,6 +241,10 @@
     width: 100%;
     gap: 8px;
     flex-direction: row !important;
+  }
+
+  .form-group {
+    margin-bottom: 0px;
   }
 }
 
@@ -256,6 +263,7 @@
 
   .board-card-edit-content label {
     font-size: 15px;
+    padding-top: 4px;
   }
 
   #editCardDescription {
@@ -288,5 +296,27 @@
 
   .card-edit-footer {
     justify-content: center;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .prio-edit {
+    flex-direction: column;
+    gap: 6px;
+    width: 35%;
+  }
+
+  .prio-edit button {
+    font-size: 14px;
+    padding: 10px 12px;
+    width: 100%;
+    height: 40px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .prio-edit button {
+    font-size: 13px;
+    padding: 4px 5px;
   }
 }
