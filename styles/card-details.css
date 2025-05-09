@@ -30,20 +30,20 @@
   z-index: 1000;
 }
 
+.card-detail-title {
+  font-weight: 700;
+  font-size: 61px;
+  line-height: 73.2px;
+  max-width: 885px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .board-card-detail-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-}
-
-.card-detail-title {
-  font-weight: 700;
-  font-size: 61px;
-  line-height: 73.2px;
-  max-width: 445px;
-  margin-top: 0;
-  margin-bottom: 0;
 }
 
 .card-detail-description {
@@ -94,7 +94,13 @@
 .card-detail-assignee {
   display: flex;
   flex-direction: column;
+  align-items: baseline;
+  justify-content: flex-start;
   gap: 8px;
+  width: 445px;
+  max-height: 170px; 
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .card-detail-assignee p {
@@ -108,17 +114,17 @@
   align-items: center;
   justify-content: flex-start;
   gap: 70px;
-  width: 100%;
   padding-left: 20px;
+  padding-right: 20px;
 }
 
 .card-detail-assignee-content {
   display: flex;
   flex-direction: column;
-  align-items: baseline;
-  justify-content: center;
-  gap: 4px;
-  width: 445px;
+  gap: 8px;
+  max-height: 180px; 
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .card-detail-subtasks {
@@ -137,8 +143,12 @@
 .card-detail-subtasks-content {
   display: flex;
   flex-direction: column;
-  width: -webkit-fill-available;
-  gap: 4px;
+  width: fit-content;
+  gap: 6px;
+  max-height: 106px; 
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px; 
 }
 
 .card-detail-subtasks-tasks {
@@ -241,6 +251,18 @@
 .card-detail-subtasks-tasks:hover input[type="checkbox"] {
   border-color: #68696a !important;
   background-color: #eaf4fc;
+}
+
+.card-detail-subtasks-content::-webkit-scrollbar,
+.card-detail-assignee-content::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.card-detail-subtasks-content::-webkit-scrollbar-thumb,
+.card-detail-assignee-content::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.4);
+  border-radius: 4px;
 }
 
 /*---RESPONSIVE---*/
