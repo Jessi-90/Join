@@ -38,13 +38,14 @@ async function addNewTask(event, tasks, newTask) {
  */
 async function saveTasksToDatabase(tasks) {
     try {
-        await fetch(`${BASE_URL}/tasks.json`, {
+        const response = await fetch(`${BASE_URL}/tasks.json`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(tasks),
         });
+        return response
     } catch (error) {
-        console.error("Error saving tasks to the database:", error);
+        return { status: 500 }; 
     }
 }
 
@@ -123,9 +124,9 @@ function processSubtask(subtask) {
 function sendTaskFormToDb() {
     const form = document.querySelector("form");
     form.addEventListener("submit", async function (event) {
-        await handleFormSubmission(event);
+        const requestResponse =  await handleFormSubmission(event);
         clearFormAndData();
-        showUserFeedback();
+        showUserFeedback(requestResponse);
         setTimeout(() => {
             redirectToBoardPage();
         }, 3000);
@@ -149,13 +150,18 @@ async function handleFormSubmission(event) {
     tasks[newTaskKey] = createNewTask(newTask, newTaskKey);
     tasks.counter = counter;
 
-    await saveTasksToDatabase(tasks);
+    const requestResponse =  await saveTasksToDatabase(tasks);
+    return requestResponse;
 }
 
 
-async function showUserFeedback() {
+async function showUserFeedback(requestResponse) {
     const feedbackContainer = document.getElementById("feedbackContainer");
-
+    if (requestResponse.status !== 200) {
+        feedbackContainer.innerHTML = `
+            Task could not be created. Please try again later.
+            `;
+    }
     feedbackContainer.classList.remove("d-none");
 }
 
