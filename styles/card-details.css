@@ -98,7 +98,7 @@
   justify-content: flex-start;
   gap: 8px;
   width: 445px;
-  max-height: 170px; 
+  max-height: 170px;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -122,7 +122,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 180px; 
+  max-height: 180px;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -145,10 +145,10 @@
   flex-direction: column;
   width: fit-content;
   gap: 6px;
-  max-height: 106px; 
+  max-height: 106px;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-right: 4px; 
+  padding-right: 4px;
 }
 
 .card-detail-subtasks-tasks {
@@ -267,42 +267,118 @@
 
 /*---RESPONSIVE---*/
 
-@media screen and (min-width: 481px) and (max-width: 768px) {
-  .card-detail-subtask-content {
-    gap: 14px !important;
+@media screen and (min-width: 1921px) {
+  .board-card-detail-container {
+    max-width: 1200px;
+    padding: 60px 50px;
   }
 
-  .card-detail-subtasks-tasks:hover {
-    width: auto !important;
-    border-radius: 8px !important;
+  .card-detail-title {
+    font-size: 70px;
+    line-height: 80px;
   }
 
-  .card-detail-subtasks-tasks:hover input[type="checkbox"] {
-    border-color: #2A3647 !important;
-    background-color: white !important;
+  .card-detail-description,
+  .card-detail-due-date p,
+  .card-detail-priority p,
+  .card-detail-assignee p,
+  .card-detail-subtasks p {
+    font-size: 24px;
+    line-height: 28px;
   }
 }
 
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  .card-detail-subtask-content {
-    gap: 14px !important;
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .board-card-detail-container {
+    padding: 40px 32px;
+    gap: 20px;
+    width: 84vw;
   }
 
-  .card-detail-subtasks-tasks:hover {
-    width: auto !important;
-    border-radius: 8px !important;
+  .board-card-detail {
+    height: -webkit-fill-available;
   }
 
-  .card-detail-subtasks-tasks:hover input[type="checkbox"] {
-    border-color: #2A3647 !important;
-    background-color: white !important;
+  .card-detail-title {
+    font-size: 50px;
+    line-height: 60px;
+  }
+
+  .card-detail-description,
+  .card-detail-due-date p,
+  .card-detail-priority p,
+  .card-detail-assignee p,
+  .card-detail-subtasks p {
+    font-size: 18px;
+  }
+
+  .card-detail-priority,
+  .card-detail-due-date {
+    gap: 30px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .board-card-detail-container {
+    padding: 32px 24px;
+    gap: 18px;
+    width: 84vw;
+  }
+
+  .card-detail-title {
+    font-size: 36px;
+    line-height: 45px;
+  }
+
+  .card-detail-assignee,
+  .card-detail-subtasks {
+    width: 100%;
+  }
+
+  .card-detail-priority,
+  .card-detail-due-date {
+    gap: 20px;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .board-card-detail-container {
+    padding: 20px 12px;
+    gap: 12px;
+    width: 84vw;
+  }
+
+  .card-detail-title {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .card-detail-subtasks-content,
+  .card-detail-assignee-content {
+    max-height: 100px;
   }
 
   .card-detail-subtasks-tasks {
-    margin-bottom: 5px;
+    gap: 6px;
   }
 
-  .subtask-title {
-    font-size: 14px;
+  .card-detail-footer {
+    gap: 6px;
+  }
+
+  .custom-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+  }
+
+  .card-detail-description,
+  .card-detail-due-date p,
+  .card-detail-priority p,
+  .card-detail-assignee p,
+  .card-detail-subtasks p {
+    font-size: 16px;
   }
 }
