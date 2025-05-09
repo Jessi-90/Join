@@ -10,6 +10,8 @@ function initAddTaskPage() {
     initFormSubmitHandler();
     setDefaultMediumPriority();
     initCreateTaskButton();
+    initializeDatepicker("#datepicker");
+    setDefaultDate("#datepicker");
 }
 
 
