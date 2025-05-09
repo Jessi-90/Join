@@ -155,6 +155,18 @@ async function handleFormSubmission(event) {
 }
 
 
+
+/**
+ * Displays user feedback based on the HTTP response status after attempting to save tasks to the database.
+ * If the response status is not 200, an error message is shown to the user.
+ * The feedback container is made visible regardless of the outcome.
+ *
+ * @async
+ * @function showUserFeedback
+ * @param {Response|{status: number}} requestResponse - The response object returned from the fetch request,
+ * or a custom object with a status property in case of an error.
+ */
+
 async function showUserFeedback(requestResponse) {
     const feedbackContainer = document.getElementById("feedbackContainer");
     if (requestResponse.status !== 200) {
@@ -164,6 +176,7 @@ async function showUserFeedback(requestResponse) {
     }
     feedbackContainer.classList.remove("d-none");
 }
+
 
 /**
  * Redirects the user to the board page after task submission.
