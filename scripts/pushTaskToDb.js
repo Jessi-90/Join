@@ -38,13 +38,14 @@ async function addNewTask(event, tasks, newTask) {
  */
 async function saveTasksToDatabase(tasks) {
     try {
-        await fetch(`${BASE_URL}/tasks.json`, {
+        const response = await fetch(`${BASE_URL}/tasks.json`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(tasks),
         });
+        return response
     } catch (error) {
-        console.error("Error saving tasks to the database:", error);
+        return { status: 500 }; 
     }
 }
 
@@ -123,9 +124,13 @@ function processSubtask(subtask) {
 function sendTaskFormToDb() {
     const form = document.querySelector("form");
     form.addEventListener("submit", async function (event) {
-        await handleFormSubmission(event);
+        const requestResponse =  await handleFormSubmission(event);
         clearFormAndData();
-        redirectToBoardPage();
+        showUserFeedback(requestResponse);
+        setTimeout(() => {
+            redirectToBoardPage();
+        }, 3000);
+        
     });
 }
 
@@ -145,7 +150,31 @@ async function handleFormSubmission(event) {
     tasks[newTaskKey] = createNewTask(newTask, newTaskKey);
     tasks.counter = counter;
 
-    await saveTasksToDatabase(tasks);
+    const requestResponse =  await saveTasksToDatabase(tasks);
+    return requestResponse;
+}
+
+
+
+/**
+ * Displays user feedback based on the HTTP response status after attempting to save tasks to the database.
+ * If the response status is not 200, an error message is shown to the user.
+ * The feedback container is made visible regardless of the outcome.
+ *
+ * @async
+ * @function showUserFeedback
+ * @param {Response|{status: number}} requestResponse - The response object returned from the fetch request,
+ * or a custom object with a status property in case of an error.
+ */
+
+async function showUserFeedback(requestResponse) {
+    const feedbackContainer = document.getElementById("feedbackContainer");
+    if (requestResponse.status !== 200) {
+        feedbackContainer.innerHTML = `
+            Task could not be created. Please try again later.
+            `;
+    }
+    feedbackContainer.classList.remove("d-none");
 }
 
 
