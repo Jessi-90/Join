@@ -90,9 +90,10 @@ function getContactFormData() {
  */
 async function createContact(event) {
     event.preventDefault();
-    const contact = getContactFormData();
+    const form = event.target.closest("form");
+    const contact = getContactFormData(form);
     
-    if (!validateContactForm()) {
+    if (!validateContactForm(form)) {
         return; 
     }
     if (contact) {
