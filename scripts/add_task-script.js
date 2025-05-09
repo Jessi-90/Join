@@ -279,6 +279,21 @@ function clearInvalidInputStyles() {
 
 
 /**
+ * Resets the state of all priority buttons.
+ * 
+ * This function performs two main actions:
+ * 1. Deactivates all buttons with the class `.prio-btn`.
+ * 2. Sets the default priority to "medium".
+ * 
+ */
+function resetPrioButtons() {
+    const prioButtons = document.querySelectorAll(".prio-btn");
+    deactivateAllPriorityButtons(prioButtons);
+    setDefaultMediumPriority();
+}
+
+
+/**
  * Clears the form, removes users from sessionStorage, deletes subtasks, and resets all error messages.
  */
 function clearFormAndData() {
@@ -288,6 +303,7 @@ function clearFormAndData() {
     resetErrorMessages();
     clearInvalidInputStyles();
     populateContacts();
+    resetPrioButtons();
 }
 
 
