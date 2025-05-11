@@ -49,7 +49,7 @@
   scrollbar-width: none; 
   scroll-behavior: smooth;
   overflow-x: auto !important;
-  overflow-y: auto !important;
+  overflow-y: hidden !important;
 
 }
 
@@ -208,6 +208,7 @@
     background-color: #E7E7E7;
     border: 1px dashed;
     border-radius: 10px;
+    width: auto;
 }
 
 .tilt-animation {

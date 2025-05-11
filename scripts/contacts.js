@@ -78,40 +78,73 @@ function getContactFormData() {
 
 
 /**
- * Handles the form submission to create a new contact.
- *
- * Retrieves contact data from the form, fetches contacts from the database,
- * adds the new contact, updates the UI, and provides feedback.
+ * Handles form submission to create a new contact.
  *
  * @async
- * @function createContact
- * @param {Event} event - The form submission event.
- * @returns {Promise<void>} A promise that resolves after the contact is added and UI is updated.
+ * @param {Event} event - Form submission event.
  */
 async function createContact(event) {
     event.preventDefault();
-    const contact = getContactFormData();
+    if (!isValidForm(getFormFromEvent(event))) return;
+
+    try {
+        let contacts = await fetchContacts(event);
+        if (!contacts) return logError("Error: Unable to load contacts.");
+
+        await processContact(event, contacts);
+        updateUI();
+    } catch (error) {
+        logError("Error saving contact:", error);
+    }
+}
+
+
+/** Validates the form from event. */
+function isValidForm(form) {
+    return form && validateContactForm(form);
+}
+
+
+/** Extracts form from the event. */
+function getFormFromEvent(event) {
+    return event.target.closest("form");
+}
+
+
+/** Fetches contacts from the database. */
+async function fetchContacts(event) {
+    return await getContacts(event);
+}
+
+
+/** Logs an error message. */
+function logError(message, error = "") {
+    console.error(message, error);
+}
+
+
+/** Processes the new contact. */
+async function processContact(event, contacts) {
+    let contact = getContactFormData(getFormFromEvent(event));
+    if (!contact) return;
     
-    if (!validateContactForm()) {
-        return; 
-    }
-    if (contact) {
-        try {
-            let contacts = await getContacts(event); 
-            if (!contacts) {
-                console.error("Fehler: Kontakte konnten nicht geladen werden.");
-                return;
-            }
-            await addNewContact(event, contacts, contact); 
-            await mapContactsData(); 
-            renderContactList(currentContactsData);
-            setNewContactActive(contact); 
-            showFeedbackImage();
-            closeAddContactOverlay();
-        } catch (error) {
-            console.error("Fehler beim Speichern des Kontakts:", error);
-        }
-    }
+    await addNewContact(event, contacts, contact);
+    await mapContactsData();
+}
+
+
+/** Updates the UI. */
+function updateUI() {
+    renderContactList(currentContactsData);
+    setNewContactActive(getLatestContact());
+    showFeedbackImage();
+    closeAddContactOverlay();
+}
+
+
+/** Gets the most recently added contact. */
+function getLatestContact() {
+    return currentContactsData[currentContactsData.length - 1];
 }
 
 
@@ -198,10 +231,7 @@ async function deleteContact(firebaseId) {
  */
 async function removeContactFromTasks(firebaseId) {
     try {
-        let tasksResponse = await fetchTasksData();
-        if (!tasksResponse.ok) throw new Error("Fehler beim Abrufen der Aufgaben");
-
-        let tasks = await tasksResponse.json();
+        let tasks = await fetchTasksData(); 
         if (!tasks) return {};
 
         let updatedTasks = {};
