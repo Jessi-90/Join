@@ -6,10 +6,16 @@
  * The datepicker uses the format `dd/mm/yy` and disables all past dates.
  */
 function initializeDatepicker(selector) {
-    $(selector).datepicker({
+  const today = new Date();
+
+  if ($(selector).hasClass("hasDatepicker")) {
+      $(selector).datepicker("destroy");
+  }
+
+  $(selector).datepicker({
       dateFormat: "dd/mm/yy",
-      minDate: new Date()
-    });
+      minDate: today
+  });
 }
 
 
