@@ -5,12 +5,13 @@
 function initAddTaskPage() {
     initPriorityButtons();
     initFormValidation();
-    initDueDateInput();
     populateContacts();
     initSubtasksInput();
     initFormSubmitHandler();
     setDefaultMediumPriority();
     initCreateTaskButton();
+    initializeDatepicker("#datepicker");
+    setDefaultDate("#datepicker");
 }
 
 
@@ -130,7 +131,7 @@ function checkValidity(field) {
 */
 function validateTaskForm() {
     const title = document.getElementById("title");
-    const dueDate = document.getElementById("due-date");
+    const dueDate = document.getElementById("datepicker");
     const category = document.getElementById("category");
 
     let isValid = true;
@@ -295,7 +296,7 @@ function clearFormAndData() {
  */
 function initCreateTaskButton() {
     const title = document.getElementById("title");
-    const dueDate = document.getElementById("due-date");
+    const dueDate = document.getElementById("datepicker");
     const category = document.getElementById("category");
 
     title.addEventListener("input", checkFormValidity);
@@ -337,7 +338,7 @@ function getTitleField() {
  * @returns {HTMLElement} The due date input field element.
  */
 function getDueDateField() {
-    return document.getElementById("due-date");
+    return document.getElementById("datepicker");
 }
 
 

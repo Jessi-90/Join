@@ -226,7 +226,7 @@ function getDescription() {
  * @returns {string} The due date entered in the form.
  */
 function getDueDate() {
-    return document.getElementById("due-date").value.trim();
+    return document.getElementById("datepicker").value.trim();
 }
 
 

@@ -666,6 +666,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     align-items: center;
 }
 
+#datepicker {
+    background-image: url(../assets/icons/calender.svg);
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    cursor: pointer;
+}
+
 .assigend-to-group {
     margin-bottom: 10px;
 }
