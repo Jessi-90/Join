@@ -211,7 +211,28 @@ function populateBasicTaskData(task) {
     titleInput.value = task.title || '';
     descriptionTextarea.value = task.description || '';
     dateInput.value = task.dueDate || '';
+    setPriorityButton(task.priority || 'medium');
 }
+
+function setPriorityButton(priority) {
+    const priorityMap = {
+        urgent: document.querySelector('.prio-btn.urgent'),
+        medium: document.querySelector('.prio-btn.medium'),
+        low: document.querySelector('.prio-btn.low'),
+    };
+
+    // Rücksetzen aller Prio-Buttons
+    Object.values(priorityMap).forEach(btn => btn.classList.remove('active'));
+
+    // Aktivieren des passenden Buttons
+    const selectedBtn = priorityMap[priority.toLowerCase()];
+    if (selectedBtn) {
+        selectedBtn.classList.add('active');
+    } else {
+        console.warn(`Unbekannte Priorität: ${priority}`);
+    }
+}
+
 
 
 /**

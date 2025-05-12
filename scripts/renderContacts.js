@@ -80,7 +80,6 @@ function onContactClick(contact) {
         hideMobileAddContactButton();
         showContactDetailViewForMobile();
         addBackButtonToMobileDetail();
-        
     }
 }
 
