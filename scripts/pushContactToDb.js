@@ -28,6 +28,18 @@ async function addNewContact(event, contacts, newContact) {
     }
 };
 
+
+async function showAddTaskUserFeedback(requestResponse) {
+    const feedbackContainer = document.getElementById("feedbackContainer");
+    if (requestResponse.status !== 200) {
+        feedbackContainer.innerHTML = `
+            Contact could not be created. Please try again later.
+            `;
+    }
+    feedbackContainer.classList.remove("d-none");
+}
+
+
 /**
  * Returns the updated counter of contacts.
  * @param {Object} contacts 
