@@ -29,6 +29,20 @@ async function addNewContact(event, contacts, newContact) {
 };
 
 
+
+/**
+ * Displays user feedback based on the response status of a task creation request.
+ *
+ * This function updates the content of the feedback container element to inform the user
+ * whether the task (e.g., contact creation) was successful or not. If the request fails
+ * (i.e., status is not 200), an error message is shown. The feedback message is displayed
+ * temporarily and automatically hidden after 3 seconds.
+ *
+ * @async
+ * @function showAddTaskUserFeedback
+ * @param {Response} requestResponse - The response object returned from the task creation request.
+ * @returns {void}
+ */
 async function showAddTaskUserFeedback(requestResponse) {
     const feedbackContainer = document.getElementById("feedbackContainer");
     if (requestResponse.status !== 200) {
