@@ -107,6 +107,7 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
+  margin-top: 3px;
 }
 
 .card-detail-assignee-user {
@@ -121,7 +122,6 @@
 .card-detail-assignee-content {
   display: flex;
   flex-direction: column;
-  gap: 8px;
   max-height: 180px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -263,6 +263,10 @@
 .card-detail-assignee-content::-webkit-scrollbar-thumb {
   background-color: rgba(100, 100, 100, 0.4);
   border-radius: 4px;
+}
+
+.card-priority {
+  margin-left: 10px;
 }
 
 /*---RESPONSIVE---*/
