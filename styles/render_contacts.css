@@ -246,7 +246,6 @@
 
 .contact-info-section p {
     margin: 5px 0;
-    font-size: 14px;
     color: #333;
     margin-bottom: 15px;
 }
@@ -262,7 +261,6 @@
 .contact-info-section a {
     color: #208CF0;
     text-decoration: none;
-    font-size: 14px;
 }
 
 .contact-info-section a:hover {
@@ -310,14 +308,6 @@
         height: 30px;
         margin: 0 8px;
         font-size: 12px;
-    }
-
-    .contact-name-placeholder {
-        font-size: 14px;
-    }
-
-    .contact-email-placeholder {
-        font-size: 14px;
     }
 
     .contact-divider {
@@ -505,20 +495,12 @@
         margin-left: 0px;
     }
 
-    .contact-name-placeholder {
-        font-size: 14px;
-    }
-
-    .contact-email-placeholder {
-        font-size: 14px;
-    }
-
     .contact-letter {
         padding-left: 24px;
     }
 
     .contact-divider {
-        width: 260px;
+        width: 300px;
     }
 
     #contactList .contact-letter-section:last-of-type .contact-placeholder-item:last-child {
