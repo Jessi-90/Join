@@ -1,3 +1,7 @@
+main {
+    width: calc(100dvw - 328px) !important;
+}
+
 .container {
     position: absolute;
     align-items: center;
