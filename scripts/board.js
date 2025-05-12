@@ -234,24 +234,45 @@ function truncateTaskDescription(text) {
 
 /**
  * Generates user avatar HTML based on assigned users.
+ * If more than 4 users are assigned, shows the first 4 and a "+N" indicator.
+ *
  * @param {string[]} users - An array of user names.
  * @param {string} id - The ID for the container element.
- * @param {Array} currentContactsData - Local array with contact data.
- * @returns {void}
  */
-function generateUserAvatars(users, id, currentContactsData) {
+function generateUserAvatars(users, id) {
     let userIcons = document.getElementById(`user-icons-${id}`);
-    if (!users || users.length === 0) {
-        userIcons.innerHTML = "";
-    } else {
-        userIcons.innerHTML = "";
-        users.forEach(assignedUser => {
-            let userDetails = getContactDetails(assignedUser);
-            if (userDetails) {
-                userIcons.innerHTML += UserAvatarTemplate(userDetails);
-            }
-        });
+    if (!userIcons) return;
+    userIcons.innerHTML = "";
+    if (!users || users.length === 0) return;
+
+    const maxVisibleUsers = 3;
+    const visibleUsers = users.slice(0, maxVisibleUsers);
+    const hiddenUserCount = users.length - maxVisibleUsers;
+
+    visibleUsers.forEach(assignedUser => {
+        let userDetails = getContactDetails(assignedUser);
+        if (userDetails) {
+            userIcons.innerHTML += UserAvatarTemplate(userDetails);
+        }
+    });
+
+    if (hiddenUserCount > 0) {
+        userIcons.innerHTML += generateAdditionalUserCountBubble(hiddenUserCount);
     }
+}
+
+/**
+ * Generates a bubble element showing how many additional users are assigned.
+ *
+ * @param {number} count - The number of hidden users.
+ * @returns {string} - HTML string representing the "+N" avatar bubble.
+ */
+function generateAdditionalUserCountBubble(count) {
+    return `
+        <div class="user-bubble additional-users">
+            +${count}
+        </div>
+    `;
 }
 
 /**
