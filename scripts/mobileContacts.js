@@ -228,7 +228,7 @@ function closeOverlayOnClickOutside(event) {
  */
 function showMobileActionButtonsOverlay() {
     const overlay = document.getElementById('mobile-edit-contact-action-btn-overlay');
-
+    
     overlay.classList.add('show');
     document.removeEventListener("click", closeOverlayOnClickOutside);
 

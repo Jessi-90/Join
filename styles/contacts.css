@@ -3,6 +3,10 @@ html {
   overflow: hidden;
 }
 
+.body-contacts {
+  position: relative;
+}
+
 .contact-view {
   display: flex;
   justify-content: flex-start;
@@ -256,7 +260,7 @@ html {
   }
 
   .contact-detail-header {
-    width: 480px;
+    width: 100%;
   }
 
   .contact-detail-header h2 {
@@ -332,6 +336,6 @@ html {
   }
 
   #header-container {
-    width: 62%;
+    width: 100%;
   }
 }
