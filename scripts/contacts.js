@@ -92,7 +92,7 @@ async function createContact(event) {
         if (!contacts) return logError("Error: Unable to load contacts.");
 
         await processContact(event, contacts);
-        updateUI();
+
     } catch (error) {
         logError("Error saving contact:", error);
     }
@@ -131,20 +131,17 @@ async function processContact(event, contacts) {
     const requestResponse = await addNewContact(event, contacts, contact);
     showAddTaskUserFeedback(requestResponse);
     await mapContactsData();
+    updateUI(contact);
 }
 
 
 /** Updates the UI. */
-function updateUI() {
+function updateUI(contact) {
     renderContactList(currentContactsData);
-    setNewContactActive(getLatestContact());
+    setNewContactActive(contact);
+    toggleContactDetail(contact);
     closeAddContactOverlay();
-}
-
-
-/** Gets the most recently added contact. */
-function getLatestContact() {
-    return currentContactsData[currentContactsData.length - 1];
+    addContactClickEvents();
 }
 
 
