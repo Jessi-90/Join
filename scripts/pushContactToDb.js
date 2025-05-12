@@ -16,14 +16,15 @@ async function addNewContact(event, contacts, newContact) {
         
         contacts.counter = counter; 
 
-        await fetch(`${BASE_URL}/contacts.json`, {
+        const response = await fetch(`${BASE_URL}/contacts.json`, {
             method: "PUT",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(contacts) 
         });
+        return response;
 
     } catch (error) {
-        console.error("error at adding the contacts to the database:", error);
+        return {status: error}; 
     }
 };
 
