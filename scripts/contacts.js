@@ -138,7 +138,6 @@ async function processContact(event, contacts) {
 function updateUI() {
     renderContactList(currentContactsData);
     setNewContactActive(getLatestContact());
-    showFeedbackImage();
     closeAddContactOverlay();
 }
 
