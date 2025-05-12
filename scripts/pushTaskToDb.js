@@ -175,6 +175,9 @@ async function showUserFeedback(requestResponse) {
             `;
     }
     feedbackContainer.classList.remove("d-none");
+    setTimeout(() => {
+        feedbackContainer.classList.add("d-none");
+    }, 3000);
 }
 
 

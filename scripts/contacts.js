@@ -128,7 +128,8 @@ async function processContact(event, contacts) {
     let contact = getContactFormData(getFormFromEvent(event));
     if (!contact) return;
     
-    await addNewContact(event, contacts, contact);
+    const requestResponse = await addNewContact(event, contacts, contact);
+    showAddTaskUserFeedback(requestResponse);
     await mapContactsData();
 }
 
@@ -137,7 +138,6 @@ async function processContact(event, contacts) {
 function updateUI() {
     renderContactList(currentContactsData);
     setNewContactActive(getLatestContact());
-    showFeedbackImage();
     closeAddContactOverlay();
 }
 

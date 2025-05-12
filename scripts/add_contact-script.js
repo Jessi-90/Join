@@ -139,29 +139,6 @@ function handleAddContact(event) {
     }
 
     closeAddContactOverlay();
-    showFeedbackImage();
-}
-
-
-/**
- * Displays a feedback image after a successful contact creation.
- */
-function showFeedbackImage() {
-    let body = document.body;
-
-    let feedbackContainer = document.createElement("div");
-    feedbackContainer.className = "feedback-container";
-
-    let feedbackImage = document.createElement("img");
-    feedbackImage.src = "../assets/img/create-feedback.svg";
-    feedbackImage.alt = "Contact Created";
-
-    feedbackContainer.appendChild(feedbackImage);
-    body.appendChild(feedbackContainer);
-
-    setTimeout(() => {
-        feedbackContainer.remove();
-    }, 2000);
 }
 
 
