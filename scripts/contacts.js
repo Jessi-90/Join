@@ -129,6 +129,7 @@ async function processContact(event, contacts) {
     if (!contact) return;
     
     const requestResponse = await addNewContact(event, contacts, contact);
+    showAddTaskUserFeedback(requestResponse);
     await mapContactsData();
 }
 
