@@ -397,6 +397,7 @@
         flex-direction: column;
         align-items: start;
         justify-content: end;
+        min-width: 300px;
         width: 480px;
         transform: none;
         transition: none
@@ -404,6 +405,7 @@
 
     .contact-detail.show {
         transform: none;
+        width: 300px;
     }
 
     .contact-list-wrapper {
