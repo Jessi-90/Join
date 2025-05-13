@@ -63,7 +63,7 @@ function summaryGreetingUser() {
  * @returns {string} The name of the logged-in user or "Guest" if no user is found.
  */
 function getUserName() {
-  
+
     if (localStorage.getItem("userType") === "guest") {
         return "Guest";
     }
@@ -79,7 +79,7 @@ function getUserName() {
  * @returns {Object|null} The logged-in user object if found, otherwise `null`.
  */
 function getLoggedInUser() {
-    
+
     let loggedInUser = sessionStorage.getItem("currentUser");
 
     if (!loggedInUser) {
@@ -118,8 +118,8 @@ function renderNumberTasks() {
  */
 function mapTasksData() {
     const tasksArray = Object.entries(currentTasksData)
-    .filter(([key]) => key.startsWith('taskid_'))  
-    .map(([id, task]) => ({ id, ...task }));  
+        .filter(([key]) => key.startsWith('taskid_'))
+        .map(([id, task]) => ({ id, ...task }));
     return tasksArray;
 }
 
@@ -137,7 +137,7 @@ function getNumberTasks(tasksArray) {
     let numberTasksInProgress = tasksArray.filter(task => task.status === 2).length;
     let numberTasksToDo = tasksArray.filter(task => task.status === 1).length;
     let numberTasksUrgent = tasksArray.filter(task => task.priority === "Urgent").length;
-    return {numberTotalTasks, numberTasksDone, numberTasksAwaitingFeedback, numberTasksInProgress, numberTasksToDo, numberTasksUrgent};
+    return { numberTotalTasks, numberTasksDone, numberTasksAwaitingFeedback, numberTasksInProgress, numberTasksToDo, numberTasksUrgent };
 }
 
 
@@ -210,19 +210,33 @@ window.addEventListener('load', () => {
     const width = window.innerWidth;
     const greeting = document.querySelector('.greeting-wrapper');
     const dashboard = document.querySelector('.dashboard');
-
+    updateResponsiveTitleImage();
     const shouldAnimate = width < 1380;
 
     if (shouldAnimate) {
-        document.body.classList.add('animating'); 
+        document.body.classList.add('animating');
 
         setTimeout(() => {
             if (greeting) greeting.classList.add('hidden');
             if (dashboard) dashboard.classList.add('visible');
 
-            document.body.classList.remove('animating'); 
+            document.body.classList.remove('animating');
         }, 2000);
     } else {
         if (dashboard) dashboard.classList.add('visible');
     }
 });
+
+
+/**
+ * Updates the title image source if the screen width is 570px or less.
+ * This enables a mobile-optimized image for smaller devices.
+ */
+function updateResponsiveTitleImage() {
+    if (window.innerWidth <= 570) {
+        const titleImg = document.querySelector('.layout img');
+        if (titleImg) {
+            titleImg.src = 'assets/img/join-title-responsive.png';
+        }
+    }
+}
