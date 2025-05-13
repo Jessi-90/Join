@@ -237,7 +237,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   h2 {
-    font-size: 15px !important;
+    font-size: 16px !important;
   }
 
   .board {
@@ -247,7 +247,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .column-header {
-    font-size: 15px !important;
+    font-size: 16px !important;
   }
 
   .search-input input {
@@ -261,11 +261,11 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .card-title {
-    font-size: 14px !important;
+    font-size: 16px !important;
   }
 
   .card-description {
-    font-size: 14px !important;
+    font-size: 16px !important;
   }
 
   .board {
@@ -332,7 +332,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .column-header {
-    font-size: 14px !important;
+    font-size: 16px !important;
     width: 282px;
   }
 
@@ -399,7 +399,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .card-category {
-    font-size: 14px !important;
+    font-size: 16px !important;
     display: flex;
   }
 
@@ -528,7 +528,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .card-category {
-    font-size: 14px !important;
+    font-size: 16px !important;
     display: flex;
   }
 
@@ -667,7 +667,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .card-category {
-    font-size: 14px !important;
+    font-size: 16px !important;
     display: flex;
   }
 
