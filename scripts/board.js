@@ -46,8 +46,8 @@ let initCalled = false;
  * @returns {Promise<void>} Resolves once the initialization tasks are completed.
  */
 async function init() {
-    if (initCalled) return; 
-    initCalled = true;  
+    if (initCalled) return;
+    initCalled = true;
 
     await fetchTasksData();
     renderTasks(currentTasksData);
@@ -76,7 +76,7 @@ async function renderTasks(tasks) {
     if (window.location.pathname.endsWith("board.html")) {
         clearAllContainers();
         await mapContactsData();
-        
+
         for (let taskId in tasks) {
             if (taskId !== 'counter') {
                 renderTask(taskId, tasks[taskId]);
@@ -275,11 +275,11 @@ function getPriorityImage(priority) {
         case 'low':
             return "../assets/icons/prio low.svg";
         case 'medium':
-            return "../assets/icons/prio medium.svg";
+            return "../assets/icons/prio-medium-yellow.svg";
         case 'urgent':
             return "../assets/icons/prio urgent.svg";
         default:
-            return "../assets/icons/prio medium.svg";
+            return "../assets/icons/prio-medium-yellow.svg";
     }
 }
 
