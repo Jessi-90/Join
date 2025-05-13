@@ -317,6 +317,11 @@ input[type="search"]::-webkit-search-cancel-button {
     overflow-y: auto !important;
   }
 
+  main {
+    width: auto !important;
+    height: auto !important; 
+  }
+
   .search-and-add {
     gap: 10px;
   }
