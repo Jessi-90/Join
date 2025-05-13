@@ -236,7 +236,7 @@ function updateResponsiveTitleImage() {
     if (window.innerWidth <= 570) {
         const titleImg = document.querySelector('.layout img');
         if (titleImg) {
-            titleImg.src = 'assets/img/join-title-responsive.png';
+            titleImg.src = '../assets/img/join-title-responsive.png';
         }
     }
 }
