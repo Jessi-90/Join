@@ -230,7 +230,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 
-@media screen and (min-width: 1025px) and (max-width: 1200px) {
+@media screen and (min-width: 1125px) and (max-width: 1200px) {
   h1 {
     font-size: 54px !important;
     margin: 0 0 0 25px !important;
@@ -243,6 +243,7 @@ input[type="search"]::-webkit-search-cancel-button {
   .board {
     margin: 0 24px !important;
     width: 95% !important;
+    gap: 14px !important;
   }
 
   .column-header {
@@ -301,7 +302,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 
-@media screen and (min-width: 769px) and (max-width: 1024px) {
+@media screen and (min-width: 769px) and (max-width: 1124px) {
   h1 {
     font-size: 44px !important;
     margin-left: 0px !important;
@@ -405,7 +406,6 @@ input[type="search"]::-webkit-search-cancel-button {
   .board {
     margin: 0 44px !important;
     flex-direction: column;
-    width: 100vw;
     padding-bottom: 80px !important;
   }
 
@@ -534,7 +534,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
   .board {
     flex-direction: column;
-    width: 100vw;
+    width: 90vw;
     padding-bottom: 100px !important;
     margin-left: 5px !important;
   }
@@ -601,6 +601,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
   .board {
     flex-direction: column;
+    width: 90vw !important;
   }
 
   .top-bar {
