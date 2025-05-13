@@ -718,22 +718,22 @@ img {
 
     .card {
         padding: 5px;
-        height: 100px; 
-        gap: 6px; 
-        border-radius: 15px; 
+        height: 100px;
+        gap: 6px;
+        border-radius: 15px;
     }
 
     .card h1 {
-        font-size: 1.8rem; 
+        font-size: 1.8rem;
     }
 
     .card p {
-        font-size: 0.9rem; 
+        font-size: 0.9rem;
     }
 
     .card-pencil,
     .card-ok {
-        width: 40px; 
+        width: 40px;
     }
 
     .layout {
@@ -745,12 +745,8 @@ img {
     }
 
     .layout img {
-        width: 35%;
+        width: 50%;
         content: url('../assets/img/join-title-responsive.png') !important;
-    }
-
-    .layout img {
-        width: 60%;
     }
 
     .greeting {
