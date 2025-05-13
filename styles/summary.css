@@ -263,12 +263,14 @@ img {
 
     .layout {
         padding-left: 76px;
+        padding-top: 50px;
     }
 
     .dashboard.visible {
         display: flex;
         opacity: 1;
         padding-left: 64px;
+        padding-top: 20px;
         width: 435px;
     }
 
@@ -506,7 +508,7 @@ img {
     }
 
     .layout img:first-child {
-        content: url('../assets/img/join-title-responsive.png');
+        content: url('../assets/img/join-title-responsive.png') !important;
     }
 
     .layout::after {
@@ -602,6 +604,10 @@ img {
         font-size: 0.9rem;
     }
 
+    .card h1 {
+        font-size: 2.0rem;
+    }
+
     .card {
         padding: 5px;
         height: 120px;
@@ -627,11 +633,10 @@ img {
         padding-bottom: 0px;
         justify-content: center;
         gap: 5px;
-        margin-bottom: 20px !important;
     }
 
     .layout img {
-        content: url('../assets/img/join-title-responsive.png');
+        content: url('../assets/img/join-title-responsive.png') !important;
     }
 
     .urgent-info {
@@ -704,36 +709,35 @@ img {
         width: 100%;
         flex: 1;
         font-size: 0.9rem;
+        gap: 10px;
     }
 
     .last-section {
         gap: 11px;
     }
 
-    .card-pencil {
-        width: 50px;
-    }
-
-    .card-ok {
-        width: 48px;
-    }
-
     .card {
         padding: 5px;
-        height: 120px;
-        gap: 10px;
+        height: 100px; 
+        gap: 6px; 
+        border-radius: 15px; 
     }
 
     .card h1 {
-        font-size: 2.5rem;
+        font-size: 1.8rem; 
     }
 
     .card p {
-        font-size: 1.0rem;
+        font-size: 0.9rem; 
+    }
+
+    .card-pencil,
+    .card-ok {
+        width: 40px; 
     }
 
     .layout {
-        padding-top: 40px;
+        padding-top: 10px;
         padding-left: 20px;
         margin-bottom: 0px;
         justify-content: center;
@@ -742,7 +746,7 @@ img {
 
     .layout img {
         width: 35%;
-        content: url('../assets/img/join-title-responsive.png');
+        content: url('../assets/img/join-title-responsive.png') !important;
     }
 
     .layout img {
