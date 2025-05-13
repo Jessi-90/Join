@@ -53,6 +53,7 @@ async function init() {
     renderTasks(currentTasksData);
     initializeSearchListener();
     initializeTaskBackup();
+    enableMobileDragForAllCards();
 }
 
 
@@ -97,7 +98,14 @@ function renderTask(taskId, task) {
     let { completedSubtasks, totalSubtasks, progressPercentage } = handleSubtaskProcess(task.subtasks);
     let taskHtml = generateTaskHtml(taskId, task, progressPercentage, completedSubtasks, totalSubtasks);
 
-    container.innerHTML += taskHtml;
+    container.insertAdjacentHTML('beforeend', taskHtml);
+
+    const cardElement = document.getElementById(taskId);
+    if (cardElement && window.innerWidth < 1024 && !cardElement.dataset.mobileDragEnabled) {
+        enableMobileCardDragging(cardElement, taskId);
+        cardElement.dataset.mobileDragEnabled = "true";
+    }
+
     updateCategoryClass(taskId, task.category);
     generateUserAvatars(task.assignedUsers, taskId);
 }
