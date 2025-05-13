@@ -8,6 +8,7 @@
  * - Fetches task data and renders the task overview.
  */
 document.addEventListener("DOMContentLoaded", async () => {
+    updateResponsiveTitleImage();
     await mapContactsData();
 
     if (document.querySelector(".greeting") && document.querySelector("#greetingName")) {
@@ -234,9 +235,13 @@ window.addEventListener('load', () => {
  */
 function updateResponsiveTitleImage() {
     if (window.innerWidth <= 570) {
-        const titleImg = document.querySelector('.layout img');
+        const titleImg = document.querySelector('.join-logo');
         if (titleImg) {
-            titleImg.src = '../assets/img/join-title-responsive.png';
+            titleImg.src = 'assets/img/join-title-responsive.png';
         }
     }
 }
+
+
+document.addEventListener("DOMContentLoaded", updateResponsiveTitleImage);
+window.addEventListener("load", updateResponsiveTitleImage);
