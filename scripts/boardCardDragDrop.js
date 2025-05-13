@@ -66,6 +66,83 @@ document.addEventListener('dragleave', clearAutoScrollOnMouseLeave);
 document.addEventListener('drop', clearAutoScrollOnDrop);
 
 
+
+/**
+ * Enables mobile drag functionality for all elements with the class 'card'.
+ *
+ * This function selects all card elements on the page and applies mobile-specific
+ * drag behavior to each one by calling `enableMobileCardDragging` with the card element
+ * and its ID.
+ *
+ * @function enableMobileDragForAllCards
+ * @returns {void}
+ */
+function enableMobileDragForAllCards() {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+    const cardId = card.id;
+    enableMobileCardDragging(card, cardId);
+    });
+
+    }
+
+
+
+/**
+ * Updates the 'draggable' attribute of all card elements based on the current screen width.
+ *
+ * If the screen width is less than 1024 pixels (mobile view), the 'draggable' attribute
+ * is removed from each card. Otherwise, it is set to 'true' to enable desktop drag-and-drop.
+ *
+ * @function updateDraggableAttributes
+ * @returns {void}
+ */   
+function updateDraggableAttributes() {
+    const isMobile = window.innerWidth < 1024;
+    const cards = document.querySelectorAll('.card');
+    
+    cards.forEach(card => {
+        if (isMobile) {
+            card.removeAttribute('draggable');
+        } else {
+        card.setAttribute('draggable', 'true');
+        }
+    });
+}
+        
+
+
+updateDraggableAttributes();
+
+
+/**
+ * Handles window resize events to update draggable attributes and enable mobile drag functionality.
+ *
+ * - Calls `updateDraggableAttributes` to adjust the 'draggable' attribute of card elements
+ *   based on the current screen width.
+ * - If the screen width is less than 1024 pixels (mobile view), it ensures that mobile drag
+ *   functionality is enabled for each card that hasn't already been initialized for mobile dragging.
+ *
+ * This ensures responsive behavior and appropriate drag-and-drop support across devices.
+ *
+ * @event window#resize
+ */
+window.addEventListener('resize', () => {
+    updateDraggableAttributes();
+    
+    if (window.innerWidth < 1024) {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            if (!card.dataset.mobileDragEnabled) {
+                enableMobileCardDragging(card, card.id);
+                card.dataset.mobileDragEnabled = "true";
+            }
+        });
+    }
+});
+    
+            
+
 /**
  * Handles the dragover event by preventing the default behavior.
  * Also maintains the currentHoveredColumn state for tracking.
@@ -188,6 +265,33 @@ function enableMobileCardDragging(cardElement, cardId) {
         handleTouchEnd(cardElement)
     );
 }
+
+
+
+/**
+ * Handles the touchmove event when the user moves their finger while interacting with the card.
+ * It updates the card's position, determines if a new column is being hovered over, and handles
+ * automatic scrolling if the user moves their finger near the edges of the screen.
+ *
+ * @param {TouchEvent} e - The touchmove event object containing information about the touch movement.
+ * @param {HTMLElement} cardElement - The HTML element representing the card being dragged.
+ */
+function handleTouchMove(e, cardElement) {
+    if (!longTapActive) return;
+    
+    e.preventDefault(); // Prevent scrolling the page
+    
+    const touchY = e.touches[0].clientY;
+    
+    // Update card position
+    updateCardPosition(cardElement, touchY);
+    
+    // Update hovered column
+    updateHoveredColumn(e);
+    
+    // Handle auto-scroll
+    handleAutoScroll(touchY);
+    }
 
 
 /**
