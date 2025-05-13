@@ -275,11 +275,11 @@ function getPriorityImage(priority) {
         case 'low':
             return "../assets/icons/prio low.svg";
         case 'medium':
-            return "../assets/icons/prio medium.svg";
+            return "../assets/icons/prio-medium-yellow.svg";
         case 'urgent':
             return "../assets/icons/prio urgent.svg";
         default:
-            return "../assets/icons/prio medium.svg";
+            return "../assets/icons/prio-medium-yellow.svg";
     }
 }
 
