@@ -226,3 +226,38 @@ window.addEventListener('load', () => {
         if (dashboard) dashboard.classList.add('visible');
     }
 });
+
+
+/**
+ * Replaces the element with ID "layout" with a mobile-specific layout
+ * if the window width is less than 570 pixels.
+ *
+ * This function creates a new div element containing:
+ *   - A bold "Join 360" heading
+ *   - A subtitle "Key Metrics at a Glance"
+ *   - A horizontal line styled with a background image
+ *
+ * The function is triggered on page load and also on window resize.
+ * It ensures the replacement only happens once (idempotent).
+ */
+function replaceLayoutForMobile() {
+  const layout = document.getElementById("layout");
+
+  if (window.innerWidth < 570 && layout) {
+    const mobileDiv = document.createElement("div");
+    mobileDiv.id = "mobile-replacement";
+    mobileDiv.innerHTML = `
+      <div class="join-title">Join 360</div>
+      <div class="join-subtitle">Key Metrics at a Glance</div>
+      <div class="join-line"></div>
+    `;
+    layout.replaceWith(mobileDiv);
+ }
+}
+
+window.addEventListener("DOMContentLoaded", replaceLayoutForMobile);
+window.addEventListener("resize", () => {
+  if (window.innerWidth < 570 && !document.getElementById("mobile-replacement")) {
+    replaceLayoutForMobile();
+  }
+});
