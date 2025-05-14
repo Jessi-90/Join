@@ -1,5 +1,5 @@
-main {
-    width: calc(100dvw - 328px) !important;
+.add-task-page main {
+  width: calc(100dvw - 328px);
 }
 
 .container {
