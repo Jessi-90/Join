@@ -26,7 +26,7 @@ document.addEventListener('click', (event) => {
     ) {
         dropdown.classList.add('d-none');
     }
-    
+
     if (editContainer && editContainer.contains(event.target)) {
         event.stopPropagation();
         return;
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if (okButton) {
         okButton.addEventListener('click', () => {
             saveEditedTask();
-            closeBoardCardDetails(event); 
+            closeBoardCardDetails(event);
         });
     }
 });
@@ -63,8 +63,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
  * @param {Array<Object>} [assignedUsers=[]] - An array of user objects with a 'name' property.
  */
 async function initContactSelection(assignedUsers = []) {
-    selectedContacts = new Set(assignedUsers.map(user => user.name));
+    selectedContacts = new Set(assignedUsers.map(user => user.name || user));
     await populateContacts();
+    
     requestAnimationFrame(() => {
         if (typeof initEditTaskSubtasks === 'function') {
             initEditTaskSubtasks();
@@ -124,14 +125,44 @@ function setupContactSelection(containerId = 'assignedDropdown') {
  */
 function showBoardCardDetailsEdit() {
     const boardCardOverlayRef = document.getElementById('boardCardDetails');
+    const taskId = getCurrentlyViewedTaskId();
 
     if (!boardCardOverlayRef.querySelector('.board-card-edit-container')) {
         renderEditOverlayTemplate(boardCardOverlayRef);
         initializeDatepicker("#datepicker");
+        
+        // ⚠️ Problem 2: Direktes Setzen der Basisdaten hier, 
+        // ohne initContactSelection aufzurufen
+        const task = currentTasksData[taskId] || {};
+        
+        // Grundlegende Aufgabendaten setzen
+        setTimeout(() => {
+            populateBasicTaskData(task);
+            populateSubtasks(normalizeSubtasks(task.subtasks));
+
+            
+            // Prioritätsbutton setzen
+            if (typeof initPriorityButtons === 'function') {
+                initPriorityButtons({ skipDefault: true });
+            }
+            
+            // Avatare rendern
+            if (typeof prepareContacts === 'function' && typeof renderAvatars === 'function') {
+                const contacts = prepareContacts(currentContactsData);
+                selectedContacts = new Set(task.assignedUsers?.map(user => user.name || user) || []);
+                renderAvatars(contacts);
+            }
+        }, 50);
     }
 
     boardCardOverlayRef.classList.remove('d-none');
-    animateEditOverlay();
+}
+
+
+function normalizeSubtasks(subtasks) {
+    if (Array.isArray(subtasks)) return subtasks;
+    if (subtasks && typeof subtasks === 'object') return Object.values(subtasks);
+    return [];
 }
 
 
@@ -146,11 +177,11 @@ function showBoardCardDetailsEdit() {
 function renderEditOverlayTemplate(container) {
     container.innerHTML = cardDetailsEditOverlayHTMLTemplate();
 
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            initEditOverlayContent();
-        });
-    });
+    // ⚠️ Problem 3: Verzögere die Initialisierung, um sicherzustellen, 
+    // dass das Template vollständig gerendert ist
+    setTimeout(() => {
+        initEditOverlayContent();
+    }, 100);
 }
 
 
@@ -161,19 +192,16 @@ function renderEditOverlayTemplate(container) {
  *   functions are available.
  * - Binds the click event for the "OK" button to save the edited task and close the overlay.
  */
-
 function initEditOverlayContent() {
     const taskId = getCurrentlyViewedTaskId();
     const task = currentTasksData[taskId] || {};
-    if (typeof initContactSelection === 'function') {
-        initContactSelection(task.assignedUsers || []);
-    }
-    if (typeof initPriorityButtons === 'function') {
-        initPriorityButtons();
-    }
+
+    // ⚠️ Problem 4: Anstatt initContactSelection aufzurufen, nur die Subtasks initialisieren
     if (typeof initEditTaskSubtasks === 'function') {
         initEditTaskSubtasks();
     }
+
+    // OK-Button einrichten
     const okButton = document.getElementById('ok-button');
     if (okButton) {
         okButton.addEventListener('click', () => {
@@ -181,8 +209,46 @@ function initEditOverlayContent() {
             closeBoardCardDetails();
         });
     }
+    
+    // ⚠️ Problem 5: Verzögere die Initialisierung des Dropdown-Menüs 
+    // (nicht die Avatare), um Konflikte zu vermeiden
+    setTimeout(() => {
+        setupDropdownToggle();
+        
+        // Dropdown-Funktionalität initialisieren, aber keine Avatare beeinflussen
+        if (typeof populateContacts === 'function') {
+            populateContacts();
+        }
+    }, 200);
 }
 
+
+/**
+ * Eine Variante von initContactSelection, die nur den Dropdown initialisiert, ohne die Avatare zu beeinflussen.
+ * 
+ * @async
+ * @param {Array<Object>} [assignedUsers=[]] - An array of user objects with a 'name' property.
+ */
+async function initContactSelectionWithoutAvatars(assignedUsers = []) {
+    // Speichere die aktuell ausgewählten Kontakte
+    const currentlySelected = new Set([...selectedContacts]);
+    
+    // Setze die ausgewählten Kontakte basierend auf den zugewiesenen Benutzern
+    selectedContacts = new Set(assignedUsers.map(user => user.name || user));
+    
+    // Füge die vorherigen ausgewählten Kontakte wieder hinzu
+    currentlySelected.forEach(contact => selectedContacts.add(contact));
+    
+    // Initialisiere den Dropdown, aber ohne die Avatare zu rendern
+    await populateContacts();
+    
+    // Initialisiere die Subtasks, wenn nötig
+    requestAnimationFrame(() => {
+        if (typeof initEditTaskSubtasks === 'function') {
+            initEditTaskSubtasks();
+        }
+    });
+}
 
 /**
 * Helper function to determine if a click should keep the dropdown open.
@@ -208,31 +274,48 @@ function populateBasicTaskData(task) {
     const descriptionTextarea = document.getElementById('editCardDescription');
     const dateInput = document.getElementById('datepicker');
 
-    titleInput.value = task.title || '';
-    descriptionTextarea.value = task.description || '';
-    dateInput.value = task.dueDate || '';
-    setPriorityButton(task.priority || 'medium');
-}
-
-function setPriorityButton(priority) {
-    const priorityMap = {
-        urgent: document.querySelector('.prio-btn.urgent'),
-        medium: document.querySelector('.prio-btn.medium'),
-        low: document.querySelector('.prio-btn.low'),
-    };
-
-    // Rücksetzen aller Prio-Buttons
-    Object.values(priorityMap).forEach(btn => btn.classList.remove('active'));
-
-    // Aktivieren des passenden Buttons
-    const selectedBtn = priorityMap[priority.toLowerCase()];
-    if (selectedBtn) {
-        selectedBtn.classList.add('active');
-    } else {
-        console.warn(`Unbekannte Priorität: ${priority}`);
+    if (titleInput) titleInput.value = task.title || '';
+    if (descriptionTextarea) descriptionTextarea.value = task.description || '';
+    if (dateInput) dateInput.value = task.dueDate || '';
+    
+    // Prioritätsbutton setzen, falls vorhanden
+    if (task.priority && typeof setPriorityButton === 'function') {
+        setPriorityButton(task.priority);
     }
 }
 
+
+/**
+ * Retrieves the button element corresponding to the given priority.
+ * 
+ * @param {string} priority - The priority level (urgent, medium, low).
+ * @returns {Element|null} The corresponding button element or null if not found.
+ */
+function getPriorityButton(priority) {
+    return document.querySelector(`.prio-btn.${priority}`);
+}
+
+
+/**
+ * Sets the active state on the button corresponding to the given priority.
+ * Removes active states from all other priority buttons.
+ * 
+ * @param {string} priority - The priority level to activate (urgent, medium, low).
+ */
+function setPriorityButton(priority) {
+    const priorities = ["urgent", "medium", "low"];
+
+    // Remove active class from all priority buttons
+    priorities.forEach(prio => getPriorityButton(prio)?.classList.remove("active"));
+
+    // Activate the selected priority button
+    const selectedBtn = getPriorityButton(priority.toLowerCase());
+    if (selectedBtn) {
+        selectedBtn.classList.add("active");
+    } else {
+        console.warn(`Unknown priority: ${priority}`);
+    }
+}
 
 
 /**
@@ -242,11 +325,14 @@ function setPriorityButton(priority) {
  * @param {Object} task - The task object containing subtasks.
  */
 function populateComplexTaskData(task) {
-    const subtasks = task.subtasks;
-    if (!Array.isArray(subtasks) || subtasks.length === 0) return;
-    populateSubtasks(subtasks);
-}
+    // copyAssignedUsersFromCachedHTML();
 
+    const subtasks = task.subtasks;
+
+    if (Array.isArray(subtasks) && subtasks.length > 0) {
+        populateSubtasks(subtasks);
+    }
+}
 
 /**
  * Populates the subtask list in the edit overlay with existing subtasks.
@@ -328,16 +414,25 @@ function animateEditOverlay(animate = true) {
 function editTask(taskId = getCurrentlyViewedTaskId()) {
     if (taskId) {
         showBoardCardDetailsEdit();
-        populateEditOverlay(taskId);
+        
+        // ⚠️ Problem 1: Entferne den populateEditOverlay Aufruf
+        // und integriere ihn direkt in showBoardCardDetailsEdit
+        // populateEditOverlay(taskId);
+        
         animateEditOverlay(true);
+
+        // Warten, bis das Overlay gerendert ist, und dann die Dropdown-Toggle-Logik aufrufen
         setTimeout(() => {
             setupDropdownToggle();
         }, 10);
-
     } else {
         console.error("No taskId provided in editTask");
     }
 }
+
+
+
+
 
 
 /**

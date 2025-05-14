@@ -32,10 +32,13 @@ function setDefaultMediumPriority() {
 /**
  * Initializes the priority buttons by setting up event listeners and a default state.
  */
-function initPriorityButtons() {
-    setDefaultPriority();
+function initPriorityButtons({ skipDefault = false } = {}) {
+    if (!skipDefault) {
+        setDefaultPriority();
+    }
     addPriorityButtonListeners();
 }
+
 
 
 /**

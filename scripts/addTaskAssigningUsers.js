@@ -8,6 +8,15 @@ const assignedUsersLimit = 5;
 
 
 /**
+ * A set containing the selected contacts.
+ * Used to manage the collection of contacts without duplicates.
+ * 
+ * @type {Set<string>}
+ */
+let selectedContacts = new Set();
+
+
+/**
  * Toggles the visibility of the dropdown menu and sets up or removes event listeners accordingly.
  */
 function toggleDropdown() {
