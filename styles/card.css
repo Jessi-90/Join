@@ -49,12 +49,10 @@
   scrollbar-width: none; 
   scroll-behavior: smooth;
   overflow-x: auto !important;
-  overflow-y: hidden !important;
-
-}
+ }
 
 .card-container:hover {
-  scrollbar-width: thin;
+  scrollbar-width: none;
 }
 
 .card-container::-webkit-scrollbar {
