@@ -131,16 +131,16 @@ function addSubtask(event) {
 
 
 /**
- * Creates a new subtask element and appends it to the subtask list.
+ * Creates a new subtask element.
  * @param {string} subtaskContent - The text content of the new subtask.
+ * @returns {HTMLElement} The created subtask element.
  */
 function createSubtaskElement(subtaskContent) {
-    let subtaskList = document.getElementById("subtask-list");
     let newSubtask = createNewSubtaskElement(subtaskContent);
 
-    subtaskList.appendChild(newSubtask);
-    addClickEventToSubtask(newSubtask);
+    return newSubtask;
 }
+
 
 
 /**
