@@ -430,11 +430,6 @@ function editTask(taskId = getCurrentlyViewedTaskId()) {
     }
 }
 
-
-
-
-
-
 /**
  * Displays the details of a specific task in the board's card detail overlay.
  * Adds an Edit button to switch to the edit view.

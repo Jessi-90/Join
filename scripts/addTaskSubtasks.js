@@ -137,9 +137,17 @@ function addSubtask(event) {
  */
 function createSubtaskElement(subtaskContent) {
     let newSubtask = createNewSubtaskElement(subtaskContent);
+    let subtaskList = document.getElementById("subtask-list");
+
+    if (subtaskList) {
+        subtaskList.appendChild(newSubtask);
+    } else {
+        console.error("Error: #subtask-list was not found");
+    }
 
     return newSubtask;
 }
+
 
 
 
