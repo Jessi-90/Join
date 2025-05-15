@@ -386,7 +386,7 @@ function getCurrentlyViewedTaskId() {
 function prepareUpdatedTask(taskId) {
     const title = document.getElementById('editCardTitle')?.value.trim() || '';
     const description = document.getElementById('editCardDescription')?.value.trim() || '';
-    const dueDate = document.getElementById('editCardDate')?.value.trim() || '';
+    const dueDate = document.getElementById('datepicker')?.value.trim() || '';
 
     const updatedTask = {
         ...currentTasksData[taskId],

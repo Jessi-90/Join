@@ -372,6 +372,15 @@ function saveAssignedUsersToSession() {
 
 
 /**
+ * Removes the stored list of selected contacts from the session storage.
+ * This ensures no residual data remains after the session.
+ */
+function deleteAssignedUsersFromSession() {
+    sessionStorage.removeItem('selectedContacts');
+}
+
+
+/**
  * Loads the list of selected contacts from the session storage.
  * Restores the state of selected contacts from the current browser session.
  * 
