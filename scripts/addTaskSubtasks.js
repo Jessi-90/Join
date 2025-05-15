@@ -1,22 +1,4 @@
 /**
- * Adds a new subtask to the subtask list.
- * Clears the input field after adding the subtask.
- * 
- * @param {HTMLInputElement} inputField - The input field where the subtask is entered.
- * @param {HTMLElement} listElement - The list where subtasks are appended.
- */
-function addSubtask(inputField, listElement) {
-    const subtask = inputField.value.trim();
-    if (subtask) {
-        const li = document.createElement("li");
-        li.textContent = subtask;
-        listElement.appendChild(li);
-        inputField.value = "";
-    }
-}
-
-
-/**
  * Retrieves references to the subtask input elements.
  * @returns {Object} An object containing inputField, plusButton, and subtaskNav elements.
  */
@@ -147,8 +129,6 @@ function createSubtaskElement(subtaskContent) {
 
     return newSubtask;
 }
-
-
 
 
 /**
