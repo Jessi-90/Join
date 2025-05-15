@@ -55,18 +55,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
 /**
  * Initializes the toggle functionality for the 'assignedDropdown' element.
  * Removes any previous click event listener to avoid duplicates, then adds a new one.
- * Stops event propagation and toggles the dropdown visibility on click.
+ * Stops event propagation to prevent immediate closing of the dropdown.
  */
 function setupDropdownToggle() {
     const dropdown = document.getElementById('assignedDropdown');
     if (dropdown) {
-
-        dropdown.removeEventListener('click', toggleDropdown);
-        dropdown.addEventListener('click', function (event) {
-            event.stopPropagation();
-            toggleDropdown();
-        });
+        dropdown.removeEventListener('click', handleDropdownToggle);
+        dropdown.addEventListener('click', handleDropdownToggle);
     }
+}
+
+
+/**
+ * Handler for dropdown toggle clicks
+ * @param {Event} event - The click event
+ */
+function handleDropdownToggle(event) {
+    event.stopPropagation();
+    toggleDropdown();
 }
 
 
@@ -77,23 +83,16 @@ function setupDropdownToggle() {
 function toggleDropdown() {
     const dropdown = document.getElementById('dropdownOptions');
     if (dropdown) {
-        addCloseListener(getParentContainer())
+        // Prüfen, ob das Dropdown aktuell angezeigt wird
+        const isVisible = !dropdown.classList.contains('d-none');
+        
         dropdown.classList.toggle('d-none');
+        
+        // Nur beim Öffnen des Dropdowns den Click-Listener hinzufügen
+        if (!isVisible) {
+            addCloseListener(getParentContainer());
+        }
     }
-}
-
-
-/**
- * Creates an object to manage contact selection within a specified container.
- * 
- * @param {string} [containerId='assignedDropdown'] - The ID of the container element.
- * @returns {Object} An object with methods to initialize contact selection and toggle the dropdown.
- */
-function setupContactSelection(containerId = 'assignedDropdown') {
-    return {
-        init: (users) => initContactSelection(users),
-        toggle: toggleDropdown
-    };
 }
 
 
@@ -374,24 +373,6 @@ function showBoardCardDetails(taskId) {
 function getCurrentlyViewedTaskId() {
     const overlay = document.getElementById('boardCardDetails');
     return overlay ? overlay.getAttribute('data-task-id') : null;
-}
-
-
-/**
- * Sets up the toggle behavior for the assigned user dropdown.
- * - Ensures no duplicate listeners by removing any existing one.
- * - Adds a click listener to 'assignedDropdown' that stops propagation
- *   and toggles the dropdown via `toggleDropdown()`.
- */
-function setupDropdownToggle() {
-    const dropdown = document.getElementById('assignedDropdown');
-    if (dropdown) {
-        dropdown.removeEventListener('click', toggleDropdown);
-        dropdown.addEventListener('click', function (event) {
-            event.stopPropagation();
-            toggleDropdown();
-        });
-    }
 }
 
 
