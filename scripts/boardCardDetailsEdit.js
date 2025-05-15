@@ -53,29 +53,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 /**
- * Initializes the contact selection dropdown and pre-selects assigned users.
- * 
- * Converts the provided list of assigned users into a Set of selected contact names,
- * populates the contact list in the dropdown, and sets up the dropdown toggle behavior.
- * After rendering, it also initializes the subtask input functionality if available.
- * @async
- * @param {Array<Object>} [assignedUsers=[]] - An array of user objects with a 'name' property.
- */
-async function initContactSelection(assignedUsers = []) {
-    selectedContacts = new Set(assignedUsers.map(user => user.name || user));
-    console.log("Selected contacts before saving:", [...selectedContacts]);
-    saveAssignedUsersToSession();
-    await populateContacts();
-
-    requestAnimationFrame(() => {
-        if (typeof initEditTaskSubtasks === 'function') {
-            initEditTaskSubtasks();
-        }
-    });
-}
-
-
-/**
  * Initializes the toggle functionality for the 'assignedDropdown' element.
  * Removes any previous click event listener to avoid duplicates, then adds a new one.
  * Stops event propagation and toggles the dropdown visibility on click.
@@ -219,27 +196,6 @@ function initEditOverlayContent() {
 
 
 /**
- * Eine Variante von initContactSelection, die nur den Dropdown initialisiert, ohne die Avatare zu beeinflussen.
- * 
- * @async
- * @param {Array<Object>} [assignedUsers=[]] - An array of user objects with a 'name' property.
- */
-async function initContactSelectionWithoutAvatars(assignedUsers = []) {
-    const currentlySelected = new Set([...selectedContacts]);
-    selectedContacts = new Set(assignedUsers.map(user => user.name || user));
-
-    currentlySelected.forEach(contact => selectedContacts.add(contact));
-    await populateContacts();
-
-    requestAnimationFrame(() => {
-        if (typeof initEditTaskSubtasks === 'function') {
-            initEditTaskSubtasks();
-        }
-    });
-}
-
-
-/**
 * Helper function to determine if a click should keep the dropdown open.
 * 
 * @param {Event} event - The click event to evaluate.
@@ -344,27 +300,6 @@ function populateSubtasks(subtasks) {
         addClickEventToSubtask(subtaskElement);
         subtasksList.appendChild(subtaskElement);
     });
-}
-
-
-/**
- * Populates the Edit Card Details Overlay with task data.
- * 
- * @param {string|number} taskId - The unique identifier of the task.
- * Retrieves the task data and populates basic and complex information.
- * Attempts to initialize contact selection with assigned users, logging an error if it fails.
- */
-function populateEditOverlay(taskId) {
-    const task = currentTasksData[taskId];
-
-    populateBasicTaskData(task);
-    populateComplexTaskData(task);
-
-    try {
-        initContactSelection(task.assignedUsers || []);
-    } catch (e) {
-        console.error('Fehler in initContactSelection:', e);
-    }
 }
 
 
