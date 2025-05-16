@@ -230,21 +230,28 @@ function startCardDragging(taskId) {
  * @param {string} category - The new category to which the task should be moved.
  * @param {string} columnCategory - The ID of the column where the task is being dropped.
  */
-function moveCardTo(category, columnCategory) {
+
+function moveCardTo(columnId) {
+    const newStatus = getStatusFromColumnId(columnId);
+    if (newStatus === null) {
+        console.warn(`unknown column-ID: ${columnId}`);
+        return;
+    }
+    
     const card = document.getElementById(currentDraggedCardId);
     card.classList.remove('tilt-animation');
-    currentTasksData[currentDraggedCardId]['status'] = category;
-
+    currentTasksData[currentDraggedCardId]['status'] = newStatus;
+    
     const placeholder = document.getElementById('placeholder');
     if (placeholder) {
         placeholder.remove();
     }
-
+    
     currentHoveredColumn = null;
     updateTasksInDatabase(currentTasksData);
     renderTasks(currentTasksData);
-}
-
+    }
+    
 
 /**
  * Enables mobile card dragging functionality by attaching touch event listeners to the card element.
@@ -279,17 +286,12 @@ function enableMobileCardDragging(cardElement, cardId) {
 function handleTouchMove(e, cardElement) {
     if (!longTapActive) return;
     
-    e.preventDefault(); // Prevent scrolling the page
+    e.preventDefault();
     
     const touchY = e.touches[0].clientY;
     
-    // Update card position
     updateCardPosition(cardElement, touchY);
-    
-    // Update hovered column
     updateHoveredColumn(e);
-    
-    // Handle auto-scroll
     handleAutoScroll(touchY);
     }
 
@@ -328,7 +330,7 @@ function handleTouchEnd(cardElement) {
     clearInterval(autoScrollInterval);
 
     if (longTapActive && currentHoveredColumn) {
-        moveCardTo(currentHoveredColumn, currentHoveredColumn);
+        moveCardTo(currentHoveredColumn);
     }
 
     cardElement.style.transform = '';
@@ -399,29 +401,6 @@ function handleAutoScroll(touchY) {
 
 
 /**
- * Handles the end of a touch event (when the user releases their touch).
- * It clears the long press timer and auto-scroll interval, performs the card move if a valid column is hovered,
- * and resets the card position and related state.
- *
- * @param {HTMLElement} cardElement - The card element being dragged.
- */
-function handleTouchEnd(cardElement) {
-    clearTimeout(longPressTimer);
-    clearInterval(autoScrollInterval);
-
-    if (longTapActive && currentHoveredColumn) {
-        moveCardTo(currentHoveredColumn, currentHoveredColumn);
-    }
-
-    cardElement.style.transform = '';
-    cardElement.style.position = '';
-    cardElement.style.zIndex = '';
-    longTapActive = false;
-    currentHoveredColumn = null;
-}
-
-
-/**
  * Handles automatic scrolling while dragging a card with the mouse on smaller screens.
  * If the mouse cursor moves near the top or bottom edge of the viewport during a drag,
  * the board scrolls in that direction.
@@ -453,3 +432,37 @@ function clearAutoScrollOnMouseLeave() {
 function clearAutoScrollOnDrop() {
     clearInterval(autoScrollInterval);
 }
+
+
+/**
+ * Returns a numeric status code based on the provided column ID.
+ *
+ * This function maps specific column ID strings (used in a task board or Kanban-style UI)
+ * to corresponding numeric status codes. It supports both short and extended column ID formats.
+ *
+ * Mapping:
+ * - 'to-do' or 'to-do-column' → 1
+ * - 'in-progress' or 'in-progress-column' → 2
+ * - 'await-feedback' or 'await-feedback-column' → 3
+ * - 'done' or 'done-column' → 4
+ *
+ * @function getStatusFromColumnId
+ * @param {string} columnId - The ID of the column to map.
+ * @returns {number|null} The corresponding status code, or `null` if the ID is unrecognized.
+ */
+
+function getStatusFromColumnId(columnId) {
+    const map = {
+        'to-do': 1,
+        'in-progress': 2,
+        'await-feedback': 3,
+        'done': 4,
+        'to-do-column': 1,
+        'in-progress-column': 2,
+        'await-feedback-column': 3,
+        'done-column': 4
+    };
+    return map[columnId] || null;
+}
+    
+    
