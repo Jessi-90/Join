@@ -53,7 +53,7 @@ async function init() {
     renderTasks(currentTasksData);
     initializeSearchListener();
     initializeTaskBackup();
-    enableMobileDragForAllCards();
+    // enableMobileDragForAllCards();
 }
 
 

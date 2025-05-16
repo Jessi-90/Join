@@ -250,6 +250,7 @@ function moveCardTo(columnId) {
     currentHoveredColumn = null;
     updateTasksInDatabase(currentTasksData);
     renderTasks(currentTasksData);
+    enableMobileDragForAllCards();
     }
     
 
