@@ -232,7 +232,7 @@ function startCardDragging(taskId) {
  */
 
 function moveCardTo(columnId) {
-    const newStatus = getStatusFromColumnId(columnId);
+    let newStatus = typeof columnId === 'string' ? getStatusFromColumnId(columnId) : columnId;
     if (newStatus === null) {
         console.warn(`unknown column-ID: ${columnId}`);
         return;
