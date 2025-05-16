@@ -53,7 +53,7 @@ async function init() {
     renderTasks(currentTasksData);
     initializeSearchListener();
     initializeTaskBackup();
-    // enableMobileDragForAllCards();
+    enableMobileDragForAllCards();
 }
 
 
@@ -101,9 +101,8 @@ function renderTask(taskId, task) {
     container.insertAdjacentHTML('beforeend', taskHtml);
 
     const cardElement = document.getElementById(taskId);
-    if (cardElement && window.innerWidth < 1024 && !cardElement.dataset.mobileDragEnabled) {
+    if (cardElement && window.innerWidth < 1024) {
         enableMobileCardDragging(cardElement, taskId);
-        cardElement.dataset.mobileDragEnabled = "true";
     }
 
     updateCategoryClass(taskId, task.category);
