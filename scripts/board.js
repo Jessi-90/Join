@@ -84,6 +84,7 @@ async function renderTasks(tasks) {
             }
         }
         createUserFeedbackForEmptyBoardContainers();
+        enableMobileDragForAllCards();
     }
 }
 
