@@ -146,6 +146,14 @@ function getContainerByStatus(status) {
         4: 'done'
     };
 
+    
+    const id = statusMap[status];
+    const container = document.getElementById(id);
+    if (!container) {
+        console.warn(`no container for status "${status}" (ID: "${id}") found.`);
+    }
+
+
     return document.getElementById(statusMap[status]);
 }
 
