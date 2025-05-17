@@ -15,7 +15,6 @@ let originalLayoutHtml = null;
  * - Fetches task data and renders the task overview.
  */
 document.addEventListener("DOMContentLoaded", async () => {
-    updateResponsiveTitleImage();
     await mapContactsData();
 
     if (document.querySelector(".greeting") && document.querySelector("#greetingName")) {
@@ -218,7 +217,6 @@ window.addEventListener('load', () => {
     const width = window.innerWidth;
     const greeting = document.querySelector('.greeting-wrapper');
     const dashboard = document.querySelector('.dashboard');
-    updateResponsiveTitleImage();
     const shouldAnimate = width < 1380;
 
     if (shouldAnimate) {
@@ -236,6 +234,7 @@ window.addEventListener('load', () => {
 });
 
 
+/**
  * Replaces the original desktop layout with a simplified mobile layout
  * when the window width is less than 570 pixels.
  * The original layout is stored the first time this function runs.
