@@ -7,7 +7,7 @@
  * @param {string} currentPage - The filename of the current page (e.g., "index.html").
  */
 function initDropDown(currentPage) {
-  const noDropdownPages = ["legalNotice.html", "privacy_policy.html"];
+  const noDropdownPages = ["legalNotice.html", "privacyPolicy.html"];
 
   if (noDropdownPages.includes(currentPage)) {
     const userDropdown = document.querySelector(".dropdown");
