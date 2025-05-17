@@ -404,6 +404,7 @@ img {
     .to-do-dashboard {
         display: block;
         padding-bottom: 100px !important;
+        padding-top: 12px;
     }
 
     .greeting-wrapper.hidden {
