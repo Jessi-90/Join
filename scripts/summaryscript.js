@@ -192,14 +192,15 @@ function renderUpcomingDate() {
  * @returns {string} The formatted due date as a string.
  */
 function formatNextTaskDueDate(task) {
-    const formattedDate = new Date(task.dueDate).toLocaleDateString("en-US", {
+    const [day, month, year] = task.dueDate.split("/");
+    const date = new Date(`${year}-${month}-${day}`); // ISO-konform: YYYY-MM-DD
+    const formattedDate = date.toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
         day: "numeric"
     });
     return formattedDate;
 }
-
 
 /**
  * Handles the initial greeting animation and dashboard visibility on page load.
