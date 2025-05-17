@@ -493,33 +493,36 @@ img {
         padding-bottom: 100px !important;
     }
 
-    .layout {
-        padding-top: 26px;
-        padding-left: 30px;
-        padding-bottom: 0px;
-        justify-content: center;
-        gap: 15px;
+    .join-title {
+        font-size: 50px;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-left: 15px;
+    }
+
+    .join-subtitle {
+        font-size: 20px;
+        margin-top: 10px;
+        margin-left: 15px;
+    }
+
+    .join-line {
+        width: 100%;
+        height: 4px;
+        margin-top: 15px;
+        background-image: url('../assets/img/join-title-line.png');
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: contain;
+        margin-left: 15px;
+    }
+
+    .large-card {
+        padding: 10px 20px;
     }
 
     .layout img {
-        width: 50%;
-    }
-
-    .layout img:first-child {
-        content: url('../assets/img/join-title-responsive.png');
-    }
-
-    .layout::after {
-        content: "";
-        display: block;
-        width: 20%;
-        height: auto;
-        background-image: url('../assets/img/join-title-line.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        margin-top: 10px;
-        aspect-ratio: 6 / 1;
+        display: none;
     }
 
     .card {
@@ -621,19 +624,6 @@ img {
         padding-left: 10px;
     }
 
-    .layout {
-        padding-top: 40px;
-        padding-left: 20px;
-        padding-bottom: 0px;
-        justify-content: center;
-        gap: 5px;
-        margin-bottom: 20px !important;
-    }
-
-    .layout img {
-        content: url('../assets/img/join-title-responsive.png');
-    }
-
     .urgent-info {
         display: flex;
         flex-wrap: nowrap;
@@ -730,23 +720,6 @@ img {
 
     .card p {
         font-size: 1.0rem;
-    }
-
-    .layout {
-        padding-top: 40px;
-        padding-left: 20px;
-        margin-bottom: 0px;
-        justify-content: center;
-        gap: 5px;
-    }
-
-    .layout img {
-        width: 35%;
-        content: url('../assets/img/join-title-responsive.png');
-    }
-
-    .layout img {
-        width: 60%;
     }
 
     .greeting {

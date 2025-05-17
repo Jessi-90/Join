@@ -1,4 +1,11 @@
 /**
+ * Stores the original desktop layout HTML for restoration when resizing back from mobile view.
+ * @type {string|null}
+ */
+let originalLayoutHtml = null;
+
+
+/**
  * Event listener for the `DOMContentLoaded` event.
  * 
  * Executes initial data fetching and rendering processes once the DOM is fully loaded.
@@ -225,4 +232,64 @@ window.addEventListener('load', () => {
     } else {
         if (dashboard) dashboard.classList.add('visible');
     }
+});
+
+
+/**
+ * Replaces the original desktop layout with a simplified mobile layout
+ * when the window width is less than 570 pixels.
+ * The original layout is stored the first time this function runs.
+ */
+function replaceLayoutForMobile() {
+  const layout = document.getElementById("layout");
+
+  if (window.innerWidth < 570 && layout) {
+    if (!originalLayoutHtml) {
+      originalLayoutHtml = layout.outerHTML;
+    }
+
+    const mobileDiv = document.createElement("div");
+    mobileDiv.id = "mobile-replacement";
+    mobileDiv.innerHTML = `
+      <div class="join-title">Join 360</div>
+      <div class="join-subtitle">Key Metrics at a Glance</div>
+      <div class="join-line"></div>
+    `;
+
+    layout.replaceWith(mobileDiv);
+  }
+}
+
+
+/**
+ * Restores the original desktop layout if the current layout is the mobile version
+ * and the window width is at least 570 pixels.
+ */
+function restoreOriginalLayout() {
+  const mobileReplacement = document.getElementById("mobile-replacement");
+
+  if (window.innerWidth >= 570 && mobileReplacement && originalLayoutHtml) {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = originalLayoutHtml.trim();
+    const originalElement = tempDiv.firstChild;
+
+    mobileReplacement.replaceWith(originalElement);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  replaceLayoutForMobile();
+});
+
+
+/**
+ * Handles switching between mobile and desktop layouts dynamically
+ * when the browser window is resized.
+ */
+window.addEventListener("resize", () => {
+  if (window.innerWidth < 570 && !document.getElementById("mobile-replacement")) {
+    replaceLayoutForMobile();
+  } else if (window.innerWidth >= 570 && document.getElementById("mobile-replacement")) {
+    restoreOriginalLayout();
+  }
 });
