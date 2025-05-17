@@ -36,7 +36,7 @@ function validateSignUpForm() {
  * Sets up input event listeners for form validation.
  */
 function signUpValidation() {
-    if (window.location.pathname.endsWith("sign_up.html")) {
+    if (window.location.pathname.endsWith("signUp.html")) {
         document.getElementById("signUpName").oninput = validateSignUpForm;
         document.getElementById("signUpEmail").oninput = validateSignUpForm;
         document.getElementById("signUpPassword").oninput = validateSignUpForm;

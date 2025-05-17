@@ -16,8 +16,8 @@ function beforeSigningUpNavbar() {
             </a>
             <div class="dropdown-content" id="dropdownContent">
                 <a href="help.html">Help</a>
-                <a href="legal_notice.html">Legal Notice</a>
-                <a href="privacy_policy.html">Privacy Policy</a>
+                <a href="legalNotice.html">Legal Notice</a>
+                <a href="privacyPolicy.html">Privacy Policy</a>
             </div>
           </div>
         </div>
@@ -34,8 +34,8 @@ function beforeSigningUpNavbar() {
               </a>
           </div>
           <div class="summary-btn">
-              <a href="privacy_policy.html">Privacy Policy</a>
-              <a href="legal_notice.html">Legal Notice</a>
+              <a href="privacyPolicy.html">Privacy Policy</a>
+              <a href="legalNotice.html">Legal Notice</a>
           </div>
         </div>
       </aside>
@@ -60,12 +60,12 @@ function beforeSigningUpMobileFooter() {
             </button>
           </a>
           <span class="empty-container"></span>
-          <a href="privacy_policy.html"> 
+          <a href="privacyPolicy.html"> 
             <button class="menu-summary-btn">
               <span class="navbar-size">Privacy Policy</span>
             </button>
           </a>
-          <a href="legal_notice.html">
+          <a href="legalNotice.html">
             <button class="menu-summary-btn">
               <span class="navbar-size">Legal Notice</span>
             </button>
