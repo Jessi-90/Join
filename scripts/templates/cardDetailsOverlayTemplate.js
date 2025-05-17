@@ -37,13 +37,13 @@ function cardDetailsOverlayHTMLTemplate(task, categoryClassName) {
             </div>
             <div class="card-detail-assignee">
                 <p class="card-detail-list-title">Assigned To:</p>
-                <div class="card-detail-assignee-content" id="cardDetailAssigneeContent">
+                <div class="card-detail-assignee-content scroll-horizontal" id="cardDetailAssigneeContent">
                     ${generateAssigneeHTML(task)}
                 </div>
             </div>
             <div class="card-detail-subtasks">
                 <p class="card-detail-list-title">Subtasks:</p>
-                <div class="card-detail-subtasks-content" id="cardDetailSubtasksContent">
+                <div class="card-detail-subtasks-content scroll-horizontal" id="cardDetailSubtasksContent">
                     ${generateSubtasksHTML(task.subtasks)}
                 </div>
             </div>

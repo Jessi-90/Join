@@ -49,17 +49,17 @@ function showBoardCardDetails(taskId) {
 function closeBoardCardDetails(event) {
     let overlay = document.getElementById('boardCardDetails');
     let overlayContainer = document.getElementById('boardCardDetailContainer');
-    
-    if (event.target.closest('.board-card-detail-container') && 
-     (!event.target.closest('.close-btn') && !event.target.closest('.card-detail-delete-btn')) || 
-     event.target.closest('.board-card-edit-container') && !event.target.closest('.close-btn')) {
+
+    if (event.target.closest('.board-card-detail-container') &&
+        (!event.target.closest('.close-btn') && !event.target.closest('.card-detail-delete-btn')) ||
+        event.target.closest('.board-card-edit-container') && !event.target.closest('.close-btn')) {
         event.stopPropagation();
         return;
     }
     overlayContainer.classList.remove("show");
     setTimeout(() => {
         overlay.classList.add('d-none');
-    
+
         setTimeout(() => {
             if (taskDetailsModified) {
                 renderTasks(currentTasksData);
@@ -80,7 +80,10 @@ function closeBoardCardDetails(event) {
 function renderCardDetailsAssignedUsers(task, taskId) {
     const assignedUsersContent = document.getElementById('cardDetailAssigneeContent');
     assignedUsersContent.innerHTML = "";
-    for (let assigneeIndex = 0; assigneeIndex < task.assignedUsers.length; assigneeIndex++) {
+    const maxUsersToShow = 3;
+    const usersToDisplay = task.assignedUsers.slice(0, maxUsersToShow);
+
+    for (let assigneeIndex = 0; assigneeIndex < usersToDisplay.length; assigneeIndex++) {
         assignedUsersContent.innerHTML += cardDetailAssigneeContentTemplate(task, assigneeIndex, taskId);
         const user = [task.assignedUsers[assigneeIndex]];
         generateUserAvatars(user, `${taskId}-detail-${assigneeIndex}`);
@@ -153,7 +156,7 @@ function setupSubtaskEventListeners(taskId) {
             const subtaskId = e.target.id;
             const isChecked = e.target.checked;
             updateSubtaskState(subtaskId, isChecked);
-            });
+        });
     });
 }
 
@@ -177,6 +180,6 @@ function updateSubtaskState(subtaskId, isChecked) {
         subtask.completed = isChecked;
         currentTasksData[taskId].subtasks[subtaskId].completed = isChecked;
 
-        markTaskAsModified();        
+        markTaskAsModified();
     }
 }
