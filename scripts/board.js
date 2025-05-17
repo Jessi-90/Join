@@ -53,6 +53,7 @@ async function init() {
     renderTasks(currentTasksData);
     initializeSearchListener();
     initializeTaskBackup();
+    enableMobileDragForAllCards();
 }
 
 
@@ -83,6 +84,7 @@ async function renderTasks(tasks) {
             }
         }
         createUserFeedbackForEmptyBoardContainers();
+        enableMobileDragForAllCards();
     }
 }
 
@@ -97,7 +99,13 @@ function renderTask(taskId, task) {
     let { completedSubtasks, totalSubtasks, progressPercentage } = handleSubtaskProcess(task.subtasks);
     let taskHtml = generateTaskHtml(taskId, task, progressPercentage, completedSubtasks, totalSubtasks);
 
-    container.innerHTML += taskHtml;
+    container.insertAdjacentHTML('beforeend', taskHtml);
+
+    const cardElement = document.getElementById(taskId);
+    if (cardElement && window.innerWidth < 1024) {
+        enableMobileCardDragging(cardElement, taskId);
+    }
+
     updateCategoryClass(taskId, task.category);
     generateUserAvatars(task.assignedUsers, taskId);
 }
@@ -137,6 +145,14 @@ function getContainerByStatus(status) {
         3: 'await-feedback',
         4: 'done'
     };
+
+    
+    const id = statusMap[status];
+    const container = document.getElementById(id);
+    if (!container) {
+        console.warn(`no container for status "${status}" (ID: "${id}") found.`);
+    }
+
 
     return document.getElementById(statusMap[status]);
 }

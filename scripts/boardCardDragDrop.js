@@ -66,6 +66,83 @@ document.addEventListener('dragleave', clearAutoScrollOnMouseLeave);
 document.addEventListener('drop', clearAutoScrollOnDrop);
 
 
+
+/**
+ * Enables mobile drag functionality for all elements with the class 'card'.
+ *
+ * This function selects all card elements on the page and applies mobile-specific
+ * drag behavior to each one by calling `enableMobileCardDragging` with the card element
+ * and its ID.
+ *
+ * @function enableMobileDragForAllCards
+ * @returns {void}
+ */
+function enableMobileDragForAllCards() {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+    const cardId = card.id;
+    enableMobileCardDragging(card, cardId);
+    });
+
+    }
+
+
+
+/**
+ * Updates the 'draggable' attribute of all card elements based on the current screen width.
+ *
+ * If the screen width is less than 1024 pixels (mobile view), the 'draggable' attribute
+ * is removed from each card. Otherwise, it is set to 'true' to enable desktop drag-and-drop.
+ *
+ * @function updateDraggableAttributes
+ * @returns {void}
+ */   
+function updateDraggableAttributes() {
+    const isMobile = window.innerWidth < 1024;
+    const cards = document.querySelectorAll('.card');
+    
+    cards.forEach(card => {
+        if (isMobile) {
+            card.removeAttribute('draggable');
+        } else {
+        card.setAttribute('draggable', 'true');
+        }
+    });
+}
+        
+
+
+updateDraggableAttributes();
+
+
+/**
+ * Handles window resize events to update draggable attributes and enable mobile drag functionality.
+ *
+ * - Calls `updateDraggableAttributes` to adjust the 'draggable' attribute of card elements
+ *   based on the current screen width.
+ * - If the screen width is less than 1024 pixels (mobile view), it ensures that mobile drag
+ *   functionality is enabled for each card that hasn't already been initialized for mobile dragging.
+ *
+ * This ensures responsive behavior and appropriate drag-and-drop support across devices.
+ *
+ * @event window#resize
+ */
+window.addEventListener('resize', () => {
+    updateDraggableAttributes();
+    
+    if (window.innerWidth < 1024) {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            if (!card.dataset.mobileDragEnabled) {
+                enableMobileCardDragging(card, card.id);
+                card.dataset.mobileDragEnabled = "true";
+            }
+        });
+    }
+});
+    
+            
+
 /**
  * Handles the dragover event by preventing the default behavior.
  * Also maintains the currentHoveredColumn state for tracking.
@@ -153,21 +230,29 @@ function startCardDragging(taskId) {
  * @param {string} category - The new category to which the task should be moved.
  * @param {string} columnCategory - The ID of the column where the task is being dropped.
  */
-function moveCardTo(category, columnCategory) {
+
+function moveCardTo(columnId) {
+    let newStatus = typeof columnId === 'string' ? getStatusFromColumnId(columnId) : columnId;
+    if (newStatus === null) {
+        console.warn(`unknown column-ID: ${columnId}`);
+        return;
+    }
+    
     const card = document.getElementById(currentDraggedCardId);
     card.classList.remove('tilt-animation');
-    currentTasksData[currentDraggedCardId]['status'] = category;
-
+    currentTasksData[currentDraggedCardId]['status'] = newStatus;
+    
     const placeholder = document.getElementById('placeholder');
     if (placeholder) {
         placeholder.remove();
     }
-
+    
     currentHoveredColumn = null;
     updateTasksInDatabase(currentTasksData);
     renderTasks(currentTasksData);
-}
-
+    enableMobileDragForAllCards();
+    }
+    
 
 /**
  * Enables mobile card dragging functionality by attaching touch event listeners to the card element.
@@ -188,6 +273,28 @@ function enableMobileCardDragging(cardElement, cardId) {
         handleTouchEnd(cardElement)
     );
 }
+
+
+
+/**
+ * Handles the touchmove event when the user moves their finger while interacting with the card.
+ * It updates the card's position, determines if a new column is being hovered over, and handles
+ * automatic scrolling if the user moves their finger near the edges of the screen.
+ *
+ * @param {TouchEvent} e - The touchmove event object containing information about the touch movement.
+ * @param {HTMLElement} cardElement - The HTML element representing the card being dragged.
+ */
+function handleTouchMove(e, cardElement) {
+    if (!longTapActive) return;
+    
+    e.preventDefault();
+    
+    const touchY = e.touches[0].clientY;
+    
+    updateCardPosition(cardElement, touchY);
+    updateHoveredColumn(e);
+    handleAutoScroll(touchY);
+    }
 
 
 /**
@@ -224,7 +331,7 @@ function handleTouchEnd(cardElement) {
     clearInterval(autoScrollInterval);
 
     if (longTapActive && currentHoveredColumn) {
-        moveCardTo(currentHoveredColumn, currentHoveredColumn);
+        moveCardTo(currentHoveredColumn);
     }
 
     cardElement.style.transform = '';
@@ -295,29 +402,6 @@ function handleAutoScroll(touchY) {
 
 
 /**
- * Handles the end of a touch event (when the user releases their touch).
- * It clears the long press timer and auto-scroll interval, performs the card move if a valid column is hovered,
- * and resets the card position and related state.
- *
- * @param {HTMLElement} cardElement - The card element being dragged.
- */
-function handleTouchEnd(cardElement) {
-    clearTimeout(longPressTimer);
-    clearInterval(autoScrollInterval);
-
-    if (longTapActive && currentHoveredColumn) {
-        moveCardTo(currentHoveredColumn, currentHoveredColumn);
-    }
-
-    cardElement.style.transform = '';
-    cardElement.style.position = '';
-    cardElement.style.zIndex = '';
-    longTapActive = false;
-    currentHoveredColumn = null;
-}
-
-
-/**
  * Handles automatic scrolling while dragging a card with the mouse on smaller screens.
  * If the mouse cursor moves near the top or bottom edge of the viewport during a drag,
  * the board scrolls in that direction.
@@ -349,3 +433,37 @@ function clearAutoScrollOnMouseLeave() {
 function clearAutoScrollOnDrop() {
     clearInterval(autoScrollInterval);
 }
+
+
+/**
+ * Returns a numeric status code based on the provided column ID.
+ *
+ * This function maps specific column ID strings (used in a task board or Kanban-style UI)
+ * to corresponding numeric status codes. It supports both short and extended column ID formats.
+ *
+ * Mapping:
+ * - 'to-do' or 'to-do-column' → 1
+ * - 'in-progress' or 'in-progress-column' → 2
+ * - 'await-feedback' or 'await-feedback-column' → 3
+ * - 'done' or 'done-column' → 4
+ *
+ * @function getStatusFromColumnId
+ * @param {string} columnId - The ID of the column to map.
+ * @returns {number|null} The corresponding status code, or `null` if the ID is unrecognized.
+ */
+
+function getStatusFromColumnId(columnId) {
+    const map = {
+        'to-do': 1,
+        'in-progress': 2,
+        'await-feedback': 3,
+        'done': 4,
+        'to-do-column': 1,
+        'in-progress-column': 2,
+        'await-feedback-column': 3,
+        'done-column': 4
+    };
+    return map[columnId] || null;
+}
+    
+    
