@@ -68,6 +68,8 @@ function closeBoardCardDetails(event) {
             }
         }, 50);
     }, 300);
+
+    deleteAssignedUsersFromSession()
 }
 
 

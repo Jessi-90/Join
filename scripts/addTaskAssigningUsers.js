@@ -8,6 +8,15 @@ const assignedUsersLimit = 5;
 
 
 /**
+ * A set containing the selected contacts.
+ * Used to manage the collection of contacts without duplicates.
+ * 
+ * @type {Set<string>}
+ */
+let selectedContacts = new Set();
+
+
+/**
  * Toggles the visibility of the dropdown menu and sets up or removes event listeners accordingly.
  */
 function toggleDropdown() {
@@ -359,6 +368,15 @@ function toggleItem(listItem, contact, contacts) {
  */
 function saveAssignedUsersToSession() {
     sessionStorage.setItem('selectedContacts', JSON.stringify([...selectedContacts]));
+}
+
+
+/**
+ * Removes the stored list of selected contacts from the session storage.
+ * This ensures no residual data remains after the session.
+ */
+function deleteAssignedUsersFromSession() {
+    sessionStorage.removeItem('selectedContacts');
 }
 
 

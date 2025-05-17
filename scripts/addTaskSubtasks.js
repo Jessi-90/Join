@@ -1,22 +1,4 @@
 /**
- * Adds a new subtask to the subtask list.
- * Clears the input field after adding the subtask.
- * 
- * @param {HTMLInputElement} inputField - The input field where the subtask is entered.
- * @param {HTMLElement} listElement - The list where subtasks are appended.
- */
-function addSubtask(inputField, listElement) {
-    const subtask = inputField.value.trim();
-    if (subtask) {
-        const li = document.createElement("li");
-        li.textContent = subtask;
-        listElement.appendChild(li);
-        inputField.value = "";
-    }
-}
-
-
-/**
  * Retrieves references to the subtask input elements.
  * @returns {Object} An object containing inputField, plusButton, and subtaskNav elements.
  */
@@ -131,15 +113,21 @@ function addSubtask(event) {
 
 
 /**
- * Creates a new subtask element and appends it to the subtask list.
+ * Creates a new subtask element.
  * @param {string} subtaskContent - The text content of the new subtask.
+ * @returns {HTMLElement} The created subtask element.
  */
 function createSubtaskElement(subtaskContent) {
-    let subtaskList = document.getElementById("subtask-list");
     let newSubtask = createNewSubtaskElement(subtaskContent);
+    let subtaskList = document.getElementById("subtask-list");
 
-    subtaskList.appendChild(newSubtask);
-    addClickEventToSubtask(newSubtask);
+    if (subtaskList) {
+        subtaskList.appendChild(newSubtask);
+    } else {
+        console.error("Error: #subtask-list was not found");
+    }
+
+    return newSubtask;
 }
 
 

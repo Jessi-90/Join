@@ -26,12 +26,11 @@ document.addEventListener('click', (event) => {
     ) {
         dropdown.classList.add('d-none');
     }
-    
+
     if (editContainer && editContainer.contains(event.target)) {
         event.stopPropagation();
         return;
     }
-    // closeBoardCardDetails(event);
 });
 
 
@@ -47,47 +46,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if (okButton) {
         okButton.addEventListener('click', () => {
             saveEditedTask();
-            closeBoardCardDetails(event); 
+            closeBoardCardDetails(event);
         });
     }
 });
 
 
 /**
- * Initializes the contact selection dropdown and pre-selects assigned users.
- * 
- * Converts the provided list of assigned users into a Set of selected contact names,
- * populates the contact list in the dropdown, and sets up the dropdown toggle behavior.
- * After rendering, it also initializes the subtask input functionality if available.
- * @async
- * @param {Array<Object>} [assignedUsers=[]] - An array of user objects with a 'name' property.
- */
-async function initContactSelection(assignedUsers = []) {
-    selectedContacts = new Set(assignedUsers.map(user => user.name));
-    await populateContacts();
-    requestAnimationFrame(() => {
-        if (typeof initEditTaskSubtasks === 'function') {
-            initEditTaskSubtasks();
-        }
-    });
-}
-
-
-/**
  * Initializes the toggle functionality for the 'assignedDropdown' element.
  * Removes any previous click event listener to avoid duplicates, then adds a new one.
- * Stops event propagation and toggles the dropdown visibility on click.
+ * Stops event propagation to prevent immediate closing of the dropdown.
  */
 function setupDropdownToggle() {
     const dropdown = document.getElementById('assignedDropdown');
     if (dropdown) {
-
-        dropdown.removeEventListener('click', toggleDropdown);
-        dropdown.addEventListener('click', function (event) {
-            event.stopPropagation();
-            toggleDropdown();
-        });
+        dropdown.removeEventListener('click', handleDropdownToggle);
+        dropdown.addEventListener('click', handleDropdownToggle);
     }
+}
+
+
+/**
+ * Handler for dropdown toggle clicks
+ * @param {Event} event - The click event
+ */
+function handleDropdownToggle(event) {
+    event.stopPropagation();
+    toggleDropdown();
 }
 
 
@@ -98,23 +83,16 @@ function setupDropdownToggle() {
 function toggleDropdown() {
     const dropdown = document.getElementById('dropdownOptions');
     if (dropdown) {
-        addCloseListener(getParentContainer())
+        // Prüfen, ob das Dropdown aktuell angezeigt wird
+        const isVisible = !dropdown.classList.contains('d-none');
+        
         dropdown.classList.toggle('d-none');
+        
+        // Nur beim Öffnen des Dropdowns den Click-Listener hinzufügen
+        if (!isVisible) {
+            addCloseListener(getParentContainer());
+        }
     }
-}
-
-
-/**
- * Creates an object to manage contact selection within a specified container.
- * 
- * @param {string} [containerId='assignedDropdown'] - The ID of the container element.
- * @returns {Object} An object with methods to initialize contact selection and toggle the dropdown.
- */
-function setupContactSelection(containerId = 'assignedDropdown') {
-    return {
-        init: (users) => initContactSelection(users),
-        toggle: toggleDropdown
-    };
 }
 
 
@@ -124,14 +102,45 @@ function setupContactSelection(containerId = 'assignedDropdown') {
  */
 function showBoardCardDetailsEdit() {
     const boardCardOverlayRef = document.getElementById('boardCardDetails');
+    const taskId = getCurrentlyViewedTaskId();
 
     if (!boardCardOverlayRef.querySelector('.board-card-edit-container')) {
         renderEditOverlayTemplate(boardCardOverlayRef);
         initializeDatepicker("#datepicker");
+
+        const task = currentTasksData[taskId] || {};
+
+        setTimeout(() => {
+            populateBasicTaskData(task);
+            populateSubtasks(normalizeSubtasks(task.subtasks));
+
+            if (typeof initPriorityButtons === 'function') {
+                initPriorityButtons({ skipDefault: true });
+            }
+
+            if (typeof prepareContacts === 'function' && typeof renderAvatars === 'function') {
+                const contacts = prepareContacts(currentContactsData);
+                selectedContacts = new Set(task.assignedUsers?.map(user => user.name || user) || []);
+                saveAssignedUsersToSession();
+                renderAvatars(contacts);
+            }
+        }, 50);
     }
 
     boardCardOverlayRef.classList.remove('d-none');
-    animateEditOverlay();
+}
+
+
+/**
+ * Normalizes the input `subtasks` to ensure it is always returned as an array.
+ *
+ * @param {Object|Array|null} subtasks - The subtasks input, which can be an array, an object, or null.
+ * @returns {Array} An array of subtasks, either the original array or the values of the object.
+ */
+function normalizeSubtasks(subtasks) {
+    if (Array.isArray(subtasks)) return subtasks;
+    if (subtasks && typeof subtasks === 'object') return Object.values(subtasks);
+    return [];
 }
 
 
@@ -146,11 +155,9 @@ function showBoardCardDetailsEdit() {
 function renderEditOverlayTemplate(container) {
     container.innerHTML = cardDetailsEditOverlayHTMLTemplate();
 
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            initEditOverlayContent();
-        });
-    });
+    setTimeout(() => {
+        initEditOverlayContent();
+    }, 100);
 }
 
 
@@ -161,19 +168,14 @@ function renderEditOverlayTemplate(container) {
  *   functions are available.
  * - Binds the click event for the "OK" button to save the edited task and close the overlay.
  */
-
 function initEditOverlayContent() {
     const taskId = getCurrentlyViewedTaskId();
     const task = currentTasksData[taskId] || {};
-    if (typeof initContactSelection === 'function') {
-        initContactSelection(task.assignedUsers || []);
-    }
-    if (typeof initPriorityButtons === 'function') {
-        initPriorityButtons();
-    }
+
     if (typeof initEditTaskSubtasks === 'function') {
         initEditTaskSubtasks();
     }
+
     const okButton = document.getElementById('ok-button');
     if (okButton) {
         okButton.addEventListener('click', () => {
@@ -181,6 +183,14 @@ function initEditOverlayContent() {
             closeBoardCardDetails();
         });
     }
+
+    setTimeout(() => {
+        setupDropdownToggle();
+
+        if (typeof populateContacts === 'function') {
+            populateContacts();
+        }
+    }, 200);
 }
 
 
@@ -208,9 +218,44 @@ function populateBasicTaskData(task) {
     const descriptionTextarea = document.getElementById('editCardDescription');
     const dateInput = document.getElementById('datepicker');
 
-    titleInput.value = task.title || '';
-    descriptionTextarea.value = task.description || '';
-    dateInput.value = task.dueDate || '';
+    if (titleInput) titleInput.value = task.title || '';
+    if (descriptionTextarea) descriptionTextarea.value = task.description || '';
+    if (dateInput) dateInput.value = task.dueDate || '';
+    if (task.priority && typeof setPriorityButton === 'function') {
+        setPriorityButton(task.priority);
+    }
+}
+
+
+/**
+ * Retrieves the button element corresponding to the given priority.
+ * 
+ * @param {string} priority - The priority level (urgent, medium, low).
+ * @returns {Element|null} The corresponding button element or null if not found.
+ */
+function getPriorityButton(priority) {
+    return document.querySelector(`.prio-btn.${priority}`);
+}
+
+
+/**
+ * Sets the active state on the button corresponding to the given priority.
+ * Removes active states from all other priority buttons.
+ * 
+ * @param {string} priority - The priority level to activate (urgent, medium, low).
+ */
+function setPriorityButton(priority) {
+    const priorities = ["urgent", "medium", "low"];
+
+    priorities.forEach(prio => getPriorityButton(prio)?.classList.remove("active"));
+
+    const selectedBtn = getPriorityButton(priority.toLowerCase());
+
+    if (selectedBtn) {
+        selectedBtn.classList.add("active");
+    } else {
+        console.warn(`Unknown priority: ${priority}`);
+    }
 }
 
 
@@ -222,8 +267,10 @@ function populateBasicTaskData(task) {
  */
 function populateComplexTaskData(task) {
     const subtasks = task.subtasks;
-    if (!Array.isArray(subtasks) || subtasks.length === 0) return;
-    populateSubtasks(subtasks);
+
+    if (Array.isArray(subtasks) && subtasks.length > 0) {
+        populateSubtasks(subtasks);
+    }
 }
 
 
@@ -252,27 +299,6 @@ function populateSubtasks(subtasks) {
         addClickEventToSubtask(subtaskElement);
         subtasksList.appendChild(subtaskElement);
     });
-}
-
-
-/**
- * Populates the Edit Card Details Overlay with task data.
- * 
- * @param {string|number} taskId - The unique identifier of the task.
- * Retrieves the task data and populates basic and complex information.
- * Attempts to initialize contact selection with assigned users, logging an error if it fails.
- */
-function populateEditOverlay(taskId) {
-    const task = currentTasksData[taskId];
-
-    populateBasicTaskData(task);
-    populateComplexTaskData(task);
-
-    try {
-        initContactSelection(task.assignedUsers || []);
-    } catch (e) {
-        console.error('Fehler in initContactSelection:', e);
-    }
 }
 
 
@@ -307,17 +333,15 @@ function animateEditOverlay(animate = true) {
 function editTask(taskId = getCurrentlyViewedTaskId()) {
     if (taskId) {
         showBoardCardDetailsEdit();
-        populateEditOverlay(taskId);
         animateEditOverlay(true);
+
         setTimeout(() => {
             setupDropdownToggle();
         }, 10);
-
     } else {
         console.error("No taskId provided in editTask");
     }
 }
-
 
 /**
  * Displays the details of a specific task in the board's card detail overlay.
@@ -334,7 +358,6 @@ function showBoardCardDetails(taskId) {
 
     renderCardDetailsAssignedUsers(currentTasksData[taskId], taskId);
     renderCardDetailsSubtasks(task);
-
     addTaskOverlayRef.classList.remove('d-none');
 
     setTimeout(() => {
@@ -354,24 +377,6 @@ function getCurrentlyViewedTaskId() {
 
 
 /**
- * Sets up the toggle behavior for the assigned user dropdown.
- * - Ensures no duplicate listeners by removing any existing one.
- * - Adds a click listener to 'assignedDropdown' that stops propagation
- *   and toggles the dropdown via `toggleDropdown()`.
- */
-function setupDropdownToggle() {
-    const dropdown = document.getElementById('assignedDropdown');
-    if (dropdown) {
-        dropdown.removeEventListener('click', toggleDropdown);
-        dropdown.addEventListener('click', function (event) {
-            event.stopPropagation();
-            toggleDropdown();
-        });
-    }
-}
-
-
-/**
  * Builds and returns an updated task object from the form inputs.
  * Merges new title, description, due date, priority, assignees, and subtasks
  * into the existing task data.
@@ -381,7 +386,7 @@ function setupDropdownToggle() {
 function prepareUpdatedTask(taskId) {
     const title = document.getElementById('editCardTitle')?.value.trim() || '';
     const description = document.getElementById('editCardDescription')?.value.trim() || '';
-    const dueDate = document.getElementById('editCardDate')?.value.trim() || '';
+    const dueDate = document.getElementById('datepicker')?.value.trim() || '';
 
     const updatedTask = {
         ...currentTasksData[taskId],
