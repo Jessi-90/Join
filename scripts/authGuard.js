@@ -38,7 +38,7 @@ function redirectToLoginPage() {
  */
 function isPolicyOrLegalNoticePage() {
   const path = window.location.pathname;
-  return path.includes("privacy_policy.html") || path.includes("legal_notice.html");
+  return path.includes("privacy_policy.html") || path.includes("legalNotice.html");
 }
 
 
