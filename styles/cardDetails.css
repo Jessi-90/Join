@@ -143,21 +143,24 @@
 .card-detail-subtasks-content {
   display: flex;
   flex-direction: column;
-  width: fit-content;
+  width: max-content;
   gap: 6px;
   max-height: 106px;
   overflow-y: auto;
   overflow-x: hidden;
   padding-right: 4px;
+  max-width: -webkit-fill-available;
 }
 
 .card-detail-subtasks-tasks {
   display: flex;
   padding-left: 30px;
-  padding-right: 30px;
+  padding-right: 36px;
   gap: 16px;
-  height: 32px;
+  height: fit-content;
   align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .card-detail-footer {
@@ -243,8 +246,6 @@
 
 .card-detail-subtasks-tasks:hover {
   background-color: #F6F7F8 !important;
-  width: max-content !important;
-  transform: scale(1.01);
   border-radius: 8px;
 }
 
@@ -379,7 +380,7 @@
 
   .card-detail-subtasks-tasks {
     gap: 6px;
-    height: 40px;
+    height: fit-content;
   }
 
   .card-detail-footer {
@@ -400,6 +401,7 @@
   }
 
   .subtask-title {
-    font-size: 14px;
+    word-break: break-word;
+    padding-right: 30px;
   }
 }
