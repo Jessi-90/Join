@@ -143,17 +143,86 @@ function collectSignUpData() {
     };
 }
 
+
+/**
+ * Validates all required inputs and marks invalid ones.
+ * @returns {boolean} True if all inputs are valid
+ */
+function validateSignUpInputs() {
+    const name = document.getElementById("signUpName");
+    const email = document.getElementById("signUpEmail");
+    const pwd = document.getElementById("signUpPassword");
+    const confirmPwd = document.getElementById("signUpConfirmPassword");
+    const checkbox = document.getElementById("signUpPpCheckbox");
+    let isValid = true;
+  
+    [name, email, pwd, confirmPwd].forEach(input => {
+      const empty = !input.value.trim();
+      markInputMismatch(input, empty);
+      if (empty) isValid = false;
+    });
+  
+    const pwdMismatch = pwd.value !== confirmPwd.value;
+    markInputMismatch(confirmPwd, pwdMismatch);
+    if (pwdMismatch) isValid = false;
+  
+    const checkboxBox = checkbox.closest(".sign-up-form-checkbox-box");
+    markInputMismatch(checkboxBox, !checkbox.checked);
+    if (!checkbox.checked) isValid = false;
+  
+    return isValid;
+}
+  
+/**
+ * Adds or removes 'input-mismatch' class on given element.
+ * @param {HTMLElement} el - The element to mark
+ * @param {boolean} isError - Whether to add or remove the class
+ */
+function markInputMismatch(el, isError) {
+if (!el) return;
+el.classList.toggle("input-mismatch", isError);
+}
+
+
+/**
+ * Attaches blur listeners to validate inputs as user interacts.
+ */
+function setupLiveValidation() {
+    const inputs = [
+      document.getElementById("signUpName"),
+      document.getElementById("signUpEmail"),
+      document.getElementById("signUpPassword"),
+      document.getElementById("signUpConfirmPassword")
+    ];
+    inputs.forEach(input => {
+      input.addEventListener("blur", () => {
+        const isEmpty = !input.value.trim();
+        const isConfirm = input.id === "signUpConfirmPassword";
+        markInputMismatch(input, isConfirm ? input.value !== document.getElementById("signUpPassword").value : isEmpty);
+      });
+    });
+  
+    const checkbox = document.getElementById("signUpPpCheckbox");
+    checkbox.addEventListener("change", () => {
+      const box = checkbox.closest(".sign-up-form-checkbox-box");
+      markInputMismatch(box, !checkbox.checked);
+    });
+  }
+
+
 /**
  * Handles the sign-up form submission.
  * @param {Event} event - The form submit event.
  */
 async function handleSignUpFormSubmission(event) {
     event.preventDefault();
+    if (!validateSignUpInputs()) return;
     let signUpData = collectSignUpData();
     let contacts = await getContacts();
     await addNewContact(event, contacts, signUpData);
     showSignUpSubmitFeedback(event)
 }
 
-// Initialize validation event listeners
+
 signUpValidation();
+window.addEventListener("DOMContentLoaded", setupLiveValidation);
