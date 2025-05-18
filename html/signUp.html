@@ -38,17 +38,19 @@
 							<input id="signUpPassword" type="password" placeholder="Password" class="sign-up-input-field" autocomplete="new-password" />
 							<img id="signUpPasswordIcon" src="../assets/icons/lock_icon.svg" alt="lock-icon" />
 						</div>
-						<div class="input-password-wrapper">
-							<input
-								id="signUpConfirmPassword"
-								type="password"
-								placeholder="Password"
-								class="sign-up-input-field"
-								autocomplete="current-password"
-							/>
-							<img id="signUpConfirmPasswordIcon" src="../assets/icons/lock_icon.svg" alt="lock-icon" />
+						<div class="password-match">
+							<div class="input-password-wrapper">
+								<input
+									id="signUpConfirmPassword"
+									type="password"
+									placeholder="Password"
+									class="sign-up-input-field"
+									autocomplete="current-password"
+								/>
+								<img id="signUpConfirmPasswordIcon" src="../assets/icons/lock_icon.svg" alt="lock-icon" />
+							</div>
+							<p id="signUpPasswordMismatch" class="warning-info text-left-up d-none">Ups! your password don’t match</p>
 						</div>
-						<p id="signUpPasswordMismatch" class="warning-info text-left-up d-none">Ups! your password don’t match</p>
 						<div class="sign-up-form-checkbox-box">
 							<input type="checkbox" name="signUpPpCheckbox" id="signUpPpCheckbox" />
 							<label for="signUpPpCheckbox" class="sign-up-terms-of-conditions"
