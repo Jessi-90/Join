@@ -287,14 +287,16 @@ function enableMobileCardDragging(cardElement, cardId) {
 function handleTouchMove(e, cardElement) {
     if (!longTapActive) return;
     
-    e.preventDefault();
-    
-    const touchY = e.touches[0].clientY;
-    
-    updateCardPosition(cardElement, touchY);
-    updateHoveredColumn(e);
-    handleAutoScroll(touchY);
+    if (longTapActive) {
+        e.preventDefault();
+        
+        const touchY = e.touches[0].clientY;
+        
+        updateCardPosition(cardElement, touchY);
+        updateHoveredColumn(e);
+        handleAutoScroll(touchY);
     }
+}
 
 
 /**
