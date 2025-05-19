@@ -320,3 +320,24 @@
     padding: 4px 5px;
   }
 }
+
+@media screen and (max-height: 940px) {
+.board-card-edit-content-wrapper {
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+  .board-card-edit-content-wrapper::-webkit-scrollbar {
+    width: 4px; 
+  }
+
+  .board-card-edit-content-wrapper::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+
+  .board-card-edit-content-wrapper::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); 
+    border-radius: 4px;
+  }
+}
