@@ -307,7 +307,6 @@ function handleTouchMove(e, cardElement) {
  * @param {string|number} cardId - The unique identifier for the card being interacted with.
  */
 function handleTouchStart(e, cardElement, cardId) {
-    e.preventDefault();
     initialTouchY = e.touches[0].clientY;
 
     longPressTimer = setTimeout(() => {
@@ -315,6 +314,7 @@ function handleTouchStart(e, cardElement, cardId) {
         currentDraggedCardId = cardId;
         cardElement.classList.add('tilt-animation');
         cardElement.style.pointerEvents = 'none'; 
+        e.preventDefault();
     }, 500);
 }
 
