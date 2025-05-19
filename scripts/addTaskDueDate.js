@@ -27,11 +27,11 @@ function initializeDatepicker(selector) {
  * The format used is `dd/mm/yyyy`.
  */
 function setDefaultDate(selector) {
-    var today = new Date();
-    var day = String(today.getDate()).padStart(2, '0');
-    var month = String(today.getMonth() + 1).padStart(2, '0');
-    var year = today.getFullYear();
-    var formattedDate = day + '/' + month + '/' + year;
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const year = today.getFullYear();
+    const formattedDate = day + '/' + month + '/' + year;
   
     $(selector).val(formattedDate);
 }
