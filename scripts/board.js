@@ -367,3 +367,18 @@ function getBoardContainers() {
 window.addEventListener('DOMContentLoaded', () => {
     init();
 });
+
+/**
+ * Adds a listener to the window's resize event.
+ * 
+ * When the window is resized and its width becomes greater than 1124 pixels,
+ * the page will automatically scroll to the top with a smooth scrolling behavior.
+ *
+ * This is useful for resetting scroll position when switching from mobile/tablet
+ * view to desktop layout to avoid layout glitches such as elements appearing out of place.
+ */
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 1124) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+});
