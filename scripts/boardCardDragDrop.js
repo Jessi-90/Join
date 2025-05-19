@@ -53,6 +53,19 @@ let longTapActive = false;
  */
 let longPressTimer = null;
 
+/**
+ * Motion threshold
+ * If the finger moves too much, the long press is canceled.
+ * @type {number}
+ */
+const MOVE_THRESHOLD = 10
+
+
+let scrollStartY = 0;
+
+
+let scrollIntentDetected = false;
+
 
 /**
  * Adds global event listeners to manage automatic scrolling while dragging cards:
@@ -272,6 +285,13 @@ function enableMobileCardDragging(cardElement, cardId) {
     cardElement.addEventListener('touchend', () =>
         handleTouchEnd(cardElement)
     );
+    
+cardElement.addEventListener('touchcancel', () => {
+    clearTimeout(longPressTimer);
+    longPressTimer = null;
+    longTapActive = false;
+    });
+    
 }
 
 
@@ -285,17 +305,32 @@ function enableMobileCardDragging(cardElement, cardId) {
  * @param {HTMLElement} cardElement - The HTML element representing the card being dragged.
  */
 function handleTouchMove(e, cardElement) {
+    
+    if (Math.abs(window.scrollY - scrollStartY) > 5) {
+        scrollIntentDetected = true;
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+        return;
+    }
+    
+    const deltaY = Math.abs(e.touches[0].clientY - initialTouchY);
     if (!longTapActive) return;
     
-    if (longTapActive) {
+    if (longTapActive && e.cancelable) {
         e.preventDefault();
-        
-        const touchY = e.touches[0].clientY;
-        
-        updateCardPosition(cardElement, touchY);
-        updateHoveredColumn(e);
-        handleAutoScroll(touchY);
     }
+
+    
+    if (deltaY > MOVE_THRESHOLD) {
+        clearTimeout(longPressTimer);
+    }
+    
+    
+    const touchY = e.touches[0].clientY;
+    
+    updateCardPosition(cardElement, touchY);
+    updateHoveredColumn(e);
+    handleAutoScroll(touchY);  
 }
 
 
@@ -309,15 +344,20 @@ function handleTouchMove(e, cardElement) {
  * @param {string|number} cardId - The unique identifier for the card being interacted with.
  */
 function handleTouchStart(e, cardElement, cardId) {
-    initialTouchY = e.touches[0].clientY;
+   
+    scrollStartY = window.scrollY;
+    scrollIntentDetected = false;
+    longTapActive = false;
 
     longPressTimer = setTimeout(() => {
-        longTapActive = true;
-        currentDraggedCardId = cardId;
-        cardElement.classList.add('tilt-animation');
-        cardElement.style.pointerEvents = 'none'; 
-        e.preventDefault();
-    }, 500);
+        if (!scrollIntentDetected) {
+            longTapActive = true;
+            currentDraggedCardId = cardId;
+            cardElement.classList.add('tilt-animation');
+            cardElement.style.pointerEvents = 'none';
+        }
+    }, 2000);
+
 }
 
 /**
@@ -330,6 +370,7 @@ function handleTouchStart(e, cardElement, cardId) {
  */
 function handleTouchEnd(cardElement) {
     clearTimeout(longPressTimer);
+    longPressTimer = null;
     clearInterval(autoScrollInterval);
 
     if (longTapActive && currentHoveredColumn) {
