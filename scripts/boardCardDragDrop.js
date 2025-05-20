@@ -305,15 +305,24 @@ cardElement.addEventListener('touchcancel', () => {
  * @param {HTMLElement} cardElement - The HTML element representing the card being dragged.
  */
 function handleTouchMove(e, cardElement) {
-    
+    const deltaX = Math.abs(e.touches[0].clientX - initialTouchX);
+    const deltaY = Math.abs(e.touches[0].clientY - initialTouchY);
+
     if (Math.abs(window.scrollY - scrollStartY) > 5) {
         scrollIntentDetected = true;
         clearTimeout(longPressTimer);
         longPressTimer = null;
         return;
     }
+
+    if (deltaX > MOVE_THRESHOLD || deltaY > MOVE_THRESHOLD) {
+        scrollIntentDetected = true;
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+        return;
+    }
     
-    const deltaY = Math.abs(e.touches[0].clientY - initialTouchY);
+    
     if (!longTapActive) return;
     
     if (longTapActive && e.cancelable) {
