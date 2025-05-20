@@ -353,6 +353,10 @@ function handleTouchMove(e, cardElement) {
  * @param {string|number} cardId - The unique identifier for the card being interacted with.
  */
 function handleTouchStart(e, cardElement, cardId) {
+    const modal = document.getElementById('boardCardDetails');
+    if (modal && !modal.classList.contains('d-none')) {
+        return
+    }
     scrollStartY = window.scrollY;
     scrollIntentDetected = false;
     longTapActive = false;
@@ -360,6 +364,10 @@ function handleTouchStart(e, cardElement, cardId) {
     initialTouchY = e.touches[0].clientY;
     initialTouchX = e.touches[0].clientX;
 
+    if (longPressTimer) {
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+    }
 
     longPressTimer = setTimeout(() => {
         if (!scrollIntentDetected) {
@@ -381,12 +389,14 @@ function handleTouchStart(e, cardElement, cardId) {
  * @param {HTMLElement} cardElement - The HTML element representing the card being dragged.
  */
 function handleTouchEnd(cardElement) {
-    clearTimeout(longPressTimer);
-    longPressTimer = null;
+    if (longPressTimer) {
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+    }
     clearInterval(autoScrollInterval);
 
     if (!longTapActive && !scrollIntentDetected) {
-        showBoardCardDetails(cardElement.id)        
+        showBoardCardDetails(cardElement.id);       
     }
 
     if (longTapActive && currentHoveredColumn) {
