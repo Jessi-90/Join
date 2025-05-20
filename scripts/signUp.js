@@ -188,6 +188,7 @@ el.classList.toggle("input-mismatch", isError);
  * Attaches blur listeners to validate inputs as user interacts.
  */
 function setupLiveValidation() {
+    if (!window.location.pathname.includes("signUp.html")) return;
     const inputs = [
       document.getElementById("signUpName"),
       document.getElementById("signUpEmail"),
