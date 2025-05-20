@@ -373,6 +373,10 @@ function handleTouchEnd(cardElement) {
     longPressTimer = null;
     clearInterval(autoScrollInterval);
 
+    if (!longTapActive && !scrollIntentDetected) {
+        showBoardCardDetails(cardElement.id)        
+    }
+    
     if (longTapActive && currentHoveredColumn) {
         moveCardTo(currentHoveredColumn);
     }
