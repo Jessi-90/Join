@@ -344,10 +344,13 @@ function handleTouchMove(e, cardElement) {
  * @param {string|number} cardId - The unique identifier for the card being interacted with.
  */
 function handleTouchStart(e, cardElement, cardId) {
-   
     scrollStartY = window.scrollY;
     scrollIntentDetected = false;
     longTapActive = false;
+    
+    initialTouchY = e.touches[0].clientY;
+    initialTouchX = e.touches[0].clientX;
+
 
     longPressTimer = setTimeout(() => {
         if (!scrollIntentDetected) {
@@ -376,7 +379,7 @@ function handleTouchEnd(cardElement) {
     if (!longTapActive && !scrollIntentDetected) {
         showBoardCardDetails(cardElement.id)        
     }
-    
+
     if (longTapActive && currentHoveredColumn) {
         moveCardTo(currentHoveredColumn);
     }
