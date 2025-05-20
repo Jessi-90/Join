@@ -252,6 +252,23 @@ img {
         padding-bottom: 80px;
     }
 
+    html,
+    body {
+        overscroll-behavior: none;
+        overflow: hidden !important;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    .card,
+    .large-card {
+        height: clamp(300px, 60vh, 700px);
+        max-height: 80vh;
+        padding: 1rem;
+    }
+
     .card {
         height: 160px;
         padding: 0 20px;
@@ -300,6 +317,16 @@ img {
     .dashboard {
         padding: 30px 30px 60px 30px;
         width: 435px;
+    }
+
+    html,
+    body {
+        overscroll-behavior: none;
+        overflow: hidden !important;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
     }
 
     .layout img {
@@ -367,6 +394,16 @@ img {
     main {
         width: calc(100% - 20px) !important;
         margin-left: -10px;
+    }
+
+    html,
+    body {
+        overscroll-behavior: none;
+        overflow: hidden !important;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
     }
 
     .card {
