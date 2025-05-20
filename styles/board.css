@@ -333,7 +333,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .column {
-    min-height: 60vh !important;
+    min-height: 42vh !important;
   }
 
   .column-header {
