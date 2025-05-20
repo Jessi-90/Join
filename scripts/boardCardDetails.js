@@ -185,3 +185,33 @@ function updateSubtaskState(subtaskId, isChecked) {
         markTaskAsModified();
     }
 }
+
+
+/**
+ * Toggles the visibility of vertical scrollbars on elements with the class 'card-container'
+ * based on the current window width.
+ *
+ * - If the viewport width is greater than 1124 pixels, it adds the 'hide-scrollbar' class
+ *   to hide the vertical scrollbar (scrolling still works).
+ * - If the viewport width is 1124 pixels or less, it removes the 'hide-scrollbar' class
+ *   to allow the scrollbar to be visible.
+ *
+ * This function is executed:
+ * - once immediately when the script runs
+ * - every time the window is resized
+ */
+function toggleCardContainerScrollbarVisibility() {
+  const cardContainers = document.querySelectorAll('.card-container');
+  const isWideScreen = window.innerWidth > 1124;
+
+  cardContainers.forEach(container => {
+    if (isWideScreen) {
+      container.classList.add('hide-scrollbar');
+    } else {
+      container.classList.remove('hide-scrollbar');
+    }
+  });
+}
+
+toggleCardContainerScrollbarVisibility();
+window.addEventListener('resize', toggleCardContainerScrollbarVisibility);

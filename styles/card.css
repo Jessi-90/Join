@@ -46,17 +46,15 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  scrollbar-width: none; 
+  scrollbar-width: 3px;
+  scrollbar-color: rgba(160, 157, 157, 0.2) transparent;
   scroll-behavior: smooth;
   overflow-x: auto !important;
  }
 
 .card-container:hover {
-  scrollbar-width: none;
-}
-
-.card-container::-webkit-scrollbar {
-  display: none; 
+  scrollbar-width: 4px;
+  scrollbar-color: rgba(160, 157, 157, 0.2) transparent;
 }
 
 .card-container:hover::-webkit-scrollbar {
@@ -71,6 +69,15 @@
 
 .card-container::-webkit-scrollbar-track {
   background: transparent;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; 
 }
 
 .highlight-card-container {
