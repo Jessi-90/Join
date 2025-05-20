@@ -206,6 +206,7 @@ function removeSubtaskItem(subtaskItem) {
  * @param {HTMLElement} button - The button that triggered the delete action.
  */
 function deleteSubtask(button) {
+    event.stopPropagation();
     const subtaskItem = findSubtaskItem(button);
     removeSubtaskItem(subtaskItem);
 }
@@ -216,6 +217,7 @@ function deleteSubtask(button) {
  * @param {HTMLElement} button - The button that triggered the edit action.
  */
 function editSubtask(button) {
+    event.stopPropagation();
     const subtaskItem = button.closest('.subtask-item');
     const inputWrapper = createEditInputWrapper(subtaskItem);
     let isDeleting = false;
