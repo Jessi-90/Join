@@ -110,6 +110,7 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    width: -webkit-fill-available;
 }
 
 .log-in-input-field {
@@ -259,7 +260,7 @@
         max-width: 340px;
         font-size: 18px;
         height: 52px;
-        padding: 0 40px 0 16px;
+        padding: 0 20px 0 16px;
         border: 1px solid rgba(209, 209, 209, 1);
         border-radius: 10px;
         line-height: 52px;
@@ -271,7 +272,6 @@
         align-items: center;
         width: 80%;
         gap: 16px;
-        margin-top: 16px;
     }
 
     .login-btn-wrapper button {
@@ -289,7 +289,7 @@
         position: absolute;
         top: 10px;
         left: 10px;
-        width: 70px;
+        width: 47px;
     }
 
     .input-password-wrapper {
@@ -329,6 +329,11 @@
     .sign-up-btn {
         font-size: 14px;
         padding: 10px 12px;
+    }
+
+    .log-in-footer {
+        gap: 10px;
+        bottom: 20px;
     }
 }
 
@@ -509,5 +514,50 @@
         width: 80px;
         border: 1px solid rgba(41, 171, 226, 1);
         border-radius: 3px;
+    }
+}
+
+@media (max-width: 375px) {
+    .log-in-header img {
+        left: 24px !important;
+        top: 20px !important;
+    }
+
+    .log-in-wrapper {
+        gap: 16px;
+    }
+
+    .log-in-title-text {
+        gap: 8px;
+    }
+
+    .log-in-title-text h1 {
+        font-size: 32px;
+    }
+
+    .log-in-form {
+        gap: 16px;
+    }
+
+    .log-in-input-field {
+        padding: 0 8px 0 8px;
+        margin-bottom: 0;
+        height: 40px;
+    }
+
+    .login-btn-wrapper button {
+        padding: 8px 12px;
+    }
+
+    .link-to-sign-up-page a {
+        padding: 8px 12px;
+    }
+
+    .sign-up-btn {
+        height: auto;
+    }
+
+    .log-in-content {
+        top: 40%;
     }
 }
