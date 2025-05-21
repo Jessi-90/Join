@@ -182,6 +182,7 @@
 		align-items: center;
 		height: auto;
 		border-radius: 30px;
+		max-height: calc(100% - 20px);
 	}
 
 	.sidebar {
