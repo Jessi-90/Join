@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="../styles/generalNavbar.css" />
     <link rel="stylesheet" href="../styles/cardDetails.css">
     <link rel="stylesheet" href="../styles/editCard.css">
-    <link rel="stylesheet" href="../styles/landscape.css">
     <link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg"
         type="image/svg+xml" />
@@ -47,7 +46,6 @@
     <script src="../scripts/addTaskSubtasks.js"></script>
     <script src="../scripts/summaryscript.js"></script>
     <script src="../scripts/authGuard.js"></script>
-    <script src="../scripts/checkLandscape.js" defer></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -195,10 +193,7 @@
         <div id="boardCardDetails" class="board-card-detail d-none" onclick="closeBoardCardDetails(event)"></div>
     </section>
     <section>
-        <div class="landscape-warning" id="landscapeWarning">Please rotate your device in portrait mode.</div>
-    </section>
-    <section>
-        <div id="feedbackContainer" class="landscape-warning d-none">Task successfully added.</div>
+        <div id="feedbackContainer" class="feedback d-none">Task successfully added.</div>
     </section>
 </body>
 </html>

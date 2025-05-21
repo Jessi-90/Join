@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="../styles/renderContacts.css">
   <link rel="stylesheet" href="../styles/editContact.css">
   <link rel="stylesheet" href="../styles/addContactOverlay.css">
-  <link rel="stylesheet" href="../styles/landscape.css">
   <link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml" />
   <link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg" type="image/svg+xml" />
   <script src="../scripts/summaryscript.js" defer></script>
@@ -34,7 +33,6 @@
   <script src="../scripts/sortContactData.js"></script>
   <script src="../scripts/handleTaskInDatabase.js" defer></script>
   <script src="../scripts/authGuard.js"></script>
-  <script src="../scripts/checkLandscape.js" defer></script>
 </head>
 
 <body onload="init()" class="body-contacts">
@@ -121,10 +119,8 @@
             class="navbar-size">Contacts</span></button></a>
     </div>
   </footer>
-  <div class="landscape-warning" id="landscapeWarning">Please rotate your device in portrait mode.</div>
-  </section>
   <section>
-    <div id="feedbackContainer" class="landscape-warning d-none">Contact successfully added.</div>
+    <div id="feedbackContainer" class="feedback d-none">Contact successfully added.</div>
   </section>
   <div id="editContactOverlay" class="d-none"></div>
   <div id="addContactOverlay" class="d-none"></div>
