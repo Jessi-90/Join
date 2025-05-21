@@ -8,9 +8,9 @@ return `
                 </div>
                 <h1>Edit contact</h1>
                 <div class="horizontal-line"></div>
+                <button class="close-btn">✖</button>
             </div>
             <div class="form-container" data-firebase-id="${contact.firebaseId}">
-                <button class="close-btn">✖</button>
                       <div class="contact-icon-placeholder-large" style="background-color: ${contact.color}">
                     ${contact.initials}
                 </div>
