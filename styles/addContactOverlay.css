@@ -232,6 +232,7 @@
 	.form-container {
 		width: 365px;
 		padding: 100px 24px;
+		gap: 0;
 	}
 
 	.input-group {
