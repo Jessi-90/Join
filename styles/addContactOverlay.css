@@ -318,3 +318,13 @@
 		padding: 20px 24px;
 	}
 }
+
+@media (max-height: 500px) {
+	.form-container {
+		padding: 8px;
+	}
+
+	.form {
+		padding-top: 0;
+	}
+}

@@ -332,3 +332,27 @@ input:focus {
         font-size: 24px;
     }
 }
+
+@media (max-height: 500px) {
+	.form-container .contact-icon-placeholder-large {
+        display: none;
+    }
+
+    .delete {
+        width: auto;
+        height: auto;
+    }
+
+    .save {
+        width: auto;
+        height: auto;
+    }
+
+    .btn-light {
+        padding: 10px !important;
+    }
+
+    .btn-dark {
+        padding: 10px !important;
+    }
+}
