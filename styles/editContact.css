@@ -323,3 +323,12 @@ input:focus {
         margin-top: 0;
     }
 }
+
+@media (max-height: 600px) {
+	.form-container .contact-icon-placeholder-large {
+        width: 60px;
+        height: 60px;
+        top: 144px;
+        font-size: 24px;
+    }
+}

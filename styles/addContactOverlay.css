@@ -312,3 +312,9 @@
 		margin-bottom: 16px;
 	}
 }
+
+@media (max-height: 600px) {
+	.sidebar {
+		padding: 20px 24px;
+	}
+}
