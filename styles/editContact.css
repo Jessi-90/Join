@@ -317,3 +317,9 @@ input:focus {
         font-size: 38px;
     }
 }
+
+@media (max-height: 730px) {
+	.buttons {
+        margin-top: 0;
+    }
+}

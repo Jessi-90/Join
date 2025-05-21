@@ -302,3 +302,13 @@
 		font-size: 18px;
 	}
 }
+
+@media (max-height: 730px) {
+	.form-container {
+		padding: 32px 24px;
+	}
+	
+	.input-group {
+		margin-bottom: 16px;
+	}
+}
