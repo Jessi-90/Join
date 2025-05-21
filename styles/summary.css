@@ -47,6 +47,7 @@ a {
 .dashboard.visible {
     display: flex;
     opacity: 1;
+    max-height: 100vh;
 }
 
 @keyframes fadeIn {
@@ -407,7 +408,19 @@ img {
     }
 
     .card {
-        height: 120px;
+        height: 100px;
+    }
+
+    .card h1 {
+        font-size: 1.8rem;
+    }
+
+    .card p {
+        font-size: 1.1rem;
+    }
+
+    .last-section {
+        gap: 10px;
     }
 
     .dashboard {
@@ -433,15 +446,13 @@ img {
 
     .layout {
         justify-content: center !important;
-        padding-top: 38px;
+        padding-top: 30px;
         padding-left: 35px;
-        padding-bottom: 20px;
     }
 
     .to-do-dashboard {
         display: block;
         padding-bottom: 100px !important;
-        padding-top: 12px;
     }
 
     .greeting-wrapper.hidden {
@@ -566,15 +577,28 @@ img {
     }
 
     .card {
-        height: 120px;
+        height: 90px;
     }
 
     .card h1 {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
     }
 
     .card p {
         font-size: 1.1rem;
+    }
+
+    .card-pencil {
+        width: 45px;
+    }
+
+    .card-ok {
+        width: 45px;
+    }
+
+    .urgent-img {
+        width: 42px;
+        margin-left: 35px;
     }
 
     .greeting {
@@ -651,7 +675,7 @@ img {
 
     .card {
         padding: 5px;
-        height: 120px;
+        height: 90px;
         gap: 10px;
         border-radius: 20px;
     }
@@ -822,6 +846,19 @@ img {
         margin-left: 8px;
     }
 
+    .join-title {
+        font-size: 42px;
+    }
+
+    .join-subtitle {
+        font-size: 22px;
+    }
+
+    .join-line {
+        height: 6px;
+        margin-top: 10px;
+    }
+
     .greeting-wrapper {
         animation: summaryAnimation 2s forwards;
         position: fixed;
@@ -856,5 +893,180 @@ img {
             opacity: 0;
             pointer-events: none;
         }
+    }
+}
+
+@media (max-width: 405px) {
+    .dashboard {
+        padding: 4px;
+        width: 100%;
+        font-size: 1rem;
+        gap: 8px;
+    }
+
+    .dashboard.visible {
+        padding-left: 8px;
+        padding-bottom: 80px;
+    }
+
+    .card {
+        padding: 4px;
+        height: 80px;
+        gap: 6px;
+        border-radius: 12px;
+    }
+
+    .card h1 {
+        font-size: 1.6rem;
+    }
+
+    .card p {
+        font-size: 1.1rem;
+    }
+
+    .card-pencil {
+        width: 40px;
+    }
+
+    .card-ok {
+        width: 36px;
+    }
+
+    .urgent-box {
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 0 5px;
+    }
+
+    .urgent-info {
+        font-size: 1rem;
+        padding-left: 8px;
+    }
+
+    .urgent-img {
+        width: 40px;
+        margin-left: 5px;
+    }
+
+    .greeting {
+        font-size: 36px;
+    }
+
+    .greeting-name {
+        font-size: 42px;
+    }
+
+    .greet {
+        font-size: 1rem;
+    }
+
+    .join-title {
+        font-size: 40px;
+    }
+
+    .join-subtitle {
+        font-size: 20px;
+    }
+
+    .join-line {
+        height: 4px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 319px),
+(max-height: 900px) {
+    .dashboard.visible {
+        padding-top: 20px;
+    }
+
+    .layout {
+        padding-top: 50px;
+    }
+
+    .greet {
+        padding-left: 10px;
+    }
+
+    .greeting {
+        text-align: start;
+    }
+}
+
+@media (max-height: 800px) {
+
+    html,
+    body {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .to-do-dashboard {
+        max-height: 400px;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+@media (max-height: 636px) {
+    html,
+    body {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .join-title {
+        margin-top: 10px;
+    }
+
+    .to-do-dashboard {
+        max-height: 370px;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+@media (max-height: 610px) {
+    .to-do-dashboard {
+        max-height: 210px;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .join-title {
+        font-size: 30px;
+    }
+
+    .join-subtitle {
+        font-size: 20px;
+    }
+
+    .join-line {
+        height: 4px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-height: 560px) {
+    .to-do-dashboard {
+        max-height: 172px;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+@media (max-height: 525px) {
+    .to-do-dashboard {
+        max-height: 150px;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+@media (max-height: 516px) {
+   .to-do-dashboard {
+        max-height: 20px;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
     }
 }
