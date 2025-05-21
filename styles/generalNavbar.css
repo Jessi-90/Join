@@ -302,10 +302,6 @@ a.active .menu-summary-btn {
         width: 40px;
     }
 
-    .help-btn{
-        display: none;
-    }
-
     .menu-summary-btn {
         flex-direction: column;
         gap: 10px;
