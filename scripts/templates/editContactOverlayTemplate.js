@@ -11,8 +11,8 @@ return `
                 <button class="close-btn">✖</button>
             </div>
             <div class="form-container" data-firebase-id="${contact.firebaseId}">
-                      <div class="contact-icon-placeholder-large" style="background-color: ${contact.color}">
-                    ${contact.initials}
+                <div class="contact-icon-placeholder-large" style="background-color: ${contact.color}">
+                ${contact.initials}
                 </div>
                 <form class="form">
                     <div class="input-group">
