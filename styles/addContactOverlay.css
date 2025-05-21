@@ -163,6 +163,7 @@
 	.form-container {
 		justify-content: center;
 		padding: 24px;
+		gap: 32px;
 	}
 
 	.profile-picture img {
