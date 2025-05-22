@@ -245,22 +245,22 @@ a.active .menu-summary-btn {
 }
 
 .mobile-join-logo {
-    height: -webkit-fill-available;
-    padding: 8px 0;
-    display: none;
-    height: 50%;
+	height: -webkit-fill-available;
+	padding: 8px 0;
+	display: none;
+	height: 50%;
 }
 
 .mobile-navbar {
-    display: none;
-    position: fixed;
-    width: -webkit-fill-available;
-    height: 80px;
-    padding: 0 16px;
-    bottom: 0;
-    left: 0;
-    background-color: #2a3647;
-    z-index: 1000;
+	display: none;
+	position: fixed;
+	width: -webkit-fill-available;
+	height: 80px;
+	padding: 0 16px;
+	bottom: 0;
+	left: 0;
+	background-color: #2a3647;
+	z-index: 1000;
 }
 
 .mobile-login-img {
@@ -277,37 +277,41 @@ a.active .menu-summary-btn {
 }
 
 @media (max-width:768px) {
-    .mobile-navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+	.mobile-navbar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
 
-    .mobile-join-logo {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-    }
+	.mobile-join-logo {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+	}
 
-    .header p {
-        display: none;
-    }
+	.header p {
+		display: none;
+	}
 
-    .header {
-        padding: 0 16px;
-    }
+	.header {
+		padding: 0 16px;
+	}
 
-    .user-btn {
-        height: 40px;
-        width: 40px;
-    }
+	.user-btn {
+		height: 40px;
+		width: 40px;
+	}
 
-    .menu-summary-btn {
-        flex-direction: column;
-        gap: 10px;
-        font-size: initial;
-        padding: 0;
-    }
+	.help-btn {
+		display: none;
+	}
+
+	.menu-summary-btn {
+		flex-direction: column;
+		gap: 10px;
+		font-size: initial;
+		padding: 0;
+	}
 
 	.menu-summary-btn:hover {
 		transition: none;
@@ -319,14 +323,72 @@ a.active .menu-summary-btn {
 		height: 76px;
 		border-radius: 16px;
 		padding: 8px 12px;
-	  }
+	}
 
-    .board-btn {
-        padding-right: 0;
-    }
-  
-    .login-navbar {
-      margin-bottom: 150px;
-    }
+	.board-btn {
+		padding-right: 0;
+	}
 
+	.login-navbar {
+		margin-bottom: 150px;
+	}
+
+}
+
+@media (max-height:810px) {
+	.join-logo {
+		padding-bottom: 80px;
+	}
+
+	.summary-btn {
+		padding-top: 0px;
+	}
+}
+
+@media (max-height:640px) {
+	.join-logo {
+		padding-bottom: 40px;
+		height: 101.97px;
+		width: 80.03px;
+	}
+}
+
+@media (max-height:600px) {
+	.join-logo {
+		padding-bottom: 25px;
+		padding-top: 35px;
+	}
+
+	.menu-summary-btn {
+		height: 36px;
+	}
+
+	.summary-btn a {
+		padding: 5px 0;
+	}
+}
+
+@media (max-height:480px) {
+	.join-logo {
+		padding-top: 20px;
+		padding-bottom: 20px;
+		height: 71.97px;
+		width: 50.03px;
+	}
+
+	.summary-menu {
+		gap: 2px;
+	}
+
+	.summary-btn a {
+		padding: 0px 0;
+	}
+}
+
+
+@media (max-height:340px) {
+	.join-logo {
+		padding-top: 20px;
+		padding-bottom: 10px;
+	}
 }
