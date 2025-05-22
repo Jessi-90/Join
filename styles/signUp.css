@@ -144,6 +144,7 @@ main {
 }
 
 .text-left-up {
+  margin: 0;
   width: -webkit-fill-available;
   text-align: left;
 }
@@ -162,6 +163,10 @@ main {
 
 .sign-up-overlay-box.show {
   transform: translateY(0);
+}
+
+.input-mail-wrapper {
+  position: relative;
 }
 
 .input-mismatch {
@@ -184,7 +189,7 @@ main {
 }
 
 .password-match {
-  height: 90px;
+  position: relative;
 }
 
 @media (max-width: 1024px) {
@@ -298,10 +303,6 @@ main {
   .sign-up-overlay-box {
     padding: 0px;
     width: 250px;
-  }
-
-  .password-match {
-    height: 50px;
   }
 
   .sign-up-footer {

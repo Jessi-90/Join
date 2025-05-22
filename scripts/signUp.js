@@ -9,6 +9,7 @@ function validateEmail(email) {
     return allowedCharacters.test(email);
 }
 
+
 /**
  * Validates the sign-up form fields and updates UI accordingly.
  */
@@ -32,6 +33,7 @@ function validateSignUpForm() {
     checkFormFields(isNameFilled, isEmailValid, isPasswordFilled, isConfirmPasswordFilled, isPasswordMatch, isPrivacyChecked);
 }
 
+
 /**
  * Sets up input event listeners for form validation.
  */
@@ -45,6 +47,7 @@ function signUpValidation() {
     }
 }
 
+
 /**
  * Enables the specified button by its ID.
  * This function can be used to enable both the sign-up and log-in buttons.
@@ -55,6 +58,7 @@ function enableBtn(btnId) {
     let signUpBtn = document.getElementById(btnId);
     signUpBtn.disabled = false;
 }
+
 
 /**
  * Disables the specified button by its ID.
@@ -67,6 +71,7 @@ function disableBtn(btnId) {
     signUpBtn.disabled = true;
 }
 
+
 /**
  * Checks if the email input is valid and updates UI accordingly.
  *
@@ -74,10 +79,16 @@ function disableBtn(btnId) {
  * @param {HTMLInputElement} emailInput - The email input field.
  */
 function checkEmailValidity(isEmailValid, emailInput) {
+    const emailWarning = document.getElementById("signUpMailFormatWarning");
+
     if (emailInput.value.length > 0) {
         emailInput.classList.toggle("input-mismatch", !isEmailValid);
+        emailWarning.classList.toggle("d-none", isEmailValid);
+    } else {
+        emailWarning.classList.add("d-none");
     }
 }
+
 
 /**
  * Checks if the confirmed password matches and updates UI accordingly.
@@ -95,6 +106,7 @@ function checkConfirmPasswordLength(isPasswordMatch, confirmPasswordInput, passw
     }
 }
 
+
 /**
  * Displays the overlay after submitting the form, and redirects after a delay.
  * @param {Event} event - The form submit event.
@@ -109,6 +121,7 @@ function showSignUpSubmitFeedback(event) {
         window.location.href = "../index.html";
     }, 800);
 }
+
 
 /**
  * Checks if all required form fields are valid and enables/disables the sign-up button accordingly.
@@ -127,6 +140,7 @@ function checkFormFields(isNameFilled, isEmailValid, isPasswordFilled, isConfirm
         disableBtn("signUpBtn");
     }
 }
+
 
 /**
  * Collects data from the sign-up form fields.
@@ -173,6 +187,7 @@ function validateSignUpInputs() {
     return isValid;
 }
   
+
 /**
  * Adds or removes 'input-mismatch' class on given element.
  * @param {HTMLElement} el - The element to mark

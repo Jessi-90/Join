@@ -31,7 +31,10 @@
 					</div>
 					<form action="submit" class="sign-up-form">
 						<input type="text" id="signUpName" placeholder="Name" class="input-bg-user sign-up-input-field" autocomplete="name" />
+						<div class="input-mail-wrapper">
 						<input type="email" id="signUpEmail" placeholder="Email" class="input-bg-email sign-up-input-field" autocomplete="email" />
+						<p id="signUpMailFormatWarning" class="warning-info text-left-up d-none">Check the format of the email address!</p>
+						</div>
 						<div class="input-password-wrapper">
 							<input id="signUpPassword" type="password" placeholder="Password" class="sign-up-input-field" autocomplete="new-password" />
 							<img id="signUpPasswordIcon" src="../assets/icons/lock_icon.svg" alt="lock-icon" />
