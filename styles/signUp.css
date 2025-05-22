@@ -144,6 +144,7 @@ main {
 }
 
 .text-left-up {
+  margin: 0;
   width: -webkit-fill-available;
   text-align: left;
 }
@@ -162,6 +163,14 @@ main {
 
 .sign-up-overlay-box.show {
   transform: translateY(0);
+}
+
+.input-name-wrapper {
+  position: relative;
+}
+
+.input-mail-wrapper {
+  position: relative;
 }
 
 .input-mismatch {
@@ -184,7 +193,7 @@ main {
 }
 
 .password-match {
-  height: 90px;
+  position: relative;
 }
 
 @media (max-width: 1024px) {
@@ -224,6 +233,15 @@ main {
 }
 
 @media (max-width: 768px) {
+  .sign-up-content {
+    top: 0;
+  }
+
+  .sign-up-sidebar img {
+    width: 60px;
+    height: auto;
+  }
+
   .sign-up-wrapper {
     gap: 16px;
     border-radius: 30px;
@@ -262,12 +280,12 @@ main {
     gap: 0px;
     width: 100%;
     justify-content: center;
-    margin: 0 0 15px 0;
+    margin: 0;
   }
 
   .sign-up-header h1 {
     margin: 0px;
-    font-size: 38px;
+    font-size: 32px;
   }
 
   .horizontal-line {
@@ -289,5 +307,59 @@ main {
   .sign-up-overlay-box {
     padding: 0px;
     width: 250px;
+  }
+
+  .sign-up-footer {
+    position: absolute;
+    bottom: 16px;
+  }
+}
+
+@media (max-width: 375px) {
+  .sign-up-form {
+    gap: 16px;
+  }
+
+  .sign-up-wrapper {
+    padding: 4px 12px;
+  }
+
+  .sign-up-header h1 {
+    line-height: 32px;
+    margin: 8px;
+  }
+
+  .sign-up-header button {
+    top: 8px;
+  }
+
+  .sign-up-input-field {
+    font-size: 16px;
+    padding: 8px 40px 8px 16px;
+  }
+
+  .sign-up-form-checkbox-box {
+    padding: 0;
+  }
+
+  .input-bg-user {
+    background-position: 218px;
+  }
+
+  .input-bg-email {
+    background-position: 218px;
+  }
+
+  .input-password-wrapper img {
+    top: 16px;
+  }
+
+  #signUpBtn {
+    font-size: 16px;
+    padding: 8px 12px 8px 12px;
+  }
+
+  .sign-up-footer {
+    bottom: 4px;
   }
 }
