@@ -19,18 +19,17 @@ function validateSignUpForm() {
     let passwordInput = document.getElementById("signUpPassword");
     let confirmPasswordInput = document.getElementById("signUpConfirmPassword");
     let passwordMismatchWarning = document.getElementById("signUpPasswordMismatch");
-    let privacyCheckbox = document.getElementById("signUpPpCheckbox");
 
-    let isNameFilled = nameInput.value.trim() !== "";
+    let isNameValid = validateName(nameInput.value);
     let isEmailValid = validateEmail(emailInput.value);
     let isPasswordFilled = passwordInput.value.trim() !== "";
     let isConfirmPasswordFilled = confirmPasswordInput.value.trim() !== "";
     let isPasswordMatch = passwordInput.value === confirmPasswordInput.value;
-    let isPrivacyChecked = privacyCheckbox.checked;
 
+    checkNameValidity(isNameValid, nameInput);
     checkEmailValidity(isEmailValid, emailInput);
     checkConfirmPasswordLength(isPasswordMatch, confirmPasswordInput, passwordMismatchWarning);
-    checkFormFields(isNameFilled, isEmailValid, isPasswordFilled, isConfirmPasswordFilled, isPasswordMatch, isPrivacyChecked);
+    checkFormFields(isNameValid, isEmailValid, isPasswordFilled, isConfirmPasswordFilled, isPasswordMatch);
 }
 
 
@@ -69,6 +68,37 @@ function enableBtn(btnId) {
 function disableBtn(btnId) {
     let signUpBtn = document.getElementById(btnId);
     signUpBtn.disabled = true;
+}
+
+
+/**
+ * Validates the name input against allowed characters.
+ * Allows letters (including German umlauts), spaces and hyphens only.
+ *
+ * @param {string} name - The name to validate.
+ * @returns {boolean} True if valid, otherwise false.
+ */
+function validateName(name) {
+    const regex = /^[A-Za-zÄÖÜäöüß\- ]+$/;
+    return name.trim().length > 0 && regex.test(name.trim());
+}
+
+
+/**
+ * Checks name validity and toggles warning and style.
+ *
+ * @param {boolean} isNameValid - Indicates if the name is valid.
+ * @param {HTMLInputElement} nameInput - The name input field.
+ */
+function checkNameValidity(isNameValid, nameInput) {
+    const nameWarning = document.getElementById("signUpNameFormatWarning");
+
+    if (nameInput.value.length > 0) {
+        nameInput.classList.toggle("input-mismatch", !isNameValid);
+        nameWarning.classList.toggle("d-none", isNameValid);
+    } else {
+        nameWarning.classList.add("d-none");
+    }
 }
 
 
@@ -131,15 +161,15 @@ function showSignUpSubmitFeedback(event) {
  * @param {boolean} isPasswordFilled - Whether the password field is filled.
  * @param {boolean} isConfirmPasswordFilled - Whether the confirm password field is filled.
  * @param {boolean} isPasswordMatch - Whether passwords match.
- * @param {boolean} isPrivacyChecked - Whether the privacy policy checkbox is checked.
  */
-function checkFormFields(isNameFilled, isEmailValid, isPasswordFilled, isConfirmPasswordFilled, isPasswordMatch, isPrivacyChecked) {
-    if (isNameFilled && isEmailValid && isPasswordFilled && isConfirmPasswordFilled && isPasswordMatch && isPrivacyChecked) {
+function checkFormFields(isNameFilled, isEmailValid, isPasswordFilled, isConfirmPasswordFilled, isPasswordMatch) {
+    if (isNameFilled && isEmailValid && isPasswordFilled && isConfirmPasswordFilled && isPasswordMatch) {
         enableBtn("signUpBtn");
     } else {
         disableBtn("signUpBtn");
     }
 }
+
 
 
 /**
@@ -232,12 +262,23 @@ function setupLiveValidation() {
  */
 async function handleSignUpFormSubmission(event) {
     event.preventDefault();
+
+    const checkbox = document.getElementById("signUpPpCheckbox");
+    const checkboxBox = checkbox.closest(".sign-up-form-checkbox-box");
+
+    if (!checkbox.checked) {
+        markInputMismatch(checkboxBox, true); // Rand rot anzeigen
+        return;
+    }
+
     if (!validateSignUpInputs()) return;
+
     let signUpData = collectSignUpData();
     let contacts = await getContacts();
     await addNewContact(event, contacts, signUpData);
-    showSignUpSubmitFeedback(event)
+    showSignUpSubmitFeedback(event);
 }
+
 
 
 signUpValidation();

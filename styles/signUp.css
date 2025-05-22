@@ -165,6 +165,10 @@ main {
   transform: translateY(0);
 }
 
+.input-name-wrapper {
+  position: relative;
+}
+
 .input-mail-wrapper {
   position: relative;
 }

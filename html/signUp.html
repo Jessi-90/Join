@@ -1,76 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Sign Up</title>
-		<link rel="stylesheet" href="../styles/standard.css" />
-		<link rel="stylesheet" href="../styles/assets.css" />
-		<link rel="stylesheet" href="../styles/signUp.css" />
-		<link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml" />
-		<link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg" type="image/svg+xml" />
-		<script src="../scripts/db.js"></script>
-		<script src="../scripts/pushContactToDb.js" defer></script>
-		<script src="../scripts/generateContactData.js" defer></script>
-		<script src="../scripts/signUp.js" defer></script>
-		<script src="../scripts/signUpRevealPwd.js" defer></script>
-	</head>
-	<body>
-		<section>
-			<div class="sign-up-sidebar"><img src="../assets/img/join-logo-dark.svg" alt="Join_logo" /></div>
-			<div class="sign-up-content">
-				<div class="sign-up-wrapper">
-					<div class="sign-up-header">
-						<button type="button">
-							<a href="../index.html"><img src="../assets/icons/arrow-left-line.svg" alt="back to login" /></a>
-						</button>
-						<div class="sign-up-header-text">
-							<h1>Sign Up</h1>
-							<div class="horizontal-line"></div>
-						</div>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Sign Up</title>
+	<link rel="stylesheet" href="../styles/standard.css" />
+	<link rel="stylesheet" href="../styles/assets.css" />
+	<link rel="stylesheet" href="../styles/signUp.css" />
+	<link rel="icon" media="(prefers-color-scheme: light)" href="../assets/icons/favicon.svg" type="image/svg+xml" />
+	<link rel="icon" media="(prefers-color-scheme: dark)" href="../assets/icons/favicon-logo.svg"
+		type="image/svg+xml" />
+	<script src="../scripts/db.js"></script>
+	<script src="../scripts/pushContactToDb.js" defer></script>
+	<script src="../scripts/generateContactData.js" defer></script>
+	<script src="../scripts/signUp.js" defer></script>
+	<script src="../scripts/signUpRevealPwd.js" defer></script>
+</head>
+
+<body>
+	<section>
+		<div class="sign-up-sidebar"><img src="../assets/img/join-logo-dark.svg" alt="Join_logo" /></div>
+		<div class="sign-up-content">
+			<div class="sign-up-wrapper">
+				<div class="sign-up-header">
+					<button type="button">
+						<a href="../index.html"><img src="../assets/icons/arrow-left-line.svg"
+								alt="back to login" /></a>
+					</button>
+					<div class="sign-up-header-text">
+						<h1>Sign Up</h1>
+						<div class="horizontal-line"></div>
 					</div>
-					<form action="submit" class="sign-up-form">
-						<input type="text" id="signUpName" placeholder="Name" class="input-bg-user sign-up-input-field" autocomplete="name" />
-						<div class="input-mail-wrapper">
-						<input type="email" id="signUpEmail" placeholder="Email" class="input-bg-email sign-up-input-field" autocomplete="email" />
-						<p id="signUpMailFormatWarning" class="warning-info text-left-up d-none">Check the format of the email address!</p>
-						</div>
+				</div>
+				<form action="submit" class="sign-up-form">
+					<div class="input-name-wrapper">
+						<input type="text" id="signUpName" placeholder="Name" class="input-bg-user sign-up-input-field"
+							autocomplete="name" />
+						<p id="signUpNameFormatWarning" class="warning-info text-left-up d-none">Special characters (except -) and numbers are not allowed!</p>
+					</div>
+					<div class="input-mail-wrapper">
+						<input type="email" id="signUpEmail" placeholder="Email"
+							class="input-bg-email sign-up-input-field" autocomplete="email" />
+						<p id="signUpMailFormatWarning" class="warning-info text-left-up d-none">Check the format of the
+							email address!</p>
+					</div>
+					<div class="input-password-wrapper">
+						<input id="signUpPassword" type="password" placeholder="Password" class="sign-up-input-field"
+							autocomplete="new-password" />
+						<img id="signUpPasswordIcon" src="../assets/icons/lock_icon.svg" alt="lock-icon" />
+					</div>
+					<div class="password-match">
 						<div class="input-password-wrapper">
-							<input id="signUpPassword" type="password" placeholder="Password" class="sign-up-input-field" autocomplete="new-password" />
-							<img id="signUpPasswordIcon" src="../assets/icons/lock_icon.svg" alt="lock-icon" />
+							<input id="signUpConfirmPassword" type="password" placeholder="Password"
+								class="sign-up-input-field" autocomplete="current-password" />
+							<img id="signUpConfirmPasswordIcon" src="../assets/icons/lock_icon.svg" alt="lock-icon" />
 						</div>
-						<div class="password-match">
-							<div class="input-password-wrapper">
-								<input
-									id="signUpConfirmPassword"
-									type="password"
-									placeholder="Password"
-									class="sign-up-input-field"
-									autocomplete="current-password"
-								/>
-								<img id="signUpConfirmPasswordIcon" src="../assets/icons/lock_icon.svg" alt="lock-icon" />
-							</div>
-							<p id="signUpPasswordMismatch" class="warning-info text-left-up d-none">Ups! your password don’t match</p>
-						</div>
-						<div class="sign-up-form-checkbox-box">
-							<input type="checkbox" name="signUpPpCheckbox" id="signUpPpCheckbox" />
-							<label for="signUpPpCheckbox" class="sign-up-terms-of-conditions"
-								>I accept the <a href="./privacyPolicy.html">Privacy Policy</a></label
-							>
-						</div>
-						<button type="submit" id="signUpBtn" class="btn-dark" onclick="handleSignUpFormSubmission(event)" disabled>Sign Up</button>
-					</form>
-				</div>
-				<div class="sign-up-footer">
-					<a href="./privacyPolicy.html">Privacy Policy</a>
-					<a href="./legalNotice.html">Legal Notice</a>
-				</div>
+						<p id="signUpPasswordMismatch" class="warning-info text-left-up d-none">Ups! your password don’t
+							match</p>
+					</div>
+					<div class="sign-up-form-checkbox-box">
+						<input type="checkbox" name="signUpPpCheckbox" id="signUpPpCheckbox" />
+						<label for="signUpPpCheckbox" class="sign-up-terms-of-conditions">I accept the <a
+								href="./privacyPolicy.html">Privacy Policy</a></label>
+					</div>
+					<button type="submit" id="signUpBtn" class="btn-dark" onclick="handleSignUpFormSubmission(event)"
+						disabled>Sign Up</button>
+				</form>
 			</div>
-		</section>
-		<div id="overlaySignUp" class="d-none overlay-wrapper">
-			<div id="signUpOverlayContainer" class="sign-up-overlay-box content-center">
-				<p id="signUpUserFeedback">You Signed Up successfully</p>
+			<div class="sign-up-footer">
+				<a href="./privacyPolicy.html">Privacy Policy</a>
+				<a href="./legalNotice.html">Legal Notice</a>
 			</div>
 		</div>
-	</body>
+	</section>
+	<div id="overlaySignUp" class="d-none overlay-wrapper">
+		<div id="signUpOverlayContainer" class="sign-up-overlay-box content-center">
+			<p id="signUpUserFeedback">You Signed Up successfully</p>
+		</div>
+	</div>
+</body>
+
 </html>
