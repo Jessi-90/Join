@@ -34,6 +34,13 @@ const scrollSpeed = 10;
 
 
 /**
+ * The initial horizontal position of the touch event when the user starts interacting with the card.
+ * @type {number} 
+ */
+let initialTouchX = 0;
+
+
+/**
  * The initial vertical position of the touch event when the user starts interacting with the card.
  * @type {number} 
  */
@@ -61,10 +68,28 @@ let longPressTimer = null;
 const MOVE_THRESHOLD = 10
 
 
+/**
+ * Tracks the initial Y-coordinate of the scroll position.
+ * Used to determine the starting point of a scroll interaction.
+ * @type {number}
+ */
 let scrollStartY = 0;
 
 
+/**
+ * Indicates whether a scroll intent has been detected.
+ * Helps to identify user interactions related to scrolling.
+ * @type {boolean}
+ */
 let scrollIntentDetected = false;
+
+
+/**
+ * Stores the initial top position of the start card.
+ * Used for positioning calculations related to scrolling or layout adjustments.
+ * @type {number}
+ */
+let startCardTop = 0;
 
 
 /**
@@ -77,7 +102,6 @@ let scrollIntentDetected = false;
 document.addEventListener('dragover', handleMouseDragScroll);
 document.addEventListener('dragleave', clearAutoScrollOnMouseLeave);
 document.addEventListener('drop', clearAutoScrollOnDrop);
-
 
 
 /**
@@ -93,12 +117,11 @@ document.addEventListener('drop', clearAutoScrollOnDrop);
 function enableMobileDragForAllCards() {
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
-    const cardId = card.id;
-    enableMobileCardDragging(card, cardId);
+        const cardId = card.id;
+        enableMobileCardDragging(card, cardId);
     });
 
-    }
-
+}
 
 
 /**
@@ -109,23 +132,32 @@ function enableMobileDragForAllCards() {
  *
  * @function updateDraggableAttributes
  * @returns {void}
- */   
+ */
 function updateDraggableAttributes() {
     const isMobile = window.innerWidth < 1024;
     const cards = document.querySelectorAll('.card');
-    
+
     cards.forEach(card => {
         if (isMobile) {
             card.removeAttribute('draggable');
         } else {
-        card.setAttribute('draggable', 'true');
+            card.setAttribute('draggable', 'true');
         }
     });
 }
-        
 
 
 updateDraggableAttributes();
+
+if (window.innerWidth < 1024) {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        if (!card.dataset.mobileDragEnabled) {
+            enableMobileCardDragging(card, card.id);
+            card.dataset.mobileDragEnabled = "true";
+        }
+    });
+}
 
 
 /**
@@ -142,7 +174,7 @@ updateDraggableAttributes();
  */
 window.addEventListener('resize', () => {
     updateDraggableAttributes();
-    
+
     if (window.innerWidth < 1024) {
         const cards = document.querySelectorAll('.card');
         cards.forEach(card => {
@@ -153,8 +185,7 @@ window.addEventListener('resize', () => {
         });
     }
 });
-    
-            
+
 
 /**
  * Handles the dragover event by preventing the default behavior.
@@ -207,12 +238,12 @@ function removeHighlightCardContainer(event, columnId) {
  */
 function highlightCardContainer(columnCategory) {
     const column = document.getElementById(columnCategory);
-    const existingPlaceholder = document.getElementById('placeholder');
-
-    if (existingPlaceholder && existingPlaceholder.parentElement === column) {
+    if (!column) {
+        console.warn('Column not found:', columnCategory);
         return;
     }
 
+    const existingPlaceholder = document.getElementById('placeholder');
     if (existingPlaceholder) {
         existingPlaceholder.remove();
     }
@@ -220,7 +251,14 @@ function highlightCardContainer(columnCategory) {
     const placeholder = document.createElement('div');
     placeholder.classList.add('highlight-card-container');
     placeholder.id = 'placeholder';
+    placeholder.style.height = '100px';
+    placeholder.style.border = '2px dashed #007bff';
+    placeholder.style.borderRadius = '8px';
+    placeholder.style.margin = '10px 0';
+    placeholder.style.backgroundColor = 'rgba(0, 123, 255, 0.1)';
+
     column.appendChild(placeholder);
+    console.log('Added placeholder to column:', columnCategory);
 }
 
 
@@ -250,22 +288,22 @@ function moveCardTo(columnId) {
         console.warn(`unknown column-ID: ${columnId}`);
         return;
     }
-    
+
     const card = document.getElementById(currentDraggedCardId);
     card.classList.remove('tilt-animation');
     currentTasksData[currentDraggedCardId]['status'] = newStatus;
-    
+
     const placeholder = document.getElementById('placeholder');
     if (placeholder) {
         placeholder.remove();
     }
-    
+
     currentHoveredColumn = null;
     updateTasksInDatabase(currentTasksData);
     renderTasks(currentTasksData);
     enableMobileDragForAllCards();
-    }
-    
+}
+
 
 /**
  * Enables mobile card dragging functionality by attaching touch event listeners to the card element.
@@ -276,24 +314,10 @@ function moveCardTo(columnId) {
  * @param {string|number} cardId - The unique identifier of the card being dragged.
  */
 function enableMobileCardDragging(cardElement, cardId) {
-    cardElement.addEventListener('touchstart', (e) =>
-        handleTouchStart(e, cardElement, cardId)
-    );
-    cardElement.addEventListener('touchmove', (e) =>
-        handleTouchMove(e, cardElement), { passive: false } 
-    );
-    cardElement.addEventListener('touchend', () =>
-        handleTouchEnd(cardElement)
-    );
-    
-cardElement.addEventListener('touchcancel', () => {
-    clearTimeout(longPressTimer);
-    longPressTimer = null;
-    longTapActive = false;
-    });
-    
+    cardElement.addEventListener('touchstart', (e) => {
+        handleTouchStart(e, cardElement, cardId);
+    }, { passive: false });
 }
-
 
 
 /**
@@ -308,38 +332,34 @@ function handleTouchMove(e, cardElement) {
     const deltaX = Math.abs(e.touches[0].clientX - initialTouchX);
     const deltaY = Math.abs(e.touches[0].clientY - initialTouchY);
 
-    if (Math.abs(window.scrollY - scrollStartY) > 5) {
-        scrollIntentDetected = true;
-        clearTimeout(longPressTimer);
-        longPressTimer = null;
+    if (!longTapActive) {
+        if (Math.abs(window.scrollY - scrollStartY) > 5) {
+            scrollIntentDetected = true;
+            clearTimeout(longPressTimer);
+            longPressTimer = null;
+            return;
+        }
+
+        if (deltaX > MOVE_THRESHOLD || deltaY > MOVE_THRESHOLD) {
+            if (deltaY > deltaX && deltaY > MOVE_THRESHOLD) {
+                scrollIntentDetected = true;
+                clearTimeout(longPressTimer);
+                longPressTimer = null;
+                return;
+            }
+        }
         return;
     }
 
-    if (deltaX > MOVE_THRESHOLD || deltaY > MOVE_THRESHOLD) {
-        scrollIntentDetected = true;
-        clearTimeout(longPressTimer);
-        longPressTimer = null;
-        return;
-    }
-    
-    
-    if (!longTapActive) return;
-    
     if (longTapActive && e.cancelable) {
         e.preventDefault();
     }
 
-    
-    if (deltaY > MOVE_THRESHOLD) {
-        clearTimeout(longPressTimer);
-    }
-    
-    
     const touchY = e.touches[0].clientY;
-    
+
     updateCardPosition(cardElement, touchY);
     updateHoveredColumn(e);
-    handleAutoScroll(touchY);  
+    handleAutoScroll(touchY);
 }
 
 
@@ -353,14 +373,22 @@ function handleTouchMove(e, cardElement) {
  * @param {string|number} cardId - The unique identifier for the card being interacted with.
  */
 function handleTouchStart(e, cardElement, cardId) {
+    console.log('🔥 handleTouchStart', cardId);
     const modal = document.getElementById('boardCardDetails');
+
     if (modal && !modal.classList.contains('d-none')) {
-        return
+        return;
     }
+
+    const rect = cardElement.getBoundingClientRect();
+    startCardTop = rect.top;
+    window.startCardLeft = rect.left;
+    window.startCardWidth = rect.width;
+
     scrollStartY = window.scrollY;
     scrollIntentDetected = false;
     longTapActive = false;
-    
+
     initialTouchY = e.touches[0].clientY;
     initialTouchX = e.touches[0].clientX;
 
@@ -375,10 +403,26 @@ function handleTouchStart(e, cardElement, cardId) {
             currentDraggedCardId = cardId;
             cardElement.classList.add('tilt-animation');
             cardElement.style.pointerEvents = 'none';
-        }
-    }, 2000);
+            console.log('Long tap activated for card:', cardId);
 
+            document.addEventListener('touchmove', onTouchMove, { passive: false });
+            document.addEventListener('touchend', onTouchEnd, { passive: false });
+            document.addEventListener('touchcancel', onTouchEnd, { passive: false });
+        }
+    }, 400);
+
+    function onTouchMove(e) {
+        handleTouchMove(e, cardElement);
+    }
+
+    function onTouchEnd(e) {
+        handleTouchEnd(cardElement);
+        document.removeEventListener('touchmove', onTouchMove);
+        document.removeEventListener('touchend', onTouchEnd);
+        document.removeEventListener('touchcancel', onTouchEnd);
+    }
 }
+
 
 /**
  * Handles the touchmove event when the user moves their finger while interacting with the card.
@@ -389,42 +433,87 @@ function handleTouchStart(e, cardElement, cardId) {
  * @param {HTMLElement} cardElement - The HTML element representing the card being dragged.
  */
 function handleTouchEnd(cardElement) {
+    console.log('🔥 handleTouchEnd', {
+        longTapActive,
+        currentHoveredColumn,
+        scrollIntentDetected
+    });
+
     if (longPressTimer) {
         clearTimeout(longPressTimer);
         longPressTimer = null;
     }
+
     clearInterval(autoScrollInterval);
+    autoScrollInterval = null;
 
     if (!longTapActive && !scrollIntentDetected) {
-        showBoardCardDetails(cardElement.id);       
+        showBoardCardDetails(cardElement.id);
+        resetCardElement(cardElement);
+        return;
     }
 
     if (longTapActive && currentHoveredColumn) {
+        console.log('Moving card to:', currentHoveredColumn);
         moveCardTo(currentHoveredColumn);
+    } else if (longTapActive) {
+        console.log('No valid drop target, resetting card position');
     }
 
+    resetCardElement(cardElement);
+    resetDragState();
+}
+
+
+/**
+ * Resets the styles and classes of the given card element.
+ * This ensures the card is restored to its default state without transformations or extra styles.
+ *
+ * @param {HTMLElement} cardElement - The card element to be reset.
+ */
+function resetCardElement(cardElement) {
     cardElement.style.transform = '';
     cardElement.style.position = '';
+    cardElement.style.top = '';
+    cardElement.style.left = '';
+    cardElement.style.width = '';
     cardElement.style.zIndex = '';
-    cardElement.style.pointerEvents = ''; 
+    cardElement.style.pointerEvents = '';
+    cardElement.classList.remove('tilt-animation');
+}
+
+
+/**
+ * Resets the drag state by clearing active interactions and removing the placeholder element.
+ * This helps restore the original state after a drag-and-drop operation.
+ */
+function resetDragState() {
     longTapActive = false;
     currentHoveredColumn = null;
+    scrollIntentDetected = false;
+
+    const placeholder = document.getElementById('placeholder');
+    if (placeholder) {
+        placeholder.remove();
+    }
 }
 
 
 /**
  * Updates the position of the card while it is being dragged by the user.
- * The card's position is adjusted based on the difference between the initial touch position
- * and the current touch position along the vertical axis (Y-axis).
+ * The card's position is adjusted to follow the user's finger movement.
  *
  * @param {HTMLElement} cardElement - The HTML element representing the card being dragged.
  * @param {number} touchY - The current vertical position of the touch in the viewport (Y-coordinate).
  */
 function updateCardPosition(cardElement, touchY) {
     const deltaY = touchY - initialTouchY;
-    cardElement.style.position = 'absolute';
-    cardElement.style.top = `${cardElement.offsetTop + deltaY}px`;
-    initialTouchY = touchY;
+
+    cardElement.style.position = 'fixed';
+    cardElement.style.top = `${startCardTop + deltaY}px`;
+    cardElement.style.left = `${window.startCardLeft}px`;
+    cardElement.style.width = `${window.startCardWidth}px`;
+    cardElement.style.zIndex = '1000';
 }
 
 
@@ -439,11 +528,28 @@ function updateHoveredColumn(e) {
         e.touches[0].clientX,
         e.touches[0].clientY
     );
+
     const column = elementAtTouch?.closest('.column');
 
-    if (column && column.id !== currentHoveredColumn) {
-        highlightCardContainer(column.id);
-        currentHoveredColumn = column.id;
+    if (column && column.id) {
+        if (column.id !== currentHoveredColumn) {
+            const existingPlaceholder = document.getElementById('placeholder');
+            if (existingPlaceholder) {
+                existingPlaceholder.remove();
+            }
+
+            currentHoveredColumn = column.id;
+            highlightCardContainer(column.id);
+            console.log('Hovering over column:', column.id);
+        }
+    } else {
+        if (currentHoveredColumn) {
+            const existingPlaceholder = document.getElementById('placeholder');
+            if (existingPlaceholder) {
+                existingPlaceholder.remove();
+            }
+            currentHoveredColumn = null;
+        }
     }
 }
 
@@ -534,5 +640,3 @@ function getStatusFromColumnId(columnId) {
     };
     return map[columnId] || null;
 }
-    
-    
