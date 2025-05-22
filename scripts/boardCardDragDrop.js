@@ -242,7 +242,7 @@ function highlightCardContainer(columnCategory) {
         console.warn('Column not found:', columnCategory);
         return;
     }
-
+    
     const existingPlaceholder = document.getElementById('placeholder');
     if (existingPlaceholder) {
         existingPlaceholder.remove();
@@ -256,7 +256,7 @@ function highlightCardContainer(columnCategory) {
     placeholder.style.borderRadius = '8px';
     placeholder.style.margin = '10px 0';
     placeholder.style.backgroundColor = 'rgba(0, 123, 255, 0.1)';
-
+    
     column.appendChild(placeholder);
     console.log('Added placeholder to column:', columnCategory);
 }
@@ -350,16 +350,16 @@ function handleTouchMove(e, cardElement) {
         }
         return;
     }
-
+    
     if (longTapActive && e.cancelable) {
         e.preventDefault();
     }
-
+    
     const touchY = e.touches[0].clientY;
-
+    
     updateCardPosition(cardElement, touchY);
     updateHoveredColumn(e);
-    handleAutoScroll(touchY);
+    handleAutoScroll(touchY);  
 }
 
 
@@ -375,20 +375,20 @@ function handleTouchMove(e, cardElement) {
 function handleTouchStart(e, cardElement, cardId) {
     console.log('🔥 handleTouchStart', cardId);
     const modal = document.getElementById('boardCardDetails');
-
+    
     if (modal && !modal.classList.contains('d-none')) {
         return;
     }
-
+    
     const rect = cardElement.getBoundingClientRect();
     startCardTop = rect.top;
     window.startCardLeft = rect.left;
     window.startCardWidth = rect.width;
-
+    
     scrollStartY = window.scrollY;
     scrollIntentDetected = false;
     longTapActive = false;
-
+    
     initialTouchY = e.touches[0].clientY;
     initialTouchX = e.touches[0].clientX;
 
@@ -403,6 +403,12 @@ function handleTouchStart(e, cardElement, cardId) {
             currentDraggedCardId = cardId;
             cardElement.classList.add('tilt-animation');
             cardElement.style.pointerEvents = 'none';
+    
+            document.body.style.userSelect = 'none';
+            document.body.style.webkitUserSelect = 'none';
+            document.body.style.mozUserSelect = 'none';
+            document.body.style.msUserSelect = 'none';
+            
             console.log('Long tap activated for card:', cardId);
 
             document.addEventListener('touchmove', onTouchMove, { passive: false });
@@ -410,11 +416,11 @@ function handleTouchStart(e, cardElement, cardId) {
             document.addEventListener('touchcancel', onTouchEnd, { passive: false });
         }
     }, 400);
-
+    
     function onTouchMove(e) {
         handleTouchMove(e, cardElement);
     }
-
+    
     function onTouchEnd(e) {
         handleTouchEnd(cardElement);
         document.removeEventListener('touchmove', onTouchMove);
@@ -438,12 +444,12 @@ function handleTouchEnd(cardElement) {
         currentHoveredColumn,
         scrollIntentDetected
     });
-
+    
     if (longPressTimer) {
         clearTimeout(longPressTimer);
         longPressTimer = null;
     }
-
+    
     clearInterval(autoScrollInterval);
     autoScrollInterval = null;
 
@@ -491,7 +497,12 @@ function resetDragState() {
     longTapActive = false;
     currentHoveredColumn = null;
     scrollIntentDetected = false;
-
+    
+    document.body.style.userSelect = '';
+    document.body.style.webkitUserSelect = '';
+    document.body.style.mozUserSelect = '';
+    document.body.style.msUserSelect = '';
+    
     const placeholder = document.getElementById('placeholder');
     if (placeholder) {
         placeholder.remove();
@@ -508,7 +519,7 @@ function resetDragState() {
  */
 function updateCardPosition(cardElement, touchY) {
     const deltaY = touchY - initialTouchY;
-
+    
     cardElement.style.position = 'fixed';
     cardElement.style.top = `${startCardTop + deltaY}px`;
     cardElement.style.left = `${window.startCardLeft}px`;
@@ -528,16 +539,16 @@ function updateHoveredColumn(e) {
         e.touches[0].clientX,
         e.touches[0].clientY
     );
-
+    
     const column = elementAtTouch?.closest('.column');
-
+    
     if (column && column.id) {
         if (column.id !== currentHoveredColumn) {
             const existingPlaceholder = document.getElementById('placeholder');
             if (existingPlaceholder) {
                 existingPlaceholder.remove();
             }
-
+            
             currentHoveredColumn = column.id;
             highlightCardContainer(column.id);
             console.log('Hovering over column:', column.id);
