@@ -228,7 +228,7 @@ main {
     top: 0;
   }
 
-  .sign-up-sidebar img{
+  .sign-up-sidebar img {
     width: 60px;
     height: auto;
   }
@@ -330,11 +330,23 @@ main {
 
   .sign-up-input-field {
     font-size: 16px;
-    padding: 8px 16px 8px 16px;
+    padding: 8px 40px 8px 16px;
   }
 
   .sign-up-form-checkbox-box {
     padding: 0;
+  }
+
+  .input-bg-user {
+    background-position: 218px;
+  }
+
+  .input-bg-email {
+    background-position: 218px;
+  }
+
+  .input-password-wrapper img {
+    top: 16px;
   }
 
   #signUpBtn {
