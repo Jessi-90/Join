@@ -683,9 +683,27 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-bottom: 10px;
 }
 
+@media (max-width: 1500px) {
+   .container {
+    padding: 10px 96px 0 96px;
+    max-height: 80vh;
+    overflow-y: auto;
+    }
+
+    html, body {
+    height: 100vh;
+    margin: 0;
+    overflow: hidden; 
+}
+}
+
 @media (max-width: 1200px) {
     .form-column-right {
         padding-top: 20px;
+    }
+
+    .container {
+    padding: 10px 96px 0 96px;
     }
 
     .prio-buttons {
@@ -729,6 +747,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     .field-required {
         margin-top: 0;
+        margin-bottom: 85px;
     }
 
     .buttons {

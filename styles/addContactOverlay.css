@@ -180,7 +180,7 @@
 	.modal {
 		flex-direction: column;
 		align-items: center;
-		height: auto;
+		max-height: 100vh;
 		border-radius: 30px;
 		max-height: calc(100% - 20px);
 	}
@@ -195,12 +195,16 @@
 		display: none;
 	}
 
+	.form-container {
+		width: 300px;
+	}
+
 	.sidebar h1 {
-		font-size: 47px;
+		font-size: 36px;
 	}
 
 	.sidebar p {
-		font-size: 20px;
+		font-size: 18px;
 	}
 
 	#cancel-contact {
@@ -248,8 +252,9 @@
 		top: 264px;
 		left: 50%;
 		transform: translateX(-50%);
-		width: 120px;
-		height: 120px;
+		width: 80px;
+		height: 80px;
+		top: 172px;
 	}
 
 	.sidebar .horizontal-line {
@@ -276,11 +281,6 @@
 		width: 80px;
 		height: 80px;
 		top: 172px;
-	}
-
-	.form-container {
-		box-sizing: border-box;
-		padding: 80px 12px;
 	}
 
 	.form-container {
