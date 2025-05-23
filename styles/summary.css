@@ -408,7 +408,7 @@ img {
     }
 
     .card {
-        height: 100px;
+        height: 90px;
     }
 
     .card h1 {
@@ -547,7 +547,7 @@ img {
     .join-title {
         font-size: 50px;
         font-weight: bold;
-        margin-top: 20px;
+        margin-top: 10px;
         margin-left: 15px;
     }
 
@@ -577,7 +577,7 @@ img {
     }
 
     .card {
-        height: 90px;
+        height: 80px;
     }
 
     .card h1 {
@@ -670,44 +670,47 @@ img {
     }
 
     .card h1 {
-        font-size: 2.0rem;
+        font-size: 1.5rem;
     }
 
     .card {
         padding: 5px;
-        height: 90px;
+        height: 80px;
         gap: 10px;
         border-radius: 20px;
     }
 
+    .large-card {
+        padding: 10px 20px;
+    }
+
+    .layout img {
+        display: none;
+    }
+
+    .card {
+        height: 90px;
+    }
+
+    .card h1 {
+        font-size: 1.5rem;
+    }
+
+    .card p {
+        font-size: 1.1rem;
+    }
+
     .card-pencil {
-        width: 50px;
+        width: 45px;
     }
 
     .card-ok {
-        width: 48px;
-    }
-
-    .dashboard.visible {
-        padding-left: 10px;
-    }
-
-    .urgent-info {
-        display: flex;
-        flex-wrap: nowrap;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        padding-left: 50px;
-    }
-
-    .urgent-box {
-        padding-right: 35px;
+        width: 45px;
     }
 
     .urgent-img {
-        width: 48px;
-        margin-left: 24px;
+        width: 42px;
+        margin-left: 12px;
     }
 
     .urgent-info p:first-child {
@@ -771,13 +774,13 @@ img {
 
     .card {
         padding: 5px;
-        height: 100px;
+        height: 80px;
         gap: 6px;
         border-radius: 15px;
     }
 
     .card h1 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
     }
 
     .card p {
@@ -945,7 +948,7 @@ img {
 
     .urgent-img {
         width: 40px;
-        margin-left: 5px;
+        margin-left: 12px;
     }
 
     .greeting {
@@ -976,11 +979,12 @@ img {
 
 @media (max-width: 319px),
 (max-height: 900px) {
-    .dashboard.visible {
-        padding-top: 20px;
+    .layout img {
+        width: 70% !important;
     }
 
     .layout {
+        padding-left: 76px;
         padding-top: 50px;
     }
 
@@ -994,7 +998,6 @@ img {
 }
 
 @media (max-height: 800px) {
-
     html,
     body {
         height: 100%;
