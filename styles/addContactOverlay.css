@@ -188,7 +188,7 @@
 	.sidebar {
 		border-top-left-radius: 16px;
 		border-top-right-radius: 16px;
-		padding: 80px 24px;
+		padding: 60px 24px;
 	}
 
 	.join-logo-add-contact {
@@ -226,7 +226,6 @@
 	}
 
 	.btn-dark {
-		padding: 18px 10px;
 		gap: 4px;
 		font-size: 21px;
 		justify-content: unset;
@@ -249,12 +248,11 @@
 	.profile-picture img {
 		display: block;
 		position: absolute;
-		top: 264px;
+		top: 220px;
 		left: 50%;
 		transform: translateX(-50%);
-		width: 80px;
-		height: 80px;
-		top: 172px;
+		width: 60px;
+		height: 60px;
 	}
 
 	.sidebar .horizontal-line {
@@ -278,9 +276,9 @@
 	}
 
 	.profile-picture img {
-		width: 80px;
-		height: 80px;
-		top: 172px;
+		width: 60px;
+		height: 60px;
+		top: 180px;
 	}
 
 	.form-container {
@@ -303,11 +301,13 @@
 	}
 }
 
+@media (max-width: 480px) {}
+
 @media (max-height: 730px) {
 	.form-container {
 		padding: 32px 24px;
 	}
-	
+
 	.input-group {
 		margin-bottom: 16px;
 	}
@@ -316,6 +316,12 @@
 @media (max-height: 600px) {
 	.sidebar {
 		padding: 20px 24px;
+	}
+
+	.profile-picture img {
+		width: 60px;
+		height: 60px;
+		top: 142px;
 	}
 }
 
@@ -326,5 +332,48 @@
 
 	.form {
 		padding-top: 0;
+	}
+
+	.profile-picture img {
+		width: 50px;
+		height: 50px;
+		top: 144px;
+	}
+
+	.input-group {
+		margin-top: 16px;
+	}
+}
+
+@media (max-height: 465px) {
+	.add-contact-buttons {
+		margin-top: 16px;
+	}
+}
+
+@media (max-height: 430px) {
+	.add-contact-buttons {
+		margin-top: 8px;
+	}
+
+	.input-group {
+		margin-bottom: 0px;
+		margin-top: 10px;
+	}
+
+	.sidebar {
+		padding: 10px 14px;
+	}
+
+	.profile-picture img {
+		width: 40px;
+		height: 40px;
+		top: 132px;
+	}
+
+	.close-btn {
+		color: white;
+		top: 14px;
+		right: 14px;
 	}
 }
