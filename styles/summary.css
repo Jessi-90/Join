@@ -330,6 +330,10 @@ img {
         width: 100%;
     }
 
+    .card {
+        height: 18vh;
+    }
+
     .layout img {
         width: 70%;
     }
@@ -407,8 +411,10 @@ img {
         width: 100%;
     }
 
-    .card {
-        height: 100px;
+    .card,
+    .large-card {
+        max-height: 8vh;
+        padding: 1rem;
     }
 
     .card h1 {
@@ -419,8 +425,21 @@ img {
         font-size: 1.1rem;
     }
 
+    .card-pencil {
+        width: 45px;
+    }
+
+    .card-ok {
+        width: 45px;
+    }
+
+    .urgent-img {
+        width: 42px;
+        margin-left: 35px;
+    }
+
     .last-section {
-        gap: 10px;
+        gap: 31px;
     }
 
     .dashboard {
@@ -487,6 +506,7 @@ img {
         overflow: hidden;
         text-overflow: ellipsis;
         padding-left: 50px;
+        height: 42px;
     }
 
     .greeting-wrapper {
@@ -536,6 +556,7 @@ img {
         opacity: 0;
         transition: opacity 0.5s ease;
         font-size: 1.1rem;
+        gap: 10px
     }
 
     .dashboard.visible {
@@ -547,7 +568,7 @@ img {
     .join-title {
         font-size: 50px;
         font-weight: bold;
-        margin-top: 20px;
+        margin-top: 10px;
         margin-left: 15px;
     }
 
@@ -577,7 +598,7 @@ img {
     }
 
     .card {
-        height: 90px;
+        height: 66px;
     }
 
     .card h1 {
@@ -599,6 +620,10 @@ img {
     .urgent-img {
         width: 42px;
         margin-left: 35px;
+    }
+
+    .urgent-info {
+        height: 56px;
     }
 
     .greeting {
@@ -670,44 +695,47 @@ img {
     }
 
     .card h1 {
-        font-size: 2.0rem;
+        font-size: 1.5rem;
     }
 
     .card {
         padding: 5px;
-        height: 90px;
+        height: 80px;
         gap: 10px;
         border-radius: 20px;
     }
 
+    .large-card {
+        padding: 10px 20px;
+    }
+
+    .layout img {
+        display: none;
+    }
+
+    .card {
+        height: 90px;
+    }
+
+    .card h1 {
+        font-size: 1.3rem;
+    }
+
+    .card p {
+        font-size: 1.0rem;
+    }
+
     .card-pencil {
-        width: 50px;
+        width: 45px;
     }
 
     .card-ok {
-        width: 48px;
-    }
-
-    .dashboard.visible {
-        padding-left: 10px;
-    }
-
-    .urgent-info {
-        display: flex;
-        flex-wrap: nowrap;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        padding-left: 50px;
-    }
-
-    .urgent-box {
-        padding-right: 35px;
+        width: 45px;
     }
 
     .urgent-img {
-        width: 48px;
-        margin-left: 24px;
+        width: 42px;
+        margin-left: 12px;
     }
 
     .urgent-info p:first-child {
@@ -769,19 +797,23 @@ img {
         gap: 11px;
     }
 
+    .card-todo {
+        width: 96%;
+    }
+
     .card {
-        padding: 5px;
-        height: 100px;
+        padding: 8px;
+        height: 80px;
         gap: 6px;
         border-radius: 15px;
     }
 
     .card h1 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
     }
 
     .card p {
-        font-size: 1.1rem;
+        font-size: 16px;
     }
 
     .card-pencil,
@@ -823,7 +855,7 @@ img {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 10px;
+        gap: 2px;
         flex-wrap: nowrap;
         padding-right: 0px;
     }
@@ -842,7 +874,7 @@ img {
     }
 
     .urgent-img {
-        width: 48px;
+        width: 40px;
         margin-left: 8px;
     }
 
@@ -910,26 +942,26 @@ img {
     }
 
     .card {
-        padding: 4px;
-        height: 80px;
+        padding: 8px;
+        height: 90px;
         gap: 6px;
         border-radius: 12px;
     }
 
     .card h1 {
-        font-size: 1.6rem;
-    }
-
-    .card p {
         font-size: 1.1rem;
     }
 
+    .card p {
+        font-size: 0.9rem !important;
+    }
+
     .card-pencil {
-        width: 40px;
+        width: 30px;
     }
 
     .card-ok {
-        width: 36px;
+        width: 30px;
     }
 
     .urgent-box {
@@ -944,8 +976,8 @@ img {
     }
 
     .urgent-img {
-        width: 40px;
-        margin-left: 5px;
+        width: 30px;
+        margin-left: 12px;
     }
 
     .greeting {
@@ -961,11 +993,11 @@ img {
     }
 
     .join-title {
-        font-size: 40px;
+        font-size: 35px;
     }
 
     .join-subtitle {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .join-line {
@@ -976,12 +1008,13 @@ img {
 
 @media (max-width: 319px),
 (max-height: 900px) {
-    .dashboard.visible {
-        padding-top: 20px;
+    .layout img {
+        width: 70% !important;
     }
 
     .layout {
-        padding-top: 50px;
+        padding-left: 76px;
+        padding-top: 30px;
     }
 
     .greet {
@@ -1003,12 +1036,12 @@ img {
 
     .to-do-dashboard {
         max-height: 400px;
-        overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
     }
 }
 
 @media (max-height: 636px) {
+
     html,
     body {
         height: 100%;
@@ -1021,7 +1054,6 @@ img {
 
     .to-do-dashboard {
         max-height: 370px;
-        overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
     }
 }
@@ -1029,16 +1061,15 @@ img {
 @media (max-height: 610px) {
     .to-do-dashboard {
         max-height: 210px;
-        overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
     }
 
     .join-title {
-        font-size: 30px;
+        font-size: 25px;
     }
 
     .join-subtitle {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .join-line {
@@ -1047,26 +1078,10 @@ img {
     }
 }
 
-@media (max-height: 560px) {
-    .to-do-dashboard {
-        max-height: 172px;
-        overflow-y: auto !important;
-        -webkit-overflow-scrolling: touch;
-    }
-}
-
-@media (max-height: 525px) {
-    .to-do-dashboard {
-        max-height: 150px;
-        overflow-y: auto !important;
-        -webkit-overflow-scrolling: touch;
-    }
-}
-
-@media (max-height: 516px) {
-   .to-do-dashboard {
-        max-height: 20px;
-        overflow-y: auto !important;
+@media (max-height: 445px) {
+      .to-do-dashboard {
+        max-height: 210px;
+        overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
 }
