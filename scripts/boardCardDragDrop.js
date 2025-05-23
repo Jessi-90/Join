@@ -34,6 +34,13 @@ const scrollSpeed = 10;
 
 
 /**
+ * The initial horizontal position of the touch event when the user starts interacting with the card.
+ * @type {number} 
+ */
+let initialTouchX = 0;
+
+
+/**
  * The initial vertical position of the touch event when the user starts interacting with the card.
  * @type {number} 
  */
@@ -61,10 +68,28 @@ let longPressTimer = null;
 const MOVE_THRESHOLD = 10
 
 
+/**
+ * Tracks the initial Y-coordinate of the scroll position.
+ * Used to determine the starting point of a scroll interaction.
+ * @type {number}
+ */
 let scrollStartY = 0;
 
 
+/**
+ * Indicates whether a scroll intent has been detected.
+ * Helps to identify user interactions related to scrolling.
+ * @type {boolean}
+ */
 let scrollIntentDetected = false;
+
+
+/**
+ * Stores the initial top position of the start card.
+ * Used for positioning calculations related to scrolling or layout adjustments.
+ * @type {number}
+ */
+let startCardTop = 0;
 
 
 /**
@@ -77,7 +102,6 @@ let scrollIntentDetected = false;
 document.addEventListener('dragover', handleMouseDragScroll);
 document.addEventListener('dragleave', clearAutoScrollOnMouseLeave);
 document.addEventListener('drop', clearAutoScrollOnDrop);
-
 
 
 /**
@@ -93,12 +117,11 @@ document.addEventListener('drop', clearAutoScrollOnDrop);
 function enableMobileDragForAllCards() {
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
-    const cardId = card.id;
-    enableMobileCardDragging(card, cardId);
+        const cardId = card.id;
+        enableMobileCardDragging(card, cardId);
     });
 
-    }
-
+}
 
 
 /**
@@ -109,23 +132,45 @@ function enableMobileDragForAllCards() {
  *
  * @function updateDraggableAttributes
  * @returns {void}
- */   
+ */
 function updateDraggableAttributes() {
     const isMobile = window.innerWidth < 1024;
     const cards = document.querySelectorAll('.card');
-    
+
     cards.forEach(card => {
         if (isMobile) {
             card.removeAttribute('draggable');
         } else {
-        card.setAttribute('draggable', 'true');
+            card.setAttribute('draggable', 'true');
         }
     });
 }
-        
-
 
 updateDraggableAttributes();
+
+
+/**
+ * Enables mobile card dragging behavior on elements with the `.card` class,
+ * but only if the viewport width is less than 1024px (i.e., on mobile devices).
+ * 
+ * For each card element, this function checks if dragging has already been enabled
+ * by verifying the presence of the `data-mobile-drag-enabled` attribute. If not,
+ * it calls `enableMobileCardDragging` and marks the card as processed.
+ * 
+ * Note: This function should be called after the DOM is fully loaded.
+ */
+function enableMobileDraggingIfNeeded() {
+    if (window.innerWidth >= 1024) return;
+
+    document.querySelectorAll('.card').forEach(card => {
+        if (!card.dataset.mobileDragEnabled) {
+            enableMobileCardDragging(card, card.id);
+            card.dataset.mobileDragEnabled = "true";
+        }
+    });
+}
+
+enableMobileDraggingIfNeeded();
 
 
 /**
@@ -142,7 +187,7 @@ updateDraggableAttributes();
  */
 window.addEventListener('resize', () => {
     updateDraggableAttributes();
-    
+
     if (window.innerWidth < 1024) {
         const cards = document.querySelectorAll('.card');
         cards.forEach(card => {
@@ -153,8 +198,7 @@ window.addEventListener('resize', () => {
         });
     }
 });
-    
-            
+
 
 /**
  * Handles the dragover event by preventing the default behavior.
@@ -207,20 +251,17 @@ function removeHighlightCardContainer(event, columnId) {
  */
 function highlightCardContainer(columnCategory) {
     const column = document.getElementById(columnCategory);
-    const existingPlaceholder = document.getElementById('placeholder');
-
-    if (existingPlaceholder && existingPlaceholder.parentElement === column) {
+    if (!column) {
+        console.warn('Column not found:', columnCategory);
         return;
     }
 
-    if (existingPlaceholder) {
-        existingPlaceholder.remove();
-    }
+    const allColumns = document.querySelectorAll('.column');
+    allColumns.forEach(col => {
+        col.classList.remove('column-highlight');
+    });
 
-    const placeholder = document.createElement('div');
-    placeholder.classList.add('highlight-card-container');
-    placeholder.id = 'placeholder';
-    column.appendChild(placeholder);
+    column.classList.add('column-highlight');
 }
 
 
@@ -250,22 +291,22 @@ function moveCardTo(columnId) {
         console.warn(`unknown column-ID: ${columnId}`);
         return;
     }
-    
+
     const card = document.getElementById(currentDraggedCardId);
     card.classList.remove('tilt-animation');
     currentTasksData[currentDraggedCardId]['status'] = newStatus;
-    
+
     const placeholder = document.getElementById('placeholder');
     if (placeholder) {
         placeholder.remove();
     }
-    
+
     currentHoveredColumn = null;
     updateTasksInDatabase(currentTasksData);
     renderTasks(currentTasksData);
     enableMobileDragForAllCards();
-    }
-    
+}
+
 
 /**
  * Enables mobile card dragging functionality by attaching touch event listeners to the card element.
@@ -276,24 +317,44 @@ function moveCardTo(columnId) {
  * @param {string|number} cardId - The unique identifier of the card being dragged.
  */
 function enableMobileCardDragging(cardElement, cardId) {
-    cardElement.addEventListener('touchstart', (e) =>
-        handleTouchStart(e, cardElement, cardId)
-    );
-    cardElement.addEventListener('touchmove', (e) =>
-        handleTouchMove(e, cardElement), { passive: false } 
-    );
-    cardElement.addEventListener('touchend', () =>
-        handleTouchEnd(cardElement)
-    );
-    
-cardElement.addEventListener('touchcancel', () => {
-    clearTimeout(longPressTimer);
-    longPressTimer = null;
-    longTapActive = false;
-    });
-    
+    cardElement.addEventListener('touchstart', (e) => {
+        handleTouchStart(e, cardElement, cardId);
+    }, { passive: false });
 }
 
+
+/**
+ * Checks if vertical scrolling has occurred.
+ *
+ * @returns {boolean} - True if scrolling is detected, otherwise false.
+ */
+function isScrollIntentDetected() {
+    if (Math.abs(window.scrollY - scrollStartY) > 5) {
+        scrollIntentDetected = true;
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+        return true;
+    }
+    return false;
+}
+
+
+/**
+ * Determines if the user is primarily scrolling rather than dragging.
+ *
+ * @param {number} deltaX - The horizontal touch movement.
+ * @param {number} deltaY - The vertical touch movement.
+ * @returns {boolean} - True if vertical movement dominates, otherwise false.
+ */
+function isVerticalMovementDominant(deltaX, deltaY) {
+    if (deltaY > deltaX && deltaY > MOVE_THRESHOLD) {
+        scrollIntentDetected = true;
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+        return true;
+    }
+    return false;
+}
 
 
 /**
@@ -308,66 +369,122 @@ function handleTouchMove(e, cardElement) {
     const deltaX = Math.abs(e.touches[0].clientX - initialTouchX);
     const deltaY = Math.abs(e.touches[0].clientY - initialTouchY);
 
-    if (Math.abs(window.scrollY - scrollStartY) > 5) {
-        scrollIntentDetected = true;
-        clearTimeout(longPressTimer);
-        longPressTimer = null;
-        return;
+    if (!longTapActive) {
+        if (isScrollIntentDetected() || isVerticalMovementDominant(deltaX, deltaY)) {
+            return;
+        }
     }
 
-    if (deltaX > MOVE_THRESHOLD || deltaY > MOVE_THRESHOLD) {
-        scrollIntentDetected = true;
-        clearTimeout(longPressTimer);
-        longPressTimer = null;
-        return;
-    }
-    
-    
-    if (!longTapActive) return;
-    
     if (longTapActive && e.cancelable) {
         e.preventDefault();
     }
 
-    
-    if (deltaY > MOVE_THRESHOLD) {
-        clearTimeout(longPressTimer);
-    }
-    
-    
     const touchY = e.touches[0].clientY;
-    
+
     updateCardPosition(cardElement, touchY);
     updateHoveredColumn(e);
-    handleAutoScroll(touchY);  
+    handleAutoScroll(touchY);
+}
+
+
+/**
+ * Helper function to handle touchmove events for the dragged card.
+ *
+ * @param {TouchEvent} e - The touchmove event object.
+ * @param {HTMLElement} cardElement - The card element being dragged.
+ */
+function onTouchMoveHelper(e, cardElement) {
+    handleTouchMove(e, cardElement);
+}
+
+
+/**
+ * Helper function to handle touchend or touchcancel events for the dragged card.
+ * It calls the cleanup function and removes the event listeners.
+ *
+ * @param {TouchEvent} e - The touchend or touchcancel event object.
+ * @param {HTMLElement} cardElement - The card element being dragged.
+ */
+function onTouchEndHelper(e, cardElement) {
+    handleTouchEnd(cardElement);
+    document.removeEventListener('touchmove', cardElement.touchMoveHandler, { passive: false });
+    document.removeEventListener('touchend', cardElement.touchEndHandler, { passive: false });
+    document.removeEventListener('touchcancel', cardElement.touchEndHandler, { passive: false });
+
+    delete cardElement.touchMoveHandler;
+    delete cardElement.touchEndHandler;
+}
+
+
+/**
+ * Checks if the modal is open and prevents interaction if necessary.
+ *
+ * @returns {boolean} - True if the modal is open, false otherwise.
+ */
+function isModalOpen() {
+    const modal = document.getElementById('boardCardDetails');
+    return modal && !modal.classList.contains('d-none');
+}
+
+
+/**
+ * Initializes the card's starting position and touch coordinates.
+ *
+ * @param {TouchEvent} e - The touch event object.
+ * @param {HTMLElement} cardElement - The card element being interacted with.
+ */
+function initializeTouchData(e, cardElement) {
+    const rect = cardElement.getBoundingClientRect();
+    startCardTop = rect.top;
+    window.startCardLeft = rect.left;
+    window.startCardWidth = rect.width;
+
+    scrollStartY = window.scrollY;
+    scrollIntentDetected = false;
+    longTapActive = false;
+
+    initialTouchY = e.touches[0].clientY;
+    initialTouchX = e.touches[0].clientX;
+}
+
+
+/**
+ * Clears the existing long press timer if present.
+ */
+function resetLongPressTimer() {
+    if (longPressTimer) {
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+    }
+}
+
+
+/**
+ * Disables text selection during drag operation.
+ */
+function disableTextSelection() {
+    document.body.style.userSelect = 'none';
+    document.body.style.webkitUserSelect = 'none';
+    document.body.style.mozUserSelect = 'none';
+    document.body.style.msUserSelect = 'none';
 }
 
 
 /**
  * Handles the touchstart event when a user begins interacting with a card on a mobile device.
- * It captures the initial touch position and sets a timer to detect if the user is performing
- * a long press (which will activate the drag functionality).
+ * Sets up the initial touch data, starts a long press timer, and activates dragging.
  *
- * @param {TouchEvent} e - The touchstart event object containing information about the touch event.
- * @param {HTMLElement} cardElement - The HTML element representing the card that is being interacted with.
- * @param {string|number} cardId - The unique identifier for the card being interacted with.
+ * @param {TouchEvent} e - The touchstart event object containing touch information.
+ * @param {HTMLElement} cardElement - The card element being interacted with.
+ * @param {string|number} cardId - The unique identifier of the card.
  */
 function handleTouchStart(e, cardElement, cardId) {
-    const modal = document.getElementById('boardCardDetails');
-    if (modal && !modal.classList.contains('d-none')) {
-        return
+    if (isModalOpen()) {
+        return;
     }
-    scrollStartY = window.scrollY;
-    scrollIntentDetected = false;
-    longTapActive = false;
-    
-    initialTouchY = e.touches[0].clientY;
-    initialTouchX = e.touches[0].clientX;
 
-    if (longPressTimer) {
-        clearTimeout(longPressTimer);
-        longPressTimer = null;
-    }
+    initializeTouchData(e, cardElement);
+    resetLongPressTimer();
 
     longPressTimer = setTimeout(() => {
         if (!scrollIntentDetected) {
@@ -375,10 +492,23 @@ function handleTouchStart(e, cardElement, cardId) {
             currentDraggedCardId = cardId;
             cardElement.classList.add('tilt-animation');
             cardElement.style.pointerEvents = 'none';
-        }
-    }, 2000);
 
+            disableTextSelection();
+
+            cardElement.touchMoveHandler = function (e) {
+                onTouchMoveHelper(e, cardElement);
+            };
+            cardElement.touchEndHandler = function (e) {
+                onTouchEndHelper(e, cardElement);
+            };
+
+            document.addEventListener('touchmove', cardElement.touchMoveHandler, { passive: false });
+            document.addEventListener('touchend', cardElement.touchEndHandler, { passive: false });
+            document.addEventListener('touchcancel', cardElement.touchEndHandler, { passive: false });
+        }
+    }, 400);
 }
+
 
 /**
  * Handles the touchmove event when the user moves their finger while interacting with the card.
@@ -388,43 +518,87 @@ function handleTouchStart(e, cardElement, cardId) {
  * @param {TouchEvent} e - The touchmove event object containing information about the touch movement.
  * @param {HTMLElement} cardElement - The HTML element representing the card being dragged.
  */
+/**
+ * Handles the touchend event when the user stops interacting with a card.
+ * Clears timers, resets drag state, and moves the card if a valid drop target exists.
+ *
+ * @param {HTMLElement} cardElement - The card element being interacted with.
+ */
 function handleTouchEnd(cardElement) {
     if (longPressTimer) {
         clearTimeout(longPressTimer);
         longPressTimer = null;
     }
+
     clearInterval(autoScrollInterval);
+    autoScrollInterval = null;
 
     if (!longTapActive && !scrollIntentDetected) {
-        showBoardCardDetails(cardElement.id);       
+        showBoardCardDetails(cardElement.id);
+        resetCardElement(cardElement);
+        return;
     }
 
     if (longTapActive && currentHoveredColumn) {
         moveCardTo(currentHoveredColumn);
     }
 
+    resetCardElement(cardElement);
+    resetDragState();
+}
+
+
+/**
+ * Resets the styles and classes of the given card element.
+ * This ensures the card is restored to its default state without transformations or extra styles.
+ *
+ * @param {HTMLElement} cardElement - The card element to be reset.
+ */
+function resetCardElement(cardElement) {
     cardElement.style.transform = '';
     cardElement.style.position = '';
+    cardElement.style.top = '';
+    cardElement.style.left = '';
+    cardElement.style.width = '';
     cardElement.style.zIndex = '';
-    cardElement.style.pointerEvents = ''; 
+    cardElement.style.pointerEvents = '';
+    cardElement.classList.remove('tilt-animation');
+}
+
+
+/**
+ * Resets the drag state by clearing active interactions and removing the placeholder element.
+ * This helps restore the original state after a drag-and-drop operation.
+ */
+function resetDragState() {
     longTapActive = false;
     currentHoveredColumn = null;
+    scrollIntentDetected = false;
+
+    document.body.style.userSelect = '';
+    document.body.style.webkitUserSelect = '';
+    document.body.style.mozUserSelect = '';
+    document.body.style.msUserSelect = '';
+
+    removeAllColumnHighlights();
 }
 
 
 /**
  * Updates the position of the card while it is being dragged by the user.
- * The card's position is adjusted based on the difference between the initial touch position
- * and the current touch position along the vertical axis (Y-axis).
+ * The card's position is adjusted to follow the user's finger movement.
  *
  * @param {HTMLElement} cardElement - The HTML element representing the card being dragged.
  * @param {number} touchY - The current vertical position of the touch in the viewport (Y-coordinate).
  */
 function updateCardPosition(cardElement, touchY) {
     const deltaY = touchY - initialTouchY;
-    cardElement.style.position = 'absolute';
-    cardElement.style.top = `${cardElement.offsetTop + deltaY}px`;
-    initialTouchY = touchY;
+
+    cardElement.style.position = 'fixed';
+    cardElement.style.top = `${startCardTop + deltaY}px`;
+    cardElement.style.left = `${window.startCardLeft}px`;
+    cardElement.style.width = `${window.startCardWidth}px`;
+    cardElement.style.zIndex = '1000';
 }
 
 
@@ -439,12 +613,36 @@ function updateHoveredColumn(e) {
         e.touches[0].clientX,
         e.touches[0].clientY
     );
+
     const column = elementAtTouch?.closest('.column');
 
-    if (column && column.id !== currentHoveredColumn) {
-        highlightCardContainer(column.id);
-        currentHoveredColumn = column.id;
+    if (column && column.id) {
+        if (column.id !== currentHoveredColumn) {
+            currentHoveredColumn = column.id;
+            highlightCardContainer(column.id);
+        }
+    } else {
+        if (currentHoveredColumn) {
+            removeAllColumnHighlights();
+            currentHoveredColumn = null;
+        }
     }
+}
+
+
+/**
+ * Removes highlight styles from all columns in the document.
+ * It selects all elements with the class `.column` and clears
+ * any applied background color, border, or box shadow styles.
+ */
+function removeAllColumnHighlights() {
+    const allColumns = document.querySelectorAll('.column');
+    allColumns.forEach(col => {
+        col.classList.remove('column-highlight');
+        col.style.backgroundColor = '';
+        col.style.border = '';
+        col.style.boxShadow = '';
+    });
 }
 
 
@@ -501,6 +699,7 @@ function clearAutoScrollOnMouseLeave() {
  */
 function clearAutoScrollOnDrop() {
     clearInterval(autoScrollInterval);
+    removeAllColumnHighlights();
 }
 
 
@@ -534,5 +733,3 @@ function getStatusFromColumnId(columnId) {
     };
     return map[columnId] || null;
 }
-    
-    
