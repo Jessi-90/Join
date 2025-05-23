@@ -12,9 +12,10 @@
     padding: 110px 96px 0 96px;
 }
 
-h1 {
+.container h1 {
     font-size: 61px;
     margin-bottom: 20px;
+    margin-top: 0;
 }
 
 .form-container {
