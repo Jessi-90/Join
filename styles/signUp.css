@@ -315,7 +315,7 @@ main {
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 376px) {
   .sign-up-form {
     gap: 16px;
   }
