@@ -315,7 +315,7 @@ main {
   }
 }
 
-@media (max-width: 376px) {
+@media (max-width: 430px) {
   .sign-up-form {
     gap: 16px;
   }
@@ -361,5 +361,11 @@ main {
 
   .sign-up-footer {
     bottom: 4px;
+  }
+}
+
+@media (max-width: 370px) {
+  .sign-up-sidebar img {
+    display: none;
   }
 }
