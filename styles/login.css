@@ -180,7 +180,7 @@
 /*---RESPONSIVE---*/
 
 @media (min-width: 1025px) and (max-width: 1200px) {
-   
+
     .log-in-header img {
         width: 90px;
         top: 32px;
@@ -189,7 +189,7 @@
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-   
+
     .log-in-title h1 {
         font-size: 54px;
     }
@@ -379,7 +379,7 @@
         height: auto;
         max-width: 15vw;
         opacity: 1;
-      }
+    }
 }
 
 @media (max-width: 480px) {
@@ -416,7 +416,7 @@
         width: 60px;
         height: auto;
         max-width: 15vw;
-      }
+    }
 
     .link-to-sign-up-page {
         top: 24px;
@@ -490,7 +490,7 @@
     .link-to-sign-up-page {
         display: flex;
         position: absolute;
-        top: 782px;
+        top: 760px;
         bottom: 80px;
         right: 50%;
         transform: translateX(50%);
@@ -559,5 +559,136 @@
 
     .log-in-content {
         top: 40%;
+    }
+}
+
+@media (max-height: 750px) {
+    .link-to-sign-up-page {
+        top: calc(100% + 500px);
+    }
+}
+
+@media (max-height: 650px) {
+    .link-to-sign-up-page {
+        top: calc(100% + 450px);
+    }
+}
+
+@media (max-height: 550px) {
+    .link-to-sign-up-page {
+        top: calc(100% + 420px);
+    }
+}
+
+@media (max-height: 500px) {
+    .link-to-sign-up-page {
+        top: calc(100% + 385px);
+    }
+}
+
+@media (max-height: 450px) {
+    body {
+        overflow-y: auto;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .log-in-page {
+        position: relative;
+        height: auto;
+        min-height: 100vh;
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .log-in-header {
+        position: relative;
+        width: 100%;
+        padding: 0 20px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .log-in-header img {
+        position: static;
+        top: auto;
+        left: auto;
+    }
+
+    .link-to-sign-up-page {
+        position: absolute;
+        top: auto;
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        order: 2;
+        top: calc(100% + 400px);
+    }
+
+    .log-in-content {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+        order: 1;
+    }
+
+    .log-in-footer {
+        position: relative;
+        bottom: auto;
+        margin-top: 0;
+        margin-top: 60px;
+        order: 3;
+    }
+
+    .log-in-wrapper {
+        width: 90%;
+        max-width: 400px;
+        padding: 30px 20px;
+        margin: 0 auto;
+    }
+
+    .log-in-title h1 {
+        font-size: 32px;
+        line-height: 38px;
+    }
+
+    .log-in-input-field {
+        height: 40px;
+        font-size: 16px;
+        padding: 0 35px 0 12px;
+    }
+
+    .login-btn-wrapper {
+        gap: 12px;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .login-btn-wrapper button {
+        padding: 10px 16px;
+        font-size: 14px;
+        width: 100%;
+    }
+
+    .input-password-wrapper img {
+        right: 12px;
+        top: 50%;
+    }
+
+    .horizontal-line {
+        width: 60px;
+        border-width: 2px;
     }
 }
