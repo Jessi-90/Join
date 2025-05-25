@@ -10,6 +10,15 @@
   transform: translateX(100%);
   opacity: 0;
   transition: transform 300ms ease-in-out, opacity 100ms ease-in-out;
+  min-height: 75vh;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+
+.card-detail-scroll-content {
+  overflow-y: auto;
+  width: 100%;
+  max-height: calc(100dvh - 96px); 
 }
 
 .board-card-detail-container.show {
@@ -411,7 +420,7 @@
 
 @media (max-height: 860px) {
   .card-detail-title {
-    font-size: 41px;
+    font-size: 32px;
   }
 
   .board-card-detail-container {
@@ -426,18 +435,16 @@
     padding: 6px 14px;
     gap: 12px;
     width: 84vw;
+    overflow: auto;
+    max-height: calc(100dvh - 12px);
   }
 
   .card-detail-title {
-    line-height: 50px;
+    line-height: 32px;
   }
 }
 
 @media (max-height: 590px) {
-  .board-card-detail-container {
-    height: 490px;
-  }
-
   .card-detail-subtasks {
     height: 86px;
   }
@@ -445,23 +452,10 @@
 
 @media (max-height: 530px) {
   .card-detail-title {
-    line-height: 40px;
+    line-height: 32px;
   }
 
   .card-detail-assignee {
     height: 80px;
   }
-}
-
-@media (max-height: 440px) {
-  .card-detail-title {
-    font-size: 30px;
-    margin-top: -10px;
-  }
-
-  .technical-task {
-    padding: 2px 10px;
-    border-radius: 6px;
-  }
-
 }
