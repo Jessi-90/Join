@@ -309,3 +309,17 @@ function showDesktopViews() {
 function initViewportResizeListener() {
     window.addEventListener('resize', handleViewportChange);
 }
+
+
+/**
+ * Checks if the mobile view is active upon page load 
+ * and hides the contact detail element if necessary.
+ *
+ * This function should be called within the `init()` function
+ * to ensure the element is correctly hidden when the page is refreshed.
+ */
+function hideMobileDetailsOnInit() {
+    if (isMobileView()) {
+        hideContactDetailViewForMobile();
+    }
+}
