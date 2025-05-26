@@ -232,7 +232,7 @@ main {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .sign-up-content {
     top: 0;
   }
@@ -272,6 +272,12 @@ main {
 
   .sign-up-footer {
     padding: 60px 0 0 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .sign-up-sidebar img {
+    display: none;
   }
 }
 
@@ -316,6 +322,10 @@ main {
 }
 
 @media (max-width: 430px) {
+    .sign-up-sidebar img {
+    display: block;
+  }
+
   .sign-up-form {
     gap: 16px;
   }
@@ -367,5 +377,41 @@ main {
 @media (max-width: 370px) {
   .sign-up-sidebar img {
     display: none;
+  }
+}
+
+@media (max-height: 649px) {
+  body, html {
+    height: auto !important;
+    min-height: 650px;
+    overflow: auto !important;
+  }
+  
+  main {
+    min-height: 650px;
+    overflow: visible;
+  }
+  
+  .sign-up-content {
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  
+  .sign-up-sidebar {
+    padding-top: 20px !important;
+  }
+  
+  .sign-up-footer {
+    position: relative !important;
+    padding-top: 40px !important;
+    bottom: auto !important;
+  }
+  
+  .sign-up-wrapper {
+    min-height: auto;
   }
 }
