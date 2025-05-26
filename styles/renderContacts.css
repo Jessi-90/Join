@@ -123,7 +123,6 @@
     align-items: flex-start;
     height: 100%;
     padding: 32px;
-    overflow-y: auto;
     box-sizing: border-box;
 }
 
