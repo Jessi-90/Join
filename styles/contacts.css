@@ -30,13 +30,6 @@ html {
   background-color: rgba(255, 255, 255, 1);
 }
 
-.contact-detail-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: calc(100% - 456px);
-}
-
 .contact-detail-header {
   display: flex;
   flex-direction: row;
@@ -44,7 +37,8 @@ html {
   justify-content: space-between;
   gap: 30px;
   top: 203px;
-  position: absolute;
+  position: static;
+  margin-bottom: 40px;
 }
 
 .contact-detail-header h2 {
@@ -68,7 +62,7 @@ html {
   justify-content: center;
   flex-wrap: wrap;
   gap: 21px;
-  position: absolute;
+  position: static;
   top: 311px;
   padding-top: 32px;
   padding-left: 8px;
