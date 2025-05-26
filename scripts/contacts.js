@@ -10,6 +10,7 @@ let currentContactsData = [];
  * Ensures the app remains responsive by adapting UI behavior based on screen size.
  */
 async function init() {
+    hideMobileDetailsOnInit();
     await mapContactsData();
     renderContacts();
     renderContactList(currentContactsData);
