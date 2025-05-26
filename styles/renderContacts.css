@@ -552,5 +552,33 @@
         margin-bottom: 8px;
 
     }
+}
 
+@media (max-height: 600px) {
+  .contact-detail-wrapper {
+    max-height: calc(100vh - 96px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #A8A8A8 transparent;
+  }
+  
+  .contact-detail {
+    padding-bottom: 150px;
+   
+  }
+}
+
+@media (max-height: 500px) {
+  .contact-detail {
+    padding-bottom: 100px;
+    
+  }
+}
+
+@media (max-height: 400px) {
+  .contact-detail {
+    padding-bottom: 100px;
+    
+  }
 }
