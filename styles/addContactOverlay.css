@@ -171,7 +171,7 @@
 	}
 
 	.close-btn {
-		right: 44px;
+		right: 24px;
 	}
 }
 
@@ -323,6 +323,11 @@
 		height: 60px;
 		top: 142px;
 	}
+
+	.modal {
+		max-height: 100vh;
+		overflow-y: auto;
+	}
 }
 
 @media (max-height: 500px) {
@@ -349,6 +354,11 @@
 	.add-contact-buttons {
 		margin-top: 16px;
 	}
+
+	.close-btn {
+		top: 15px;
+		right: 24px;
+	}
 }
 
 @media (max-height: 430px) {
@@ -372,8 +382,7 @@
 	}
 
 	.close-btn {
-		color: white;
-		top: 14px;
-		right: 14px;
+		top: 15px;
+		right: 18px;
 	}
 }
