@@ -505,9 +505,15 @@
         white-space: nowrap;
     }
 
+    .link-to-sign-up-page a {
+        padding: 8px 12px;
+        text-align: center;
+    }
+
     .sign-up-btn {
         font-size: 14px;
         padding: 10px 12px;
+        height: auto;
     }
 
     .horizontal-line {
@@ -549,20 +555,12 @@
         padding: 8px 12px;
     }
 
-    .link-to-sign-up-page a {
-        padding: 8px 12px;
-    }
-
-    .sign-up-btn {
-        height: auto;
-    }
-
     .log-in-content {
         top: 40%;
     }
 }
 
-@media (max-height: 750px) {
+/* @media (max-height: 750px) {
     .link-to-sign-up-page {
         top: calc(100% + 500px);
     }
@@ -586,11 +584,16 @@
     }
 }
 
-@media (max-height: 450px) {
+@media (max-height: 650px) {
     body {
         overflow-y: auto;
+        overflow-x: hidden !important;
         height: auto;
         min-height: 100vh;
+    }
+
+    #start-logo {
+        display: none;
     }
 
     .log-in-page {
@@ -647,7 +650,6 @@
     .log-in-footer {
         position: relative;
         bottom: auto;
-        margin-top: 0;
         margin-top: 60px;
         order: 3;
     }
@@ -655,40 +657,18 @@
     .log-in-wrapper {
         width: 90%;
         max-width: 400px;
-        padding: 30px 20px;
+        padding: 16px 16px;
         margin: 0 auto;
     }
 
-    .log-in-title h1 {
-        font-size: 32px;
-        line-height: 38px;
+    .link-to-sign-up-page a {
+        padding: 8px 12px;
+        text-align: center;
     }
 
-    .log-in-input-field {
-        height: 40px;
-        font-size: 16px;
-        padding: 0 35px 0 12px;
-    }
-
-    .login-btn-wrapper {
-        gap: 12px;
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .login-btn-wrapper button {
-        padding: 10px 16px;
+    .sign-up-btn {
         font-size: 14px;
-        width: 100%;
+        padding: 10px 12px;
+        height: auto;
     }
-
-    .input-password-wrapper img {
-        right: 12px;
-        top: 50%;
-    }
-
-    .horizontal-line {
-        width: 60px;
-        border-width: 2px;
-    }
-}
+} */
