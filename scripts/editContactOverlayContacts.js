@@ -45,6 +45,8 @@ function closeEditContactOverlay(event) {
     } else {
         hideOverlay(overlay);
     }
+    
+    hideMobileOverlay();
 }
 
 

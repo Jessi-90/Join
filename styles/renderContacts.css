@@ -302,6 +302,10 @@
         padding: 0;
     }
 
+    .contact-email-placeholder {
+        display: none;
+    }
+
     .contact-icon-placeholder {
         width: 30px;
         height: 30px;
@@ -480,6 +484,12 @@
         font-size: 28px;
         font-weight: bold;
     }
+
+       .contact-detail {
+        top: 0px;
+        padding: 0;
+        margin: 0;
+    }
 }
 
 @media (max-width: 480px) {
@@ -528,12 +538,6 @@
 
     .contact-detail-header {
         top: 32px;
-    }
-
-    .contact-detail {
-        top: 0px;
-        padding: 0;
-        margin: 0;
     }
 
     .contact-info-section h4 {
