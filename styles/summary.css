@@ -1042,7 +1042,7 @@ img {
     }
 }
 
-@media screen and (max-height: 765px) {
+@media screen and (max-height: 765px) and (min-width: 481px) {
 
     html,
     body {
