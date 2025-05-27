@@ -717,55 +717,84 @@ img {
 
 @media (max-width: 480px) {
     .dashboard {
-        padding: 5px;
+        padding: 4px;
         width: 100%;
-        flex: 1;
+        font-size: 1rem;
+        gap: 8px;
+    }
+
+    .dashboard.visible {
+        padding-left: 8px;
+        padding-bottom: 80px;
+    }
+
+    .card-todo {
+        width: 96% !important;
+        gap: 20px !important;
+    }
+
+    .card {
+        padding: 10px;
+        height: 90px;
+        gap: 6px;
+        border-radius: 12px;
+    }
+
+    .card h1 {
         font-size: 1.1rem;
     }
 
-    .card h1 {
-        font-size: 1.5rem;
-    }
-
-    .card {
-        padding: 20px;
-        height: 80px;
-        gap: 10px;
-        border-radius: 20px;
-    }
-
-    .large-card {
-        padding: 10px 20px;
-        padding: 20px;
-    }
-
-    .layout img {
-        display: none;
-    }
-
-    .card {
-        height: 90px;
-    }
-
-    .card h1 {
-        font-size: 1.3rem;
-    }
-
     .card p {
-        font-size: 1.0rem;
+        font-size: 0.9rem !important;
     }
 
     .card-pencil {
-        width: 45px;
+        width: 30px;
     }
 
     .card-ok {
-        width: 45px;
+        width: 30px;
+    }
+
+    .urgent-box {
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 0 5px;
+    }
+
+    .urgent-info {
+        font-size: 1rem;
+        padding-left: 8px;
     }
 
     .urgent-img {
-        width: 42px;
+        width: 30px;
         margin-left: 12px;
+    }
+
+    .greeting {
+        font-size: 36px;
+    }
+
+    .greeting-name {
+        font-size: 42px;
+    }
+
+    .greet {
+        font-size: 1rem;
+    }
+
+    .join-title {
+        font-size: 35px;
+    }
+
+    .join-subtitle {
+        font-size: 18px;
+    }
+
+    .join-line {
+        height: 4px;
+        margin-top: 10px;
     }
 
     .urgent-info p:first-child {
@@ -816,109 +845,83 @@ img {
 
 @media (max-width: 440px) {
     .dashboard {
-        padding: 5px;
+        padding: 4px;
         width: 100%;
-        flex: 1;
-        font-size: 1.1rem;
-        gap: 10px;
+        font-size: 1rem;
+        gap: 8px;
     }
 
-    .last-section {
-        gap: 6px;
+    .dashboard.visible {
+        padding-left: 8px;
+        padding-bottom: 80px;
     }
 
     .card-todo {
-        width: 92% !important;
-        gap: 40px !important;
+        width: 96% !important;
+        gap: 20px !important;
     }
 
     .card {
-        padding: 24px;
-        height: 80px;
+        padding: 10px;
+        height: 90px;
         gap: 6px;
-        border-radius: 15px;
+        border-radius: 12px;
     }
 
     .card h1 {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
     }
 
     .card p {
-        font-size: 16px;
+        font-size: 0.9rem !important;
     }
 
-    .card-pencil,
+    .card-pencil {
+        width: 30px;
+    }
+
     .card-ok {
-        width: 40px;
-    }
-
-    .greeting {
-        font-size: 42px;
-        text-align: center;
-    }
-
-    .greeting-name {
-        font-size: 50px;
-        line-height: 1.2;
-    }
-
-    .greet {
-        padding-left: 0;
-        font-size: 1.1rem;
-        align-items: center;
-    }
-
-    .card:hover {
-        transform: scale(1.02);
-    }
-
-    .greeting-wrapper {
-        padding: 5px;
-        text-align: center;
-    }
-
-    .card-todo {
-        width: 98%;
-        gap: 18px;
+        width: 30px;
     }
 
     .urgent-box {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 2px;
-        flex-wrap: nowrap;
-        padding-right: 0px;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 0 5px;
     }
 
     .urgent-info {
-        padding-left: 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        font-size: 1.1rem;
-    }
-
-    .urgent-info p {
-        margin: 0;
-        padding: 2px 0;
+        font-size: 1rem;
+        padding-left: 8px;
     }
 
     .urgent-img {
-        width: 40px;
-        margin-left: 8px;
+        width: 30px;
+        margin-left: 12px;
     }
 
-    .join-title {
+    .greeting {
+        font-size: 36px;
+    }
+
+    .greeting-name {
         font-size: 42px;
     }
 
+    .greet {
+        font-size: 1rem;
+    }
+
+    .join-title {
+        font-size: 35px;
+    }
+
     .join-subtitle {
-        font-size: 22px;
+        font-size: 18px;
     }
 
     .join-line {
-        height: 6px;
+        height: 4px;
         margin-top: 10px;
     }
 
@@ -1042,7 +1045,7 @@ img {
     }
 }
 
-@media screen and (max-height: 765px) {
+@media screen and (max-height: 765px) and (min-width: 481px) {
 
     html,
     body {
