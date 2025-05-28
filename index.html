@@ -41,7 +41,11 @@
 					</div>
 				</div>
 				<form action="submit" class="log-in-form">
-					<input id="input-mail" type="email" placeholder="Email" class="input-bg-email log-in-input-field" autocomplete="email"/>
+					<div class="input-mail-wrapper">
+						<input id="input-mail" type="email" placeholder="Email" class="input-bg-email log-in-input-field" autocomplete="email"/>
+						<p id="signUpMailFormatWarning" class="warning-info text-left-up d-none">Check the format of the
+							email address!</p>
+					</div>
 					<div class="input-password-wrapper">
 						<input onclick="protectionEventBubbeling(event)" onfocus="toggleInputIcon(event)"
 							onblur="toggleInputIcon(event)" id="input-password" type="password" placeholder="Password"

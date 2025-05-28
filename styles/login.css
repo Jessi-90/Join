@@ -131,6 +131,12 @@
     background-position: right 26px center;
 }
 
+.input-mail-wrapper {
+    position: relative;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+  }
+
 .input-password-wrapper {
     position: relative;
 }
