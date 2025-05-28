@@ -29,7 +29,7 @@ function showAddTaskOverlay(status) {
 /**
  * Closes the Add Task Overlay, if clicked outside the container or the close button.
  * Clicks inside the container prevent closing.
- * The overlay will be hidden with a delay.
+ * The overlay will be hidden with a delay and content deleted.
  * 
  * @param {Event} event - click-event.
  */
@@ -43,7 +43,7 @@ function closeAddTaskOverlay(event) {
     }
 
     overlayContainer.classList.remove('show');
-
+    overlayContainer.innerHTML = "";
     setTimeout(() => {
         overlay.classList.add('d-none');
     }, 300);
